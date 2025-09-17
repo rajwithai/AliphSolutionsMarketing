@@ -1,0 +1,600 @@
+# Aliph Solutions — GTM Website Copy (v1)
+
+> **Purpose**: This copy deck turns your strategy into final, on‑site content. It’s concise, conversion‑focused, and tailored for Saudi Arabia’s market. All pages include clear CTAs, proof points, and messaging aligned to a GRC beachhead.
+
+> **Note on Arabic**: Key headlines, CTAs, and section headers include Arabic counterparts. Full Arabic body copy can mirror the English structure below.
+
+---
+
+## Global Navigation
+
+* Home
+* How It Works
+* For Businesses
+* For Experts
+* GRC Solutions
+* Pricing
+* Blog / Resources
+* About Us
+* Contact
+* **Login / Sign Up** (primary button)
+
+---
+
+## Homepage (`/`)
+
+### Above‑the‑fold Hero
+
+**Headline (EN):** Expertise, On‑Demand. The Future of Advisory in Saudi Arabia.
+**Headline (AR):** خبرة عند الطلب. مستقبل الاستشارات في المملكة العربية السعودية.
+**Subhead (EN):** We’ve reimagined the consulting model to give you direct access to elite, AI‑enhanced expertise—at the speed and scale your business demands.
+**Subhead (AR):** أعدنا ابتكار نموذج الاستشارات لنمنحك وصولًا مباشرًا إلى خبراء نخبة مدعومين بالذكاء الاصطناعي—بالسرعة والحجم المناسبين لعملك.
+**Primary CTA:** Get Your Solution
+**Primary CTA (AR):** احصل على الحل الآن
+**Secondary CTA:** Join Our Expert Network
+**Secondary CTA (AR):** انضم إلى شبكة الخبراء
+**Supporting Visual:** 90‑sec explainer video (see script at end of deck).
+
+### Section: The Advisory Gap We Fill
+
+**Headline (EN):** The Old Way Isn’t Working.
+**Headline (AR):** الأسلوب القديم لا يعمل.
+**Body (EN):** Traditional firms are built for large, open‑ended projects—costly, slow, and rigid. Saudi SMEs and fast‑growing enterprises need precise answers faster. Aliph delivers vetted expertise, right‑sized engagements, and AI‑assisted speed so you can move with confidence.
+**Body (AR):** تم تصميم الشركات التقليدية لمشاريع كبيرة ومفتوحة—باهظة وبطيئة وغير مرنة. تحتاج الشركات السعودية الصغيرة والمتوسطة والمؤسسات سريعة النمو إلى إجابات دقيقة وبسرعة. توفر «أليف» خبرة مُحقَّقة، ومهام بحجم مناسب، وسرعة مدعومة بالذكاء الاصطناعي لتتقدم بثقة.
+**CTA:** See How It Works
+
+### Section: A Three‑Tiered Model
+
+**Headline (EN):** A New Model for a New Economy.
+**Headline (AR):** نموذج جديد لاقتصاد جديد.
+
+* **Tier 1 · AI‑Assisted Self‑Service:** Instant, intelligent, and affordable foundations (templates, checklists, guided drafting).
+* **Tier 2 · Light Customization:** Rapid expert review and refinement—bridge the last 10%.
+* **Tier 3 · Heavy Customization:** Agile, milestone‑driven expert projects for complex needs.
+  **CTA:** Explore the Tiers
+
+### Section: Your GRC Beachhead
+
+**Headline (EN):** Start Where It Matters: Governance, Risk & Compliance.
+**Headline (AR):** ابدأ بما هو مهم: الحوكمة وإدارة المخاطر والامتثال.
+**Body (EN):** With Vision 2030 accelerating transformation, meeting requirements from CMA, SAMA, MOC, and PDPL is mission‑critical. We start by solving your high‑stakes GRC needs—building a foundation of trust for everything that follows.
+**Body (AR):** مع تسارع التحول ضمن رؤية 2030، أصبح الامتثال لمتطلبات «هيئة السوق المالية» و«ساما» و«وزارة التجارة» و«قانون حماية البيانات الشخصية» ضرورة استراتيجية. نبدأ بتلبية احتياجات GRC عالية الأهمية—لنؤسس الثقة لكل ما يلي.
+
+### Section: The Kingdom’s Elite Network
+
+**Headline (EN):** Expertise You Can Trust. Vetted. Local. World‑Class.
+**Headline (AR):** خبرة موثوقة. مُحقَّقة. محلية وعالمية المستوى.
+**Body:** Our multi‑stage vetting and Quality Score ensure you always work with top independent professionals. See profiles, ratings, and verified credentials before you commit.
+**CTA:** Meet Our Experts
+
+### Closing CTA
+
+**Headline (EN):** Ready to Navigate Complexity with Confidence?
+**Headline (AR):** هل أنت مستعد للتعامل مع التعقيد بثقة؟
+**CTA:** Get Your GRC Solution Today
+
+**Homepage Social Proof Strip (optional):** “Built with Saudi businesses for Saudi businesses.” Logos of early customers/partners; brief testimonial quotes.
+
+---
+
+## How It Works (`/how-it-works`)
+
+### Hero
+
+**Headline (EN):** From Problem to Solution, Seamlessly.
+**Headline (AR):** من المشكلة إلى الحل بسلاسة.
+**Body (EN):** Aliph deconstructs the traditional, opaque engagement into a transparent, multi‑tier journey you control. Describe your challenge, choose your level of support, and deliver results faster.
+**CTA:** Start Now
+
+### The Journey (4 Steps)
+
+1. **Describe Your Challenge** — A simple intake clarifies scope, urgency, and desired outcomes.
+2. **AI Clarifies & Suggests** — Our “Aliph Brain” asks smart, role‑aware questions and recommends the right tier.
+3. **Choose Your Tier** — Self‑service, light customization, or a milestone‑driven project.
+4. **Deliver with Confidence** — Track progress, approve milestones, and export compliant deliverables.
+
+### Tier 1 — AI‑Assisted Self‑Service
+
+**Headline:** Your Instant Knowledge Library.
+**Body:** Access expert‑built templates, guides, and checklists. The AI co‑drafts content with you, ensuring relevance and alignment to Saudi regulations.
+**Use Case:** New LLC needs a Conflict of Interest Policy under the New Companies Law—draft in minutes, not weeks.
+**CTA:** Browse Templates
+
+### Tier 2 — Light Customization
+
+**Headline:** On‑Demand Expert Refinement.
+**Body:** When your draft is 90% right, book a rapid review with a vetted SME for corrections, comments, and risk flags. Typical turnaround: 24–72 hours.
+**Use Case:** Board Secretary submits an Audit Committee Charter for CMA alignment and practical, board‑ready edits.
+**CTA:** Book a Review
+
+### Tier 3 — Heavy Customization
+
+**Headline:** Your Agile Project Team.
+**Body:** For complex challenges, commission a micro‑assignment. Define scope, compare proposals, and manage delivery through milestones—no scope creep, no budget shocks.
+**Use Case:** A SAMA‑regulated fintech builds an ERM framework and risk register with internal controls and PDPL data flows.
+**CTA:** Launch a Project
+
+**Side Panel: What You Always See**
+
+* Clear pricing
+* Named experts
+* Milestones & timelines
+* Compliance notes (CMA / SAMA / PDPL)
+* Export options (Word, PDF, PPT)
+
+### Dashboard Walkthrough (Plain‑English)
+
+1. **Compliance Score** — One glance shows overall status (Green/Amber/Red). It’s based on the templates and checklists you’ve chosen and the answers you provided. **No system integrations are required to get started.**
+2. **Open Actions & Owners** — Your next 5 tasks with due dates and responsible owners. Click to assign, @mention, or request an expert review.
+3. **Board & Committee Calendar** — Upload agendas, attach charters, and export minutes. Add to Outlook/Google with one click (iCal). **No IT needed.**
+4. **Risk Heatmap** — Select your top risks; the platform auto‑calculates a simple heatmap. Export to PPT for your next Audit Committee.
+5. **Policies & Controls Status** — See which policies are ready, which need review, and what evidence is missing.
+6. **KSA Reg Updates** — A curated stream of CMA/SAMA/MOC/PDPL developments translated into plain English with action prompts.
+7. **Expert Chat & Handoff** — Escalate any item to Tier 2/3. You’ll see named experts, ETA, and fixed fees before you approve.
+8. **Export Center** — Download Word/PDF/PPT packs with your logo and metadata.
+
+### Why Our Tech Isn’t “Complex”
+
+* **No‑code onboarding:** Start with forms, checklists, and guided drafting.
+* **Optional integrations:** Add SSO, DMS, or ticketing later—only if useful.
+* **Your data stays yours:** Residency options, encryption at rest/in transit.
+* **Clear “what the AI did” logs:** Every suggestion cites the underlying checklist, template, or rule.
+* **Humans in the loop:** High‑stakes artifacts get rapid expert QA when you ask.
+
+### Onboarding in 24 Hours (No IT Required)
+
+* **Day 0 (20 minutes):** Intake form → choose Starter Pack.
+* **Day 1:** Workspace provisioned; your first dashboard live; top 5 actions generated.
+* **By 72 hours:** A board‑ready policy/charter reviewed via Tier 2 (typical).
+* **Week 1:** Risk heatmap and compliance score trending.
+
+### What Happens Behind the Scenes (Simple Terms)
+
+Expert‑built templates + Saudi rule packs → AI drafts the first version → you answer clarifying questions → optional expert review → clean exports. **Nothing is auto‑sent**—you approve everything.
+
+### Security & Privacy (Plain Language)
+
+Encryption, role‑based access, audit trail on changes, NDAs for experts, and a signed processing addendum on request. You can delete your data at any time.
+
+### Common Objections → Our Answers
+
+* **“Will this replace our counsel?”** No. We shorten cycles and reduce costs; complex matters still use your counsel—often through our Tier 3.
+* **“Is AI risky?”** We don’t auto‑file or auto‑send. You review, and experts QA when needed.
+* **“How much training?”** 30‑minute live demo covers 90% of use. Short videos are built into each screen.
+* **“Vendor lock‑in?”** Export everything (Word/PDF/PPT/CSV); no proprietary file traps.
+
+### Quick Comparison
+
+* **Time to first draft:** Hours with Aliph vs. weeks with proposals.
+* **Visibility:** Live dashboard vs. static emails.
+* **Cost control:** Published prices and fixed milestones vs. open‑ended T\&M.
+
+---
+
+## For Businesses (`/businesses`)
+
+### Hero
+
+**Headline (EN):** Advisory Solutions for Every Stage of Your Growth.
+**Headline (AR):** حلول استشارية لكل مرحلة من نموك.
+**Body (EN):** Whether you’re a high‑growth startup or a market leader, Aliph provides the precise level of support you need—exactly when you need it.
+**CTA:** Get Your Solution
+
+### Tailored for Your Role (Tabbed)
+
+**Startup Founder**
+
+* **Pain:** Build investor‑credible governance fast—without big‑firm fees. Speed is everything.
+* **Solution:** Startup Governance Pack (AoA, DoA Matrix, Code of Conduct, PDPL basics), term‑sheet sanity checks, and investor‑ready data room checklist.
+
+**Chief Compliance Officer**
+
+* **Pain:** Constant regulatory change; budget pressure; audit committee scrutiny.
+* **Solution:** CMA reporting checklists, policy libraries, rapid board‑charter reviews, micro‑assignments for frameworks (ERM, AML/CTF, PDPL).
+
+**General Counsel / Legal**
+
+* **Pain:** A generalist across many entities with limited bandwidth. Need practical, execution‑ready guidance.
+* **Solution:** Template packs for AoA amendments and intra‑group agreements, on‑call specialists, fixed‑fee reviews, and tracked recommendations.
+
+### Proof of Value
+
+* **Faster:** Typical Tier‑2 reviews in 24–72 hours.
+* **Transparent:** Prices published. Credits for volume savings.
+* **Trusted:** Multi‑stage expert vetting with Quality Scores.
+
+**CTA:** Talk to Us Today
+
+### Immediate Value: Day 1 · Week 1 · Month 1
+
+* **Day 1:** Live dashboard, top 5 actions, one priority policy/charter drafted.
+* **Week 1:** Risk heatmap agreed; board/committee calendar set; first Tier‑2 review complete.
+* **Month 1:** Core policy stack in place, audit‑ready evidence folder, and a quarterly compliance cadence.
+
+### Industry Quick Wins (Examples)
+
+* **Airport Operator (Aviation):** Safety governance pack, incident CAPA workflow, and board reporting kit—ready for regulator spot‑checks.
+* **Fintech / SAMA‑Regulated:** SAMA Cybersecurity mapping, ERM kick‑starter, and PDPL consent logs built into your evidence folder.
+* **Healthcare Provider:** PDPL fast‑track with DPIA checklist, clinical audit plan, and whistleblowing program rollout.
+* **Retail / E‑Commerce:** Code of Conduct, third‑party AML/KYC playbook, and delegation of authority for discounts & returns.
+
+### Change Management Made Easy
+
+Guided tours, on‑screen help, and 10‑minute micro‑trainings per module. We share email templates to brief your teams and a simple comms plan.
+
+### Proof & Guarantees
+
+* **SLA:** Typical reviews in **24–72h**; you see ETA before booking.
+* **If we miss an ETA:** You receive a complimentary Tier‑2 credit hour.
+* **Visibility:** Named experts, milestones, and status in your dashboard.
+
+---
+
+## For Experts (`/experts`)
+
+### Hero
+
+**Headline (EN):** Join the Kingdom’s Most Exclusive Network of Independent Experts.
+**Headline (AR):** انضم إلى أرقى شبكة للخبراء المستقلين في المملكة.
+**Body (EN):** We bring you a steady pipeline of high‑quality clients and the tools to deliver efficiently—so you can focus on impact.
+**CTA:** Apply to Join
+
+### A Better Way to Work (4 Columns)
+
+* **Monetize on Your Terms:** Earn across tiers—content packs (T1), rapid reviews (T2), or project leadership (T3).
+* **Access & Impact:** Meaningful assignments with ambitious Saudi companies.
+* **Build Your Brand:** Publish practical guides, earn public reviews, and grow your profile.
+* **Community & Growth:** Collaborate with a curated peer group; peer review, office hours, and masterclasses.
+
+### Upholding Excellence
+
+**Headline:** Curated, Not Crowded.
+**Body:** Every expert passes credential checks, skills assessment, and a panel interview. Delivery quality is monitored and reflected in a dynamic Quality Score.
+**CTA:** See the Vetting Path
+
+---
+
+## GRC Solutions (`/grc-solutions`)
+
+### Hero
+
+**Headline (EN):** Navigate KSA’s Evolving GRC Landscape with Confidence.
+**Headline (AR):** تنقّل بثقة ضمن مشهد الحوكمة وإدارة المخاطر والامتثال المتطور في المملكة.
+**Body (EN):** Vision 2030 demands robust governance. Aliph turns compliance into a competitive advantage with practical tools and expert guidance.
+**CTA:** Explore Solutions
+
+### The Five Pillars (Interactive)
+
+**1) Corporate & Subsidiary Governance**
+
+* Board & Committee Charters (Audit, Risk, Nomination & Remuneration)
+* Delegation of Authority Matrix
+* AGM / EGM Checklists & Minutes
+* Director Induction & Evaluation Toolkit
+
+**2) Enterprise Risk Management (ERM) & Internal Controls**
+
+* ERM Framework & Risk Appetite Statement
+* Risk Register & Heatmaps
+* Internal Control Catalog
+* SAMA Cybersecurity Alignment Guide
+
+**3) Regulatory Compliance & Financial Crime Prevention**
+
+* AML/CTF Policy & KYC Procedures
+* PDPL Compliance Playbook (data inventory, lawful basis, DPIA, breach playbook)
+* Code of Conduct & Whistleblowing Program
+
+**4) Internal Audit & Assurance**
+
+* Internal Audit Charter
+* Risk‑Based Annual Audit Plan
+* Audit Committee Reporting Pack
+* Follow‑Up & CAPA Workflow Templates
+
+**5) Legal, Entity & Contractual Governance**
+
+* AoA / Bylaws Templates (LLC / SJSC)
+* Shareholder & Inter‑company Agreements
+* Contract Lifecycle Governance (intake → review → signature → archive)
+
+### Solution Cards (each maps to T1/T2/T3)
+
+* **Board Charter Pack** — T1 templates + T2 review; T3 for multi‑entity rollout.
+* **ERM Kick‑Starter** — T1 framework + T2 risk register calibration; T3 workshops & controls.
+* **PDPL Fast‑Track** — T1 playbook + T2 DPIA review; T3 data‑flow re‑design and training.
+* **Audit Engine** — T1 charter + T2 annual plan review; T3 audits and CAPA cadence.
+* **Entity Housekeeping** — T1 AoA/DoA packs + T2 legal sanity checks; T3 restructuring.
+
+**CTA:** Get a GRC Starter Pack
+
+### Sample Deliverables & KPIs by Pillar
+
+* **Corporate & Subsidiary Governance:** Board/Committee charters, DoA matrix, AGM kits → *KPIs:* % charters updated, time to approve minutes.
+* **ERM & Internal Controls:** ERM framework, risk register, control catalog → *KPIs:* top‑10 risks assessed, control coverage %, residual risk trend.
+* **Regulatory & Financial Crime:** AML/CTF policy, KYC playbook, PDPL inventory → *KPIs:* incidents closed, training completion rate.
+* **Internal Audit & Assurance:** IA charter, risk‑based plan, follow‑up tracker → *KPIs:* audit findings aging, CAPA closure rate.
+* **Legal & Contractual Governance:** AoA/bylaws templates, SLAs, CLM workflow → *KPIs:* cycle time to sign, exceptions per contract.
+
+### Starter Kits (Mapped to Tiers)
+
+* **Board Charter Pack:** T1 templates → T2 review → T3 multi‑entity rollout.
+* **ERM Kick‑Starter:** T1 framework → T2 register calibration → T3 workshops.
+* **PDPL Fast‑Track:** T1 playbook → T2 DPIA review → T3 data‑flow redesign.
+* **Audit Engine:** T1 charter → T2 plan review → T3 audits & CAPA cadence.
+* **Entity Housekeeping:** T1 AoA/DoA → T2 legal checks → T3 restructuring.
+
+**CTA:** Get a GRC Starter Pack
+
+---
+
+## Pricing (`/pricing`)
+
+### Hero
+
+**Headline (EN):** Simple, Transparent Pricing. Choose the Level of Support You Need.
+**Headline (AR):** تسعير بسيط وشفاف. اختر مستوى الدعم المناسب لك.
+**Body:** No opaque proposals. No surprise fees.
+
+### Plans
+
+**Tier 1 — Self‑Service**
+
+* **Standard:** SAR 189 / month
+
+  * Core templates and checklists
+  * Guided AI drafting
+  * Export (Word / PDF)
+* **Premium:** SAR 379 / month
+
+  * Everything in Standard
+  * Advanced template packs
+  * Light AI review and red‑flag hints
+  * Priority support
+
+**Tier 2 — Light Customization**
+
+* **SME Specialist:** SAR 375 / hour
+* **Senior SME / Ex‑MBB:** SAR 750 / hour
+* **Credit Packs:** Save up to 15% with pre‑purchased credits.
+
+**Tier 3 — Heavy Customization**
+
+* **Micro‑Assignments:** From SAR 18,750
+
+  * Scoping call and proposal comparison
+  * Milestone plan with fixed fees
+  * Weekly progress notes
+
+### Value Calculator (on page)
+
+**Prompt:** “Select a task.” Examples:
+
+* Draft Board Audit Committee Charter
+* Design ERM Framework & Risk Register
+* PDPL DPIA + Breach Playbook
+  **Output:** Aliph Tier‑2/3 estimate vs. typical big‑firm estimate; time‑to‑deliver (24–72h review; 2–6 weeks projects); projected savings.
+
+### FAQ
+
+* **Can I switch tiers?** Yes—upgrade or request expert help any time.
+* **Are reviews guaranteed in 48h?** Typical windows are 24–72h; you’ll see a confirmed ETA before booking.
+* **Do credits expire?** Credits are valid for 12 months from purchase.
+* **Is this legal advice?** Aliph facilitates access to experts. Engagement terms define advice scope. See Legal Notice.
+
+### What’s Included by Tier
+
+**Tier 1 (Standard/Premium):** Template packs, guided drafting, export center, help videos; Premium adds advanced packs, red‑flag hints, priority support.
+
+**Tier 2:** Named experts, annotated reviews, tangible change list, and a revised final.
+
+**Tier 3:** Fixed‑fee milestones, weekly notes, and stakeholder workshops when needed.
+
+### SLAs & Support
+
+* **Tier‑2 Reviews:** 24–72h typical, priority available.
+* **Tier‑3 Projects:** Milestones with target dates visible on your dashboard.
+* **Support:** Email + chat during business hours; emergency hotline for board‑critical items.
+
+### Savings in Practice (Illustrative)
+
+* **Audit Committee Charter:** SAR 4.5K (T2) vs. SAR 18–30K big‑firm; 3 days vs. 3–4 weeks.
+* **ERM Kick‑Starter:** SAR 22–35K (T3) vs. SAR 80–150K; 3–6 weeks vs. 8–12 weeks.
+
+### Procurement‑Friendly
+
+Arabized contracts, VAT invoices, DPAs/NDAs, and a security info pack for your vendor due diligence.
+
+### Fine Print (Transparent)
+
+Estimates are indicative and confirmed after scoping. Regulatory context can shift; we update templates regularly and flag changes in‑product.
+
+---
+
+## Blog / Resources (`/blog`)
+
+### Hero
+
+**Headline (EN):** Insights from the Forefront of Saudi Business Transformation.
+**Headline (AR):** رؤى من قلب التحول الاقتصادي في المملكة.
+**Body:** Practical guides, checklists, and interviews from our expert network. Searchable. Filterable. Actionable.
+**CTA:** Explore Articles
+
+### Featured Cornerstones
+
+* The New Companies Law: A Practical Compliance Checklist
+* Decoding the CMA’s Corporate Governance Regulations: A Guide for Boards
+* 5 Common Pitfalls in Implementing Saudi PDPL—and How to Avoid Them
+
+**Newsletter Block:** “Join 2,000+ leaders getting one practical GRC tip each week.”
+**CTA:** Subscribe
+
+---
+
+## About Us (`/about`)
+
+### Hero
+
+**Headline (EN):** Building the Operating System for Trusted Business in Saudi Arabia.
+**Headline (AR):** نبني نظام تشغيل للثقة في الأعمال بالمملكة.
+**Body:** Aliph exists to democratize elite expertise. We connect ambitious Saudi companies with a curated network of independent specialists—augmented by AI and delivered through a transparent, tiered model. Start with GRC, then scale across functions with the same engine of quality and speed.
+
+### Our Principles
+
+* **Trust First:** Integrity, confidentiality, and measurable quality.
+* **Expert‑Led:** Curated SMEs with verified credentials and track records.
+* **AI‑Accelerated:** Human judgment, augmented—not replaced—by AI.
+* **Saudi‑Built:** Crafted for Vision 2030 realities and regulators.
+
+### Leadership & Advisors
+
+Short bios for founders and advisory board (3–6 lines each), emphasizing Saudi expertise, tier‑one consulting, legal, or regulatory backgrounds.
+**CTA:** Connect with Leadership
+
+### Compliance & Security
+
+* Data residency options and encryption in transit/at rest.
+* Role‑based access controls; audit logs.
+* Vendor due diligence on experts; NDAs by default.
+
+### Our Technology (No Hype)
+
+Think of Aliph as three simple layers:
+
+1. **Knowledge Library** — Expert‑authored Saudi‑specific templates and checklists.
+2. **Assistants** — Guided questions that shape drafts to your context.
+3. **Workflow** — Dashboards, tasks, milestones, and exports your board expects.
+   Add experts when you need them. That’s it.
+
+### Why We Start with GRC
+
+GRC is the foundation of trust in Saudi business today. Nail this first; then expand to adjacent areas with the same engine and experts.
+
+### Our Promise
+
+* **Clarity over complexity.**
+* **Speed without shortcuts.**
+* **Human expertise, augmented—not replaced—by AI.**
+
+---
+
+## Contact (`/contact`)
+
+### Hero
+
+**Headline (EN):** Let’s Get Your Next Milestone Done.
+**Headline (AR):** دعنا ننجز إنجازك التالي.
+**Body:** Tell us about your challenge. We’ll confirm scope, recommend a tier, and share a clear plan.
+
+### Contact Form Fields
+
+* Full Name
+* Company
+* Role
+* Work Email
+* Phone
+* Topic (Dropdown: GRC / Legal / Risk / Audit / Other)
+* Message
+* Consent checkbox: “I agree to be contacted and to the Privacy Policy.”
+
+**Alt Contact:** Email, phone, and WhatsApp (if applicable).
+**CTA:** Submit → “We’ll respond within one business day.”
+
+---
+
+## Global Components
+
+### Footer
+
+* Short company description: “Aliph connects Saudi businesses to elite, AI‑augmented expertise through a transparent, three‑tier model. Start with GRC.”
+* Links: Privacy Policy, Legal Notice, Terms of Service, Careers, Press.
+* Social: LinkedIn, X, YouTube.
+* Copyright line.
+
+### Legal Notice (Short)
+
+Aliph Solutions is a platform that facilitates access to independent experts. Information provided via templates, guides, and AI assistance is for general guidance only and does not constitute legal advice. Formal engagements and advice scopes are defined in each expert agreement.
+
+### Microcopy & UI Text
+
+* **Empty State (Templates):** “No template selected yet. Choose a pack to begin.”
+* **Loading:** “Drafting your first version…”
+* **Success:** “Your draft is ready. Want an expert to review it?”
+* **Error:** “Something went wrong. Please try again or contact support.”
+
+### Dashboard Microcopy (Use in UI)
+
+* **Compliance Score tooltip:** “Based on your completed policies, charters, and risk registers. Click to see what lifts the score fastest.”
+* **Open Actions card:** “Your next 5 priorities. Assign an owner or escalate to an expert.”
+* **Risk Heatmap tooltip:** “Likelihood × Impact with simple sliders. Changes are logged.”
+* **Export Center:** “One‑click Word/PDF/PPT. Your branding is applied automatically.”
+* **KSA Reg Updates:** “Only what’s relevant to your sector, translated into action steps.”
+
+---
+
+## Value Calculator — On‑Page Copy
+
+**Title:** See Your Savings in Seconds
+**Intro:** Select a task and compare Aliph to a traditional firm.
+**Inputs:** Task, urgency, complexity, number of entities.
+**Outputs:** Estimated hours, delivery window, Aliph cost (T2/T3), typical big‑firm cost, % savings, and suggested tier.
+**Disclaimer:** Estimates are indicative and finalized during scoping.
+
+---
+
+## 90‑Second Explainer Video Script (for Homepage)
+
+**Opening (0–10s):** Busy Riyadh office. A founder glances at a board agenda: “Audit Committee Charter due.” Voiceover: “When your business moves fast, traditional consulting can’t keep up.”
+**Problem (10–25s):** Montage of slow proposals, high fees, and long timelines. “You need answers in days—not months.”
+**Solution (25–55s):** Aliph interface. “Describe your challenge, pick your tier, and go.” Show Tier 1 drafting a Conflict of Interest Policy; Tier 2 expert adding red‑flags; Tier 3 project dashboard with milestones.
+**GRC Beachhead (55–70s):** Logos/icons for CMA, SAMA, MOC, PDPL. “Start with governance, risk, and compliance—the foundation for everything else.”
+**Proof (70–80s):** Expert profiles with badges and Quality Scores. “Vetted experts, transparent pricing.”
+**Call to Action (80–90s):** Founder smiles, board approves. Screen shows two buttons: “Get Your Solution” and “Join Our Expert Network.” Voiceover: “Aliph—expertise, on‑demand.”
+
+---
+
+## Page‑Level SEO (Titles & Meta Descriptions)
+
+* **Home** — *Aliph Solutions | AI‑Augmented Expert Advisory for Saudi Businesses*
+  *Meta:* Elite, vetted expertise delivered through a transparent tiered model. Start with GRC. Built for Vision 2030.
+* **How It Works** — *How Aliph Works | Tiers for Speed, Quality, and Control*
+  *Meta:* From AI‑assisted drafting to expert projects. Choose the tier you need.
+* **For Businesses** — *Advisory for Saudi SMEs & Enterprises | Aliph Solutions*
+  *Meta:* Startup packs, compliance frameworks, and legal governance—delivered fast.
+* **For Experts** — *Join Aliph’s Expert Network | Curated, Not Crowded*
+  *Meta:* Monetize your expertise across tiers and grow your brand.
+* **GRC Solutions** — *GRC in Saudi Arabia | Governance, Risk & Compliance Packs*
+  *Meta:* Practical toolkits aligned to CMA, SAMA, and PDPL.
+* **Pricing** — *Transparent Pricing | Self‑Service, Reviews, and Projects*
+  *Meta:* Published prices, credit packs, and milestone‑based projects.
+* **Blog** — *Saudi GRC Insights | Playbooks, Checklists, and Guides*
+  *Meta:* Expert articles you can use today.
+* **About** — *About Aliph Solutions | Built for Vision 2030*
+  *Meta:* Our mission, team, and principles.
+* **Contact** — *Contact Aliph Solutions | Let’s Get Your Next Milestone Done*
+  *Meta:* Tell us your challenge—get a clear plan and timeline.
+
+---
+
+## Arabic Headlines & CTAs — Quick Reference
+
+* Expertise, On‑Demand → **خبرة عند الطلب**
+* The Old Way Isn’t Working → **الأسلوب القديم لا يعمل**
+* A New Model for a New Economy → **نموذج جديد لاقتصاد جديد**
+* Start with GRC → **ابدأ بالحوكمة وإدارة المخاطر والامتثال**
+* Join Our Expert Network → **انضم إلى شبكة الخبراء**
+* Get Your Solution → **احصل على الحل الآن**
+* Book a Review → **احجز مراجعة**
+* Launch a Project → **ابدأ مشروعًا**
+* Explore Solutions → **استكشف الحلول**
+* Subscribe → **اشترك**
+
+---
+
+## Implementation Notes (for Design & Dev)
+
+* **Visual Style:** Deep blues, generous white space, gold/teal accents; abstract data/AI graphics + authentic KSA imagery.
+* **Components:** Tabbed role section (For Businesses), interactive pillars (GRC), pricing toggle, value calculator module.
+* **Trust:** Expert profile cards with badges, ratings, and credential chips.
+* **Compliance Badges:** CMA / SAMA / PDPL icons with short tooltips.
+* **Localization:** Full Arabic mirroring via locale switcher; right‑to‑left support.
