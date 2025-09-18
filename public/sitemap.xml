@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Homepage - Currently the only implemented page -->
+  <url>
+    <loc>https://aliph-solutions.replit.app/</loc>
+    <lastmod>2025-01-18T10:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://aliph-solutions.replit.app/" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://aliph-solutions.replit.app/?lang=ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://aliph-solutions.replit.app/" />
+  </url>
+  
+</urlset>
