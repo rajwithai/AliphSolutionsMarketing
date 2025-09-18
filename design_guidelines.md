@@ -7,16 +7,17 @@
 
 ### A. Color Palette
 **Primary Colors:**
-- Deep Navy: 220 85% 15% (primary brand color)
-- Professional Blue: 215 75% 25% (secondary)
+- Vibrant Purple: 267 84% 65% (primary brand color from logo)
+- Professional Blue: 213 94% 68% (secondary from logo gradient)
 - Pure White: 0 0% 100% (backgrounds, text contrast)
 
 **Accent Colors:**
-- Sophisticated Teal: 180 65% 45% (CTAs, highlights)
-- Subtle Gold: 45 85% 65% (premium touches, sparingly used)
+- Light Purple: 280 75% 85% (subtle backgrounds and highlights)
+- Purple Accent: 267 60% 35% (text and details)
+- Gradient Effects: Purple to blue following logo design
 
 **Arabic Mode Adjustments:**
-- Warmer navy variants for Arabic typography
+- Consistent purple-blue brand colors for Arabic typography
 - Enhanced contrast ratios for Arabic text legibility
 
 ### B. Typography
@@ -43,22 +44,22 @@
 
 **Hero Sections**:
 - Large, impactful headers with supporting subtext
-- Strategic use of teal CTAs against navy backgrounds
+- Strategic use of purple CTAs against dark backgrounds
 - Minimal, professional imagery focus
 
 **Service Cards**:
 - Clean white cards with subtle shadows
-- Teal accent borders for hierarchy
+- Purple accent borders for hierarchy
 - Consistent padding and typography scale
 
 **Forms**:
-- Professional styling with teal focus states
+- Professional styling with purple focus states (using ring token)
 - Clear validation states
 - Generous spacing and legible labels
 
 **Buttons**:
-- Primary: Teal background with white text
-- Secondary: Navy outline with navy text
+- Primary: Purple background with white text (using primary token)
+- Secondary: Light purple background with dark purple text
 - Outline buttons on images: blurred backgrounds, no custom hover states
 
 ### E. Content Sections
@@ -73,7 +74,7 @@
 **Page-Specific Treatments**:
 - **How It Works**: Step-by-step visual journey
 - **For Businesses**: Tab-based role content (Startup Founder, CCO, General Counsel)
-- **Pricing**: Clean tier comparison with teal highlights
+- **Pricing**: Clean tier comparison with purple highlights
 - **Blog**: MDX-powered with consistent typography hierarchy
 
 ## Visual Strategy
@@ -86,6 +87,6 @@
 
 ## Images
 - **Hero Image**: Yes - professional consulting imagery or abstract geometric patterns
-- **Service Icons**: Simple line icons in teal/navy
+- **Service Icons**: Simple line icons in purple/blue brand colors
 - **Team Photos**: Professional headshots on About page
 - **Background Elements**: Subtle geometric patterns, never distracting from content

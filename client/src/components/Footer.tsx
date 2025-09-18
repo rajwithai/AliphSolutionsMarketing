@@ -1,6 +1,7 @@
 import { useLanguage } from './LanguageProvider';
 import { Link } from 'wouter';
 import { Separator } from '@/components/ui/separator';
+import logoImage from '@assets/Untitled design (21)_1758192863999.png';
 
 const footerSections = {
   product: {
@@ -50,9 +51,12 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" data-testid="footer-logo">
-              <div className="text-2xl font-bold text-primary">
-                {language === 'ar' ? 'أليف' : 'Aliph'}
-              </div>
+              <img
+                src={logoImage}
+                alt={language === 'ar' ? 'حلول أليف - الشعار' : 'Aliph Solutions - Logo'}
+                className="h-8 w-auto"
+                data-testid="img-footer-logo"
+              />
             </Link>
             <p className="mt-4 text-sm text-muted-foreground max-w-xs">
               Elite advisory expertise reimagined for Saudi Arabia's growing businesses.
