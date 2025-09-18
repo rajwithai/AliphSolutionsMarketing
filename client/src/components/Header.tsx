@@ -12,9 +12,6 @@ const navigation = [
   { key: 'nav.experts', href: '/experts' },
   { key: 'nav.grc', href: '/grc-solutions' },
   { key: 'nav.pricing', href: '/pricing' },
-  { key: 'nav.blog', href: '/blog' },
-  { key: 'nav.about', href: '/about' },
-  { key: 'nav.contact', href: '/contact' },
 ];
 
 export default function Header() {
@@ -35,7 +32,7 @@ export default function Header() {
             <img
               src={logoImage}
               alt={language === 'ar' ? 'حلول أليف - الشعار' : 'Aliph Solutions - Logo'}
-              className="h-8 w-auto"
+              className="h-12 w-auto"
               data-testid="img-logo"
             />
           </Link>
