@@ -1,6 +1,19 @@
 import { useEffect } from 'react';
 import { useLocation } from 'wouter';
 
+// Known valid routes
+const knownRoutes = new Set([
+  '/',
+  '/about',
+  '/pricing', 
+  '/grc-solutions',
+  '/businesses',
+  '/experts',
+  '/how-it-works',
+  '/blog',
+  '/contact'
+]);
+
 // Route aliases - normalize common URL variations
 const routeAliases: Record<string, string> = {
   '/howitworks': '/how-it-works',
@@ -24,21 +37,29 @@ export default function NotFound() {
 
   useEffect(() => {
     const currentPath = window.location.pathname;
+    const lowercasePath = currentPath.toLowerCase();
     
-    // Normalize path: remove trailing slashes, convert to lowercase
-    const normalizedPath = currentPath.toLowerCase().replace(/\/+$/, '') || '/';
+    // First check for exact alias match (including trailing slashes)
+    if (routeAliases[lowercasePath]) {
+      console.log(`Redirecting ${currentPath} to ${routeAliases[lowercasePath]}`);
+      setLocation(routeAliases[lowercasePath]);
+      return;
+    }
     
-    // Check for direct alias match
-    if (routeAliases[normalizedPath]) {
+    // Then normalize path: remove trailing slashes
+    const normalizedPath = lowercasePath.replace(/\/+$/, '') || '/';
+    
+    // Check for alias match after normalization
+    if (currentPath !== normalizedPath && routeAliases[normalizedPath]) {
       console.log(`Redirecting ${currentPath} to ${routeAliases[normalizedPath]}`);
       setLocation(routeAliases[normalizedPath]);
       return;
     }
     
-    // Check for path that just needs trailing slash removed
-    if (currentPath !== normalizedPath && routeAliases[normalizedPath]) {
-      console.log(`Redirecting ${currentPath} to ${routeAliases[normalizedPath]}`);
-      setLocation(routeAliases[normalizedPath]);
+    // Smart fallback: if normalized path is a known route, redirect to it
+    if (currentPath !== normalizedPath && knownRoutes.has(normalizedPath)) {
+      console.log(`Normalizing ${currentPath} to ${normalizedPath}`);
+      setLocation(normalizedPath);
       return;
     }
     
