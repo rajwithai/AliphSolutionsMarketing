@@ -142,6 +142,20 @@ export default function Blog() {
           ))}
         </div>
 
+        {/* Blog Hero Image */}
+        <div className="mb-16 text-center">
+          <div className="relative mx-auto max-w-4xl">
+            <img
+              src={blogHeroImage}
+              alt={language === 'ar' ? 'صورة المدونة والمقالات المتخصصة' : 'Blog and insights hero image'}
+              className="w-full h-[300px] object-cover rounded-lg shadow-lg"
+              loading="lazy"
+              data-testid="img-blog-hero"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-lg" />
+          </div>
+        </div>
+
         {/* Featured Post */}
         <Card className="mb-16 hover-elevate transition-all duration-200" data-testid="featured-post">
           <CardContent className="p-8">
