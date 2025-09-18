@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { useLanguage } from './LanguageProvider';
 import { useLocation } from 'wouter';
 import { ArrowRight, Play, CheckCircle, Users, Shield, Trophy } from 'lucide-react';
-import heroImage from '@assets/generated_images/Professional_consulting_hero_image_0550d314.png';
+import heroImage from '@assets/generated_images/Saudi_business_executives_meeting_a16dcce7.png';
 
 export default function HeroSection() {
   const { t, isRTL } = useLanguage();
@@ -32,7 +32,7 @@ export default function HeroSection() {
       <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-primary/20 to-blue-500/20 rounded-full blur-3xl" />
       <div className="absolute bottom-10 left-10 w-24 h-24 bg-gradient-to-tr from-blue-500/15 to-primary/15 rounded-full blur-2xl" />
       
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         <div className="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
           {/* Content */}
           <div className="lg:col-span-7">
