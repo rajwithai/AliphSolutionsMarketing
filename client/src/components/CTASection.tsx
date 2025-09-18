@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { useLanguage } from './LanguageProvider';
+import { useLocation } from 'wouter';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 
 const benefits = [
@@ -11,9 +12,10 @@ const benefits = [
 
 export default function CTASection() {
   const { t, isRTL } = useLanguage();
+  const [, setLocation] = useLocation();
   
   const handleGetSolution = () => {
-    window.location.href = '/contact';
+    setLocation('/contact');
   };
   
   return (

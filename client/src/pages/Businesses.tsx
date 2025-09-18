@@ -1,11 +1,14 @@
 import { useLanguage } from '@/components/LanguageProvider';
 import { useSEO } from '@/hooks/useSEO';
+import { useLocation } from 'wouter';
 import { Building2, Users, Shield, TrendingUp, CheckCircle, ArrowRight } from 'lucide-react';
+import businessImage from '@assets/generated_images/Saudi_business_collaboration_scene_6b1f8d31.png';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 export default function Businesses() {
   const { language } = useLanguage();
+  const [, setLocation] = useLocation();
 
   useSEO({
     title: language === 'ar' 
@@ -111,6 +114,20 @@ export default function Businesses() {
               : 'We enable companies of all sizes to achieve the highest standards of governance, risk management, and compliance through innovative and customized solutions'
             }
           </p>
+        </div>
+
+        {/* Business Collaboration Image */}
+        <div className="mb-16 text-center">
+          <div className="relative mx-auto max-w-4xl">
+            <img
+              src={businessImage}
+              alt={language === 'ar' ? 'فرق العمل في بيئة أعمال سعودية حديثة' : 'Business teams in modern Saudi workplace'}
+              className="w-full h-[400px] object-cover rounded-lg shadow-lg"
+              loading="lazy"
+              data-testid="img-businesses-hero"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-lg" />
+          </div>
         </div>
 
         {/* Services */}
@@ -245,7 +262,7 @@ export default function Businesses() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
-              onClick={() => window.location.href = '/contact'}
+              onClick={() => setLocation('/contact')}
               className="flex items-center gap-2"
               data-testid="button-start-transformation"
             >

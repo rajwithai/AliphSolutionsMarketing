@@ -1,11 +1,14 @@
 import { useLanguage } from '@/components/LanguageProvider';
 import { useSEO } from '@/hooks/useSEO';
+import { useLocation } from 'wouter';
 import { Award, Users, Globe, Shield } from 'lucide-react';
+import collaborationImage from '@assets/generated_images/Saudi_business_collaboration_scene_af2b3140.png';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 export default function About() {
   const { language } = useLanguage();
+  const [, setLocation] = useLocation();
 
   useSEO({
     title: language === 'ar' 
@@ -82,6 +85,20 @@ export default function About() {
               : 'Aliph is a leading platform for governance, risk management, and compliance solutions in Saudi Arabia, connecting companies with the best local experts'
             }
           </p>
+          
+          {/* Hero Image */}
+          <div className="mt-12 relative mx-auto max-w-4xl">
+            <div className="relative rounded-xl overflow-hidden shadow-2xl">
+              <img
+                src={collaborationImage}
+                alt={language === 'ar' ? 'فريق عمل أليف للحلول الاستشارية' : 'Aliph consulting team collaboration'}
+                className="w-full h-[400px] object-cover"
+                loading="lazy"
+                data-testid="img-about-hero"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
+            </div>
+          </div>
         </div>
 
         {/* Mission */}
@@ -179,7 +196,7 @@ export default function About() {
           </p>
           <Button 
             size="lg" 
-            onClick={() => window.location.href = '/contact'}
+            onClick={() => setLocation('/contact')}
             data-testid="button-join-network"
           >
             {language === 'ar' ? 'ابدأ معنا اليوم' : 'Start With Us Today'}

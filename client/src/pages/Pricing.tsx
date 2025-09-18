@@ -1,12 +1,15 @@
 import { useLanguage } from '@/components/LanguageProvider';
 import { useSEO } from '@/hooks/useSEO';
+import { useLocation } from 'wouter';
 import { CheckCircle, Star, Zap } from 'lucide-react';
+import serviceTierImage from '@assets/generated_images/Three-tier_service_model_visualization_7df1188a.png';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 export default function Pricing() {
   const { language } = useLanguage();
+  const [, setLocation] = useLocation();
 
   useSEO({
     title: language === 'ar' 
@@ -96,6 +99,19 @@ export default function Pricing() {
           </p>
         </div>
 
+        {/* Service Model Visualization */}
+        <div className="mb-16 text-center">
+          <div className="relative mx-auto max-w-2xl">
+            <img
+              src={serviceTierImage}
+              alt={language === 'ar' ? 'نموذج الخدمة ثلاثي المستويات' : 'Three-tier service model'}
+              className="w-full h-auto rounded-lg shadow-lg"
+              loading="lazy"
+              data-testid="img-pricing-model"
+            />
+          </div>
+        </div>
+
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {plans.map((plan, index) => {
@@ -134,7 +150,7 @@ export default function Pricing() {
                   <Button 
                     className="w-full" 
                     variant={plan.popular ? 'default' : 'outline'}
-                    onClick={() => window.location.href = '/contact'}
+                    onClick={() => setLocation('/contact')}
                     data-testid={`button-select-plan-${index}`}
                   >
                     {language === 'ar' ? 'اختر هذه الخطة' : 'Choose This Plan'}
@@ -206,7 +222,7 @@ export default function Pricing() {
           </p>
           <Button 
             size="lg" 
-            onClick={() => window.location.href = '/contact'}
+            onClick={() => setLocation('/contact')}
             data-testid="button-custom-consultation"
           >
             {language === 'ar' ? 'احصل على عرض مخصص' : 'Get Custom Quote'}
