@@ -7,12 +7,14 @@ import { LanguageProvider } from "@/components/LanguageProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Home from "@/pages/Home";
+import Contact from "@/pages/Contact";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/contact" component={Contact} />
       {/* Add more pages as needed */}
       <Route component={NotFound} />
     </Switch>

@@ -13,8 +13,7 @@ export default function CTASection() {
   const { t, isRTL } = useLanguage();
   
   const handleGetSolution = () => {
-    console.log('Get GRC solution clicked');
-    // In real app, navigate to contact or onboarding
+    window.location.href = '/contact';
   };
   
   return (

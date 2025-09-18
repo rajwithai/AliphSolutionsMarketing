@@ -7,8 +7,7 @@ export default function HeroSection() {
   const { t, isRTL } = useLanguage();
   
   const handleGetSolution = () => {
-    console.log('Get Your Solution clicked');
-    // In real app, navigate to contact or onboarding
+    window.location.href = '/contact';
   };
   
   const handleJoinExperts = () => {
