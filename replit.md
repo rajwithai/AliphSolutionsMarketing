@@ -1,0 +1,72 @@
+# Aliph Solutions - Saudi Arabia Advisory Platform
+
+## Overview
+
+Aliph Solutions is a comprehensive GRC (Governance, Risk & Compliance) advisory platform specifically designed for the Saudi Arabian market. The platform reimagines traditional consulting by providing direct access to elite, AI-enhanced expertise through a three-tiered service model. Built to support Vision 2030 transformation, it connects businesses with vetted local experts for governance, risk management, and compliance needs while ensuring alignment with Saudi regulatory requirements (CMA, SAMA, MOC, PDPL).
+
+## User Preferences
+
+Preferred communication style: Simple, everyday language.
+
+## System Architecture
+
+### Frontend Architecture
+- **Framework**: React 18 with TypeScript and Vite for development tooling
+- **Styling**: Tailwind CSS with shadcn/ui component library for consistent design
+- **Routing**: Wouter for lightweight client-side routing
+- **State Management**: TanStack Query (React Query) for server state and data fetching
+- **Internationalization**: Custom LanguageProvider supporting English/Arabic with RTL layout support
+- **Form Handling**: React Hook Form with Zod validation for type-safe form processing
+
+### Backend Architecture
+- **Runtime**: Node.js with Express.js server framework
+- **Language**: TypeScript with ES modules for modern JavaScript features
+- **API Design**: RESTful endpoints with structured error handling and request logging
+- **Validation**: Zod schemas for runtime type checking and data validation
+- **Storage Interface**: Abstracted storage layer with in-memory implementation (designed for easy database migration)
+
+### Component Design System
+- **UI Components**: Radix UI primitives with custom styling for accessibility
+- **Design Tokens**: CSS custom properties for theming and consistent visual hierarchy
+- **Typography**: Inter font for English, Noto Sans Arabic for Arabic text
+- **Color System**: Professional palette with deep navy primary, teal accents, and proper contrast ratios
+- **Layout System**: Responsive grid layouts with consistent spacing using Tailwind utilities
+
+### Internationalization Support
+- **Languages**: English and Arabic with complete translation coverage
+- **RTL Support**: Full right-to-left layout support for Arabic content
+- **Cultural Adaptation**: Saudi-specific terminology and business context
+- **SEO Optimization**: Multilingual meta tags and structured data
+
+### Data Layer
+- **Database**: PostgreSQL configured through Drizzle ORM
+- **Schema Management**: Type-safe database schema with automated migrations
+- **Contact System**: Structured contact form submissions with inquiry categorization
+- **User Management**: Basic user authentication schema (expandable for future features)
+
+## External Dependencies
+
+### Core Technologies
+- **Database**: Neon PostgreSQL serverless database for scalability
+- **UI Framework**: Radix UI for accessible, headless component primitives
+- **Form Management**: React Hook Form with Hookform Resolvers for validation integration
+- **Styling**: Tailwind CSS with PostCSS for advanced CSS processing
+- **Icons**: Lucide React for consistent iconography
+
+### Development Tools
+- **Build System**: Vite with custom configuration for optimal development experience
+- **Type Checking**: TypeScript with strict configuration for code quality
+- **Code Quality**: ESLint integration through Vite plugins
+- **Runtime Error Handling**: Replit-specific error modal for development debugging
+
+### Third-Party Integrations
+- **Analytics Potential**: Structured for Google Analytics/Tag Manager integration
+- **Email Services**: Ready for integration with transactional email providers
+- **Payment Processing**: Architecture supports future payment gateway integration
+- **CRM Integration**: Contact form designed for easy CRM system connectivity
+
+### SEO and Performance
+- **Meta Management**: Custom useSEO hook for dynamic meta tag management
+- **Image Optimization**: Asset structure prepared for image optimization services
+- **Search Engine Optimization**: Comprehensive meta tags, Open Graph, and Twitter Card support
+- **Structured Data**: JSON-LD schema markup for enhanced search presence
