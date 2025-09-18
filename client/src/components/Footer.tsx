@@ -1,7 +1,7 @@
 import { useLanguage } from './LanguageProvider';
 import { Link } from 'wouter';
 import { Separator } from '@/components/ui/separator';
-import logoImage from '@assets/Untitled design (21)_1758192863999.png';
+import logoImage from '@assets/aliphsol_1758205546494.png';
 
 const footerSections = {
   product: {

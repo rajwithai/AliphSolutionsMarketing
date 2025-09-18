@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Menu, X, Globe } from 'lucide-react';
 import { useLanguage } from './LanguageProvider';
 import { Link, useLocation } from 'wouter';
-import logoImage from '@assets/Untitled design (21)_1758192863999.png';
+import logoImage from '@assets/aliphsol_1758205546494.png';
 
 const navigation = [
   { key: 'nav.home', href: '/' },
