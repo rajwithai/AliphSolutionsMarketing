@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Menu, X, Globe } from 'lucide-react';
 import { useLanguage } from './LanguageProvider';
 import { Link, useLocation } from 'wouter';
+import logoImage from '@assets/Untitled design (21)_1758192863999.png';
 
 const navigation = [
   { key: 'nav.home', href: '/' },
@@ -31,9 +32,12 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" data-testid="link-logo">
-            <div className="text-2xl font-bold text-primary">
-              {language === 'ar' ? 'أليف' : 'Aliph'}
-            </div>
+            <img
+              src={logoImage}
+              alt={language === 'ar' ? 'حلول أليف - الشعار' : 'Aliph Solutions - Logo'}
+              className="h-8 w-auto"
+              data-testid="img-logo"
+            />
           </Link>
           
           {/* Desktop Navigation */}
