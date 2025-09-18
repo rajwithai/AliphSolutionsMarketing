@@ -77,6 +77,19 @@ export default function HowItWorks() {
           </p>
         </div>
 
+        {/* Process Visualization */}
+        <div className="mb-16 text-center">
+          <div className="relative mx-auto max-w-3xl">
+            <img
+              src={processImage}
+              alt={language === 'ar' ? 'مخطط عملية العمل والخطوات المتبعة' : 'Work process and methodology diagram'}
+              className="w-full h-auto rounded-lg shadow-lg"
+              loading="lazy"
+              data-testid="img-process-diagram"
+            />
+          </div>
+        </div>
+
         {/* Steps */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {steps.map((step, index) => {
