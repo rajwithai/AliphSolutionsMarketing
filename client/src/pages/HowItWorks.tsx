@@ -1,11 +1,14 @@
 import { useLanguage } from '@/components/LanguageProvider';
 import { useSEO } from '@/hooks/useSEO';
+import { useLocation } from 'wouter';
 import { CheckCircle, Users, Shield, Target } from 'lucide-react';
+import processImage from '@assets/generated_images/Three_tier_service_model_c40d675c.png';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 export default function HowItWorks() {
   const { language } = useLanguage();
+  const [, setLocation] = useLocation();
 
   useSEO({
     title: language === 'ar' 
@@ -127,7 +130,7 @@ export default function HowItWorks() {
           </p>
           <Button 
             size="lg" 
-            onClick={() => window.location.href = '/contact'}
+            onClick={() => setLocation('/contact')}
             data-testid="button-start-journey"
           >
             {language === 'ar' ? 'ابدأ رحلتك معنا' : 'Start Your Journey'}

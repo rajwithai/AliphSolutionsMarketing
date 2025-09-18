@@ -1,6 +1,7 @@
 import { useLanguage } from '@/components/LanguageProvider';
 import { useSEO } from '@/hooks/useSEO';
 import { Calendar, User, ArrowRight, Clock } from 'lucide-react';
+import blogHeroImage from '@assets/generated_images/Social_media_preview_image_87c2a21e.png';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';

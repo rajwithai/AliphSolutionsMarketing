@@ -1,21 +1,52 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { AlertCircle } from "lucide-react";
+import { useEffect } from 'react';
+import { useLocation } from 'wouter';
+
+// Route aliases - normalize common URL variations
+const routeAliases: Record<string, string> = {
+  '/howitworks': '/how-it-works',
+  '/how_it_works': '/how-it-works',
+  '/grc': '/grc-solutions',
+  '/grcsolutions': '/grc-solutions',
+  '/grc_solutions': '/grc-solutions',
+  '/business': '/businesses',
+  '/expert': '/experts',
+  '/join': '/experts',
+  '/experts/join': '/experts',
+  '/pricing/': '/pricing',
+  '/about/': '/about',
+  '/contact/': '/contact',
+  '/blog/': '/blog',
+  '/home': '/',
+};
 
 export default function NotFound() {
-  return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md mx-4">
-        <CardContent className="pt-6">
-          <div className="flex mb-4 gap-2">
-            <AlertCircle className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">404 Page Not Found</h1>
-          </div>
+  const [, setLocation] = useLocation();
 
-          <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
-          </p>
-        </CardContent>
-      </Card>
-    </div>
-  );
+  useEffect(() => {
+    const currentPath = window.location.pathname;
+    
+    // Normalize path: remove trailing slashes, convert to lowercase
+    const normalizedPath = currentPath.toLowerCase().replace(/\/+$/, '') || '/';
+    
+    // Check for direct alias match
+    if (routeAliases[normalizedPath]) {
+      console.log(`Redirecting ${currentPath} to ${routeAliases[normalizedPath]}`);
+      setLocation(routeAliases[normalizedPath]);
+      return;
+    }
+    
+    // Check for path that just needs trailing slash removed
+    if (currentPath !== normalizedPath && routeAliases[normalizedPath]) {
+      console.log(`Redirecting ${currentPath} to ${routeAliases[normalizedPath]}`);
+      setLocation(routeAliases[normalizedPath]);
+      return;
+    }
+    
+    // For any unknown path, redirect to home
+    console.log(`Unknown path ${currentPath}, redirecting to home`);
+    setLocation('/');
+  }, [setLocation]);
+
+  // This component should never render since it immediately redirects
+  return null;
 }

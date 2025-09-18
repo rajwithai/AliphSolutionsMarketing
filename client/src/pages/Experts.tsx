@@ -1,12 +1,15 @@
 import { useLanguage } from '@/components/LanguageProvider';
 import { useSEO } from '@/hooks/useSEO';
+import { useLocation } from 'wouter';
 import { Star, Award, Users, TrendingUp, CheckCircle, ArrowRight, Plus } from 'lucide-react';
+import expertWorkspaceImage from '@assets/generated_images/Professional_consulting_hero_image_0550d314.png';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 export default function Experts() {
   const { language } = useLanguage();
+  const [, setLocation] = useLocation();
 
   useSEO({
     title: language === 'ar' 
@@ -152,6 +155,20 @@ export default function Experts() {
               : 'Be part of the largest network of governance, risk management, and compliance experts in Saudi Arabia'
             }
           </p>
+        </div>
+
+        {/* Expert Workspace Hero */}
+        <div className="mb-16 text-center">
+          <div className="relative mx-auto max-w-4xl">
+            <img
+              src={expertWorkspaceImage}
+              alt={language === 'ar' ? 'بيئة عمل الخبراء والاستشاريين المحترفين' : 'Professional expert workspace environment'}
+              className="w-full h-[400px] object-cover rounded-lg shadow-lg"
+              loading="lazy"
+              data-testid="img-experts-hero"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent rounded-lg" />
+          </div>
         </div>
 
         {/* Stats */}
@@ -304,7 +321,7 @@ export default function Experts() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
-              onClick={() => window.location.href = '/contact'}
+              onClick={() => setLocation('/contact')}
               className="flex items-center gap-2"
               data-testid="button-apply-now"
             >

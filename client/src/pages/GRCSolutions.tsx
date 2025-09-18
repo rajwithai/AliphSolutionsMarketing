@@ -1,12 +1,15 @@
 import { useLanguage } from '@/components/LanguageProvider';
 import { useSEO } from '@/hooks/useSEO';
+import { useLocation } from 'wouter';
 import { Shield, Users, FileText, BarChart3, CheckCircle, ArrowRight, Target } from 'lucide-react';
+import grcDiagramImage from '@assets/generated_images/GRC_solutions_diagram_34dab59c.png';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 export default function GRCSolutions() {
   const { language } = useLanguage();
+  const [, setLocation] = useLocation();
 
   useSEO({
     title: language === 'ar' 
@@ -153,6 +156,19 @@ export default function GRCSolutions() {
           </p>
         </div>
 
+        {/* GRC Framework Diagram */}
+        <div className="mb-16 text-center">
+          <div className="relative mx-auto max-w-3xl">
+            <img
+              src={grcDiagramImage}
+              alt={language === 'ar' ? 'مخطط إطار عمل الحوكمة وإدارة المخاطر والامتثال' : 'GRC framework diagram'}
+              className="w-full h-auto rounded-lg shadow-lg"
+              loading="lazy"
+              data-testid="img-grc-diagram"
+            />
+          </div>
+        </div>
+
         {/* Solutions */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           {solutions.map((solution, index) => {
@@ -290,7 +306,7 @@ export default function GRCSolutions() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
-              onClick={() => window.location.href = '/contact'}
+              onClick={() => setLocation('/contact')}
               className="flex items-center gap-2"
               data-testid="button-get-consultation"
             >

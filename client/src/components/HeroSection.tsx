@@ -1,13 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { useLanguage } from './LanguageProvider';
+import { useLocation } from 'wouter';
 import { ArrowRight, Play } from 'lucide-react';
 import heroImage from '@assets/generated_images/Professional_consulting_hero_image_0550d314.png';
 
 export default function HeroSection() {
   const { t, isRTL } = useLanguage();
+  const [, setLocation] = useLocation();
   
   const handleGetSolution = () => {
-    window.location.href = '/contact';
+    setLocation('/contact');
   };
   
   const handleJoinExperts = () => {
