@@ -24,32 +24,83 @@ const translations = {
     'nav.login': 'Login',
     'nav.signUp': 'Sign Up',
     
-    // Homepage
-    'hero.title': 'Expertise, On-Demand. The Future of Advisory in Saudi Arabia.',
-    'hero.subtitle': 'We\'ve reimagined the consulting model to give you direct access to elite, AI-enhanced expertise—at the speed and scale your business demands.',
-    'hero.primaryCta': 'Get Your Solution',
-    'hero.secondaryCta': 'Join Our Expert Network',
+    // Homepage Hero
+    'hero.title': 'Saudi Arabia\'s First AI-Powered GRC Advisory Platform',
+    'hero.subtitle': 'Empowering organizations to simplify compliance, manage risk, and stay Vision 2030-ready through AI + Expert Intelligence.',
+    'hero.primaryCta': 'Explore the Platform',
+    'hero.secondaryCta': 'Join as SME Partner',
+    'hero.stat1': '10× Faster',
+    'hero.stat2': 'Powered by Saudi Experts',
+    'hero.stat3': 'PDPL, ZATCA, SAMA Compliant',
     
-    // Sections
-    'oldWay.title': 'The Old Way Isn\'t Working.',
-    'oldWay.description': 'Traditional firms are built for large, open-ended projects—costly, slow, and rigid. Saudi SMEs and fast-growing enterprises need precise answers faster. Aliph delivers vetted expertise, right-sized engagements, and AI-assisted speed so you can move with confidence.',
+    // Why Aliph Exists
+    'whyAliph.title': 'Compliance shouldn\'t be a burden — it should be your competitive edge.',
+    'whyAliph.description': 'Saudi businesses face an evolving web of laws — PDPL, ZATCA, MHRSD, NCA, SAMA — all transforming under Vision 2030. Aliph Solutions was built to make compliance simple, affordable, and intelligent for every organization — from fast-growing SMEs to listed enterprises.',
+    'whyAliph.highlight': 'Built in Saudi Arabia. Designed for Vision 2030. Backed by certified GRC experts.',
     
-    'newModel.title': 'A New Model for a New Economy.',
-    'tier1.title': 'AI-Assisted Self-Service',
-    'tier1.description': 'Instant, intelligent, and affordable foundations (templates, checklists, guided drafting).',
+    // Three Tiers
+    'tiers.title': 'How Aliph Works — Three Tiers, One Seamless Experience',
+    'tier1.title': 'Self-Service Intelligence',
+    'tier1.description': 'Instantly access 1,000+ Saudi-specific templates, policies, and toolkits curated by the Aliph Brain.',
     'tier2.title': 'Light Customization', 
-    'tier2.description': 'Rapid expert review and refinement—bridge the last 10%.',
-    'tier3.title': 'Heavy Customization',
-    'tier3.description': 'Agile, milestone-driven expert projects for complex needs.',
+    'tier2.description': 'Engage a verified GRC expert to review or tailor your document within 48 hours.',
+    'tier3.title': 'Heavy Customization (Micro-Assignments)',
+    'tier3.description': 'Launch outcome-driven advisory projects with milestones, tracked deliverables, and guaranteed closure.',
     
-    'grc.title': 'Start Where It Matters: Governance, Risk & Compliance.',
-    'grc.description': 'With Vision 2030 accelerating transformation, meeting requirements from CMA, SAMA, MOC, and PDPL is mission-critical. We start by solving your high-stakes GRC needs—building a foundation of trust for everything that follows.',
+    // Aliph Brain
+    'brain.title': 'The Aliph Brain — Saudi Intelligence Engine',
+    'brain.subtitle': 'Turning complexity into clarity — powered by Saudi law, data, and experts.',
+    'brain.description': 'Trained on thousands of verified regulatory documents — PDPL, ZATCA, SAMA, MHRSD, CMA — and enriched by certified Saudi consultants.',
+    'brain.point1': 'Saudi-first datasets from national regulators',
+    'brain.point2': 'Expert-validated knowledge library',
+    'brain.point3': 'Data never leaves your organization (PDPL-safe)',
+    'brain.point4': 'Continuous learning from advisory cases',
+    'brain.cta': 'Explore the Knowledge Library',
     
-    'experts.title': 'Expertise You Can Trust. Vetted. Local. World‑Class.',
-    'experts.description': 'Our multi-stage vetting and Quality Score ensure you always work with top independent professionals. See profiles, ratings, and verified credentials before you commit.',
+    // Knowledge Library
+    'library.title': 'The Knowledge Library — Seven Pillars of Compliance',
+    'library.subtitle': 'Every function in your organization deserves localized, regulator-approved guidance.',
+    'library.pillar1': 'Corporate Strategy & Legal Compliance',
+    'library.pillar2': 'Corporate Finance & Taxation (ZATCA Ready)',
+    'library.pillar3': 'Human Capital & Saudization Compliance',
+    'library.pillar4': 'Marketing, Sales & Customer Experience',
+    'library.pillar5': 'Digital Transformation & Cybersecurity',
+    'library.pillar6': 'Vision 2030 Opportunities & Giga-Projects',
+    'library.pillar7': 'Leadership & Professional Development',
+    'library.cta': 'Browse Pillars',
     
-    'closing.title': 'Ready to Navigate Complexity with Confidence?',
-    'closing.cta': 'Get Your GRC Solution Today',
+    // Vision 2030
+    'vision.title': 'Vision 2030 Alignment',
+    'vision.description': 'Every policy, process, and product within Aliph Solutions supports the Kingdom\'s transformation agenda.',
+    'vision.point1': 'Aligns with national programs and giga-projects',
+    'vision.point2': 'Promotes transparency and governance excellence',
+    'vision.point3': 'Empowers SMEs to meet Vision 2030 mandates',
+    
+    // Why Choose Aliph
+    'whyChoose.title': 'Why Choose Aliph',
+    'whyChoose.subtitle': 'We combine speed, trust, and local expertise — redefining how compliance works in Saudi Arabia.',
+    'whyChoose.point1Title': 'AI + Human Hybrid',
+    'whyChoose.point1Desc': 'Accuracy with context',
+    'whyChoose.point2Title': 'Local Expert Network',
+    'whyChoose.point2Desc': 'Verified GRC specialists',
+    'whyChoose.point3Title': 'Pre-Built Templates',
+    'whyChoose.point3Desc': 'Ready for audits and filings',
+    'whyChoose.point4Title': '10× Faster, 5× Cheaper',
+    'whyChoose.point4Desc': 'Than traditional consulting',
+    'whyChoose.point5Title': 'Vision 2030 Focused',
+    'whyChoose.point5Desc': 'Made for Saudi enterprises',
+    'whyChoose.cta': 'Join the Aliph Network',
+    
+    // Testimonials
+    'testimonials.title': 'Trusted by Experts and Businesses Alike',
+    'testimonials.quote': 'Aliph transformed our compliance workflow — what took weeks now takes days.',
+    'testimonials.author': 'Compliance Director, Leading KSA Holding Company',
+    'testimonials.subtitle': 'Backed by a growing community of Saudi GRC experts across finance, healthcare, education, and public sector.',
+    
+    // Final CTA
+    'closing.title': 'Ready to turn compliance into your competitive advantage?',
+    'closing.primaryCta': 'Start Free Now',
+    'closing.secondaryCta': 'Talk to an Expert',
     
     // Common
     'common.seeHowItWorks': 'See How It Works',
@@ -70,32 +121,83 @@ const translations = {
     'nav.login': 'تسجيل الدخول',
     'nav.signUp': 'إنشاء حساب',
     
-    // Homepage
-    'hero.title': 'خبرة عند الطلب. مستقبل الاستشارات في المملكة العربية السعودية.',
-    'hero.subtitle': 'أعدنا ابتكار نموذج الاستشارات لنمنحك وصولًا مباشرًا إلى خبراء نخبة مدعومين بالذكاء الاصطناعي—بالسرعة والحجم المناسبين لعملك.',
-    'hero.primaryCta': 'احصل على الحل الآن',
-    'hero.secondaryCta': 'انضم إلى شبكة الخبراء',
+    // Homepage Hero
+    'hero.title': 'أول منصة استشارية مدعومة بالذكاء الاصطناعي للحوكمة والمخاطر والامتثال في السعودية',
+    'hero.subtitle': 'نمكّن المؤسسات من تبسيط الامتثال وإدارة المخاطر والاستعداد لرؤية 2030 من خلال الذكاء الاصطناعي + الخبرة البشرية.',
+    'hero.primaryCta': 'استكشف المنصة',
+    'hero.secondaryCta': 'انضم كشريك للمنشآت الصغيرة',
+    'hero.stat1': 'أسرع 10 مرات',
+    'hero.stat2': 'مدعوم من خبراء سعوديين',
+    'hero.stat3': 'متوافق مع PDPL و ZATCA و SAMA',
     
-    // Sections
-    'oldWay.title': 'الأسلوب القديم لا يعمل.',
-    'oldWay.description': 'تم تصميم الشركات التقليدية لمشاريع كبيرة ومفتوحة—باهظة وبطيئة وغير مرنة. تحتاج الشركات السعودية الصغيرة والمتوسطة والمؤسسات سريعة النمو إلى إجابات دقيقة وبسرعة. توفر «أليف» خبرة مُحقَّقة، ومهام بحجم مناسب، وسرعة مدعومة بالذكاء الاصطناعي لتتقدم بثقة.',
+    // Why Aliph Exists
+    'whyAliph.title': 'الامتثال ليس عبئًا — بل ميزتك التنافسية.',
+    'whyAliph.description': 'تواجه الشركات السعودية شبكة متطورة من القوانين — PDPL و ZATCA و MHRSD و NCA و SAMA — جميعها تتحول ضمن رؤية 2030. بُنيت حلول أليف لجعل الامتثال بسيطًا وميسور التكلفة وذكيًا لكل مؤسسة — من المنشآت الصغيرة والمتوسطة سريعة النمو إلى الشركات المدرجة.',
+    'whyAliph.highlight': 'مبني في المملكة العربية السعودية. مصمم لرؤية 2030. مدعوم من خبراء GRC معتمدين.',
     
-    'newModel.title': 'نموذج جديد لاقتصاد جديد.',
-    'tier1.title': 'الخدمة الذاتية المدعومة بالذكاء الاصطناعي',
-    'tier1.description': 'أسس فورية وذكية وبأسعار معقولة (قوالب، قوائم مرجعية، صياغة موجهة).',
-    'tier2.title': 'تخصيص خفيف',
-    'tier2.description': 'مراجعة سريعة من الخبراء وتحسين—سد الفجوة الأخيرة 10%.',
-    'tier3.title': 'تخصيص ثقيل',
-    'tier3.description': 'مشاريع خبراء رشيقة مدفوعة بالمعالم للاحتياجات المعقدة.',
+    // Three Tiers
+    'tiers.title': 'كيف تعمل أليف — ثلاثة مستويات، تجربة واحدة سلسة',
+    'tier1.title': 'الذكاء الذاتي',
+    'tier1.description': 'احصل فورًا على أكثر من 1000 قالب وسياسة وأداة خاصة بالسعودية منسقة بواسطة عقل أليف.',
+    'tier2.title': 'تخصيص خفيف', 
+    'tier2.description': 'استعن بخبير GRC موثق لمراجعة أو تخصيص مستندك خلال 48 ساعة.',
+    'tier3.title': 'تخصيص مكثف (مهام صغيرة)',
+    'tier3.description': 'أطلق مشاريع استشارية موجهة بالنتائج مع معالم ومخرجات متتبعة وإغلاق مضمون.',
     
-    'grc.title': 'ابدأ بما هو مهم: الحوكمة وإدارة المخاطر والامتثال.',
-    'grc.description': 'مع تسارع التحول ضمن رؤية 2030، أصبح الامتثال لمتطلبات «هيئة السوق المالية» و«ساما» و«وزارة التجارة» و«قانون حماية البيانات الشخصية» ضرورة استراتيجية. نبدأ بتلبية احتياجات GRC عالية الأهمية—لنؤسس الثقة لكل ما يلي.',
+    // Aliph Brain
+    'brain.title': 'عقل أليف — محرك الذكاء السعودي',
+    'brain.subtitle': 'تحويل التعقيد إلى وضوح — مدعوم بالقانون السعودي والبيانات والخبراء.',
+    'brain.description': 'مدرب على آلاف الوثائق التنظيمية المحققة — PDPL و ZATCA و SAMA و MHRSD و CMA — ومدعوم من مستشارين سعوديين معتمدين.',
+    'brain.point1': 'مجموعات بيانات سعودية أولاً من الجهات التنظيمية الوطنية',
+    'brain.point2': 'مكتبة معرفية موثقة من الخبراء',
+    'brain.point3': 'البيانات لا تغادر مؤسستك (آمنة حسب PDPL)',
+    'brain.point4': 'التعلم المستمر من الحالات الاستشارية',
+    'brain.cta': 'استكشف مكتبة المعرفة',
     
-    'experts.title': 'خبرة موثوقة. مُحقَّقة. محلية وعالمية المستوى.',
-    'experts.description': 'يضمن التدقيق متعدد المراحل ونقاط الجودة لدينا عملك دائماً مع أفضل المهنيين المستقلين. اطلع على الملفات الشخصية والتقييمات والشهادات المتحققة قبل الالتزام.',
+    // Knowledge Library
+    'library.title': 'مكتبة المعرفة — الركائز السبع للامتثال',
+    'library.subtitle': 'كل وظيفة في مؤسستك تستحق إرشادات محلية معتمدة من الجهات التنظيمية.',
+    'library.pillar1': 'الاستراتيجية المؤسسية والامتثال القانوني',
+    'library.pillar2': 'المالية المؤسسية والضرائب (جاهز لـ ZATCA)',
+    'library.pillar3': 'رأس المال البشري والامتثال للسعودة',
+    'library.pillar4': 'التسويق والمبيعات وتجربة العملاء',
+    'library.pillar5': 'التحول الرقمي والأمن السيبراني',
+    'library.pillar6': 'فرص رؤية 2030 والمشاريع الضخمة',
+    'library.pillar7': 'القيادة والتطوير المهني',
+    'library.cta': 'تصفح الركائز',
     
-    'closing.title': 'هل أنت مستعد للتعامل مع التعقيد بثقة؟',
-    'closing.cta': 'احصل على حل GRC اليوم',
+    // Vision 2030
+    'vision.title': 'التوافق مع رؤية 2030',
+    'vision.description': 'كل سياسة وعملية ومنتج ضمن حلول أليف يدعم أجندة تحول المملكة.',
+    'vision.point1': 'يتماشى مع البرامج الوطنية والمشاريع الضخمة',
+    'vision.point2': 'يعزز الشفافية والتميز في الحوكمة',
+    'vision.point3': 'يمكّن المنشآت الصغيرة والمتوسطة من تلبية متطلبات رؤية 2030',
+    
+    // Why Choose Aliph
+    'whyChoose.title': 'لماذا تختار أليف',
+    'whyChoose.subtitle': 'نجمع بين السرعة والثقة والخبرة المحلية — نعيد تعريف كيفية عمل الامتثال في السعودية.',
+    'whyChoose.point1Title': 'هجين من الذكاء الاصطناعي والبشري',
+    'whyChoose.point1Desc': 'الدقة مع السياق',
+    'whyChoose.point2Title': 'شبكة خبراء محليين',
+    'whyChoose.point2Desc': 'متخصصون GRC موثقون',
+    'whyChoose.point3Title': 'قوالب جاهزة',
+    'whyChoose.point3Desc': 'جاهزة للتدقيق والتقديم',
+    'whyChoose.point4Title': 'أسرع 10 مرات، أرخص 5 مرات',
+    'whyChoose.point4Desc': 'من الاستشارات التقليدية',
+    'whyChoose.point5Title': 'تركيز على رؤية 2030',
+    'whyChoose.point5Desc': 'مصمم للمؤسسات السعودية',
+    'whyChoose.cta': 'انضم إلى شبكة أليف',
+    
+    // Testimonials
+    'testimonials.title': 'موثوق به من قبل الخبراء والشركات على حد سواء',
+    'testimonials.quote': 'حوّلت أليف سير عمل الامتثال لدينا — ما كان يستغرق أسابيع أصبح أيامًا.',
+    'testimonials.author': 'مدير الامتثال، شركة قابضة رائدة في السعودية',
+    'testimonials.subtitle': 'مدعوم من مجتمع متنامٍ من خبراء GRC السعوديين عبر المالية والرعاية الصحية والتعليم والقطاع العام.',
+    
+    // Final CTA
+    'closing.title': 'هل أنت مستعد لتحويل الامتثال إلى ميزتك التنافسية؟',
+    'closing.primaryCta': 'ابدأ مجانًا الآن',
+    'closing.secondaryCta': 'تحدث إلى خبير',
     
     // Common
     'common.seeHowItWorks': 'شاهد كيف نعمل',
