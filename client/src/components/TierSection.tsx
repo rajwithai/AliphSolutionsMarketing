@@ -43,7 +43,7 @@ export default function TierSection() {
         <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
           <div>
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              {t('newModel.title')}
+              {t('tiers.title')}
             </h2>
             <div className="mt-8 space-y-6">
               {tiers.map((tier) => {
