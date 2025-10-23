@@ -4,6 +4,17 @@
 
 Aliph Solutions is a comprehensive GRC (Governance, Risk & Compliance) advisory platform specifically designed for the Saudi Arabian market. The platform reimagines traditional consulting by providing direct access to elite, AI-enhanced expertise through a three-tiered service model. Built to support Vision 2030 transformation, it connects businesses with vetted local experts for governance, risk management, and compliance needs while ensuring alignment with Saudi regulatory requirements (CMA, SAMA, MOC, PDPL).
 
+## Recent Changes
+
+### October 23, 2025 - Homepage Content Overhaul
+- Implemented comprehensive production-ready content across all homepage sections
+- Created new component sections: WhyAliphSection, AliphBrainSection, KnowledgeLibrarySection, Vision2030Section, WhyChooseSection, TestimonialsSection
+- Updated HeroSection with new messaging, trust indicators, and dual-CTA design
+- Enhanced TierSection and CTASection with production-ready copy
+- Expanded LanguageProvider with complete bilingual translations (English/Arabic) for all new content
+- Verified end-to-end bilingual support with automated testing
+- Homepage now follows: Hero → Why Aliph → Tiers → Brain → Library → Vision 2030 → Why Choose → Testimonials → CTA
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
