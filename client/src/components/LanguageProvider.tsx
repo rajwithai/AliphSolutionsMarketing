@@ -101,6 +101,7 @@ const translations = {
     'closing.title': 'Ready to turn compliance into your competitive advantage?',
     'closing.primaryCta': 'Start Free Now',
     'closing.secondaryCta': 'Talk to an Expert',
+    'closing.tagline': 'Trusted by leading Saudi enterprises and SMEs',
     
     // Common
     'common.seeHowItWorks': 'See How It Works',
@@ -198,6 +199,7 @@ const translations = {
     'closing.title': 'هل أنت مستعد لتحويل الامتثال إلى ميزتك التنافسية؟',
     'closing.primaryCta': 'ابدأ مجانًا الآن',
     'closing.secondaryCta': 'تحدث إلى خبير',
+    'closing.tagline': 'موثوق به من قبل الشركات السعودية الرائدة والمنشآت الصغيرة والمتوسطة',
     
     // Common
     'common.seeHowItWorks': 'شاهد كيف نعمل',
