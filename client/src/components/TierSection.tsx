@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage } from './LanguageProvider';
 import { Zap, Users, Rocket, ArrowRight } from 'lucide-react';
-import tierImage from '@assets/generated_images/Three-tier_service_model_visualization_7df1188a.png';
+import TierFlowDiagram from './TierFlowDiagram';
 
 const tiers = [
   {
@@ -87,15 +87,7 @@ export default function TierSection() {
             </div>
           </div>
           <div className="mt-12 lg:mt-0">
-            <div className="relative">
-              <img
-                src={tierImage}
-                alt="Three-tier service model"
-                className="w-full rounded-lg shadow-xl"
-                data-testid="img-tier-model"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/10 to-transparent rounded-lg" />
-            </div>
+            <TierFlowDiagram />
           </div>
         </div>
       </div>

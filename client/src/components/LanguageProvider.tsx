@@ -107,6 +107,10 @@ const translations = {
     'common.seeHowItWorks': 'See How It Works',
     'common.exploreTiers': 'Explore the Tiers',
     'common.meetExperts': 'Meet Our Experts',
+    'common.instant': 'Instant Access',
+    'common.expertReviewed': 'Expert Reviewed',
+    'common.fullService': 'Full Service',
+    'tiers.progression': 'Seamless Progression Across All Tiers',
   },
   ar: {
     // Navigation
@@ -205,6 +209,10 @@ const translations = {
     'common.seeHowItWorks': 'شاهد كيف نعمل',
     'common.exploreTiers': 'استكشف المستويات',
     'common.meetExperts': 'تعرف على خبرائنا',
+    'common.instant': 'وصول فوري',
+    'common.expertReviewed': 'مراجعة من الخبراء',
+    'common.fullService': 'خدمة شاملة',
+    'tiers.progression': 'تقدم سلس عبر جميع المستويات',
   },
 };
 
