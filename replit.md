@@ -6,6 +6,20 @@ Aliph Solutions is a comprehensive GRC (Governance, Risk & Compliance) advisory 
 
 ## Recent Changes
 
+### October 24, 2025 - Tier Section Visual Flow Redesign
+- Replaced static generated image with dynamic TierFlowDiagram component
+- Created new visual flow diagram showing clear Tier 1 → Tier 2 → Tier 3 progression
+- Visual features include:
+  - Animated arrow connectors with bounce effects between tiers
+  - Color-coded tier badges (Blue for Tier 1, Teal for Tier 2, Indigo for Tier 3)
+  - Progress bars showing relative completion time for each tier
+  - Time estimates (< 1min, < 48h, 1-2 weeks) for quick reference
+  - Icons representing each tier's purpose (Zap, Users, Rocket)
+- Full bilingual support with RTL layout for Arabic
+- Responsive design that stacks vertically on mobile devices
+- Added new translation keys for tier subtitles and progression label
+- Verified through E2E testing: desktop, mobile, English, and Arabic layouts
+
 ### October 24, 2025 - Final Homepage Content Polish
 - Updated all homepage content to final production-ready copy per specifications
 - Refined messaging across all sections with enhanced clarity and impact:
