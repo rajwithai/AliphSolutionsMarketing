@@ -1,0 +1,74 @@
+Aliph Solutions – Homepage Content (Final Production-Ready with All Updates)
+1. Hero Section – The First Impression
+Headline: Saudi Arabia’s First AI-Powered GRC Advisory Platform
+Subtext: Empowering Saudi businesses to simplify compliance, manage risk, and align with Vision 2030 — powered by AI and expert intelligence.
+CTAs: Explore the Platform | Join as SME Partner
+Below-Hero Icon Strip: ⚡ 10× Faster Implementation | 🤝 Powered by Saudi Experts | 🔐 Compliant with PDPL, ZATCA, SAMA
+Design: Full-width gradient background (deep navy → royal blue). Centered text, smooth icon motion with Framer Motion.
+2. Compliance Shouldn’t Be a Burden — It Should Be Your Competitive Edge
+Saudi businesses face an evolving web of regulations — PDPL, ZATCA, MHRSD, NCA, SAMA — all transforming under Vision 2030.
+Aliph Solutions makes compliance simple, affordable, and intelligent for every organization, from fast-growing SMEs to listed enterprises.
+Built in Saudi Arabia. Designed for Vision 2030. Validated by certified GRC experts.
+3. How Aliph Works — Three Tiers, One Seamless Experience
+Tier 1 — Self-Service Intelligence: Instantly access 1,000+ Saudi-specific templates, policies, and compliance toolkits curated by the Aliph Brain.
+Tier 2 — Light Customization: Get your compliance materials reviewed and finalized by certified Saudi experts — fast, accurate, and regulator-ready.
+Tier 3 — Heavy Customization (Micro-Assignments): Launch milestone-based advisory projects with tracked deliverables and guaranteed outcomes.
+CTA: See How It Works
+Design: Three animated step cards with hover-lift effects and sequential fade (1→2→3).
+4. The Aliph Brain — Saudi Intelligence Engine
+Turning complexity into clarity — powered by Saudi law, data, and experts.
+Trained on thousands of verified regulatory documents — PDPL, ZATCA, SAMA, MHRSD, CMA — and enriched by certified Saudi consultants, the Aliph Brain understands compliance like your in-house legal team.
+Highlights:
+• Saudi-first datasets from national regulators.
+• Expert-validated knowledge library.
+• Data never leaves your organization (PDPL-safe).
+• Continuously updated from real advisory cases.
+CTA: Explore the Knowledge Library
+Design: Dark background with glowing neural animation or mesh pattern.
+5. The Knowledge Library — Seven Pillars of Compliance
+Explore frameworks and templates curated under the Seven Pillars of Saudi Enterprise:
+1. Corporate Strategy & Legal Compliance
+2. Corporate Finance & Taxation (ZATCA Ready)
+3. Human Capital & Saudization Compliance
+4. Marketing, Sales & Customer Experience
+5. Digital Transformation & Cybersecurity
+6. Vision 2030 Opportunities & Giga-Projects
+7. Leadership & Professional Development
+CTA: Browse Pillars | Start Your Search
+Design: White background, 7 hover-zoom cards for interactivity.
+6. Vision 2030 Alignment
+Every policy, process, and feature within Aliph Solutions supports the Kingdom’s transformation agenda.
+• Aligns with national programs and giga-projects.
+• Promotes transparency and governance excellence.
+• Empowers SMEs to meet Vision 2030 mandates.
+Built to align with Vision 2030’s Governance, Transparency, and SME Enablement mandates.
+Design: Gold-white palette, subtle Vision 2030 motif (non-endorsement).
+7. Why Choose Aliph
+We combine speed, trust, and local expertise — redefining how compliance works in Saudi Arabia.
+• ⚙️ AI + Human Hybrid — automation meets context.
+• 👥 Local Expert Network — verified GRC specialists.
+• 📄 Pre-Built Templates — ready for audits & filings.
+• 💸 Up to 10× faster and 5× more affordable than consulting.
+• 🌐 Vision 2030 Focused — built for Saudi enterprises.
+CTA: Join the Aliph Network
+Design: Split text + icon grid with light card variations for readability.
+8. Trusted by Experts and Businesses Alike
+Built in collaboration with vetted Saudi GRC experts and aligned with national Vision 2030 goals — empowering businesses to achieve compliance with confidence.
+Design: Placeholder for testimonials, expert badges, and logos to be added later.
+9. Ready to Turn Compliance Into Your Competitive Advantage?
+Join the next generation of Saudi businesses achieving audit-ready confidence through Aliph.
+CTAs: Start Free Now | Talk to an Expert
+Microcopy: No setup fees. No hidden retainers. Just clear results.
+Design: Full-width gradient strip; sticky on mobile scroll.
+10. SEO & Technical Checklist (for Replit Meta)
+Meta Title: AI-Powered GRC Platform for Vision 2030 | Aliph Solutions
+Meta Description: Discover Aliph Solutions — Saudi Arabia’s first AI + Expert hybrid GRC ecosystem. Simplify compliance, governance, and risk management with local intelligence aligned to Vision 2030.
+Keywords: GRC Saudi Arabia, AI Compliance, PDPL, ZATCA, Vision 2030 Governance, Saudi RegTech, Aliph Brain
+Language: English primary + Arabic micro-copy (under logo: “حلول اليف — الذكاء الاصطناعي للحوكمة والامتثال”).
+11. Replit / UI Implementation Notes
+• Each section should appear as an independent scroll block with soft fade-in transitions.
+• Add hover and motion effects for CTAs and interactive cards.
+• Maintain gradient consistency: #0D1B2A (Navy), #224EFF (Royal Blue), #D4AF37 (Gold).
+• Use Inter or Poppins font for professional readability.
+• Ensure alt-text, ARIA labels, and meta descriptions are applied for SEO and accessibility.
+• Include placeholder toggle for Arabic localization 
