@@ -1,6 +1,5 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Button } from '@/components/ui/button';
 import { useLanguage } from './LanguageProvider';
 import { Zap, Users, Rocket, ArrowRight } from 'lucide-react';
 
@@ -113,7 +112,6 @@ export default function TierSection() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  data-testid={`card-tier-${tier.id}`}
                 >
                   {/* Card Container */}
                   <div 
@@ -129,6 +127,7 @@ export default function TierSection() {
                     onMouseLeave={(e) => {
                       e.currentTarget.style.boxShadow = '0 4px 8px rgba(20, 40, 80, 0.06)';
                     }}
+                    data-testid={`card-tier-${tier.id}`}
                   >
                     {/* Gradient overlay */}
                     <div 
@@ -198,7 +197,12 @@ export default function TierSection() {
                           {t(tier.timeKey)}
                         </span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div 
+                        className="flex items-center gap-2"
+                        role="group"
+                        aria-label={`Timeline for Tier ${tier.id}`}
+                        data-testid={`timeline-tier-${tier.id}`}
+                      >
                         {[1, 2, 3].map((dotIndex) => (
                           <motion.div
                             key={dotIndex}
@@ -215,6 +219,10 @@ export default function TierSection() {
                               delay: index * 0.1 + dotIndex * 0.1,
                               ease: "easeOut" 
                             }}
+                            role="presentation"
+                            aria-hidden="true"
+                            data-testid={`timeline-dot-${tier.id}-${dotIndex}`}
+                            data-active={dotIndex <= tier.dots}
                           />
                         ))}
                       </div>
