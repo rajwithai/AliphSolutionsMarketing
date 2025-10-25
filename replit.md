@@ -6,27 +6,32 @@ Aliph Solutions is a comprehensive GRC (Governance, Risk & Compliance) advisory 
 
 ## Recent Changes
 
-### October 25, 2025 - Tier Section Complete Redesign
-- Completely redesigned TierSection based on new specifications
+### October 25, 2025 - Tier Section Complete Redesign & Refinements
+- Completely redesigned TierSection based on specifications with comprehensive refinements
 - Implemented progressive flow visualization showing Tier 1 → 2 → 3 journey
 - **Visual Design**:
   - Specific color scheme: #224EFF (Tier 1), #00BFA6 (Tier 2), #6C63FF (Tier 3)
-  - Background gradient (#F9FAFF → #FFFFFF) with subtle mesh texture
+  - Background gradient (#F9FAFF → #FFFFFF) with reduced mesh texture opacity (20%)
   - Horizontal flow on desktop, vertical stack on mobile
-  - Glowing gradient connectors between tiers
+  - Forward-pointing arrows (→) showing progression, reversing for RTL
+  - Equal height cards (min-height 480px) for visual consistency
+  - Enhanced hover states: 6px lift + tier-colored shadow glow
 - **Animations** (Framer Motion):
-  - Cards slide in with 150ms stagger delay
+  - Cards slide in with 100ms stagger delay (snappier feel)
   - Progress bars animate to fill percentage on scroll
+  - Connector glows pulse infinitely with 4s cycle
   - Pulse effect on hover for CTA button
 - **Content Structure**:
-  - New intro text explaining the platform's adaptability
-  - Tier subtitles (e.g., "AI Assisted · Instant Access")
+  - Refined tier descriptions for better rhythm and clarity
+  - Tier 1: Shortened to remove duplication ("instantly, anytime")
+  - Tier 2: Changed "regulator-ready" to "ready for regulators"
+  - Tier 3: Merged sentences for smoother reading flow
   - "Best for:" micro-copy for user self-identification
   - Time estimates with animated progress indicators
-- **CTA**: Gradient button (#224EFF → #6C63FF) with pulse hover effect
-- Full bilingual support (English/Arabic) with RTL layout
+- **CTA**: "Compare the Tiers →" button with bold text, arrow icon, gradient (#224EFF → #6C63FF), pulse hover effect
+- Full bilingual support (English/Arabic) with RTL layout and arrow reversal
 - Accessibility improvements: semantic roles and ARIA attributes on progress bars
-- Verified through E2E testing: animations, responsive design, bilingual support
+- Verified through comprehensive E2E testing: equal heights, forward arrows, hover effects, animations, responsive design, bilingual support
 
 ### October 24, 2025 - Final Homepage Content Polish
 - Updated all homepage content to final production-ready copy per specifications
