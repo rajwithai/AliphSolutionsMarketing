@@ -424,6 +424,8 @@ export default function Businesses() {
                   <button
                     onClick={() => setOpenStep(isOpen ? -1 : index)}
                     className="w-full flex items-center gap-4 p-4 text-left hover:bg-gray-50 transition-colors duration-150"
+                    aria-expanded={isOpen}
+                    aria-controls={`accordion-content-${index}`}
                     data-testid={`accordion-trigger-${index}`}
                   >
                     <div 
@@ -456,21 +458,22 @@ export default function Businesses() {
                   </button>
 
                   {/* Accordion Content */}
-                  <motion.div
-                    initial={false}
-                    animate={{
-                      height: isOpen ? 'auto' : 0,
-                      opacity: isOpen ? 1 : 0,
-                    }}
-                    transition={{ duration: 0.2 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-4 pb-4 pt-2">
-                      <p className="text-sm text-muted-foreground pl-[72px]">
-                        {t(step.descKey)}
-                      </p>
-                    </div>
-                  </motion.div>
+                  {isOpen && (
+                    <motion.div
+                      id={`accordion-content-${index}`}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-4 pb-4 pt-2">
+                        <p className="text-sm text-muted-foreground pl-[72px]">
+                          {t(step.descKey)}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
 
                   {/* Gradient connector (visible between items) */}
                   {index < flowSteps.length - 1 && (
