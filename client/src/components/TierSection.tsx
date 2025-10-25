@@ -2,7 +2,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from './LanguageProvider';
-import { Zap, Users, Rocket, ArrowDown } from 'lucide-react';
+import { Zap, Users, Rocket, ArrowRight } from 'lucide-react';
 
 const tiers = [
   {
@@ -65,7 +65,7 @@ export default function TierSection() {
     >
       {/* Subtle mesh texture background */}
       <div 
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 opacity-20"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23224EFF' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
@@ -107,15 +107,22 @@ export default function TierSection() {
                   className="relative w-full lg:w-80 group"
                   initial={{ opacity: 0, y: 30 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                   data-testid={`card-tier-${tier.id}`}
                 >
                   {/* Card Container */}
                   <div 
-                    className="relative bg-card rounded-xl p-6 border-2 transition-all duration-300 hover:shadow-xl"
+                    className="relative bg-card rounded-xl p-6 border-2 transition-all duration-300 hover:-translate-y-1.5 min-h-[480px] flex flex-col"
                     style={{
                       borderColor: tier.color,
                       backgroundColor: tier.lightBg,
+                      boxShadow: `0 0 0 rgba(${parseInt(tier.color.slice(1, 3), 16)}, ${parseInt(tier.color.slice(3, 5), 16)}, ${parseInt(tier.color.slice(5, 7), 16)}, 0)`,
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.boxShadow = `0 20px 40px rgba(${parseInt(tier.color.slice(1, 3), 16)}, ${parseInt(tier.color.slice(3, 5), 16)}, ${parseInt(tier.color.slice(5, 7), 16)}, 0.25)`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = `0 0 0 rgba(${parseInt(tier.color.slice(1, 3), 16)}, ${parseInt(tier.color.slice(3, 5), 16)}, ${parseInt(tier.color.slice(5, 7), 16)}, 0)`;
                     }}
                   >
                     {/* Tier Badge */}
@@ -178,7 +185,7 @@ export default function TierSection() {
                           style={{ backgroundColor: tier.color }}
                           initial={{ width: 0 }}
                           animate={isInView ? { width: `${tier.progress}%` } : {}}
-                          transition={{ duration: 1, delay: index * 0.15 + 0.3, ease: "easeOut" }}
+                          transition={{ duration: 1, delay: index * 0.1 + 0.3, ease: "easeOut" }}
                         />
                       </div>
                     </div>
@@ -191,19 +198,27 @@ export default function TierSection() {
                     className="flex items-center justify-center my-6 lg:my-0 lg:mx-4"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ duration: 0.5, delay: index * 0.15 + 0.2 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 + 0.2 }}
                   >
                     <div className="relative">
-                      {/* Glowing effect */}
-                      <div 
+                      {/* Glowing effect with pulse */}
+                      <motion.div 
                         className="absolute inset-0 blur-xl opacity-50"
                         style={{ 
                           background: `linear-gradient(135deg, ${tier.color} 0%, ${tiers[index + 1].color} 100%)`,
                         }}
+                        animate={{
+                          opacity: [0.3, 0.6, 0.3],
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
                       />
-                      {/* Arrow */}
-                      <ArrowDown 
-                        className={`relative h-8 w-8 lg:rotate-90 ${isRTL ? 'lg:-rotate-90' : ''} animate-pulse`}
+                      {/* Forward Arrow - Right on desktop, down on mobile */}
+                      <ArrowRight 
+                        className={`relative h-8 w-8 rotate-90 lg:rotate-0 ${isRTL ? 'lg:rotate-180' : ''}`}
                         style={{ 
                           color: tier.color,
                         }}
@@ -244,13 +259,16 @@ export default function TierSection() {
           <Button
             size="lg"
             onClick={handleExploreTiers}
-            className="relative overflow-hidden text-white font-semibold px-8 py-6 text-base group hover:shadow-2xl transition-all duration-300"
+            className="relative overflow-hidden text-white font-bold px-8 py-6 text-base group hover:shadow-2xl transition-all duration-300"
             style={{
               background: 'linear-gradient(135deg, #224EFF 0%, #6C63FF 100%)',
             }}
             data-testid="button-explore-all-tiers"
           >
-            <span className="relative z-10">{t('tiers.cta')}</span>
+            <span className="relative z-10 flex items-center gap-2">
+              {t('tiers.cta')}
+              <ArrowRight className={`h-5 w-5 ${isRTL ? 'rotate-180' : ''}`} />
+            </span>
             {/* Pulse effect on hover */}
             <span 
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
