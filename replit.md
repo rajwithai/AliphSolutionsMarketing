@@ -6,6 +6,47 @@ Aliph Solutions is a comprehensive GRC (Governance, Risk & Compliance) advisory 
 
 ## Recent Changes
 
+### October 25, 2025 - Executive-Grade Tier Section Surgical Refinements
+- Comprehensive micro-polish pass for boardroom-ready presentation quality
+- **Micro-Copy Updates**:
+  - "AI-Assisted" now hyphenated (was "AI Assisted")
+  - Consistent time formatting: "< 15 min", "< 48 hours", "1–2 weeks" (en dash)
+  - Removed redundant wording in Tier 1 description ("instantly, anytime" → "instantly")
+  - Extended "Best for" lines to full sentences with 2-line max (line-clamp-2)
+- **Visual Rhythm Adjustments**:
+  - Card padding reduced to 20px (from 24px) for tighter layout
+  - Section intro margin-bottom increased to 16px for better breathing room
+  - Intro line-height set to 1.6 for improved scanning
+  - All card heights standardized at 440px minimum with aligned baselines
+- **Time Indicator Refinement**:
+  - Reduced line opacity to 65% (from 100%) for subtlety
+  - Implemented 10% saturation reduction on time labels via custom color math function
+  - Right-aligned positioning maintained
+- **Tier Badge Row Enhancement**:
+  - Explicit 8px gap between badge and icon (previously implicit)
+  - Added inner shadow and 1px white border at 20% opacity to badges
+  - Icon size locked at 18px with strokeWidth 2
+- **Interaction Polish**:
+  - Border transition speed reduced to 160ms (from 300ms) for snappier response
+  - All hover/focus styles applied to article element (not inner div) for reliable testing
+  - Hover: translateY(-3px), intensified shadow, tier-colored border animation
+  - Focus: 2px solid outline in tier color with 4px offset
+- **Semantic & Accessibility Improvements**:
+  - Wrapped cards in `<article>` tags with aria-labels
+  - Added `role="article"` for semantic clarity
+  - Used `<h3>` tags for tier titles
+  - Full keyboard navigation with tabIndex={0} and visible focus rings
+- **Analytics Integration**:
+  - Added trackEvent() function for hover and click events
+  - Console logging implementation (ready for production endpoint)
+  - Events tracked: `how_it_works_card_hover`, `how_it_works_cta_click`
+- **Clean-up**:
+  - Removed "Explore the Knowledge Library" button from AliphBrainSection
+  - Cleaned up unused imports
+- Full architect review completed with no blocking defects
+- All bilingual translations updated (English/Arabic)
+- Production-ready with WCAG AA accessibility compliance
+
 ### October 25, 2025 - Boardroom-Ready Tier Section Redesign (Linear.app/Notion AI Style)
 - Complete redesign from component-library aesthetic to minimal, corporate-modern premium design
 - Achieved sleek, airy, purposeful interface matching Linear.app and Notion AI design language
