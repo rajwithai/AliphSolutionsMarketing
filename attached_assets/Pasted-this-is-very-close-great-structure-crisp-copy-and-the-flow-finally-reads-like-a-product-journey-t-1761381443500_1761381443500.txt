@@ -1,0 +1,102 @@
+this is very close—great structure, crisp copy, and the flow finally reads like a product journey. to make it boardroom-ready, here are the last, surgical fixes I’d do before we freeze it.
+
+Super-final tweaks (tiny but high-impact)
+
+Micro-copy polish (consistency + brevity)
+
+Change AI Assisted → AI-Assisted (add hyphen).
+
+Keep timing format consistent across cards: use “< 15 min”, “< 48 hours”, “1–2 weeks” (en dash, narrow no-break space before numbers if your font supports it).
+
+Tier 1 body:
+“curated by the Aliph Brain — instantly, anytime.” → “…curated by the Aliph Brain — instantly.” (drops redundancy)
+
+“Best for:” lines—ensure they don’t truncate. Use the full sentence:
+
+Tier 1: teams starting their compliance journey or needing quick regulatory references.
+
+Tier 2: businesses that already have drafts or AI-generated content needing human verification.
+
+Tier 3: complex compliance challenges, policy frameworks, or internal audit set-ups.
+
+Visual rhythm & spacing
+
+Reduce card inner padding slightly (e.g., 24px → 20px) to tighten vertical rhythm.
+
+Ensure all three cards are exactly equal height (including the bottom time row).
+Set a min-height and keep the time label baseline aligned across cards.
+
+Time indicator line
+
+The bottom colored rule is a touch heavy. Make it 1–2px and lower opacity (e.g., 60–70%) so it reads as a baseline accent, not a progress bar.
+
+Right-aligned time label: keep the same color intensity per tier, but reduce saturation by ~10% for a more premium feel.
+
+Tier badge row (icon + label)
+
+Great improvement. Nudge icon 4px away from the “Tier” pill so they don’t visually merge.
+
+Give the “Tier” pill a subtle inner shadow or 1px border (white at 20% opacity) for a higher-end chip look.
+
+Hover & focus states (modern, subtle)
+
+Card hover: translateY(-3px) + soft shadow bump; border color morphs to the tier color over 160ms.
+
+Keyboard focus: visible focus ring (e.g., outline: 2px solid current tier color) for accessibility.
+
+Section balance
+
+Slightly reduce the intro text width (to ~70% of container) and increase line-height to 1.6 for easier scanning.
+
+Add 16–24px more gap between the intro and the card row so the grid breathes.
+
+Semantics & a11y
+
+Headings inside cards should be <h3>.
+
+Each card as an <article> with aria-label="Tier 1 — Self-Service Intelligence" etc.
+
+Color contrast: verify time text and muted copy meet WCAG AA (≥4.5:1).
+
+Analytics
+
+Track card hovers & clicks as events:
+how_it_works_card_hover: tier, how_it_works_cta_click: tier.
+
+Frozen copy (final)
+
+Tier 1 title: Self-Service Intelligence
+Kicker: AI-Assisted · Instant Access
+Body: Access 1,000+ Saudi-specific templates, policies, and toolkits curated by the Aliph Brain — instantly.
+Best for: teams starting their compliance journey or needing quick regulatory references.
+Time: < 15 min
+
+Tier 2 title: Light Customization
+Kicker: Expert Reviewed · < 48 hours
+Body: Get your materials reviewed, edited, and validated by certified Saudi GRC experts — fast, accurate, and ready for regulators.
+Best for: businesses that already have drafts or AI-generated content needing human verification.
+Time: < 48 hours
+
+Tier 3 title: Heavy Customization
+Kicker: Full Service · 1–2 weeks
+Body: Launch milestone-based micro-assignments with dedicated experts who manage deliverables end-to-end — agile, measurable, and guaranteed.
+Best for: complex compliance challenges, policy frameworks, or internal audit set-ups.
+Time: 1–2 weeks
+
+Quick acceptance checklist
+
+ Hyphenated “AI-Assisted”; consistent time formats.
+
+ No text truncation in any “Best for” line (wrap to two lines max).
+
+ Equal card heights, aligned time baselines.
+
+ Thinner bottom accent line (1–2px), toned-down saturation.
+
+ Tightened padding + intro spacing adjusted.
+
+ Hover/focus states implemented; contrast passes AA.
+
+ Event tracking added.
+
+apply those micro-changes and this section is executive-grade. once you confirm this pass, we’ll freeze it and move to the next section.

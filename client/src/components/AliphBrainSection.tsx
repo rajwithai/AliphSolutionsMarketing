@@ -1,5 +1,4 @@
 import { useLanguage } from './LanguageProvider';
-import { Button } from '@/components/ui/button';
 import { Database, Shield, RefreshCw, CheckCircle } from 'lucide-react';
 
 export default function AliphBrainSection() {
@@ -47,12 +46,6 @@ export default function AliphBrainSection() {
               </div>
             );
           })}
-        </div>
-        
-        <div className="mt-12 text-center">
-          <Button size="lg" variant="default" data-testid="button-explore-library">
-            {t('brain.cta')}
-          </Button>
         </div>
       </div>
     </section>

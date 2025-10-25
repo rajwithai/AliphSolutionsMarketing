@@ -36,11 +36,44 @@ const tiers = [
   },
 ];
 
+// Helper function to reduce saturation by 10%
+const reduceSaturation = (hex: string): string => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  const d = max - min;
+  
+  if (d === 0) return hex;
+  
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  const newS = Math.max(0, s - 0.1); // Reduce saturation by 10%
+  
+  const newD = l < 0.5 ? newS * (max + min) : newS * (2 - max - min);
+  const m = l - newD / 2;
+  
+  const newR = Math.round(Math.max(min, Math.min(max, r - (r - m) * 0.1)));
+  const newG = Math.round(Math.max(min, Math.min(max, g - (g - m) * 0.1)));
+  const newB = Math.round(Math.max(min, Math.min(max, b - (b - m) * 0.1)));
+  
+  return `#${newR.toString(16).padStart(2, '0')}${newG.toString(16).padStart(2, '0')}${newB.toString(16).padStart(2, '0')}`;
+};
+
 export default function TierSection() {
   const { t } = useLanguage();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [focusedCard, setFocusedCard] = useState<number | null>(null);
+
+  const trackEvent = (eventName: string, tier: number) => {
+    console.log(`[Analytics] ${eventName}`, { tier });
+    // In production, replace with actual analytics call
+    // window.gtag?.('event', eventName, { tier });
+  };
 
   return (
     <section 
@@ -76,7 +109,7 @@ export default function TierSection() {
       
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" style={{ zIndex: 1 }}>
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <motion.h2 
             className="text-foreground mb-4"
             style={{
@@ -93,7 +126,10 @@ export default function TierSection() {
           </motion.h2>
           <motion.p 
             className="text-lg text-muted-foreground mx-auto"
-            style={{ width: '70%' }}
+            style={{ 
+              width: '70%',
+              lineHeight: '1.6',
+            }}
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
@@ -108,43 +144,61 @@ export default function TierSection() {
           {tiers.map((tier, index) => {
             const Icon = tier.icon;
             const isHovered = hoveredCard === tier.id;
+            const isFocused = focusedCard === tier.id;
+            const desaturatedColor = reduceSaturation(tier.color);
             
             return (
-              <motion.div
+              <motion.article
                 key={tier.id}
-                className="relative cursor-pointer"
+                className="relative cursor-pointer outline-none bg-white transition-all flex flex-col"
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                onMouseEnter={() => setHoveredCard(tier.id)}
+                onMouseEnter={() => {
+                  setHoveredCard(tier.id);
+                  trackEvent('how_it_works_card_hover', tier.id);
+                }}
                 onMouseLeave={() => setHoveredCard(null)}
+                onFocus={() => setFocusedCard(tier.id)}
+                onBlur={() => setFocusedCard(null)}
+                onClick={() => trackEvent('how_it_works_cta_click', tier.id)}
+                tabIndex={0}
+                role="article"
+                aria-label={`Tier ${tier.id} — ${t(tier.titleKey)}`}
                 data-testid={`card-tier-${tier.id}`}
+                style={{
+                  padding: '20px',
+                  borderRadius: '14px',
+                  border: `1px solid ${isHovered ? tier.color : 'rgba(0, 0, 0, 0.08)'}`,
+                  boxShadow: isHovered 
+                    ? '0 6px 18px rgba(0, 0, 0, 0.08)' 
+                    : '0 2px 8px rgba(0, 0, 0, 0.05)',
+                  minHeight: '440px',
+                  transform: isHovered ? 'translateY(-3px)' : 'translateY(0)',
+                  outline: isFocused ? `2px solid ${tier.color}` : 'none',
+                  outlineOffset: '4px',
+                  transitionDuration: '160ms',
+                  transitionProperty: 'all',
+                  transitionTimingFunction: 'ease-out',
+                }}
               >
                 {/* Card Container */}
-                <div 
-                  className="relative bg-white transition-all duration-300 flex flex-col"
-                  style={{
-                    padding: '24px 28px',
-                    borderRadius: '14px',
-                    border: `1px solid ${isHovered ? tier.color : 'rgba(0, 0, 0, 0.08)'}`,
-                    boxShadow: isHovered 
-                      ? '0 6px 18px rgba(0, 0, 0, 0.08)' 
-                      : '0 2px 8px rgba(0, 0, 0, 0.05)',
-                    minHeight: '440px',
-                    transform: isHovered ? 'translateY(-3px)' : 'translateY(0)',
-                  }}
-                >
+                <div className="relative flex flex-col h-full">
                   {/* Header: Tier badge + Small inline icon */}
-                  <div className="flex items-center gap-2 mb-4">
+                  <div className="flex items-center mb-4" style={{ gap: '8px' }}>
                     {/* Tier Badge */}
                     <div 
                       className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-white"
-                      style={{ backgroundColor: tier.color }}
+                      style={{ 
+                        backgroundColor: tier.color,
+                        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                      }}
                     >
                       <span>Tier {tier.id}</span>
                     </div>
 
-                    {/* Small inline icon - 18px */}
+                    {/* Small inline icon - 18px with 4px gap */}
                     <motion.div
                       animate={{
                         filter: isHovered 
@@ -190,32 +244,36 @@ export default function TierSection() {
                     {t(tier.descKey)}
                   </p>
 
-                  {/* Best For - italic, light gray, single line */}
+                  {/* Best For - italic, light gray, max two lines */}
                   <p 
-                    className="text-xs italic mb-4 line-clamp-1"
+                    className="text-xs italic mb-4 line-clamp-2"
                     style={{ color: '#5E5E80' }}
                   >
                     {t(tier.bestForKey)}
                   </p>
 
-                  {/* Progress line with time label */}
+                  {/* Progress line with time label - reduced opacity and saturation */}
                   <div className="mt-auto">
                     <div 
                       className="relative"
                       style={{
                         height: '2px',
                         backgroundColor: tier.color,
+                        opacity: 0.65,
                         marginBottom: '8px',
                       }}
                     />
                     <div className="flex justify-end">
-                      <small className="font-bold text-xs" style={{ color: tier.color }}>
+                      <small 
+                        className="font-bold text-xs" 
+                        style={{ color: desaturatedColor }}
+                      >
                         {t(tier.timeKey)}
                       </small>
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </motion.article>
             );
           })}
         </div>
