@@ -1,0 +1,84 @@
+**SECTION: “How Aliph Works — Three Tiers, One Seamless Experience”**
+
+### 🎯 **Goal:** Make the user *see* the progressive experience and *feel* the expertise behind it.
+
+Think of this as your mini product demo — short, visual, confident.
+
+---
+
+### 💬 **Revised Copy (Final Wording)**
+
+**Headline:**
+
+> **How Aliph Works — Three Tiers, One Seamless Experience**
+
+**Intro (1 sentence):**
+
+> From instant AI guidance to expert-driven advisory projects, Aliph adapts to your compliance needs at every stage — all within a single, integrated platform.
+
+---
+
+#### **Tier 1 — Self-Service Intelligence ⚡**
+
+*AI Assisted · Instant Access*
+Access 1,000+ Saudi-specific templates, policies, and toolkits curated by the Aliph Brain — available instantly, anytime.
+**Best for:** teams starting their compliance journey or needing quick regulatory references.
+
+---
+
+#### **Tier 2 — Light Customization 👥**
+
+*Expert Reviewed · < 48 hours*
+Get your materials reviewed, edited, and validated by certified Saudi GRC experts — fast, accurate, and regulator-ready.
+**Best for:** businesses that already have drafts or AI-generated content needing human verification.
+
+---
+
+#### **Tier 3 — Heavy Customization 🚀**
+
+*Full Service · 1-2 weeks*
+Launch milestone-based micro-assignments with dedicated experts.
+We manage deliverables end-to-end — agile, measurable, and guaranteed.
+**Best for:** complex compliance challenges, policy frameworks, or internal audit set-ups.
+
+---
+
+**CTA:**
+
+> [Explore All Tiers] → Scrolls to brief comparison chart (don’t open a new page).
+
+---
+
+### 🎨 **Design & Layout Prompt (for Replit Dev)**
+
+| Element          | Implementation                                                                                                                         |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| **Layout**       | Use a horizontal progression or connected vertical timeline. Visually show the *flow* (1 → 2 → 3) using gradient connectors or arrows. |
+| **Color Scheme** | Tier 1 = Royal Blue (#224EFF), Tier 2 = Teal Green (#00BFA6), Tier 3 = Purple (#6C63FF). Each card should have its own subtle accent.  |
+| **Animation**    | On scroll, each card slides-in with a 150 ms stagger. Between cards, use a soft glowing connector line (Framer Motion path animation). |
+| **Icons**        | Tier 1: ⚡ lightning or brain · Tier 2: 👥 user-group · Tier 3: 🚀 rocket.                                                              |
+| **Progress Bar** | Replace static “time” bars with small animated bars that fill as the section enters viewport.                                          |
+| **CTA Button**   | Centered below all tiers; gradient from #224EFF to #6C63FF; subtle pulse hover.                                                        |
+| **Background**   | Very light gradient (#F9FAFF → #FFFFFF) with faint mesh texture behind timeline.                                                       |
+
+---
+
+### 🧭 **UX Notes**
+
+* Each tier should feel like a **step in a guided journey**, not isolated cards.
+* Add micro-copy (Best for…) to give visitors a self-identification moment — *“That’s me.”*
+* On mobile, stack vertically but keep connecting lines visible between tiers (thin gradient bar or arrow).
+* Ensure the CTA is a **scroll anchor**, not an external link.
+
+---
+
+### ✅ **Acceptance Criteria**
+
+* Three tiers presented as **progressive flow**.
+* Copy matches revised text above.
+* “Explore All Tiers” scrolls, not opens.
+* Animation and color transitions guide the eye naturally.
+
+---
+
+If you implement this version — storytelling, flow lines, and micro-copy — it should turn core section from *informative* to *emotionally and visually convincing.*
