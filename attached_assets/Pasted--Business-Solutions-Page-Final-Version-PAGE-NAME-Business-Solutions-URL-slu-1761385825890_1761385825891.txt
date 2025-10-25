@@ -1,0 +1,224 @@
+“Business Solutions” Page (Final Version)**
+
+---
+
+**PAGE NAME:** `Business Solutions`
+**URL slug:** `/for-businesses`
+**Primary Objective:**
+Position Aliph as a **GRC enablement platform** that helps Saudi enterprises automate compliance, customize documents, and collaborate with certified SMEs — not a consulting company.
+
+---
+
+### 🟣 **1️⃣ HERO SECTION — Platform Introduction**
+
+**Headline:**
+
+> **The GRC Platform for Saudi Businesses**
+
+**Subtext:**
+
+> Automate, customize, and manage your compliance journey with AI-guided documentation, expert insights, and verified regulatory templates — all in one platform.
+
+**Primary CTA:** `Explore the Platform →`
+**Secondary CTA:** `Request Enterprise Demo`
+
+**Design & Layout:**
+
+* Split hero: text left (headline, subtext, buttons), image right.
+* Replace meeting photo with abstract dashboard / compliance interface visual.
+* Background gradient: `#F9FAFF → #FFFFFF`
+* H1: 48 px bold (Inter / Poppins), Subtext 18 px regular.
+* Buttons:
+
+  * Primary → gradient `#224EFF → #6C63FF`
+  * Secondary → outline `#224EFF`
+* Motion: fade-in left/right 600 ms.
+* Padding: 120 px top / 100 px bottom desktop.
+
+---
+
+### 🟣 **2️⃣ CAPABILITIES SECTION — What Businesses Can Do**
+
+**Headline:**
+
+> **Built for Every Stage of Your GRC Maturity**
+
+**Subtext:**
+
+> From quick AI-generated reports to expert-led projects — Aliph adapts to your organization’s compliance needs.
+
+**Cards (4 columns desktop, stacked mobile):**
+1️⃣ **AI-Generated GRC Documents**
+
+> Instantly create audit-ready reports, checklists, and frameworks aligned with Saudi regulations.
+
+2️⃣ **Access the GRC Knowledge Library**
+
+> Explore 1,000 + verified templates and policies across industries.
+
+3️⃣ **SME-Guided Customization**
+
+> Book certified Saudi experts to review or refine your AI-generated reports.
+
+4️⃣ **AI-GRC Companion**
+
+> Let Aliph’s embedded AI explain, guide, and monitor your compliance progress.
+
+**Design:**
+
+* Card width = 360-400 px, border-radius = 16 px.
+* Hover = lift + soft shadow, gradient glow (tier color).
+* Icons (⚡ 📚 👥 🤖) — 32 px outline style.
+* Background: light gradient `#FFFFFF → #F6F8FF`.
+
+---
+
+### 🟣 **3️⃣ INDUSTRIES & USE CASES**
+
+**Headline:**
+
+> **Tailored for Regulated Saudi Sectors**
+
+**Body:**
+
+> Aliph serves highly regulated sectors with localized compliance frameworks and pre-built templates.
+
+**Grid (2 rows × 3 columns):**
+
+* 🏦 **Finance & Banking** — PDPL-ready customer data templates.
+* 🔥 **Energy & Petrochemicals** — Sustainability & risk frameworks.
+* 🛍️ **Retail & Services** — Supplier compliance automation.
+* 🏥 **Healthcare & Education** — Audit reports & policy libraries.
+* 💻 **Technology & Telecom** — Data governance & cybersecurity docs.
+* 🏗️ **Construction & Real Estate** — Safety and governance compliance packs.
+
+**Design:**
+
+* Frosted-glass cards with 2 px white border, blur 4 px.
+* Hover glow = subtle tier gradient.
+* Padding 60 px top/bottom.
+* Responsive wrap grid.
+
+---
+
+### 🟣 **4️⃣ INTERACTION FLOW — How Enterprises Use Aliph**
+
+**Headline:**
+
+> **How Businesses Use Aliph**
+
+| Step                                | Copy                                                                    |
+| ----------------------------------- | ----------------------------------------------------------------------- |
+| **1️⃣ Start with AI**               | Generate or audit GRC documents using the Aliph Brain.                  |
+| **2️⃣ Customize with Experts**      | Get validation from certified Saudi SMEs for regulator-ready precision. |
+| **3️⃣ Scale with Projects**         | Launch advisory micro-projects directly within the platform.            |
+| **4️⃣ Stay Continuously Compliant** | Receive automated updates and AI alerts for new regulations.            |
+
+**Design:**
+
+* Horizontal flow timeline (desktop) → vertical accordion (mobile).
+* Each step block connected by animated gradient line (`#224EFF → #6C63FF`).
+* Icon + number circle per step.
+* Add light UI mockup or motion line animation.
+
+---
+
+### 🟣 **5️⃣ BENEFITS SECTION — Business Impact**
+
+**Headline:**
+
+> **Smarter, Faster, Compliant — The Aliph Advantage**
+
+| Icon | Benefit                        | Description                            |
+| ---- | ------------------------------ | -------------------------------------- |
+| ⏱️   | 70 % Faster Documentation      | AI drafting + human verification.      |
+| 💰   | Lower Advisory Costs           | Use AI first, experts only as needed.  |
+| 🧠   | Retain Institutional Knowledge | Centralized updates & templates.       |
+| 🏛️  | PDPL & ZATCA Ready             | Always aligned with Saudi regulations. |
+| 📈   | Measurable Risk Reduction      | Real-time AI dashboard insights.       |
+
+**Design:**
+
+* 2-column infographic grid.
+* Background: lavender tint `#F8F6FF`.
+* Icons = line + color accent.
+* Hover = icon pulse.
+
+---
+
+### 🟣 **6️⃣ SOCIAL PROOF — Experts & Early Adopters**
+
+**Headline:**
+
+> **Trusted by Saudi Experts and Early Enterprise Partners**
+
+**Body:**
+
+> Over 100 certified SMEs and early enterprise users rely on Aliph for their governance, risk, and compliance automation.
+
+**Design:**
+
+* Avatars + logos row (when available).
+* Background: white.
+* Optional testimonial quote card center-aligned.
+
+---
+
+### 🟣 **7️⃣ FINAL CTA**
+
+**Headline:**
+
+> **Ready to Modernize Your GRC Process?**
+
+**Subtext:**
+
+> Experience how AI and experts can transform your governance and compliance journey.
+
+**Primary Button:** `Book a Demo →`
+**Secondary Button:** `Start with Free AI Report`
+
+**Design:**
+
+* Background gradient `#224EFF → #6C63FF`.
+* Text white; buttons white / outlined.
+* Center-aligned, padding = 140 px top/bottom.
+* Motion: fade-up 400 ms.
+
+---
+
+### ⚙️ **SEO & STRUCTURE**
+
+**Meta Title:**
+
+> Business GRC Solutions for Saudi Enterprises | Aliph Solutions
+
+**Meta Description:**
+
+> Discover Aliph — the AI-powered GRC platform that helps Saudi businesses generate compliance documents, collaborate with SMEs, and stay PDPL & ZATCA ready.
+
+**Schema:** Organization + SoftwareApplication + FAQ markup.
+
+---
+
+### ✅ **VISUAL & UX ACCEPTANCE CHECKLIST**
+
+| Area          | Requirement                                                  |
+| ------------- | ------------------------------------------------------------ |
+| Tone          | Product / Platform (“you use”) not Consulting (“we deliver”) |
+| Layout        | Clear modular sections with equal padding and white space    |
+| Icons         | Consistent outline weight + color mapping                    |
+| CTA           | Max 2 per page (primary + secondary)                         |
+| Animation     | Smooth fade / slide (≤ 600 ms)                               |
+| Mobile        | Perfect stacking + no horizontal scroll                      |
+| Accessibility | WCAG AA contrast checked                                     |
+
+---
+
+**Tone & Voice:**
+Confident but accessible, professional with a Saudi focus.
+Avoid “we consult” language — use action-oriented verbs (“Generate,” “Customize,” “Launch,” “Stay Compliant”).
+
+**Goal:**
+Make business decision-makers feel that Aliph is *their internal GRC engine*, not an external consultant.
+
+
