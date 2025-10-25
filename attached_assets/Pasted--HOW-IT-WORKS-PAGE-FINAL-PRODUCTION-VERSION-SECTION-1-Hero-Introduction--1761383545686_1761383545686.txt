@@ -1,0 +1,276 @@
+“HOW IT WORKS” PAGE (FINAL PRODUCTION VERSION)**
+
+---
+
+## **SECTION 1: Hero / Introduction**
+
+### 🧩 **Purpose:**
+
+Immediately clarify *what this page is about* and position Aliph’s three-tier model as an intelligent, flexible system.
+
+### ✍️ **Copy**
+
+**Headline:**
+
+> **From Instant Reports to Full Advisory Projects — Here’s How Aliph Works**
+
+**Subtext:**
+
+> Whether you need a ready-to-use compliance report, expert review, or a complete advisory engagement — Aliph’s AI-powered platform adapts to your needs.
+> *Three tiers. One seamless experience.*
+
+---
+
+### 🎨 **Design & UX Guidelines**
+
+* **Layout:** Center-aligned, 2-column layout (text left, abstract AI animation or neural gradient visual right).
+* **Background:** Soft vertical gradient (#F9FAFF → #FFFFFF).
+* **Typography:**
+
+  * H1 = 44–52 px desktop / 30 px mobile (Inter or Poppins, semi-bold).
+  * Subtext = 18 px, 60% width of container, 1.6 line-height.
+* **Motion:**
+
+  * Slow fade-in (500ms) for headline and text.
+  * Optional looping micro-animation of glowing data nodes to imply “AI activity.”
+* **Spacing:** 120px top / 100px bottom on desktop.
+* **CTA:** None in hero; this is an explainer header.
+
+✅ **Acceptance Criteria**
+
+* Clean hero (no CTAs or clutter).
+* Visual must imply *AI + human expertise synergy* (e.g., blended gradient or neural mesh).
+* Headline visible above fold on 1366px screens.
+
+---
+
+## **SECTION 2: The Three Tiers (Core Flow)**
+
+### 🧠 **Purpose:**
+
+Show the user how Aliph adapts to their compliance maturity.
+This section is the **heart of the page** — must feel dynamic and self-explanatory.
+
+---
+
+### ✍️ **Copy**
+
+#### **Tier 1 — Self-Service Intelligence**
+
+**Kicker:** *AI-Assisted · Instant Access*
+**Body:** Instantly access 1,000+ Saudi-specific templates, policies, and reports curated by the Aliph Brain.
+Generate ready-to-use outputs for internal reviews and compliance submissions — fast, accurate, and PDPL-safe.
+**Best for:** teams starting their compliance journey or needing quick regulatory references.
+**Time:** < 15 min
+
+---
+
+#### **Tier 2 — Expert Customization**
+
+**Kicker:** *Human-Verified · 48 Hours*
+**Body:** Book a short session with certified Saudi GRC experts to validate or customize your AI-generated report.
+Receive regulator-ready documentation, reviewed and refined by specialists.
+**Best for:** businesses refining or verifying internal drafts.
+**Time:** < 48 hours
+
+---
+
+#### **Tier 3 — Managed Advisory Projects**
+
+**Kicker:** *Full Service · 1–2 Weeks*
+**Body:** Launch milestone-based advisory micro-projects with vetted experts.
+Track deliverables, chat securely, and receive guaranteed outputs within your timeline.
+**Best for:** complex compliance frameworks or audit-ready documentation.
+**Time:** 1–2 weeks
+
+---
+
+### 🎨 **Design & UX Guidelines**
+
+| Element            | Instruction                                                                                                                                                            |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Layout**         | Three horizontally connected cards (desktop), vertical stack (mobile). Use gradient flow line (left→right) connecting cards (#224EFF → #00BFA6 → #6C63FF, opacity 8%). |
+| **Card Design**    | 420–460px width, equal height. White background, 14px radius, shadow 0 2 8 rgba(0, 0, 0, 0.05). Tier color gradient border (2px).                                      |
+| **Icons**          | Small outline icons inline with “Tier” label (⚡ / 👥 / 🚀). No large empty circles.                                                                                    |
+| **Typography**     | Tier titles 22 px, bold. Kicker 14 px uppercase + tier color. Body 16 px regular.                                                                                      |
+| **Micro-elements** | At bottom of each card, thin 2 px tier-color line with aligned right-side “Time” label.                                                                                |
+| **Hover Motion**   | translateY(–4 px) + shadow increase; border animates to solid tier color over 0.2 s.                                                                                   |
+| **Padding**        | 24 px × 28 px; 40 px gap between cards.                                                                                                                                |
+| **Background**     | Light gradient (#FFFFFF → #F7F9FF) with faint mesh lines (opacity 8%).                                                                                                 |
+
+✅ **Acceptance Criteria**
+
+* Equal height cards.
+* Gradient line visually connects all three.
+* Consistent icon sizing and tier label spacing.
+* No secondary buttons or “Compare Tiers” CTA — section stands alone.
+
+---
+
+## **SECTION 3: What You Get in Each Tier**
+
+### ✍️ **Copy**
+
+**Headline:**
+
+> **What You’ll Receive at Each Level**
+
+**Table:**
+
+| Tier                     | Deliverables                                                                                            |
+| ------------------------ | ------------------------------------------------------------------------------------------------------- |
+| **Self-Service**         | AI-generated report preview · Downloadable GRC templates · Reference documents · Free up to token limit |
+| **Expert Customization** | 30-60 min consultation · Document review workspace · SME change log · Validated final report            |
+| **Managed Advisory**     | Milestone tracking · Deliverable uploads/reviews · Outcome-based pricing · Full-time SME access         |
+
+---
+
+### 🎨 **Design & UX Guidelines**
+
+* Use responsive comparison table (convert to stacked list on mobile).
+* Background: #FAFAFE.
+* Icons optional (📄 / 🧑‍💼 / 📊) for visual rhythm.
+* Subtle hover on each row (background #F4F6FF).
+* Border radius: 8 px; grid lines 1 px solid #E7E9F3.
+
+✅ **Acceptance Criteria**
+
+* Table scrolls smoothly on mobile.
+* No CTA in this section.
+* Headline center-aligned, bold 36 px.
+
+---
+
+## **SECTION 4: AI + Expert Synergy Explanation**
+
+### ✍️ **Copy**
+
+**Headline:**
+
+> **The Power of AI Meets Human Expertise**
+
+**Body:**
+Every response from Aliph Brain is built on a verified, Saudi-specific knowledge base — PDPL, ZATCA, SAMA, MHRSD, and more.
+When automation reaches its limit, certified SMEs step in to finalize your documents, ensuring real-world compliance and accuracy.
+*Automation for speed. Experts for certainty.*
+
+---
+
+### 🎨 **Design & UX Guidelines**
+
+* Split layout (left text / right illustration).
+* Illustration: flow graphic — *AI → Knowledge → SME → Client*.
+* Background: White with soft gradient halo (#EEF2FF → #FFFFFF).
+* Motion: Each node (AI, SME, Client) glows sequentially every 3 s.
+* Typography: Body 18 px, line-height 1.7.
+
+✅ **Acceptance Criteria**
+
+* Illustration feels connected to brand color scheme.
+* Section transition subtle fade-up.
+* Copy remains within 700 px width.
+
+---
+
+## **SECTION 5: Use-Case Example**
+
+### ✍️ **Copy**
+
+**Headline:**
+
+> **Example: Generating a PDPL Compliance Report**
+
+**Text (3-Step Timeline):**
+1️⃣ *Self-Service:* AI drafts PDPL checklist and privacy policy.
+2️⃣ *Light Customization:* SME reviews and adjusts for your industry.
+3️⃣ *Advisory:* Full Data Protection Framework built with deliverables and audit prep milestones.
+
+---
+
+### 🎨 **Design & UX Guidelines**
+
+* Vertical timeline on desktop; collapsible accordion on mobile.
+* Accent color: Aliph Blue (#224EFF).
+* Icons: document → user → shield.
+* Add light motion line connecting steps.
+* White background, 100px top/bottom padding.
+
+✅ **Acceptance Criteria**
+
+* Clear chronological storytelling.
+* Each step visible without scrolling overlap.
+* Responsive and accessible.
+
+---
+
+## **SECTION 6: Final CTA**
+
+### ✍️ **Copy**
+
+**Headline:**
+
+> **Start Your Advisory Journey with Aliph**
+
+**Subtext:**
+
+> Choose your path — instant AI report, quick expert validation, or full project delivery.
+> Whatever your goal, Aliph simplifies the road to compliance.
+
+**Buttons:**
+
+* Primary: **Start Now →** (links to /app/ask)
+* Secondary: **Talk to an Expert** (SME sign-up or contact modal)
+
+---
+
+### 🎨 **Design & UX Guidelines**
+
+* Background: gradient (#224EFF → #6C63FF).
+* Text color: White.
+* Button styles:
+
+  * Primary = white background / dark text.
+  * Secondary = transparent border 2 px white.
+* Center-aligned, generous padding (140 px top/bottom).
+* Motion: Fade-in upward (500 ms).
+
+✅ **Acceptance Criteria**
+
+* Buttons visible without scroll on mobile.
+* CTA section feels energetic but not flashy.
+
+---
+
+## **SEO & Accessibility**
+
+**Meta Title:**
+
+> How Aliph Works | AI + Expert GRC Methodology for Saudi Businesses
+
+**Meta Description:**
+
+> Learn how Aliph combines AI intelligence with certified Saudi GRC experts to deliver instant, compliant, and measurable results.
+
+**Structured Data:**
+Organization + FAQ schema (Q: “How does Aliph work?” / “Can I talk to an expert?”).
+
+**Contrast:** Ensure all text/background ratios meet 4.5 : 1.
+
+---
+
+## ✅ **Final Acceptance Checklist**
+
+| Area              | Requirement                              |
+| ----------------- | ---------------------------------------- |
+| Content hierarchy | Matches exactly above (H1 → H2 → H3)     |
+| Three-tier logic  | Clearly visualized with gradient flow    |
+| No redundant CTAs | Each section has one purpose             |
+| Motion & polish   | Smooth, minimal animations (no parallax) |
+| Responsiveness    | Works on 360px–1440px screens            |
+| Copy & tone       | Saudi professional, confident, concise   |
+| SEO tags          | Updated and validated                    |
+| Accessibility     | WCAG AA passed                           |
+
+---
+
+If you follow this structure, your “How It Works” page will communicate the **true power of your model — AI efficiency, expert depth, and measurable delivery** — in a sleek, enterprise-grade presentation ready for Saudi corporate clients and investors.
