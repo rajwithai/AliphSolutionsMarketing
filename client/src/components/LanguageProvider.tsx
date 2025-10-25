@@ -40,12 +40,24 @@ const translations = {
     
     // Three Tiers
     'tiers.title': 'How Aliph Works — Three Tiers, One Seamless Experience',
+    'tiers.intro': 'From instant AI guidance to expert-driven advisory projects, Aliph adapts to your compliance needs at every stage — all within a single, integrated platform.',
     'tier1.title': 'Self-Service Intelligence',
-    'tier1.description': 'Instantly access 1,000+ Saudi-specific templates, policies, and toolkits curated by the Aliph Brain.',
+    'tier1.subtitle': 'AI Assisted · Instant Access',
+    'tier1.description': 'Access 1,000+ Saudi-specific templates, policies, and toolkits curated by the Aliph Brain — available instantly, anytime.',
+    'tier1.bestFor': 'Best for: teams starting their compliance journey or needing quick regulatory references.',
+    'tier1.time': '< 1min',
     'tier2.title': 'Light Customization', 
-    'tier2.description': 'Get your compliance materials reviewed and finalized by certified Saudi experts — fast, accurate, and regulator-ready.',
-    'tier3.title': 'Heavy Customization (Micro-Assignments)',
-    'tier3.description': 'Launch outcome-driven advisory projects with milestones, tracked deliverables, and guaranteed closure.',
+    'tier2.subtitle': 'Expert Reviewed · < 48 hours',
+    'tier2.description': 'Get your materials reviewed, edited, and validated by certified Saudi GRC experts — fast, accurate, and regulator-ready.',
+    'tier2.bestFor': 'Best for: businesses that already have drafts or AI-generated content needing human verification.',
+    'tier2.time': '< 48h',
+    'tier3.title': 'Heavy Customization',
+    'tier3.subtitle': 'Full Service · 1-2 weeks',
+    'tier3.description': 'Launch milestone-based micro-assignments with dedicated experts. We manage deliverables end-to-end — agile, measurable, and guaranteed.',
+    'tier3.bestFor': 'Best for: complex compliance challenges, policy frameworks, or internal audit set-ups.',
+    'tier3.time': '1-2 weeks',
+    'tiers.cta': 'Explore All Tiers',
+    'tiers.progression': 'Seamless Progression Across All Tiers',
     
     // Aliph Brain
     'brain.title': 'The Aliph Brain — Saudi Intelligence Engine',
@@ -107,10 +119,6 @@ const translations = {
     'common.seeHowItWorks': 'See How It Works',
     'common.exploreTiers': 'Explore the Tiers',
     'common.meetExperts': 'Meet Our Experts',
-    'common.instant': 'Instant Access',
-    'common.expertReviewed': 'Expert Reviewed',
-    'common.fullService': 'Full Service',
-    'tiers.progression': 'Seamless Progression Across All Tiers',
   },
   ar: {
     // Navigation
@@ -142,12 +150,24 @@ const translations = {
     
     // Three Tiers
     'tiers.title': 'كيف تعمل أليف — ثلاثة مستويات، تجربة واحدة سلسة',
+    'tiers.intro': 'من التوجيه الفوري بالذكاء الاصطناعي إلى المشاريع الاستشارية الموجهة من الخبراء، تتكيف أليف مع احتياجات الامتثال الخاصة بك في كل مرحلة — كل ذلك ضمن منصة واحدة متكاملة.',
     'tier1.title': 'الذكاء الذاتي',
-    'tier1.description': 'احصل فورًا على أكثر من 1000 قالب وسياسة وأداة خاصة بالسعودية منسقة بواسطة عقل أليف.',
+    'tier1.subtitle': 'مدعوم بالذكاء الاصطناعي · وصول فوري',
+    'tier1.description': 'احصل على أكثر من 1000 قالب وسياسة وأداة خاصة بالسعودية منسقة بواسطة عقل أليف — متاحة فورًا في أي وقت.',
+    'tier1.bestFor': 'الأفضل لـ: الفرق التي تبدأ رحلة الامتثال أو تحتاج إلى مراجع تنظيمية سريعة.',
+    'tier1.time': 'أقل من دقيقة',
     'tier2.title': 'تخصيص خفيف', 
-    'tier2.description': 'احصل على مراجعة وتنفيذ نهائي لمواد الامتثال الخاصة بك من خبراء سعوديين معتمدين — سريع ودقيق وجاهز للجهات التنظيمية.',
-    'tier3.title': 'تخصيص مكثف (مهام صغيرة)',
-    'tier3.description': 'أطلق مشاريع استشارية موجهة بالنتائج مع معالم ومخرجات متتبعة وإغلاق مضمون.',
+    'tier2.subtitle': 'مراجعة من الخبراء · أقل من 48 ساعة',
+    'tier2.description': 'احصل على مراجعة وتحرير والتحقق من موادك من خبراء GRC سعوديين معتمدين — سريع ودقيق وجاهز للجهات التنظيمية.',
+    'tier2.bestFor': 'الأفضل لـ: الشركات التي لديها مسودات أو محتوى ناتج عن الذكاء الاصطناعي يحتاج إلى تحقق بشري.',
+    'tier2.time': 'أقل من 48 ساعة',
+    'tier3.title': 'تخصيص مكثف',
+    'tier3.subtitle': 'خدمة شاملة · 1-2 أسابيع',
+    'tier3.description': 'أطلق مهام صغيرة قائمة على المعالم مع خبراء مخصصين. ندير المخرجات من البداية إلى النهاية — سريع، قابل للقياس، ومضمون.',
+    'tier3.bestFor': 'الأفضل لـ: تحديات الامتثال المعقدة، أطر السياسات، أو إعدادات التدقيق الداخلي.',
+    'tier3.time': '1-2 أسابيع',
+    'tiers.cta': 'استكشف جميع المستويات',
+    'tiers.progression': 'تقدم سلس عبر جميع المستويات',
     
     // Aliph Brain
     'brain.title': 'عقل أليف — محرك الذكاء السعودي',
@@ -209,10 +229,6 @@ const translations = {
     'common.seeHowItWorks': 'شاهد كيف نعمل',
     'common.exploreTiers': 'استكشف المستويات',
     'common.meetExperts': 'تعرف على خبرائنا',
-    'common.instant': 'وصول فوري',
-    'common.expertReviewed': 'مراجعة من الخبراء',
-    'common.fullService': 'خدمة شاملة',
-    'tiers.progression': 'تقدم سلس عبر جميع المستويات',
   },
 };
 
