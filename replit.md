@@ -6,47 +6,54 @@ Aliph Solutions is a comprehensive GRC (Governance, Risk & Compliance) advisory 
 
 ## Recent Changes
 
-### October 25, 2025 - Premium SaaS-Grade Tier Section Redesign
-- Completely redesigned TierSection with premium modernization following strict design specifications
-- Transformed from template-style to production-ready enterprise design (Notion/Linear/Anthropic UI quality)
-- **Card Layout Modernization**:
-  - White background surfaces with 14px corner radius (from colored backgrounds)
-  - Soft shadows: rgba(20, 40, 80, 0.06) → intensifies to rgba(20, 40, 80, 0.12) on hover
-  - Subtle gradient overlay (#FFFFFF → #F8FAFF at 15% opacity) for depth
-  - Hover lift: translateY -4px with smooth transitions
-  - Equal height cards (min-height 480px) for visual consistency
-- **Icon + Header Modernization**:
-  - Replaced solid color icon blocks with outline icons (strokeWidth 2)
-  - Icons inside 56px translucent gradient circles:
-    * Tier 1: #224EFF → #5A7BFF at 20% opacity
-    * Tier 2: #00BFA6 → #6DEDD1 at 20% opacity
-    * Tier 3: #6C63FF → #A593FF at 20% opacity
-  - Tier badge + icon aligned on same line (removed separate header bar)
-  - Icon circles pulse on hover (scale 1 → 1.05)
-- **Progress Bars → Micro Timelines**:
-  - Replaced horizontal progress bars with dotted timeline system
-  - 3 dots per tier (10px diameter), state-based coloring:
-    * Tier 1: 1 filled dot, 2 empty
-    * Tier 2: 2 filled dots, 1 empty
-    * Tier 3: 3 filled dots
-  - Animated scale-in with stagger, full accessibility (ARIA + test IDs)
-- **Premium CTA Button**:
-  - Pill shape (50px border-radius) with gradient: linear(90deg, #224EFF, #6C63FF)
-  - Padding: 14px 32px, Font: SemiBold 15px
-  - Hover: Gradient shifts to (#5A7BFF → #A593FF)
-  - Custom implementation with inner glow + shadow
-- **Background Enhancement**:
-  - Radial gradient centered on Tier 2 (#F8FAFF → #FFFFFF)
-  - Reduced mesh texture opacity to 10% (from 20%)
-  - 120px top/bottom padding for proper whitespace
-- **Motion Polish**:
-  - Cards slide in with 100ms stagger (snappier feel)
-  - Icon circles pulse on hover with Framer Motion
-  - Connector shimmer animation: 3s infinite cycle
-  - Timeline dots scale in with stagger
-- Full bilingual support (English/Arabic) with RTL layout and arrow reversal
-- Comprehensive accessibility: ARIA attributes, semantic roles, test IDs on all interactive elements
-- Verified through E2E testing: white backgrounds, 14px radius, timeline dots, pill button, hover states, responsive design
+### October 25, 2025 - Boardroom-Ready Tier Section Redesign (Linear.app/Notion AI Style)
+- Complete redesign from component-library aesthetic to minimal, corporate-modern premium design
+- Achieved sleek, airy, purposeful interface matching Linear.app and Notion AI design language
+- **Icon Treatment Simplification**:
+  - Removed large 56px translucent gradient circles (looked like placeholders)
+  - Replaced with small 18px inline outline icons next to tier badges
+  - Icon glow effect on hover using drop-shadow filter (8px blur with tier color)
+  - Icons positioned inline with badges using flex layout
+- **Spacing Reduction (25% less padding)**:
+  - Section padding: 80px top/bottom (reduced from 120px)
+  - Card padding: 24px 28px (tightened from uniform 24px)
+  - Card min-height: 440px (reduced from 480px)
+  - Tighter, more focused layout prevents "empty corporate" feel
+- **Unified Card Styling**:
+  - White background with 14px border-radius
+  - Subtle default shadow: 0 2px 8px rgba(0,0,0,0.05)
+  - Hover shadow: 0 6px 18px rgba(0,0,0,0.08) with translateY(-3px) lift
+  - Border: 1px solid rgba(0,0,0,0.08) → animates to tier color on hover
+  - Cursor pointer for interactive feel
+- **Progress Indicators Simplification**:
+  - Removed circular timeline dots (childish appearance)
+  - Replaced with elegant 2px horizontal line in tier color
+  - Time text right-aligned below line with bold styling
+  - Clean, business-grade, minimal aesthetic
+- **Removed Unnecessary Elements**:
+  - Deleted "Compare the Tiers" CTA button (added no functional value)
+  - Deleted "Seamless Progression" tag (visual distraction)
+  - Removed connector arrows between cards
+  - Self-contained section with full focus on tier cards
+- **Gradient Flow Addition**:
+  - Subtle gradient line behind cards: linear-gradient(90deg, #224EFF, #00BFA6, #6C63FF)
+  - Opacity 0.08, height 6px, blur 8px for AI system continuity
+  - Desktop only (hidden on mobile)
+  - Adds visual connection without clutter
+- **Typography Polish**:
+  - Headline: 42px, font-weight 700, letter-spacing -0.02em
+  - Intro text: 70% width for better readability
+  - "Best for": #5E5E80 color, italic, line-clamp-1 for single line
+  - All text left-aligned within cards
+- **Sophisticated Hover Interactions**:
+  - Icon glow: drop-shadow animation with tier color
+  - Border color: Smooth transition from gray to tier color
+  - Text darkening: 10% using CSS color-mix
+  - All transitions: 300ms for living, responsive feel
+- Full bilingual support (English/Arabic) with RTL layout maintained
+- Responsive grid: 3 columns desktop, single stack mobile
+- E2E testing verified: icons, spacing, shadows, progress lines, hover effects, typography, responsiveness
+- Production-ready for boardroom presentations and client demos
 
 ### October 24, 2025 - Final Homepage Content Polish
 - Updated all homepage content to final production-ready copy per specifications
