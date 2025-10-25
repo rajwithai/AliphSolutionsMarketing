@@ -8,7 +8,6 @@ const footerSections = {
     title: 'Product',
     links: [
       { label: 'How It Works', href: '/how-it-works' },
-      { label: 'Pricing', href: '/pricing' },
       { label: 'GRC Solutions', href: '/grc-solutions' },
       { label: 'Blog', href: '/blog' }
     ]
@@ -18,7 +17,6 @@ const footerSections = {
     links: [
       { label: 'About Us', href: '/about' },
       { label: 'Contact', href: '/contact' },
-      { label: 'For Experts', href: '/experts' },
       { label: 'Careers', href: '/careers' }
     ]
   },

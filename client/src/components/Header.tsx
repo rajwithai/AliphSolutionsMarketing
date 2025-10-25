@@ -9,9 +9,7 @@ const navigation = [
   { key: 'nav.home', href: '/' },
   { key: 'nav.howItWorks', href: '/how-it-works' },
   { key: 'nav.businesses', href: '/businesses' },
-  { key: 'nav.experts', href: '/experts' },
   { key: 'nav.grc', href: '/grc-solutions' },
-  { key: 'nav.pricing', href: '/pricing' },
 ];
 
 export default function Header() {
@@ -66,12 +64,6 @@ export default function Header() {
               <Globe className="h-4 w-4" />
               <span>{language === 'en' ? 'العربية' : 'English'}</span>
             </Button>
-            <Button variant="ghost" size="sm" data-testid="button-login">
-              {t('nav.login')}
-            </Button>
-            <Button size="sm" data-testid="button-signup">
-              {t('nav.signUp')}
-            </Button>
           </div>
           
           {/* Mobile menu button */}
@@ -117,14 +109,6 @@ export default function Header() {
                   </div>
                 </Link>
               ))}
-              <div className="flex gap-2 px-3 pt-2">
-                <Button variant="ghost" size="sm" className="flex-1" data-testid="mobile-button-login">
-                  {t('nav.login')}
-                </Button>
-                <Button size="sm" className="flex-1" data-testid="mobile-button-signup">
-                  {t('nav.signUp')}
-                </Button>
-              </div>
             </div>
           </div>
         )}
