@@ -1,5 +1,5 @@
 import { useLanguage } from '@/components/LanguageProvider';
-import { useSEO } from '@/hooks/useSEO';
+import useSEO from '@/hooks/useSEO';
 import { useLocation } from 'wouter';
 import { Shield, Users, FileText, BarChart3, CheckCircle, ArrowRight, Target } from 'lucide-react';
 import grcDiagramImage from '@assets/generated_images/GRC_solutions_diagram_34dab59c.png';
