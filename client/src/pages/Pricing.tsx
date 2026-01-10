@@ -1,5 +1,5 @@
 import { useLanguage } from '@/components/LanguageProvider';
-import { useSEO } from '@/hooks/useSEO';
+import useSEO from '@/hooks/useSEO';
 import { useLocation } from 'wouter';
 import { CheckCircle, Star, Zap } from 'lucide-react';
 import serviceTierImage from '@assets/generated_images/Three-tier_service_model_visualization_7df1188a.png';

@@ -9,7 +9,7 @@ interface SEOProps {
   ogImage?: string;
 }
 
-export function useSEO({
+export default function useSEO({
   title,
   description,
   keywords,

@@ -1,5 +1,5 @@
 import { useLanguage } from '@/components/LanguageProvider';
-import { useSEO } from '@/hooks/useSEO';
+import useSEO from '@/hooks/useSEO';
 import { useLocation } from 'wouter';
 import { Zap, Users, Rocket, FileText, Shield, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';

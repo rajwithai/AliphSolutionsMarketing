@@ -1,5 +1,5 @@
 import { useLanguage } from '@/components/LanguageProvider';
-import { useSEO } from '@/hooks/useSEO';
+import useSEO from '@/hooks/useSEO';
 import { useLocation } from 'wouter';
 import { Star, Award, Users, TrendingUp, CheckCircle, ArrowRight, Plus } from 'lucide-react';
 import expertWorkspaceImage from '@assets/generated_images/Professional_consulting_hero_image_0550d314.png';

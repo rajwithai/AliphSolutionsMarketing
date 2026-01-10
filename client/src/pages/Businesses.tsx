@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLanguage } from '@/components/LanguageProvider';
-import { useSEO } from '@/hooks/useSEO';
+import useSEO from '@/hooks/useSEO';
 import { useLocation } from 'wouter';
 import { Zap, FileText, Users, Bot, TrendingUp, Clock, DollarSign, Brain, Shield, Activity, Building2, Fuel, ShoppingBag, Heart, Smartphone, Home, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';

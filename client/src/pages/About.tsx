@@ -1,10 +1,11 @@
 import { useLanguage } from '@/components/LanguageProvider';
-import { useSEO } from '@/hooks/useSEO';
+import useSEO from '@/hooks/useSEO';
 import { useLocation } from 'wouter';
 import { Award, Users, Globe, Shield } from 'lucide-react';
 import collaborationImage from '@assets/generated_images/Saudi_business_collaboration_scene_af2b3140.png';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import Vision2030Mark from '@/components/brand/Vision2030Mark';
 
 export default function About() {
   const { language } = useLanguage();
@@ -164,6 +165,9 @@ export default function About() {
         {/* Vision 2030 */}
         <div className="bg-primary/5 rounded-lg p-8 mb-16">
           <div className="text-center">
+            <div className="flex justify-center mb-4">
+              <Vision2030Mark size="md" />
+            </div>
             <h2 className="text-2xl font-bold text-foreground mb-4">
               {language === 'ar' ? 'شريك في رؤية 2030' : 'Partner in Vision 2030'}
             </h2>
@@ -173,13 +177,18 @@ export default function About() {
                 : 'We are proud to be part of Saudi Vision 2030, contributing to the development of a transparent and strong business environment that supports sustainable economic growth'
               }
             </p>
-            <div className="flex justify-center items-center gap-8 text-sm text-muted-foreground">
+            <div className="flex justify-center items-center gap-8 text-sm text-muted-foreground mb-4">
               <span>{language === 'ar' ? 'الشفافية' : 'Transparency'}</span>
               <span>•</span>
               <span>{language === 'ar' ? 'الكفاءة' : 'Efficiency'}</span>
               <span>•</span>
               <span>{language === 'ar' ? 'الاستدامة' : 'Sustainability'}</span>
             </div>
+            <p className="text-xs text-muted-foreground mt-4">
+              {language === 'ar'
+                ? 'استخدام شعار رؤية 2030 يدل على التوافق مع الأولويات الوطنية، وليس التأييد الرسمي.'
+                : 'Use of the Vision 2030 logo indicates alignment with national priorities, not endorsement.'}
+            </p>
           </div>
         </div>
 
