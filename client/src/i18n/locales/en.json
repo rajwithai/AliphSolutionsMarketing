@@ -1,0 +1,171 @@
+{
+  "header": {
+    "home": "Home",
+    "advisory": "Advisory",
+    "managedServices": "Managed Services",
+    "technology": "Technology",
+    "company": "Company",
+    "investors": "Investors",
+    "requestDemo": "Request Demo",
+    "securitySovereignty": "Security & Sovereignty",
+    "aliphBrain": "Aliph Brain",
+    "aiGovernance": "AI Governance",
+    "grcAutomation": "GRC Automation",
+    "integrations": "Integrations",
+    "about": "About",
+    "leadership": "Leadership",
+    "contact": "Contact"
+  },
+  "home": {
+    "vision2030": {
+      "title": "Aligned with Vision 2030",
+      "description": "Supporting national priorities in data sovereignty, institutional readiness, and digital transformation for Saudi Arabia's governance ecosystem.",
+      "disclaimer": "Use of the Vision 2030 logo indicates alignment with national priorities, not endorsement."
+    },
+    "collisionSection": {
+      "title": "Two Forces Colliding — And the Path Forward for Saudi Enterprises",
+      "vision2030Text": "Vision 2030 accelerates AI adoption across the Kingdom's transformation agenda.",
+      "pdplText": "PDPL enforcement is now fully active, demanding unbreakable data sovereignty and accountability.",
+      "aiRisk": {
+        "title": "Uncontrolled AI Creates Invisible Exposure at Enterprise Scale",
+        "point1": "Employees and teams increasingly adopt public AI tools for speed, often bypassing formal procurement and governance controls.",
+        "point2": "When sensitive data leaves sovereign control, accountability, audit trails, and national data residency are compromised — risking regulatory scrutiny in an active PDPL environment.",
+        "point3": "For PIF-linked entities, listed companies, and regulated institutions, this exposure threatens strategic projects and Vision 2030 commitments."
+      },
+      "advisoryGap": {
+        "title": "Elite Advisory Remains Inaccessible at Required Velocity",
+        "point1": "Traditional Big Four cycles — rigorous but slow and resource-intensive — struggle to match the pace of AI-driven transformation.",
+        "point2": "Compliance obligations (PDPL, CMA, SAMA, NCA) apply universally across organizations, yet procurement timelines and costs limit timely support.",
+        "point3": "Enterprises need governed, audit-ready GRC solutions now — not after prolonged engagements."
+      },
+      "closing": "We understand the pressures you face: delivering on Vision 2030's ambitious timeline while safeguarding data sovereignty in a regulated landscape. At Aliph Solutions, we bridge this collision with sovereign AI-enabled advisory — combining 30+ years of proven Big Four expertise with governed, Kingdom-first architecture. Our 15-agent workflows and compounding Aliph Brain deliver precise, audit-ready outcomes — faster, more securely, and fully aligned with Saudi priorities.",
+      "cta": "Discover How We Resolve This Tension → Request a Sovereign Compliance Scan"
+    },
+    "whyAliph": {
+      "title": "The Sovereign Advantage — Built for Saudi Regulated Environments",
+      "subtitle": "Institutional rigor meets AI velocity — without compromising Kingdom-first sovereignty.",
+      "traditionalConsulting": {
+        "title": "Traditional Consulting",
+        "description": "Rigorous and trusted — but not optimized for AI-era velocity in regulated Saudi environments.",
+        "point1": "Heavy manual execution",
+        "point2": "Long mobilization cycles",
+        "point3": "Linear engagement models"
+      },
+      "genericAI": {
+        "title": "Generic AI",
+        "description": "Fast and flexible — but misaligned with Saudi regulatory requirements.",
+        "point1": "Data sovereignty exposure (risks to PDPL compliance)",
+        "point2": "Non-contextual, broad outputs lacking audit trails",
+        "point3": "No regulator-grade validation or traceability"
+      },
+      "aliphSolutions": {
+        "title": "Aliph Solutions",
+        "subtitle": "THE SOVEREIGN STANDARD",
+        "point1": "Big Four-grade validation",
+        "point2": "Sovereign-hosted infrastructure (KSA Azure Region, edge-ready)",
+        "point3": "Audit-ready GRC outputs with unbreakable compliance checks",
+        "point4": "Instant expert deployment within governed 15-AI Agent workflows",
+        "point5": "Compounding intelligence via the Aliph Brain — quality improves with every engagement"
+      },
+      "closing": "We bridge the gap between institutional rigor and AI velocity — delivering precise, audit-ready outcomes that accelerate Vision 2030 commitments while preserving full data sovereignty. We are honored to support Saudi enterprises and institutions in this transformative era.",
+      "cta": "Discover the Sovereign Advantage → Request Private Demo"
+    },
+    "architecture": {
+      "title": "Sovereign AI Workflow Layer",
+      "subtitle": "AI workflows that don't break compliance",
+      "inputs": "Inputs",
+      "inputsDesc": "Docs, policies, obligations",
+      "privacyLayer": "Privacy Layer",
+      "privacyLayerDesc": "Data minimization",
+      "policyEngine": "Policy Engine",
+      "policyEngineDesc": "Role controls",
+      "workflows": "Workflows",
+      "workflowsDesc": "Agentic processing",
+      "validation": "Validation",
+      "validationDesc": "Expert review",
+      "output": "Output",
+      "outputDesc": "Audit pack",
+      "point1": "Data minimization + optional masking",
+      "point2": "Role-based controls and approvals",
+      "point3": "Traceability via audit logs",
+      "point4": "Evidence-ready deliverables",
+      "cta": "Speak to an Architect"
+    },
+    "marketStats": {
+      "title": "The Market Opportunity — Why Now for Saudi Enterprises",
+      "subtitle": "Vision 2030 accelerates digital transformation and AI adoption — while active PDPL enforcement demands unbreakable sovereignty and compliance.",
+      "stat1Label": "KSA Consulting Market",
+      "stat1Value": "$4.3B+",
+      "stat1Sublabel": "2025 annual size, leading GCC growth",
+      "stat2Label": "GRC Platform & Advisory Growth",
+      "stat2Value": "11–13% CAGR",
+      "stat2Sublabel": "2025–2033 projection",
+      "stat3Label": "PDPL Maximum Fine",
+      "stat3Value": "SAR 5M",
+      "stat3Sublabel": "Per violation (active enforcement ceiling)",
+      "stat4Label": "Vision 2030 Pipeline",
+      "stat4Value": "$1T+",
+      "stat4Sublabel": "Mega-projects driving compliance demand",
+      "stat5Label": "Active Mega-Projects",
+      "stat5Value": "50+",
+      "stat5Sublabel": "Requiring Audit-Ready GRC",
+      "stat6Label": "AI Adoption Growth",
+      "stat6Value": "45%+",
+      "stat6Sublabel": "YoY, fueled by national initiatives",
+      "disclaimer": "Indicative market signals based on 2025–2026 reports (Mordor Intelligence, Source Global Research, IMARC, SDAIA updates). Sources available upon request.",
+      "cta": "See How Aliph Positions Your Organization"
+    },
+    "finalCTA": {
+      "title": "Build Sovereign, Audit-Ready GRC for Vision 2030",
+      "subtitle": "Secure, Kingdom-first GRC delivery — powered by governed AI workflows and senior-led expertise.",
+      "primaryBtn": "Schedule a Sovereign Demo",
+      "secondaryBtn": "Request Government Engagement Brief",
+      "newsletterTitle": "Receive Saudi regulatory intelligence briefs (PDPL, NCA ECC, ZATCA) — concise and action-ready.",
+      "newsletterPlaceholder": "Work email",
+      "newsletterBtn": "Get Briefs",
+      "newsletterSuccess": "Subscribed! Check your inbox."
+    }
+  },
+  "footer": {
+    "tagline": "Saudi Arabia's sovereign AI advisory engine for governance, risk, and compliance — built for Vision 2030.",
+    "newsletter": "Newsletter",
+    "solutions": "Solutions",
+    "technology": "Technology",
+    "company": "Company",
+    "legal": "Legal",
+    "advisory": "Advisory",
+    "managedServices": "Managed Services",
+    "deliverables": "Deliverables",
+    "securitySovereignty": "Security & Sovereignty",
+    "aliphBrain": "Aliph Brain",
+    "aiGovernance": "AI Governance",
+    "grcAutomation": "GRC Automation",
+    "integrations": "Integrations",
+    "about": "About",
+    "leadership": "Leadership",
+    "contact": "Contact",
+    "investors": "Investors",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookies": "Cookie Policy",
+    "security": "Security",
+    "copyright": "© 2026 Aliph Solutions. All rights reserved.",
+    "disclaimer": "Built in Saudi Arabia. Aligned with Vision 2030."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "close": "Close",
+    "next": "Next",
+    "previous": "Previous",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "apply": "Apply"
+  }
+}

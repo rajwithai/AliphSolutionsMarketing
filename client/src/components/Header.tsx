@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Globe } from 'lucide-react';
 import { Link, useLocation } from 'wouter';
+import { useTranslation } from 'react-i18next';
 import logoImage from '@assets/aliph-logo-new.png';
 import RequestModal from './RequestModal';
 import {
@@ -13,32 +14,39 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 
-const navigation = [
-  { label: 'Home', href: '/' },
-  { label: 'Advisory', href: '/advisory' },
-  { label: 'Managed Services', href: '/managed-services' },
-];
 
-const technologyLinks = [
-  { label: 'Security & Sovereignty', href: '/technology/security-sovereignty' },
-  { label: 'Aliph Brain', href: '/technology/aliph-brain' },
-  { label: 'AI Governance', href: '/technology/ai-governance' },
-  { label: 'GRC Automation', href: '/technology/grc-automation-workflows' },
-  { label: 'Integrations', href: '/technology/integrations' },
-];
 
-const companyLinks = [
-  { label: 'About', href: '/company/about' },
-  { label: 'Leadership', href: '/company/leadership' },
-  // { label: 'Partners', href: '/company/partners' },
-  // { label: 'Careers', href: '/company/careers' },
-  { label: 'Contact', href: '/company/contact' },
-];
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [demoModalOpen, setDemoModalOpen] = useState(false);
   const [location] = useLocation();
+  const { t, i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'ar' : 'en';
+    i18n.changeLanguage(newLang);
+  };
+
+  const navigation = [
+    { label: t('header.home'), href: '/' },
+    { label: t('header.advisory'), href: '/advisory' },
+    { label: t('header.managedServices'), href: '/managed-services' },
+  ];
+
+  const technologyLinks = [
+    { label: t('header.securitySovereignty'), href: '/technology/security-sovereignty' },
+    { label: t('header.aliphBrain'), href: '/technology/aliph-brain' },
+    { label: t('header.aiGovernance'), href: '/technology/ai-governance' },
+    { label: t('header.grcAutomation'), href: '/technology/grc-automation-workflows' },
+    { label: t('header.integrations'), href: '/technology/integrations' },
+  ];
+
+  const companyLinks = [
+    { label: t('header.about'), href: '/company/about' },
+    { label: t('header.leadership'), href: '/company/leadership' },
+    { label: t('header.contact'), href: '/company/contact' },
+  ];
 
   return (
     <>
@@ -70,7 +78,7 @@ export default function Header() {
               {/* Technology Dropdown */}
               <div className="relative group">
                 <button className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
-                  Technology
+                  {t('header.technology')}
                   <ChevronDown className="h-3 w-3" />
                 </button>
                 <div className="absolute top-full left-0 mt-2 w-56 bg-background border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
@@ -87,7 +95,7 @@ export default function Header() {
               {/* Company Dropdown */}
               <div className="relative group">
                 <button className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
-                  Company
+                  {t('header.company')}
                   <ChevronDown className="h-3 w-3" />
                 </button>
                 <div className="absolute top-full left-0 mt-2 w-48 bg-background border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
@@ -103,7 +111,7 @@ export default function Header() {
 
               <Link href="/investors">
                 <span className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-                  Investors
+                  {t('header.investors')}
                 </span>
               </Link>
             </nav>
@@ -111,11 +119,20 @@ export default function Header() {
             {/* Desktop Actions */}
             <div className="hidden lg:flex items-center space-x-3">
               <Button
+                variant="outline"
+                size="sm"
+                onClick={toggleLanguage}
+                className="flex items-center gap-2"
+              >
+                <Globe className="h-4 w-4" />
+                {i18n.language === 'en' ? 'العربية' : 'English'}
+              </Button>
+              <Button
                 size="sm"
                 onClick={() => setDemoModalOpen(true)}
                 className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D] text-white"
               >
-                Request Demo
+                {t('header.requestDemo')}
               </Button>
             </div>
 
@@ -148,7 +165,7 @@ export default function Header() {
                   </Link>
                 ))}
 
-                <div className="px-4 py-2 text-sm font-semibold text-muted-foreground">Technology</div>
+                <div className="px-4 py-2 text-sm font-semibold text-muted-foreground">{t('header.technology')}</div>
                 {technologyLinks.map((link) => (
                   <Link key={link.href} href={link.href} onClick={() => setMobileMenuOpen(false)}>
                     <div className="block px-6 py-2 text-sm text-muted-foreground hover:bg-muted">
@@ -157,7 +174,7 @@ export default function Header() {
                   </Link>
                 ))}
 
-                <div className="px-4 py-2 text-sm font-semibold text-muted-foreground">Company</div>
+                <div className="px-4 py-2 text-sm font-semibold text-muted-foreground">{t('header.company')}</div>
                 {companyLinks.map((link) => (
                   <Link key={link.href} href={link.href} onClick={() => setMobileMenuOpen(false)}>
                     <div className="block px-6 py-2 text-sm text-muted-foreground hover:bg-muted">
@@ -168,17 +185,26 @@ export default function Header() {
 
                 <Link href="/investors" onClick={() => setMobileMenuOpen(false)}>
                   <div className="block px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-muted">
-                    Investors
+                    {t('header.investors')}
                   </div>
                 </Link>
 
                 <div className="px-4 pt-4 space-y-2">
                   <Button
+                    variant="outline"
+                    className="w-full"
+                    size="sm"
+                    onClick={() => { toggleLanguage(); setMobileMenuOpen(false); }}
+                  >
+                    <Globe className="h-4 w-4 mr-2" />
+                    {i18n.language === 'en' ? 'العربية' : 'English'}
+                  </Button>
+                  <Button
                     className="w-full"
                     size="sm"
                     onClick={() => { setDemoModalOpen(true); setMobileMenuOpen(false); }}
                   >
-                    Request Demo
+                    {t('header.requestDemo')}
                   </Button>
                 </div>
               </div>

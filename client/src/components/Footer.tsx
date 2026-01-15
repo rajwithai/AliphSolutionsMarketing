@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Link } from 'wouter';
+import { useTranslation } from 'react-i18next';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -17,42 +18,41 @@ const newsletterSchema = z.object({
 
 type NewsletterData = z.infer<typeof newsletterSchema>;
 
-const footerSections = {
-  platform: {
-    title: 'Product & Platform',
-    links: [
-      { label: 'Security & Sovereignty', href: '/technology/security-sovereignty' },
-      { label: 'Aliph Brain', href: '/technology/aliph-brain' },
-      { label: 'AI Governance', href: '/technology/ai-governance' },
-      { label: 'GRC Automation', href: '/technology/grc-automation-workflows' },
-      { label: 'Integrations', href: '/technology/integrations' }
-    ]
-  },
-  services: {
-    title: 'Services',
-    links: [
-      { label: 'Advisory', href: '/advisory' },
-      { label: 'Managed Services', href: '/managed-services' },
-      { label: 'Government & Partnerships', href: '/partnerships' },
-      { label: 'Request Proposal', href: '/company/contact' }
-    ]
-  },
-  company: {
-    title: 'Company',
-    links: [
-      { label: 'About', href: '/company/about' },
-      { label: 'Leadership', href: '/company/leadership' },
-      // { label: 'Partners', href: '/company/partners' },
-      // { label: 'Careers', href: '/company/careers' },
-      { label: 'Contact', href: '/company/contact' },
-      // { label: 'Investors', href: '/investors' }
-    ]
-  }
-};
 
 export default function Footer() {
+  const { t } = useTranslation();
   const [subscribed, setSubscribed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const footerSections = {
+    platform: {
+      title: t('footer.technology'),
+      links: [
+        { label: t('footer.securitySovereignty'), href: '/technology/security-sovereignty' },
+        { label: t('footer.aliphBrain'), href: '/technology/aliph-brain' },
+        { label: t('footer.aiGovernance'), href: '/technology/ai-governance' },
+        { label: t('footer.grcAutomation'), href: '/technology/grc-automation-workflows' },
+        { label: t('footer.integrations'), href: '/technology/integrations' }
+      ]
+    },
+    services: {
+      title: t('footer.solutions'),
+      links: [
+        { label: t('footer.advisory'), href: '/advisory' },
+        { label: t('footer.managedServices'), href: '/managed-services' },
+        { label: t('footer.deliverables'), href: '/deliverables' }
+      ]
+    },
+    company: {
+      title: t('footer.company'),
+      links: [
+        { label: t('footer.about'), href: '/company/about' },
+        { label: t('footer.leadership'), href: '/company/leadership' },
+        { label: t('footer.contact'), href: '/company/contact' },
+        { label: t('footer.investors'), href: '/investors' }
+      ]
+    }
+  };
 
   const {
     register,
@@ -115,21 +115,21 @@ export default function Footer() {
               />
             </Link>
             <p className="mt-4 text-sm text-gray-400 max-w-xs">
-              Sovereign AI advisory engine for Saudi GRC.
+              {t('footer.tagline')}
             </p>
             <div className="mt-6">
-              <h4 className="text-sm font-semibold text-white mb-2">Newsletter</h4>
+              <h4 className="text-sm font-semibold text-white mb-2">{t('footer.newsletter')}</h4>
               {subscribed ? (
                 <div className="flex items-center gap-2 text-green-400 text-sm">
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>Subscribed!</span>
+                  <span>{t('home.finalCTA.newsletterSuccess')}</span>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit(onSubscribe)} className="space-y-2">
                   <div className="flex gap-2">
                     <Input
                       type="email"
-                      placeholder="Your email"
+                      placeholder={t('home.finalCTA.newsletterPlaceholder')}
                       {...register('email')}
                       className={`bg-gray-900 border-gray-700 text-white text-sm ${errors.email ? 'border-red-500' : ''}`}
                     />
@@ -176,21 +176,21 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <div className="text-sm text-gray-400">
-              © 2026 Aliph Solutions. All rights reserved.
+              {t('footer.copyright')}
             </div>
             <div className="flex items-center gap-3 px-3 py-2 bg-gray-900/50 rounded-lg border border-gray-800 group relative">
               <Vision2030Mark size="md" className="opacity-80" />
-              <span className="text-sm text-gray-400">Vision 2030 aligned</span>
+              <span className="text-sm text-gray-400">{t('footer.disclaimer')}</span>
               <div className="hidden group-hover:block absolute bottom-full left-0 mb-2 w-64 px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg shadow-lg text-xs text-gray-300 z-10">
-                Use of the Vision 2030 logo indicates alignment with national priorities, not endorsement.
+                {t('home.vision2030.disclaimer')}
               </div>
             </div>
           </div>
           <div className="flex items-center gap-6 text-sm text-gray-400">
-            <Link href="/legal/privacy"><span className="hover:text-[#C9A227] transition-colors">Privacy</span></Link>
-            <Link href="/legal/terms"><span className="hover:text-[#C9A227] transition-colors">Terms</span></Link>
-            <Link href="/legal/cookies"><span className="hover:text-[#C9A227] transition-colors">Cookies</span></Link>
-            <Link href="/security"><span className="hover:text-[#C9A227] transition-colors">Security</span></Link>
+            <Link href="/legal/privacy"><span className="hover:text-[#C9A227] transition-colors">{t('footer.privacy')}</span></Link>
+            <Link href="/legal/terms"><span className="hover:text-[#C9A227] transition-colors">{t('footer.terms')}</span></Link>
+            <Link href="/legal/cookies"><span className="hover:text-[#C9A227] transition-colors">{t('footer.cookies')}</span></Link>
+            <Link href="/security"><span className="hover:text-[#C9A227] transition-colors">{t('footer.security')}</span></Link>
           </div>
         </div>
       </div>
