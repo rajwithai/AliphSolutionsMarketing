@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, FileText, ArrowRight, X, Shield, Lock, Scale, Zap, BookOpen } from "lucide-react";
@@ -209,9 +210,92 @@ function useMediaQuery(query: string) {
 }
 
 export default function DeliverablesSection() {
+    const { t } = useTranslation();
     const [activePack, setActivePack] = useState<DeliverablePack | null>(null);
     const isDesktop = useMediaQuery("(min-width: 768px)");
     const [, setLocation] = useLocation();
+
+    // Build packs from translations
+    const DELIVERABLE_PACKS_TRANSLATED: DeliverablePack[] = [
+        {
+            id: "pdpl-readiness",
+            title: t('deliverablesSection.pack1.title'),
+            microProof: t('deliverablesSection.pack1.microProof'),
+            cardBullets: [t('deliverablesSection.pack1.bullet1'), t('deliverablesSection.pack1.bullet2'), t('deliverablesSection.pack1.bullet3'), t('deliverablesSection.pack1.bullet4')],
+            modalContent: {
+                title: t('deliverablesSection.pack1.modalTitle'),
+                whatsInside: [t('deliverablesSection.pack1.inside1'), t('deliverablesSection.pack1.inside2'), t('deliverablesSection.pack1.inside3'), t('deliverablesSection.pack1.inside4')],
+                idealFor: [t('deliverablesSection.pack1.ideal1'), t('deliverablesSection.pack1.ideal2'), t('deliverablesSection.pack1.ideal3')],
+                primaryCta: t('deliverablesSection.pack1.primaryCta'),
+                secondaryCta: t('deliverablesSection.pack1.secondaryCta'),
+            },
+        },
+        {
+            id: "nca-ecc-readiness",
+            title: t('deliverablesSection.pack2.title'),
+            microProof: t('deliverablesSection.pack2.microProof'),
+            cardBullets: [t('deliverablesSection.pack2.bullet1'), t('deliverablesSection.pack2.bullet2'), t('deliverablesSection.pack2.bullet3'), t('deliverablesSection.pack2.bullet4')],
+            modalContent: {
+                title: t('deliverablesSection.pack2.modalTitle'),
+                whatsInside: [t('deliverablesSection.pack2.inside1'), t('deliverablesSection.pack2.inside2'), t('deliverablesSection.pack2.inside3'), t('deliverablesSection.pack2.inside4')],
+                idealFor: [t('deliverablesSection.pack2.ideal1'), t('deliverablesSection.pack2.ideal2'), t('deliverablesSection.pack2.ideal3')],
+                primaryCta: t('deliverablesSection.pack2.primaryCta'),
+                secondaryCta: t('deliverablesSection.pack2.secondaryCta'),
+            },
+        },
+        {
+            id: "zatca-compliance",
+            title: t('deliverablesSection.pack3.title'),
+            microProof: t('deliverablesSection.pack3.microProof'),
+            cardBullets: [t('deliverablesSection.pack3.bullet1'), t('deliverablesSection.pack3.bullet2'), t('deliverablesSection.pack3.bullet3'), t('deliverablesSection.pack3.bullet4')],
+            modalContent: {
+                title: t('deliverablesSection.pack3.modalTitle'),
+                whatsInside: [t('deliverablesSection.pack3.inside1'), t('deliverablesSection.pack3.inside2'), t('deliverablesSection.pack3.inside3'), t('deliverablesSection.pack3.inside4')],
+                idealFor: [t('deliverablesSection.pack3.ideal1'), t('deliverablesSection.pack3.ideal2'), t('deliverablesSection.pack3.ideal3')],
+                primaryCta: t('deliverablesSection.pack3.primaryCta'),
+                secondaryCta: t('deliverablesSection.pack3.secondaryCta'),
+            },
+        },
+        {
+            id: "corporate-governance",
+            title: t('deliverablesSection.pack4.title'),
+            microProof: t('deliverablesSection.pack4.microProof'),
+            cardBullets: [t('deliverablesSection.pack4.bullet1'), t('deliverablesSection.pack4.bullet2'), t('deliverablesSection.pack4.bullet3'), t('deliverablesSection.pack4.bullet4')],
+            modalContent: {
+                title: t('deliverablesSection.pack4.modalTitle'),
+                whatsInside: [t('deliverablesSection.pack4.inside1'), t('deliverablesSection.pack4.inside2'), t('deliverablesSection.pack4.inside3'), t('deliverablesSection.pack4.inside4')],
+                idealFor: [t('deliverablesSection.pack4.ideal1'), t('deliverablesSection.pack4.ideal2'), t('deliverablesSection.pack4.ideal3')],
+                primaryCta: t('deliverablesSection.pack4.primaryCta'),
+                secondaryCta: t('deliverablesSection.pack4.secondaryCta'),
+            },
+        },
+        {
+            id: "erm-foundation",
+            title: t('deliverablesSection.pack5.title'),
+            microProof: t('deliverablesSection.pack5.microProof'),
+            cardBullets: [t('deliverablesSection.pack5.bullet1'), t('deliverablesSection.pack5.bullet2'), t('deliverablesSection.pack5.bullet3'), t('deliverablesSection.pack5.bullet4')],
+            modalContent: {
+                title: t('deliverablesSection.pack5.modalTitle'),
+                whatsInside: [t('deliverablesSection.pack5.inside1'), t('deliverablesSection.pack5.inside2'), t('deliverablesSection.pack5.inside3'), t('deliverablesSection.pack5.inside4')],
+                idealFor: [t('deliverablesSection.pack5.ideal1'), t('deliverablesSection.pack5.ideal2'), t('deliverablesSection.pack5.ideal3')],
+                primaryCta: t('deliverablesSection.pack5.primaryCta'),
+                secondaryCta: t('deliverablesSection.pack5.secondaryCta'),
+            },
+        },
+        {
+            id: "internal-audit",
+            title: t('deliverablesSection.pack6.title'),
+            microProof: t('deliverablesSection.pack6.microProof'),
+            cardBullets: [t('deliverablesSection.pack6.bullet1'), t('deliverablesSection.pack6.bullet2'), t('deliverablesSection.pack6.bullet3'), t('deliverablesSection.pack6.bullet4')],
+            modalContent: {
+                title: t('deliverablesSection.pack6.modalTitle'),
+                whatsInside: [t('deliverablesSection.pack6.inside1'), t('deliverablesSection.pack6.inside2'), t('deliverablesSection.pack6.inside3'), t('deliverablesSection.pack6.inside4')],
+                idealFor: [t('deliverablesSection.pack6.ideal1'), t('deliverablesSection.pack6.ideal2'), t('deliverablesSection.pack6.ideal3')],
+                primaryCta: t('deliverablesSection.pack6.primaryCta'),
+                secondaryCta: t('deliverablesSection.pack6.secondaryCta'),
+            },
+        },
+    ];
 
     const handleCtaClick = () => {
         setLocation("/contact");
@@ -221,14 +305,14 @@ export default function DeliverablesSection() {
         <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-                    What We Deliver
+                    {t('deliverablesSection.title')}
                 </h2>
                 <p className="text-xl text-center text-gray-600 mb-16 max-w-3xl mx-auto">
-                    Tangible, audit-ready outcome packs built for Saudi regulatory environments.
+                    {t('deliverablesSection.subtitle')}
                 </p>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {DELIVERABLE_PACKS.map((pack) => (
+                    {DELIVERABLE_PACKS_TRANSLATED.map((pack) => (
                         <Card
                             key={pack.id}
                             onClick={() => setActivePack(pack)}
@@ -237,7 +321,7 @@ export default function DeliverablesSection() {
                             {/* Preview Badge */}
                             <div className="absolute top-6 right-6">
                                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#C9A227]/10 text-[#C9A227] group-hover:bg-[#C9A227] group-hover:text-white transition-colors">
-                                    Preview Available
+                                    {t('deliverablesSection.previewBadge')}
                                 </span>
                             </div>
 
@@ -268,7 +352,7 @@ export default function DeliverablesSection() {
                         className="bg-[#C9A227] hover:bg-[#B8921F] text-white px-8 h-14 text-lg font-semibold"
                         onClick={handleCtaClick}
                     >
-                        Request Deliverables Preview
+                        {t('deliverablesSection.primaryCta')}
                     </Button>
                     <Button
                         size="lg"
@@ -276,7 +360,7 @@ export default function DeliverablesSection() {
                         className="border-gray-200 hover:bg-gray-50 text-gray-900 px-8 h-14 text-lg"
                         onClick={handleCtaClick}
                     >
-                        Speak with an Advisor
+                        {t('deliverablesSection.secondaryCta')}
                     </Button>
                 </div>
             </div>
@@ -297,7 +381,7 @@ export default function DeliverablesSection() {
                                     <div className="p-2 bg-[#C9A227]/10 rounded-lg">
                                         <FileText className="w-6 h-6 text-[#C9A227]" />
                                     </div>
-                                    <span className="text-xs font-bold text-[#C9A227] uppercase tracking-wider">Pack Preview</span>
+                                    <span className="text-xs font-bold text-[#C9A227] uppercase tracking-wider">{t('deliverablesSection.packPreviewLabel')}</span>
                                 </div>
                                 <SheetTitle className="text-2xl font-bold text-gray-900 mb-2">{activePack.modalContent.title}</SheetTitle>
                                 <SheetDescription className="text-base text-gray-500 text-left">
@@ -312,13 +396,13 @@ export default function DeliverablesSection() {
                                     <div className="bg-white p-3 rounded-full shadow-sm mb-3">
                                         <BookOpen className="w-6 h-6 text-gray-400" />
                                     </div>
-                                    <p className="text-sm font-medium text-gray-900">Sample preview coming soon</p>
-                                    <p className="text-xs text-gray-500 mt-1">Request the pack to receive the latest version.</p>
+                                    <p className="text-sm font-medium text-gray-900">{t('deliverablesSection.samplePreviewTitle')}</p>
+                                    <p className="text-xs text-gray-500 mt-1">{t('deliverablesSection.samplePreviewDesc')}</p>
                                 </div>
 
                                 {/* What's Inside */}
                                 <div>
-                                    <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">What's Inside</h4>
+                                    <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">{t('deliverablesSection.whatsInside')}</h4>
                                     <ul className="space-y-4">
                                         {activePack.modalContent.whatsInside.map((item, i) => (
                                             <li key={i} className="flex items-start gap-3">
@@ -331,7 +415,7 @@ export default function DeliverablesSection() {
 
                                 {/* Ideal For */}
                                 <div className="bg-gray-50 p-6 rounded-xl">
-                                    <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">Ideal For</h4>
+                                    <h4 className="text-sm font-bold text-gray-900 uppercase tracking-wider mb-4">{t('deliverablesSection.idealFor')}</h4>
                                     <ul className="space-y-3">
                                         {activePack.modalContent.idealFor.map((item, i) => (
                                             <li key={i} className="flex items-start gap-3">

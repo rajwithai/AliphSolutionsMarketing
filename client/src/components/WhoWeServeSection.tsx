@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Building2, Shield, Users, ChevronDown } from "lucide-react";
@@ -118,9 +119,70 @@ const SCALE_ITEMS: ScaleItem[] = [
 ];
 
 export default function WhoWeServeSection() {
+    const { t } = useTranslation();
     const [expandedServe, setExpandedServe] = useState<number | null>(null);
     const [expandedScale, setExpandedScale] = useState<number | null>(null);
     const [, setLocation] = useLocation();
+
+    // Build segments and scale items from translations
+    const SERVE_SEGMENTS_TRANSLATED: ServeSegment[] = [
+        {
+            icon: TrendingUp,
+            title: t('whoWeServeSection.segment1.title'),
+            teaser: t('whoWeServeSection.segment1.teaser'),
+            expandedDesc: t('whoWeServeSection.segment1.expandedDesc'),
+            expandedBullets: [t('whoWeServeSection.segment1.bullet1'), t('whoWeServeSection.segment1.bullet2'), t('whoWeServeSection.segment1.bullet3'), t('whoWeServeSection.segment1.bullet4')],
+            ctaLabel: t('whoWeServeSection.segment1.ctaLabel'),
+        },
+        {
+            icon: Building2,
+            title: t('whoWeServeSection.segment2.title'),
+            teaser: t('whoWeServeSection.segment2.teaser'),
+            expandedDesc: t('whoWeServeSection.segment2.expandedDesc'),
+            expandedBullets: [t('whoWeServeSection.segment2.bullet1'), t('whoWeServeSection.segment2.bullet2'), t('whoWeServeSection.segment2.bullet3'), t('whoWeServeSection.segment2.bullet4')],
+            ctaLabel: t('whoWeServeSection.segment2.ctaLabel'),
+        },
+        {
+            icon: Shield,
+            title: t('whoWeServeSection.segment3.title'),
+            teaser: t('whoWeServeSection.segment3.teaser'),
+            expandedDesc: t('whoWeServeSection.segment3.expandedDesc'),
+            expandedBullets: [t('whoWeServeSection.segment3.bullet1'), t('whoWeServeSection.segment3.bullet2'), t('whoWeServeSection.segment3.bullet3'), t('whoWeServeSection.segment3.bullet4')],
+            ctaLabel: t('whoWeServeSection.segment3.ctaLabel'),
+        },
+        {
+            icon: Users,
+            title: t('whoWeServeSection.segment4.title'),
+            teaser: t('whoWeServeSection.segment4.teaser'),
+            expandedDesc: t('whoWeServeSection.segment4.expandedDesc'),
+            expandedBullets: [t('whoWeServeSection.segment4.bullet1'), t('whoWeServeSection.segment4.bullet2'), t('whoWeServeSection.segment4.bullet3'), t('whoWeServeSection.segment4.bullet4')],
+            ctaLabel: t('whoWeServeSection.segment4.ctaLabel'),
+        },
+    ];
+
+    const SCALE_ITEMS_TRANSLATED: ScaleItem[] = [
+        {
+            title: t('whoWeServeSection.scale1.title'),
+            teaser: t('whoWeServeSection.scale1.teaser'),
+            expandedDesc: t('whoWeServeSection.scale1.expandedDesc'),
+            expandedBullets: [t('whoWeServeSection.scale1.bullet1'), t('whoWeServeSection.scale1.bullet2'), t('whoWeServeSection.scale1.bullet3'), t('whoWeServeSection.scale1.bullet4')],
+            ctaLabel: t('whoWeServeSection.scale1.ctaLabel'),
+        },
+        {
+            title: t('whoWeServeSection.scale2.title'),
+            teaser: t('whoWeServeSection.scale2.teaser'),
+            expandedDesc: t('whoWeServeSection.scale2.expandedDesc'),
+            expandedBullets: [t('whoWeServeSection.scale2.bullet1'), t('whoWeServeSection.scale2.bullet2'), t('whoWeServeSection.scale2.bullet3'), t('whoWeServeSection.scale2.bullet4')],
+            ctaLabel: t('whoWeServeSection.scale2.ctaLabel'),
+        },
+        {
+            title: t('whoWeServeSection.scale3.title'),
+            teaser: t('whoWeServeSection.scale3.teaser'),
+            expandedDesc: t('whoWeServeSection.scale3.expandedDesc'),
+            expandedBullets: [t('whoWeServeSection.scale3.bullet1'), t('whoWeServeSection.scale3.bullet2'), t('whoWeServeSection.scale3.bullet3'), t('whoWeServeSection.scale3.bullet4')],
+            ctaLabel: t('whoWeServeSection.scale3.ctaLabel'),
+        },
+    ];
 
     const handleCtaClick = () => {
         setLocation("/contact");
@@ -140,9 +202,9 @@ export default function WhoWeServeSection() {
                 <div className="grid md:grid-cols-2 gap-12">
                     {/* Who we serve */}
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900">Who We Serve</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900">{t('whoWeServeSection.whoWeServeTitle')}</h2>
                         <div className="space-y-6">
-                            {SERVE_SEGMENTS.map((segment, idx) => (
+                            {SERVE_SEGMENTS_TRANSLATED.map((segment, idx) => (
                                 <Card key={idx} className="border-l-4 border-[#C9A227] hover:shadow-lg transition-all overflow-hidden">
                                     <button
                                         onClick={() => toggleServe(idx)}
@@ -217,9 +279,9 @@ export default function WhoWeServeSection() {
 
                     {/* How we scale */}
                     <div>
-                        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900">How We Scale</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900">{t('whoWeServeSection.howWeScaleTitle')}</h2>
                         <div className="space-y-8">
-                            {SCALE_ITEMS.map((item, idx) => (
+                            {SCALE_ITEMS_TRANSLATED.map((item, idx) => (
                                 <div key={idx} className="relative pl-8 border-l-2 border-[#C9A227]">
                                     <div className="absolute -left-2 top-0 w-4 h-4 bg-[#C9A227] rounded-full"></div>
 
@@ -291,7 +353,7 @@ export default function WhoWeServeSection() {
 
                 {/* Optional Closing Line */}
                 <p className="text-center mt-12 text-sm text-gray-500 font-light">
-                    Same sovereign standard — delivered across segments as readiness increases.
+                    {t('whoWeServeSection.closingText')}
                 </p>
             </div>
         </section>

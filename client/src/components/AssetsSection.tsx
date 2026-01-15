@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Lock, Brain, ArrowRight, X } from "lucide-react";
@@ -124,9 +125,91 @@ function useMediaQuery(query: string) {
 }
 
 export default function AssetsSection() {
+    const { t } = useTranslation();
     const [activeAsset, setActiveAsset] = useState<AssetData | null>(null);
     const isDesktop = useMediaQuery("(min-width: 768px)");
     const [, setLocation] = useLocation();
+
+    // Dynamically build asset data from translations
+    const ASSETS_DATA_TRANSLATED: AssetData[] = [
+        {
+            id: "proven-advisory",
+            cardTitle: t('assetsSection.asset1.cardTitle'),
+            cardIcon: CheckCircle2,
+            cardBullets: [
+                t('assetsSection.asset1.bullet1'),
+                t('assetsSection.asset1.bullet2'),
+            ],
+            panelTitle: t('assetsSection.asset1.panelTitle'),
+            panelSubtitle: t('assetsSection.asset1.panelSubtitle'),
+            panelHighlights: [
+                t('assetsSection.asset1.highlight1'),
+                t('assetsSection.asset1.highlight2'),
+                t('assetsSection.asset1.highlight3'),
+                t('assetsSection.asset1.highlight4'),
+            ],
+            panelListTitle: t('assetsSection.asset1.listTitle'),
+            panelListItems: [
+                t('assetsSection.asset1.item1'),
+                t('assetsSection.asset1.item2'),
+                t('assetsSection.asset1.item3'),
+                t('assetsSection.asset1.item4'),
+                t('assetsSection.asset1.item5'),
+            ],
+            panelCta: t('assetsSection.asset1.cta'),
+        },
+        {
+            id: "sovereign-architecture",
+            cardTitle: t('assetsSection.asset2.cardTitle'),
+            cardIcon: Lock,
+            cardBullets: [
+                t('assetsSection.asset2.bullet1'),
+                t('assetsSection.asset2.bullet2'),
+            ],
+            panelTitle: t('assetsSection.asset2.panelTitle'),
+            panelSubtitle: t('assetsSection.asset2.panelSubtitle'),
+            panelHighlights: [
+                t('assetsSection.asset2.highlight1'),
+                t('assetsSection.asset2.highlight2'),
+                t('assetsSection.asset2.highlight3'),
+                t('assetsSection.asset2.highlight4'),
+            ],
+            panelListTitle: t('assetsSection.asset2.listTitle'),
+            panelListItems: [
+                t('assetsSection.asset2.item1'),
+                t('assetsSection.asset2.item2'),
+                t('assetsSection.asset2.item3'),
+                t('assetsSection.asset2.item4'),
+                t('assetsSection.asset2.item5'),
+            ],
+            panelCta: t('assetsSection.asset2.cta'),
+        },
+        {
+            id: "aliph-brain",
+            cardTitle: t('assetsSection.asset3.cardTitle'),
+            cardIcon: Brain,
+            cardBullets: [
+                t('assetsSection.asset3.bullet1'),
+                t('assetsSection.asset3.bullet2'),
+            ],
+            panelTitle: t('assetsSection.asset3.panelTitle'),
+            panelSubtitle: t('assetsSection.asset3.panelSubtitle'),
+            panelHighlights: [
+                t('assetsSection.asset3.highlight1'),
+                t('assetsSection.asset3.highlight2'),
+                t('assetsSection.asset3.highlight3'),
+                t('assetsSection.asset3.highlight4'),
+            ],
+            panelListTitle: t('assetsSection.asset3.listTitle'),
+            panelListItems: [
+                t('assetsSection.asset3.item1'),
+                t('assetsSection.asset3.item2'),
+                t('assetsSection.asset3.item3'),
+                t('assetsSection.asset3.item4'),
+            ],
+            panelCta: t('assetsSection.asset3.cta'),
+        },
+    ];
 
     const handleCtaClick = () => {
         setLocation("/contact");
@@ -136,12 +219,12 @@ export default function AssetsSection() {
         <section className="py-20 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-                    The Assets Behind Aliph — <br className="hidden md:block" />
-                    Empowering Saudi Enterprises & Institutions
+                    {t('assetsSection.title')} <br className="hidden md:block" />
+                    {t('assetsSection.subtitle')}
                 </h2>
 
                 <div className="grid md:grid-cols-3 gap-8 mb-16">
-                    {ASSETS_DATA.map((asset) => (
+                    {ASSETS_DATA_TRANSLATED.map((asset) => (
                         <Card
                             key={asset.id}
                             onClick={() => setActiveAsset(asset)}
@@ -160,7 +243,7 @@ export default function AssetsSection() {
                                 ))}
                             </ul>
                             <div className="inline-flex items-center gap-2 mt-8 text-[#C9A227] group-hover:text-[#B8921F] font-semibold">
-                                Explore <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                                {t('assetsSection.explore')} <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                             </div>
                         </Card>
                     ))}
@@ -169,9 +252,9 @@ export default function AssetsSection() {
                 {/* Closing Narrative */}
                 <div className="text-center max-w-4xl mx-auto">
                     <p className="text-lg md:text-xl text-gray-600 font-light leading-relaxed mb-8">
-                        These assets combine decades of proven Saudi expertise with governed AI infrastructure designed for the Kingdom — delivering Big Four-grade rigor at AI velocity, without compromising sovereignty.
+                        {t('assetsSection.closingText')}
                         <br /><br />
-                        We understand the strategic imperatives of Vision 2030 and are honored to support Saudi enterprises and institutions in building a secure, compliant future.
+                        {t('assetsSection.closingText2')}
                     </p>
 
                     <Button
@@ -179,7 +262,7 @@ export default function AssetsSection() {
                         className="bg-[#C9A227] hover:bg-[#B8921F] text-white font-bold text-lg px-8 py-6 h-auto"
                         onClick={() => setLocation("/contact")}
                     >
-                        Discover These Assets in Action <ArrowRight className="w-5 h-5 ml-2" /> Schedule a Sovereign Demo
+                        {t('assetsSection.closingCta')} <ArrowRight className="w-5 h-5 ml-2" /> {t('assetsSection.closingCtaSub')}
                     </Button>
                 </div>
             </div>
@@ -208,7 +291,7 @@ export default function AssetsSection() {
                             <div className="space-y-8 flex-grow">
                                 {/* Highlights */}
                                 <div className="bg-white/[0.03] rounded-xl p-6 border border-white/5">
-                                    <h4 className="text-sm font-semibold text-[#C9A227] uppercase tracking-wider mb-4">Highlights</h4>
+                                    <h4 className="text-sm font-semibold text-[#C9A227] uppercase tracking-wider mb-4">{t('assetsSection.highlights')}</h4>
                                     <ul className="space-y-4">
                                         {activeAsset.panelHighlights.map((highlight, i) => (
                                             <li key={i} className="flex items-start gap-3 text-gray-300">

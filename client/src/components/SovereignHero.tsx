@@ -1,9 +1,11 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Shield, CheckCircle2, FileCheck, Brain, Lock, Server, Zap } from 'lucide-react';
 
 export default function SovereignHero({ onDemoClick, onPartnershipClick }: { onDemoClick: () => void, onPartnershipClick: () => void }) {
+  const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollY } = useScroll();
 
@@ -109,10 +111,10 @@ export default function SovereignHero({ onDemoClick, onPartnershipClick }: { onD
             className="flex flex-col items-center justify-center mb-6 md:mb-8"
           >
             <span className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.1] mb-2 md:mb-3 text-center">
-              Sovereign AI-Enabled <span className="text-[#C9A227]">GRC Advisory</span>
+              {t('sovereignHero.headline1')} <span className="text-[#C9A227]">{t('sovereignHero.headline2')}</span>
             </span>
             <span className="text-xl md:text-3xl lg:text-4xl font-medium text-gray-400 tracking-tight text-center">
-              Empowering Saudi Enterprises for Vision 2030
+              {t('sovereignHero.headline3')}
             </span>
           </motion.h1>
 
@@ -124,18 +126,18 @@ export default function SovereignHero({ onDemoClick, onPartnershipClick }: { onD
             className="text-base md:text-xl text-gray-300/90 mb-8 leading-relaxed font-light max-w-3xl mx-auto"
           >
             <p className="mb-2">
-              Big Four-grade advisory delivered through governed, Kingdom-first AI infrastructure.
+              {t('sovereignHero.subheadline1')}
             </p>
             <p>
-              Audit-ready outcomes for PDPL, NCA, CMA, SAMA, and national-scale governance — with full data sovereignty.
+              {t('sovereignHero.subheadline2')}
             </p>
           </motion.div>
 
           {/* BADGES (Pills) */}
           <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-10">
-            <TrustChip icon={Shield} text="Vision 2030 Aligned" delay={0.4} />
-            <TrustChip icon={CheckCircle2} text="Sovereign-by-Design" delay={0.5} />
-            <TrustChip icon={FileCheck} text="Audit-Ready Outputs" delay={0.6} />
+            <TrustChip icon={Shield} text={t('sovereignHero.badge1')} delay={0.4} />
+            <TrustChip icon={CheckCircle2} text={t('sovereignHero.badge2')} delay={0.5} />
+            <TrustChip icon={FileCheck} text={t('sovereignHero.badge3')} delay={0.6} />
           </div>
 
           {/* CTAs */}
@@ -151,7 +153,7 @@ export default function SovereignHero({ onDemoClick, onPartnershipClick }: { onD
                 onClick={onDemoClick}
                 className="h-14 px-10 bg-[#C9A227] hover:bg-[#B8921F] text-black font-semibold text-lg transition-all shadow-[0_0_30px_rgba(201,162,39,0.15)] hover:shadow-[0_0_40px_rgba(201,162,39,0.3)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 w-full sm:w-auto"
               >
-                Request Sovereign Demo
+                {t('sovereignHero.ctaPrimary')}
               </Button>
               <Button
                 size="lg"
@@ -159,7 +161,7 @@ export default function SovereignHero({ onDemoClick, onPartnershipClick }: { onD
                 onClick={onPartnershipClick}
                 className="h-14 px-8 bg-white/[0.02] border-white/20 hover:border-white/40 text-gray-200 hover:text-white hover:bg-white/5 text-lg font-medium transition-all duration-300 active:scale-95 w-full sm:w-auto"
               >
-                Explore Institutional Partnership
+                {t('sovereignHero.ctaSecondary')}
               </Button>
             </motion.div>
 
@@ -170,7 +172,7 @@ export default function SovereignHero({ onDemoClick, onPartnershipClick }: { onD
               transition={{ duration: 1, delay: 1 }}
               className="text-xs md:text-sm text-gray-500 tracking-wide font-medium relative z-10 text-center"
             >
-              Designed for Saudi regulatory environments. Deployed with full data sovereignty.
+              {t('sovereignHero.footer')}
             </motion.p>
           </div>
         </div>
@@ -190,8 +192,8 @@ export default function SovereignHero({ onDemoClick, onPartnershipClick }: { onD
                 transition={{ duration: 0.7 }}
                 className="text-3xl md:text-5xl font-bold mb-6 leading-tight"
               >
-                Proven Expertise Meets <br />
-                <span className="text-[#C9A227]">Advanced Sovereign AI</span>
+                {t('sovereignHero.section2Title1')} <br />
+                <span className="text-[#C9A227]">{t('sovereignHero.section2Title2')}</span>
               </motion.h2>
 
               <motion.div
@@ -202,14 +204,10 @@ export default function SovereignHero({ onDemoClick, onPartnershipClick }: { onD
                 className="space-y-6 text-gray-300 text-lg leading-relaxed font-light"
               >
                 <p>
-                  We combine 30+ years of proven Big Four expertise—serving PIF portfolio companies,
-                  major enterprises, and regulators—with a state-of-the-art sovereign AI architecture
-                  designed specifically for the Kingdom.
+                  {t('sovereignHero.section2Text1')}
                 </p>
                 <p className="font-medium text-white/90">
-                  We understand the pressures of delivering Vision 2030 commitments while maintaining
-                  sovereignty and regulatory excellence. We are honored to support your GRC priorities
-                  in this transformative era.
+                  {t('sovereignHero.section2Text2')}
                 </p>
               </motion.div>
             </div>
@@ -227,25 +225,25 @@ export default function SovereignHero({ onDemoClick, onPartnershipClick }: { onD
 
               <h3 className="text-xl font-semibold mb-6 text-white flex items-center gap-3">
                 <Brain className="w-6 h-6 text-[#C9A227]" />
-                Aliph Brain Advantage
+                {t('sovereignHero.advantageTitle')}
               </h3>
 
               <ul className="space-y-5">
                 <AdvantageItem
                   icon={Server}
-                  text="PDPL-compliant data residency in the KSA Azure Region"
+                  text={t('sovereignHero.advantage1')}
                 />
                 <AdvantageItem
                   icon={Zap}
-                  text="Edge-ready deployment for maximum control"
+                  text={t('sovereignHero.advantage2')}
                 />
                 <AdvantageItem
                   icon={CheckCircle2}
-                  text="Unbreakable compliance validation (never bypassed)"
+                  text={t('sovereignHero.advantage3')}
                 />
                 <AdvantageItem
                   icon={Lock}
-                  text="Accelerating your responsible digital transformation"
+                  text={t('sovereignHero.advantage4')}
                 />
               </ul>
             </motion.div>
