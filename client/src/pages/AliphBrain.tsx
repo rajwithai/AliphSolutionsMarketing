@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -25,8 +28,23 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Brain, FileText, Shield, CheckCircle2, ArrowRight, Zap, Users, Database, Eye, Lock, AlertTriangle, Workflow, Building2 } from 'lucide-react';
+import { Brain, FileText, Shield, CheckCircle2, ArrowRight, Zap, Users, Database, Eye, Lock, AlertTriangle, Workflow, Building2, Loader2 } from 'lucide-react';
+import SuccessModal from '@/components/SuccessModal';
 import useSEO from '@/hooks/useSEO';
+
+// Demo form validation schema
+const demoFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
+  email: z.string().email('Please enter a valid email address'),
+  company: z.string().min(2, 'Company name is required').max(200),
+  role: z.string().min(2, 'Role is required').max(100),
+  sector: z.string().min(1, 'Please select a sector'),
+  focus: z.string().min(1, 'Please select a focus area'),
+  timeline: z.string().min(1, 'Please select a timeline'),
+  notes: z.string().optional(),
+});
+
+type DemoFormData = z.infer<typeof demoFormSchema>;
 
 export default function AliphBrain() {
   useSEO({
@@ -36,42 +54,92 @@ export default function AliphBrain() {
   });
 
   const [demoModalOpen, setDemoModalOpen] = useState(false);
-  const [demoFormData, setDemoFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    role: '',
-    sector: '',
-    focus: '',
-    timeline: '',
-    notes: ''
-  });
   const [demoSubmitted, setDemoSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
 
-  const handleDemoSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Demo form submitted:', demoFormData);
-    setDemoSubmitted(true);
-    setTimeout(() => {
-      setDemoSubmitted(false);
-      setDemoModalOpen(false);
-      setDemoFormData({
-        name: '',
-        email: '',
-        company: '',
-        role: '',
-        sector: '',
-        focus: '',
-        timeline: '',
-        notes: ''
+  const demoForm = useForm<DemoFormData>({
+    resolver: zodResolver(demoFormSchema),
+    mode: 'onChange',
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      role: '',
+      sector: '',
+      focus: '',
+      timeline: '',
+      notes: '',
+    },
+  });
+
+  const demoSector = demoForm.watch('sector');
+  const demoFocus = demoForm.watch('focus');
+  const demoTimeline = demoForm.watch('timeline');
+
+  const onDemoSubmit = async (data: DemoFormData) => {
+    setIsSubmitting(true);
+    setServerError(null);
+
+    try {
+      const payload = {
+        name: data.name,
+        email: data.email,
+        company: data.company,
+        phone: '',
+        subject: `Aliph Brain Demo Request - ${data.company}`,
+        message: `Role: ${data.role}\n` +
+          `Sector: ${data.sector}\n` +
+          `Focus Area: ${data.focus}\n` +
+          `Timeline: ${data.timeline}\n\n` +
+          `Additional Notes:\n${data.notes || 'None'}`,
+        inquiryType: 'solution' as const,
+        language: 'en',
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
-    }, 2000);
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setServerError(result.message || 'Failed to submit. Please try again.');
+        return;
+      }
+
+      setDemoSubmitted(true);
+    } catch (error) {
+      setServerError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <>
+      <SuccessModal
+        open={demoSubmitted}
+        onClose={() => {
+          setDemoSubmitted(false);
+          setDemoModalOpen(false);
+          demoForm.reset();
+        }}
+        title="Demo Request Received!"
+        message="We'll share a demo agenda and confirm a time within 24-48 hours."
+        buttonText="Close"
+      />
+
       {/* Demo Modal */}
-      <Dialog open={demoModalOpen} onOpenChange={setDemoModalOpen}>
+      <Dialog open={demoModalOpen && !demoSubmitted} onOpenChange={(open) => {
+        setDemoModalOpen(open);
+        if (!open) {
+          demoForm.reset();
+          setServerError(null);
+        }
+      }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl">Request an Aliph Brain Demo</DialogTitle>
@@ -80,132 +148,143 @@ export default function AliphBrain() {
             </DialogDescription>
           </DialogHeader>
 
-          {demoSubmitted ? (
-            <div className="py-8 text-center">
-              <CheckCircle2 className="w-16 h-16 text-green-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-green-900 mb-2">Request Received</h3>
-              <p className="text-green-800">
-                We'll share a demo agenda and confirm a time.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleDemoSubmit} className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="demo-name">Full Name *</Label>
-                  <Input
-                    id="demo-name"
-                    required
-                    value={demoFormData.name}
-                    onChange={(e) => setDemoFormData({ ...demoFormData, name: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="demo-email">Work Email *</Label>
-                  <Input
-                    id="demo-email"
-                    type="email"
-                    required
-                    value={demoFormData.email}
-                    onChange={(e) => setDemoFormData({ ...demoFormData, email: e.target.value })}
-                  />
-                </div>
+          <form onSubmit={demoForm.handleSubmit(onDemoSubmit)} className="space-y-4">
+            {serverError && (
+              <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                <p className="text-sm text-red-400">{serverError}</p>
               </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="demo-company">Company *</Label>
-                  <Input
-                    id="demo-company"
-                    required
-                    value={demoFormData.company}
-                    onChange={(e) => setDemoFormData({ ...demoFormData, company: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="demo-role">Role *</Label>
-                  <Input
-                    id="demo-role"
-                    required
-                    value={demoFormData.role}
-                    onChange={(e) => setDemoFormData({ ...demoFormData, role: e.target.value })}
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="demo-sector">Sector</Label>
-                  <Select value={demoFormData.sector} onValueChange={(value) => setDemoFormData({ ...demoFormData, sector: value })}>
-                    <SelectTrigger id="demo-sector">
-                      <SelectValue placeholder="Select sector" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="finance">Finance & Banking</SelectItem>
-                      <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
-                      <SelectItem value="healthcare">Healthcare</SelectItem>
-                      <SelectItem value="government">Government</SelectItem>
-                      <SelectItem value="giga">Giga Vendor</SelectItem>
-                      <SelectItem value="sme">SME</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="demo-focus">Focus Area</Label>
-                  <Select value={demoFormData.focus} onValueChange={(value) => setDemoFormData({ ...demoFormData, focus: value })}>
-                    <SelectTrigger id="demo-focus">
-                      <SelectValue placeholder="Select focus" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="pdpl">PDPL</SelectItem>
-                      <SelectItem value="nca-ecc">NCA ECC</SelectItem>
-                      <SelectItem value="zatca">ZATCA</SelectItem>
-                      <SelectItem value="governance">Governance</SelectItem>
-                      <SelectItem value="erm">ERM</SelectItem>
-                      <SelectItem value="internal-audit">Internal Audit</SelectItem>
-                      <SelectItem value="ai-governance">AI Governance</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
+            )}
+            <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="demo-timeline">Timeline</Label>
-                <Select value={demoFormData.timeline} onValueChange={(value) => setDemoFormData({ ...demoFormData, timeline: value })}>
-                  <SelectTrigger id="demo-timeline">
-                    <SelectValue placeholder="Select timeline" />
+                <Label htmlFor="demo-name" className={demoForm.formState.errors.name ? 'text-red-500' : ''}>
+                  {demoForm.formState.errors.name ? demoForm.formState.errors.name.message : 'Full Name *'}
+                </Label>
+                <Input
+                  id="demo-name"
+                  {...demoForm.register('name')}
+                  className={demoForm.formState.errors.name ? 'border-red-500' : ''}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="demo-email" className={demoForm.formState.errors.email ? 'text-red-500' : ''}>
+                  {demoForm.formState.errors.email ? demoForm.formState.errors.email.message : 'Work Email *'}
+                </Label>
+                <Input
+                  id="demo-email"
+                  type="email"
+                  {...demoForm.register('email')}
+                  className={demoForm.formState.errors.email ? 'border-red-500' : ''}
+                />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="demo-company" className={demoForm.formState.errors.company ? 'text-red-500' : ''}>
+                  {demoForm.formState.errors.company ? demoForm.formState.errors.company.message : 'Company *'}
+                </Label>
+                <Input
+                  id="demo-company"
+                  {...demoForm.register('company')}
+                  className={demoForm.formState.errors.company ? 'border-red-500' : ''}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="demo-role" className={demoForm.formState.errors.role ? 'text-red-500' : ''}>
+                  {demoForm.formState.errors.role ? demoForm.formState.errors.role.message : 'Role *'}
+                </Label>
+                <Input
+                  id="demo-role"
+                  {...demoForm.register('role')}
+                  className={demoForm.formState.errors.role ? 'border-red-500' : ''}
+                />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="demo-sector" className={demoForm.formState.errors.sector ? 'text-red-500' : ''}>
+                  {demoForm.formState.errors.sector ? demoForm.formState.errors.sector.message : 'Sector *'}
+                </Label>
+                <Select value={demoSector} onValueChange={(value) => demoForm.setValue('sector', value, { shouldValidate: true })}>
+                  <SelectTrigger id="demo-sector" className={demoForm.formState.errors.sector ? 'border-red-500' : ''}>
+                    <SelectValue placeholder="Select sector" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="now">Now</SelectItem>
-                    <SelectItem value="30">Within 30 days</SelectItem>
-                    <SelectItem value="90">Within 90 days</SelectItem>
-                    <SelectItem value="exploring">Exploring</SelectItem>
+                    <SelectItem value="finance">Finance & Banking</SelectItem>
+                    <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
+                    <SelectItem value="healthcare">Healthcare</SelectItem>
+                    <SelectItem value="government">Government</SelectItem>
+                    <SelectItem value="giga">Giga Vendor</SelectItem>
+                    <SelectItem value="sme">SME</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-
               <div className="space-y-2">
-                <Label htmlFor="demo-notes">Additional Notes</Label>
-                <Textarea
-                  id="demo-notes"
-                  rows={3}
-                  value={demoFormData.notes}
-                  onChange={(e) => setDemoFormData({ ...demoFormData, notes: e.target.value })}
-                  placeholder="Specific requirements or questions..."
-                />
+                <Label htmlFor="demo-focus" className={demoForm.formState.errors.focus ? 'text-red-500' : ''}>
+                  {demoForm.formState.errors.focus ? demoForm.formState.errors.focus.message : 'Focus Area *'}
+                </Label>
+                <Select value={demoFocus} onValueChange={(value) => demoForm.setValue('focus', value, { shouldValidate: true })}>
+                  <SelectTrigger id="demo-focus" className={demoForm.formState.errors.focus ? 'border-red-500' : ''}>
+                    <SelectValue placeholder="Select focus" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="pdpl">PDPL</SelectItem>
+                    <SelectItem value="nca-ecc">NCA ECC</SelectItem>
+                    <SelectItem value="zatca">ZATCA</SelectItem>
+                    <SelectItem value="governance">Governance</SelectItem>
+                    <SelectItem value="erm">ERM</SelectItem>
+                    <SelectItem value="internal-audit">Internal Audit</SelectItem>
+                    <SelectItem value="ai-governance">AI Governance</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
+            </div>
 
-              <div className="flex gap-3 pt-4">
-                <Button type="button" variant="outline" onClick={() => setDemoModalOpen(false)} className="flex-1">
+            <div className="space-y-2">
+              <Label htmlFor="demo-timeline" className={demoForm.formState.errors.timeline ? 'text-red-500' : ''}>
+                {demoForm.formState.errors.timeline ? demoForm.formState.errors.timeline.message : 'Timeline *'}
+              </Label>
+              <Select value={demoTimeline} onValueChange={(value) => demoForm.setValue('timeline', value, { shouldValidate: true })}>
+                <SelectTrigger id="demo-timeline" className={demoForm.formState.errors.timeline ? 'border-red-500' : ''}>
+                  <SelectValue placeholder="Select timeline" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="now">Now</SelectItem>
+                  <SelectItem value="30">Within 30 days</SelectItem>
+                  <SelectItem value="90">Within 90 days</SelectItem>
+                  <SelectItem value="exploring">Exploring</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="demo-notes">Additional Notes</Label>
+              <Textarea
+                id="demo-notes"
+                rows={3}
+                {...demoForm.register('notes')}
+                placeholder="Specific requirements or questions..."
+              />
+            </div>
+
+            <div className="flex gap-3 pt-4">
+                <Button type="button" variant="outline" onClick={() => setDemoModalOpen(false)} className="flex-1" disabled={isSubmitting}>
                   Cancel
                 </Button>
-                <Button type="submit" className="flex-1 bg-[#C9A227] hover:bg-[#B8921F]">
-                  Request Demo
+                <Button type="submit" className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    'Request Demo'
+                  )}
                 </Button>
               </div>
             </form>
-          )}
         </DialogContent>
       </Dialog>
 

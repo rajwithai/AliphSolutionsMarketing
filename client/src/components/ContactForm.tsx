@@ -54,6 +54,7 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
       return response.json();
     },
     onSuccess: () => {
+      form.reset();
       setIsSubmitted(true);
       queryClient.invalidateQueries({ queryKey: ['/api/contact'] });
       toast({
@@ -81,6 +82,20 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
     });
   };
 
+  const handleSendAnother = () => {
+    form.reset({
+      name: '',
+      email: '',
+      company: '',
+      phone: '',
+      subject: '',
+      message: '',
+      inquiryType: defaultInquiryType,
+      language: language,
+    });
+    setIsSubmitted(false);
+  };
+
   if (isSubmitted) {
     return (
       <Card className={className}>
@@ -100,7 +115,7 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
             </p>
             <Button 
               variant="outline" 
-              onClick={() => setIsSubmitted(false)}
+              onClick={handleSendAnother}
               data-testid="button-send-another"
             >
               {language === 'ar' ? 'إرسال رسالة أخرى' : 'Send Another Message'}

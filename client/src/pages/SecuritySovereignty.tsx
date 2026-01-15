@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -25,8 +28,34 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Shield, Lock, Eye, FileText, CheckCircle2, AlertTriangle, Database, Users, ArrowRight, Network, Server, Cloud } from 'lucide-react';
+import { Shield, Lock, Eye, FileText, CheckCircle2, AlertTriangle, Database, Users, ArrowRight, Network, Server, Cloud, Loader2 } from 'lucide-react';
+import SuccessModal from '@/components/SuccessModal';
 import useSEO from '@/hooks/useSEO';
+
+// Architect form validation schema
+const architectFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
+  email: z.string().email('Please enter a valid email address'),
+  company: z.string().min(2, 'Company name is required').max(200),
+  role: z.string().min(2, 'Role is required').max(100),
+  environment: z.string().min(1, 'Please select an environment'),
+  focus: z.string().min(1, 'Please select a focus area'),
+  notes: z.string().optional(),
+});
+
+// Brief form validation schema
+const briefFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
+  email: z.string().email('Please enter a valid email address'),
+  company: z.string().min(2, 'Company name is required').max(200),
+  role: z.string().min(2, 'Role is required').max(100),
+  sector: z.string().min(1, 'Please select a sector'),
+  primaryInterest: z.string().min(1, 'Please select a primary interest'),
+  ndaNeeded: z.boolean(),
+});
+
+type ArchitectFormData = z.infer<typeof architectFormSchema>;
+type BriefFormData = z.infer<typeof briefFormSchema>;
 
 export default function SecuritySovereignty() {
   useSEO({
@@ -36,69 +65,163 @@ export default function SecuritySovereignty() {
   });
 
   const [architectModalOpen, setArchitectModalOpen] = useState(false);
-  const [architectFormData, setArchitectFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    role: '',
-    environment: '',
-    focus: '',
-    notes: ''
-  });
   const [architectSubmitted, setArchitectSubmitted] = useState(false);
-
-  const [briefFormData, setBriefFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    role: '',
-    sector: '',
-    primaryInterest: '',
-    ndaNeeded: false
-  });
   const [briefSubmitted, setBriefSubmitted] = useState(false);
+  const [isSubmittingArchitect, setIsSubmittingArchitect] = useState(false);
+  const [isSubmittingBrief, setIsSubmittingBrief] = useState(false);
+  const [architectError, setArchitectError] = useState<string | null>(null);
+  const [briefError, setBriefError] = useState<string | null>(null);
 
-  const handleArchitectSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Architect form submitted:', architectFormData);
-    setArchitectSubmitted(true);
-    setTimeout(() => {
-      setArchitectSubmitted(false);
-      setArchitectModalOpen(false);
-      setArchitectFormData({
-        name: '',
-        email: '',
-        company: '',
-        role: '',
-        environment: '',
-        focus: '',
-        notes: ''
+  // Architect form
+  const architectForm = useForm<ArchitectFormData>({
+    resolver: zodResolver(architectFormSchema),
+    mode: 'onChange',
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      role: '',
+      environment: '',
+      focus: '',
+      notes: '',
+    },
+  });
+
+  const architectEnvironment = architectForm.watch('environment');
+  const architectFocus = architectForm.watch('focus');
+
+  // Brief form
+  const briefForm = useForm<BriefFormData>({
+    resolver: zodResolver(briefFormSchema),
+    mode: 'onChange',
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      role: '',
+      sector: '',
+      primaryInterest: '',
+      ndaNeeded: false,
+    },
+  });
+
+  const briefSector = briefForm.watch('sector');
+  const briefPrimaryInterest = briefForm.watch('primaryInterest');
+  const briefNdaNeeded = briefForm.watch('ndaNeeded');
+
+  const onArchitectSubmit = async (data: ArchitectFormData) => {
+    setIsSubmittingArchitect(true);
+    setArchitectError(null);
+
+    try {
+      const payload = {
+        name: data.name,
+        email: data.email,
+        company: data.company,
+        phone: '',
+        subject: `Architecture Call Request - ${data.company}`,
+        message: `Role: ${data.role}\n` +
+          `Environment: ${data.environment}\n` +
+          `Focus Area: ${data.focus}\n\n` +
+          `Additional Notes:\n${data.notes || 'None'}`,
+        inquiryType: 'solution' as const,
+        language: 'en',
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
-    }, 2000);
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setArchitectError(result.message || 'Failed to submit. Please try again.');
+        return;
+      }
+
+      setArchitectSubmitted(true);
+    } catch (error) {
+      setArchitectError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmittingArchitect(false);
+    }
   };
 
-  const handleBriefSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Brief form submitted:', briefFormData);
-    setBriefSubmitted(true);
-    setTimeout(() => {
-      setBriefSubmitted(false);
-      setBriefFormData({
-        name: '',
-        email: '',
-        company: '',
-        role: '',
-        sector: '',
-        primaryInterest: '',
-        ndaNeeded: false
+  const onBriefSubmit = async (data: BriefFormData) => {
+    setIsSubmittingBrief(true);
+    setBriefError(null);
+
+    try {
+      const payload = {
+        name: data.name,
+        email: data.email,
+        company: data.company,
+        phone: '',
+        subject: `Security Brief Request - ${data.company}`,
+        message: `Role: ${data.role}\n` +
+          `Sector: ${data.sector}\n` +
+          `Primary Interest: ${data.primaryInterest}\n` +
+          `NDA Needed: ${data.ndaNeeded ? 'Yes' : 'No'}`,
+        inquiryType: 'solution' as const,
+        language: 'en',
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
-    }, 3000);
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setBriefError(result.message || 'Failed to submit. Please try again.');
+        return;
+      }
+
+      setBriefSubmitted(true);
+    } catch (error) {
+      setBriefError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmittingBrief(false);
+    }
   };
 
   return (
     <>
+      <SuccessModal
+        open={architectSubmitted}
+        onClose={() => {
+          setArchitectSubmitted(false);
+          setArchitectModalOpen(false);
+          architectForm.reset();
+        }}
+        title="Request Received!"
+        message="We'll respond with available times for your architecture walkthrough within 24-48 hours."
+        buttonText="Close"
+      />
+
+      <SuccessModal
+        open={briefSubmitted}
+        onClose={() => {
+          setBriefSubmitted(false);
+          briefForm.reset();
+        }}
+        title="Security Brief Request Received!"
+        message="We'll send your security brief (PDF) within 24-48 hours."
+        buttonText="Close"
+      />
+
       {/* Architect Modal */}
-      <Dialog open={architectModalOpen} onOpenChange={setArchitectModalOpen}>
+      <Dialog open={architectModalOpen && !architectSubmitted} onOpenChange={(open) => {
+        setArchitectModalOpen(open);
+        if (!open) {
+          architectForm.reset();
+          setArchitectError(null);
+        }
+      }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl">Schedule Architecture Call</DialogTitle>
@@ -107,117 +230,126 @@ export default function SecuritySovereignty() {
             </DialogDescription>
           </DialogHeader>
 
-          {architectSubmitted ? (
-            <div className="py-8 text-center">
-              <CheckCircle2 className="w-16 h-16 text-green-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-green-900 mb-2">Request Received</h3>
-              <p className="text-green-800">
-                We'll respond with available times for your architecture walkthrough.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleArchitectSubmit} className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="arch-name">Name *</Label>
-                  <Input
-                    id="arch-name"
-                    required
-                    value={architectFormData.name}
-                    onChange={(e) => setArchitectFormData({ ...architectFormData, name: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="arch-email">Email *</Label>
-                  <Input
-                    id="arch-email"
-                    type="email"
-                    required
-                    value={architectFormData.email}
-                    onChange={(e) => setArchitectFormData({ ...architectFormData, email: e.target.value })}
-                  />
-                </div>
+          <form onSubmit={architectForm.handleSubmit(onArchitectSubmit)} className="space-y-4">
+            {architectError && (
+              <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                <p className="text-sm text-red-400">{architectError}</p>
               </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="arch-company">Company *</Label>
-                  <Input
-                    id="arch-company"
-                    required
-                    value={architectFormData.company}
-                    onChange={(e) => setArchitectFormData({ ...architectFormData, company: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="arch-role">Role *</Label>
-                  <Input
-                    id="arch-role"
-                    required
-                    value={architectFormData.role}
-                    onChange={(e) => setArchitectFormData({ ...architectFormData, role: e.target.value })}
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="arch-environment">Environment</Label>
-                  <Select
-                    value={architectFormData.environment}
-                    onValueChange={(value) => setArchitectFormData({ ...architectFormData, environment: value })}
-                  >
-                    <SelectTrigger id="arch-environment">
-                      <SelectValue placeholder="Select environment" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="standard">Standard Secure</SelectItem>
-                      <SelectItem value="private">Private Environment</SelectItem>
-                      <SelectItem value="on-prem">Edge / On-Prem</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="arch-focus">Focus Area</Label>
-                  <Select
-                    value={architectFormData.focus}
-                    onValueChange={(value) => setArchitectFormData({ ...architectFormData, focus: value })}
-                  >
-                    <SelectTrigger id="arch-focus">
-                      <SelectValue placeholder="Select focus" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="ai-governance">AI Governance</SelectItem>
-                      <SelectItem value="pdpl">PDPL Compliance</SelectItem>
-                      <SelectItem value="nca-ecc">NCA ECC</SelectItem>
-                      <SelectItem value="zatca">ZATCA</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
+            )}
+            <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="arch-notes">Additional Notes</Label>
-                <Textarea
-                  id="arch-notes"
-                  rows={3}
-                  value={architectFormData.notes}
-                  onChange={(e) => setArchitectFormData({ ...architectFormData, notes: e.target.value })}
-                  placeholder="Specific requirements, security concerns, or questions..."
+                <Label htmlFor="arch-name" className={architectForm.formState.errors.name ? 'text-red-500' : ''}>
+                  {architectForm.formState.errors.name ? architectForm.formState.errors.name.message : 'Name *'}
+                </Label>
+                <Input
+                  id="arch-name"
+                  {...architectForm.register('name')}
+                  className={architectForm.formState.errors.name ? 'border-red-500' : ''}
                 />
               </div>
-
-              <div className="flex gap-3 pt-4">
-                <Button type="button" variant="outline" onClick={() => setArchitectModalOpen(false)} className="flex-1">
-                  Cancel
-                </Button>
-                <Button type="submit" className="flex-1 bg-[#C9A227] hover:bg-[#B8921F]">
-                  Request Architecture Call
-                </Button>
+              <div className="space-y-2">
+                <Label htmlFor="arch-email" className={architectForm.formState.errors.email ? 'text-red-500' : ''}>
+                  {architectForm.formState.errors.email ? architectForm.formState.errors.email.message : 'Email *'}
+                </Label>
+                <Input
+                  id="arch-email"
+                  type="email"
+                  {...architectForm.register('email')}
+                  className={architectForm.formState.errors.email ? 'border-red-500' : ''}
+                />
               </div>
-            </form>
-          )}
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="arch-company" className={architectForm.formState.errors.company ? 'text-red-500' : ''}>
+                  {architectForm.formState.errors.company ? architectForm.formState.errors.company.message : 'Company *'}
+                </Label>
+                <Input
+                  id="arch-company"
+                  {...architectForm.register('company')}
+                  className={architectForm.formState.errors.company ? 'border-red-500' : ''}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="arch-role" className={architectForm.formState.errors.role ? 'text-red-500' : ''}>
+                  {architectForm.formState.errors.role ? architectForm.formState.errors.role.message : 'Role *'}
+                </Label>
+                <Input
+                  id="arch-role"
+                  {...architectForm.register('role')}
+                  className={architectForm.formState.errors.role ? 'border-red-500' : ''}
+                />
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="arch-environment" className={architectForm.formState.errors.environment ? 'text-red-500' : ''}>
+                  {architectForm.formState.errors.environment ? architectForm.formState.errors.environment.message : 'Environment *'}
+                </Label>
+                <Select
+                  value={architectEnvironment}
+                  onValueChange={(value) => architectForm.setValue('environment', value, { shouldValidate: true })}
+                >
+                  <SelectTrigger id="arch-environment" className={architectForm.formState.errors.environment ? 'border-red-500' : ''}>
+                    <SelectValue placeholder="Select environment" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="standard">Standard Secure</SelectItem>
+                    <SelectItem value="private">Private Environment</SelectItem>
+                    <SelectItem value="on-prem">Edge / On-Prem</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="arch-focus" className={architectForm.formState.errors.focus ? 'text-red-500' : ''}>
+                  {architectForm.formState.errors.focus ? architectForm.formState.errors.focus.message : 'Focus Area *'}
+                </Label>
+                <Select
+                  value={architectFocus}
+                  onValueChange={(value) => architectForm.setValue('focus', value, { shouldValidate: true })}
+                >
+                  <SelectTrigger id="arch-focus" className={architectForm.formState.errors.focus ? 'border-red-500' : ''}>
+                    <SelectValue placeholder="Select focus" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ai-governance">AI Governance</SelectItem>
+                    <SelectItem value="pdpl">PDPL Compliance</SelectItem>
+                    <SelectItem value="nca-ecc">NCA ECC</SelectItem>
+                    <SelectItem value="zatca">ZATCA</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="arch-notes">Additional Notes</Label>
+              <Textarea
+                id="arch-notes"
+                rows={3}
+                {...architectForm.register('notes')}
+                placeholder="Specific requirements, security concerns, or questions..."
+              />
+            </div>
+
+            <div className="flex gap-3 pt-4">
+              <Button type="button" variant="outline" onClick={() => setArchitectModalOpen(false)} className="flex-1" disabled={isSubmittingArchitect}>
+                Cancel
+              </Button>
+              <Button type="submit" className="flex-1 bg-[#C9A227] hover:bg-[#B8921F]" disabled={isSubmittingArchitect}>
+                {isSubmittingArchitect ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  'Request Architecture Call'
+                )}
+              </Button>
+            </div>
+          </form>
         </DialogContent>
       </Dialog>
 
@@ -626,117 +758,128 @@ export default function SecuritySovereignty() {
             </p>
           </div>
 
-          {briefSubmitted ? (
-            <Card className="p-12 text-center border-2 border-green-200 bg-green-50">
-              <CheckCircle2 className="w-16 h-16 text-green-600 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-green-900 mb-2">Request Received</h3>
-              <p className="text-green-800">
-                We'll share a secure link and offer an optional architecture walkthrough.
-              </p>
-            </Card>
-          ) : (
-            <Card className="p-8 border-2">
-              <form onSubmit={handleBriefSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="brief-name">Full Name *</Label>
-                    <Input
-                      id="brief-name"
-                      required
-                      value={briefFormData.name}
-                      onChange={(e) => setBriefFormData({ ...briefFormData, name: e.target.value })}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="brief-email">Work Email *</Label>
-                    <Input
-                      id="brief-email"
-                      type="email"
-                      required
-                      value={briefFormData.email}
-                      onChange={(e) => setBriefFormData({ ...briefFormData, email: e.target.value })}
-                    />
-                  </div>
+          <Card className="p-8 border-2">
+            <form onSubmit={briefForm.handleSubmit(onBriefSubmit)} className="space-y-6" id="brief-form">
+              {briefError && (
+                <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                  <p className="text-sm text-red-400">{briefError}</p>
                 </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="brief-company">Company *</Label>
-                    <Input
-                      id="brief-company"
-                      required
-                      value={briefFormData.company}
-                      onChange={(e) => setBriefFormData({ ...briefFormData, company: e.target.value })}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="brief-role">Role *</Label>
-                    <Input
-                      id="brief-role"
-                      required
-                      value={briefFormData.role}
-                      onChange={(e) => setBriefFormData({ ...briefFormData, role: e.target.value })}
-                    />
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="brief-sector">Sector *</Label>
-                    <Select value={briefFormData.sector} onValueChange={(value) => setBriefFormData({ ...briefFormData, sector: value })}>
-                      <SelectTrigger id="brief-sector">
-                        <SelectValue placeholder="Select sector" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="finance">Finance & Banking</SelectItem>
-                        <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
-                        <SelectItem value="healthcare">Healthcare</SelectItem>
-                        <SelectItem value="government">Government</SelectItem>
-                        <SelectItem value="giga">Giga Vendor</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="brief-interest">Primary Interest</Label>
-                    <Select value={briefFormData.primaryInterest} onValueChange={(value) => setBriefFormData({ ...briefFormData, primaryInterest: value })}>
-                      <SelectTrigger id="brief-interest">
-                        <SelectValue placeholder="Select interest" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="architecture">Architecture Overview</SelectItem>
-                        <SelectItem value="deployment">Deployment Patterns</SelectItem>
-                        <SelectItem value="compliance">Compliance & Audit</SelectItem>
-                        <SelectItem value="privacy">Privacy Controls</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="brief-nda"
-                    checked={briefFormData.ndaNeeded}
-                    onCheckedChange={(checked) => setBriefFormData({ ...briefFormData, ndaNeeded: checked as boolean })}
+              )}
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="brief-name" className={briefForm.formState.errors.name ? 'text-red-500' : ''}>
+                    {briefForm.formState.errors.name ? briefForm.formState.errors.name.message : 'Full Name *'}
+                  </Label>
+                  <Input
+                    id="brief-name"
+                    {...briefForm.register('name')}
+                    className={briefForm.formState.errors.name ? 'border-red-500' : ''}
                   />
-                  <label htmlFor="brief-nda" className="text-sm cursor-pointer">NDA Required</label>
                 </div>
+                <div className="space-y-2">
+                  <Label htmlFor="brief-email" className={briefForm.formState.errors.email ? 'text-red-500' : ''}>
+                    {briefForm.formState.errors.email ? briefForm.formState.errors.email.message : 'Work Email *'}
+                  </Label>
+                  <Input
+                    id="brief-email"
+                    type="email"
+                    {...briefForm.register('email')}
+                    className={briefForm.formState.errors.email ? 'border-red-500' : ''}
+                  />
+                </div>
+              </div>
 
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="w-full bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D] text-lg"
-                  data-cta="request_security_brief"
-                >
-                  Request Brief
-                </Button>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="brief-company" className={briefForm.formState.errors.company ? 'text-red-500' : ''}>
+                    {briefForm.formState.errors.company ? briefForm.formState.errors.company.message : 'Company *'}
+                  </Label>
+                  <Input
+                    id="brief-company"
+                    {...briefForm.register('company')}
+                    className={briefForm.formState.errors.company ? 'border-red-500' : ''}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="brief-role" className={briefForm.formState.errors.role ? 'text-red-500' : ''}>
+                    {briefForm.formState.errors.role ? briefForm.formState.errors.role.message : 'Role *'}
+                  </Label>
+                  <Input
+                    id="brief-role"
+                    {...briefForm.register('role')}
+                    className={briefForm.formState.errors.role ? 'border-red-500' : ''}
+                  />
+                </div>
+              </div>
 
-                <p className="text-xs text-gray-500 text-center">
-                  We do not sell or share your data. Requests are reviewed to ensure secure distribution.
-                </p>
-              </form>
-            </Card>
-          )}
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="brief-sector" className={briefForm.formState.errors.sector ? 'text-red-500' : ''}>
+                    {briefForm.formState.errors.sector ? briefForm.formState.errors.sector.message : 'Sector *'}
+                  </Label>
+                  <Select value={briefSector} onValueChange={(value) => briefForm.setValue('sector', value, { shouldValidate: true })}>
+                    <SelectTrigger id="brief-sector" className={briefForm.formState.errors.sector ? 'border-red-500' : ''}>
+                      <SelectValue placeholder="Select sector" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="finance">Finance & Banking</SelectItem>
+                      <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
+                      <SelectItem value="healthcare">Healthcare</SelectItem>
+                      <SelectItem value="government">Government</SelectItem>
+                      <SelectItem value="giga">Giga Vendor</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="brief-interest" className={briefForm.formState.errors.primaryInterest ? 'text-red-500' : ''}>
+                    {briefForm.formState.errors.primaryInterest ? briefForm.formState.errors.primaryInterest.message : 'Primary Interest *'}
+                  </Label>
+                  <Select value={briefPrimaryInterest} onValueChange={(value) => briefForm.setValue('primaryInterest', value, { shouldValidate: true })}>
+                    <SelectTrigger id="brief-interest" className={briefForm.formState.errors.primaryInterest ? 'border-red-500' : ''}>
+                      <SelectValue placeholder="Select interest" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="architecture">Architecture Overview</SelectItem>
+                      <SelectItem value="deployment">Deployment Patterns</SelectItem>
+                      <SelectItem value="compliance">Compliance & Audit</SelectItem>
+                      <SelectItem value="privacy">Privacy Controls</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="brief-nda"
+                  checked={briefNdaNeeded}
+                  onCheckedChange={(checked) => briefForm.setValue('ndaNeeded', checked as boolean)}
+                />
+                <label htmlFor="brief-nda" className="text-sm cursor-pointer">NDA Required</label>
+              </div>
+
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D] text-lg"
+                data-cta="request_security_brief"
+                disabled={isSubmittingBrief}
+              >
+                {isSubmittingBrief ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  'Request Brief'
+                )}
+              </Button>
+
+              <p className="text-xs text-gray-500 text-center">
+                We do not sell or share your data. Requests are reviewed to ensure secure distribution.
+              </p>
+            </form>
+          </Card>
         </div>
       </section>
 

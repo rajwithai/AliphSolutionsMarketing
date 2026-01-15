@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Loader2 } from 'lucide-react';
+import SuccessModal from '@/components/SuccessModal';
 
 type RequestType = 'demo' | 'deliverables' | 'partnership';
 
@@ -134,11 +135,7 @@ export default function RequestModal({ open, onClose, type }: RequestModalProps)
       }
 
       setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        onClose();
-        reset();
-      }, 2000);
+      // User will manually close the success modal via the Close button
     } catch (error) {
       console.error('Form submission error:', error);
       setServerError('An unexpected error occurred. Please try again later.');
@@ -151,24 +148,32 @@ export default function RequestModal({ open, onClose, type }: RequestModalProps)
   const labelClasses = "text-gray-300";
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto bg-[#0B1220] border-[#C9A227] text-white p-6 md:p-8">
-        <DialogHeader className="mb-6">
-          <DialogTitle className="text-2xl font-bold text-white mb-2">{config.title}</DialogTitle>
-          <DialogDescription className="text-gray-400 text-base">{config.description}</DialogDescription>
-        </DialogHeader>
+    <>
+      <SuccessModal
+        open={submitted}
+        onClose={() => {
+          setSubmitted(false);
+          onClose();
+          reset();
+        }}
+        title="Email Sent Successfully!"
+        message={`We've received your request and will respond with ${type === 'demo' ? 'a demo agenda' : 'next steps'} within 24-48 hours.`}
+        buttonText="Close"
+      />
 
-        {submitted ? (
-          <div className="py-12 text-center">
-            <div className="w-16 h-16 bg-[#C9A227]/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-[#C9A227]/20">
-              <div className="text-[#C9A227] text-2xl">✓</div>
-            </div>
-            <div className="text-[#C9A227] text-lg font-semibold mb-2">Request Submitted</div>
-            <p className="text-sm text-gray-400">
-              We'll respond with {type === 'demo' ? 'a demo agenda' : 'next steps'} shortly.
-            </p>
-          </div>
-        ) : (
+      <Dialog open={open && !submitted} onOpenChange={(isOpen) => {
+        if (!isOpen) {
+          reset();
+          setServerError(null);
+        }
+        onClose();
+      }}>
+        <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto bg-[#0B1220] border-[#C9A227] text-white p-6 md:p-8">
+          <DialogHeader className="mb-6">
+            <DialogTitle className="text-2xl font-bold text-white mb-2">{config.title}</DialogTitle>
+            <DialogDescription className="text-gray-400 text-base">{config.description}</DialogDescription>
+          </DialogHeader>
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Server Error Display */}
             {serverError && (
@@ -319,8 +324,8 @@ export default function RequestModal({ open, onClose, type }: RequestModalProps)
               </Button>
             </div>
           </form>
-        )}
-      </DialogContent>
-    </Dialog>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

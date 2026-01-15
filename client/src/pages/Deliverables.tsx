@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -26,8 +29,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { FileText, Shield, CheckCircle2, Lock, Download, Eye, ArrowRight, Sparkles, Filter } from 'lucide-react';
+import { FileText, Shield, CheckCircle2, Lock, Download, Eye, ArrowRight, Sparkles, Filter, Loader2 } from 'lucide-react';
 import useSEO from '@/hooks/useSEO';
+import SuccessModal from '@/components/SuccessModal';
 
 interface DeliverablePackType {
   id: string;
@@ -166,6 +170,21 @@ const deliverablePacks: DeliverablePackType[] = [
   },
 ];
 
+const requestFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
+  email: z.string().email('Please enter a valid email address'),
+  company: z.string().min(2, 'Company name must be at least 2 characters').max(100),
+  role: z.string().min(2, 'Role must be at least 2 characters').max(100),
+  sector: z.string().min(1, 'Please select a sector'),
+  timeline: z.string().min(1, 'Please select a timeline'),
+  primaryNeeds: z.array(z.string()).min(1, 'Please select at least one need'),
+  ndaRequired: z.boolean().optional(),
+  readinessCall: z.boolean().optional(),
+  notes: z.string().max(1000).optional(),
+});
+
+type RequestFormData = z.infer<typeof requestFormSchema>;
+
 export default function Deliverables() {
   useSEO({
     title: 'Sample Deliverables | Aliph Solutions',
@@ -176,19 +195,31 @@ export default function Deliverables() {
   const [selectedFilter, setSelectedFilter] = useState<string>('All');
   const [selectedPack, setSelectedPack] = useState<DeliverablePackType | null>(null);
   const [previewModalOpen, setPreviewModalOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    role: '',
-    sector: '',
-    primaryNeeds: [] as string[],
-    timeline: '',
-    ndaRequired: false,
-    readinessCall: false,
-    notes: ''
-  });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState('');
+
+  const requestForm = useForm<RequestFormData>({
+    resolver: zodResolver(requestFormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      role: '',
+      sector: '',
+      timeline: '',
+      primaryNeeds: [],
+      ndaRequired: false,
+      readinessCall: false,
+      notes: '',
+    },
+  });
+
+  const sector = requestForm.watch('sector');
+  const timeline = requestForm.watch('timeline');
+  const primaryNeeds = requestForm.watch('primaryNeeds');
+  const ndaRequired = requestForm.watch('ndaRequired');
+  const readinessCall = requestForm.watch('readinessCall');
 
   const categories = ['All', 'Regulation', 'Governance', 'Risk', 'Audit'];
 
@@ -211,29 +242,49 @@ export default function Deliverables() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        role: '',
-        sector: '',
-        primaryNeeds: [],
-        timeline: '',
-        ndaRequired: false,
-        readinessCall: false,
-        notes: ''
+  const handleSubmit = async (data: RequestFormData) => {
+    setIsSubmitting(true);
+    setServerError('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          formType: 'Sample Deliverables Request',
+          primaryNeeds: data.primaryNeeds.join(', '),
+        }),
       });
-    }, 3000);
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setServerError(result.message || 'Failed to submit. Please try again.');
+        return;
+      }
+
+      setFormSubmitted(true);
+    } catch (error) {
+      setServerError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <>
+      <SuccessModal
+        open={formSubmitted}
+        onClose={() => {
+          setFormSubmitted(false);
+          requestForm.reset();
+        }}
+        title="Request Received!"
+        message="We'll respond with a secure preview link and next steps within 24 hours."
+        buttonText="Close"
+      />
+
       {/* Preview Modal */}
       <Dialog open={previewModalOpen} onOpenChange={setPreviewModalOpen}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -611,164 +662,176 @@ export default function Deliverables() {
             </p>
           </div>
           
-          {formSubmitted ? (
-            <Card className="p-12 text-center border-2 border-green-200 bg-green-50">
-              <CheckCircle2 className="w-16 h-16 text-green-600 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold text-green-900 mb-2">Request Received</h3>
-              <p className="text-green-800">
-                We'll respond with a secure preview link and next steps within 24 hours.
-              </p>
-            </Card>
-          ) : (
-            <Card className="p-8 border-2">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Full Name *</Label>
-                    <Input
-                      id="name"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Work Email *</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    />
-                  </div>
+          <Card className="p-8 border-2">
+            <form onSubmit={requestForm.handleSubmit(handleSubmit)} className="space-y-6">
+              {serverError && (
+                <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                  <p className="text-sm text-red-400">{serverError}</p>
                 </div>
-                
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="company">Company *</Label>
-                    <Input
-                      id="company"
-                      required
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="role">Role/Title *</Label>
-                    <Input
-                      id="role"
-                      required
-                      value={formData.role}
-                      onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                    />
-                  </div>
-                </div>
-                
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="sector">Sector *</Label>
-                    <Select value={formData.sector} onValueChange={(value) => setFormData({ ...formData, sector: value })}>
-                      <SelectTrigger id="sector">
-                        <SelectValue placeholder="Select sector" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="finance">Finance & Banking</SelectItem>
-                        <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
-                        <SelectItem value="healthcare">Healthcare</SelectItem>
-                        <SelectItem value="telecom">Telecom</SelectItem>
-                        <SelectItem value="retail">Retail</SelectItem>
-                        <SelectItem value="government">Government</SelectItem>
-                        <SelectItem value="giga">Giga Vendor</SelectItem>
-                        <SelectItem value="sme">SME/Startup</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="timeline">Timeline *</Label>
-                    <Select value={formData.timeline} onValueChange={(value) => setFormData({ ...formData, timeline: value })}>
-                      <SelectTrigger id="timeline">
-                        <SelectValue placeholder="Select timeline" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="immediate">Immediate (0-30 days)</SelectItem>
-                        <SelectItem value="30-90">30-90 days</SelectItem>
-                        <SelectItem value="3-6">3-6 months</SelectItem>
-                        <SelectItem value="exploring">Exploring</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                
+              )}
+              <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>Primary Needs (select all that apply)</Label>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    {['PDPL', 'NCA ECC', 'ZATCA', 'Governance', 'ERM', 'Internal Audit', 'AI Governance', 'Vendor Risk'].map((need) => (
-                      <div key={need} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={need}
-                          checked={formData.primaryNeeds.includes(need)}
-                          onCheckedChange={(checked) => {
-                            if (checked) {
-                              setFormData({ ...formData, primaryNeeds: [...formData.primaryNeeds, need] });
-                            } else {
-                              setFormData({ ...formData, primaryNeeds: formData.primaryNeeds.filter(n => n !== need) });
-                            }
-                          }}
-                        />
-                        <label htmlFor={need} className="text-sm cursor-pointer">{need}</label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="nda"
-                      checked={formData.ndaRequired}
-                      onCheckedChange={(checked) => setFormData({ ...formData, ndaRequired: checked as boolean })}
-                    />
-                    <label htmlFor="nda" className="text-sm cursor-pointer">NDA Required</label>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="call"
-                      checked={formData.readinessCall}
-                      onCheckedChange={(checked) => setFormData({ ...formData, readinessCall: checked as boolean })}
-                    />
-                    <label htmlFor="call" className="text-sm cursor-pointer">I'd like a readiness call as well</label>
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <Label htmlFor="notes">Additional Notes</Label>
-                  <Textarea
-                    id="notes"
-                    rows={3}
-                    value={formData.notes}
-                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    placeholder="Any specific requirements or questions..."
+                  <Label htmlFor="name" className={requestForm.formState.errors.name ? 'text-red-500' : ''}>
+                    {requestForm.formState.errors.name ? requestForm.formState.errors.name.message : 'Full Name *'}
+                  </Label>
+                  <Input
+                    id="name"
+                    {...requestForm.register('name')}
+                    className={requestForm.formState.errors.name ? 'border-red-500' : ''}
                   />
                 </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email" className={requestForm.formState.errors.email ? 'text-red-500' : ''}>
+                    {requestForm.formState.errors.email ? requestForm.formState.errors.email.message : 'Work Email *'}
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    {...requestForm.register('email')}
+                    className={requestForm.formState.errors.email ? 'border-red-500' : ''}
+                  />
+                </div>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="company" className={requestForm.formState.errors.company ? 'text-red-500' : ''}>
+                    {requestForm.formState.errors.company ? requestForm.formState.errors.company.message : 'Company *'}
+                  </Label>
+                  <Input
+                    id="company"
+                    {...requestForm.register('company')}
+                    className={requestForm.formState.errors.company ? 'border-red-500' : ''}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="role" className={requestForm.formState.errors.role ? 'text-red-500' : ''}>
+                    {requestForm.formState.errors.role ? requestForm.formState.errors.role.message : 'Role/Title *'}
+                  </Label>
+                  <Input
+                    id="role"
+                    {...requestForm.register('role')}
+                    className={requestForm.formState.errors.role ? 'border-red-500' : ''}
+                  />
+                </div>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="sector" className={requestForm.formState.errors.sector ? 'text-red-500' : ''}>
+                    {requestForm.formState.errors.sector ? requestForm.formState.errors.sector.message : 'Sector *'}
+                  </Label>
+                  <Select value={sector} onValueChange={(value) => requestForm.setValue('sector', value, { shouldValidate: true })}>
+                    <SelectTrigger id="sector" className={requestForm.formState.errors.sector ? 'border-red-500' : ''}>
+                      <SelectValue placeholder="Select sector" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="finance">Finance & Banking</SelectItem>
+                      <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
+                      <SelectItem value="healthcare">Healthcare</SelectItem>
+                      <SelectItem value="telecom">Telecom</SelectItem>
+                      <SelectItem value="retail">Retail</SelectItem>
+                      <SelectItem value="government">Government</SelectItem>
+                      <SelectItem value="giga">Giga Vendor</SelectItem>
+                      <SelectItem value="sme">SME/Startup</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="timeline" className={requestForm.formState.errors.timeline ? 'text-red-500' : ''}>
+                    {requestForm.formState.errors.timeline ? requestForm.formState.errors.timeline.message : 'Timeline *'}
+                  </Label>
+                  <Select value={timeline} onValueChange={(value) => requestForm.setValue('timeline', value, { shouldValidate: true })}>
+                    <SelectTrigger id="timeline" className={requestForm.formState.errors.timeline ? 'border-red-500' : ''}>
+                      <SelectValue placeholder="Select timeline" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="immediate">Immediate (0-30 days)</SelectItem>
+                      <SelectItem value="30-90">30-90 days</SelectItem>
+                      <SelectItem value="3-6">3-6 months</SelectItem>
+                      <SelectItem value="exploring">Exploring</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label className={requestForm.formState.errors.primaryNeeds ? 'text-red-500' : ''}>
+                  {requestForm.formState.errors.primaryNeeds ? requestForm.formState.errors.primaryNeeds.message : 'Primary Needs (select all that apply) *'}
+                </Label>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {['PDPL', 'NCA ECC', 'ZATCA', 'Governance', 'ERM', 'Internal Audit', 'AI Governance', 'Vendor Risk'].map((need) => (
+                    <div key={need} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={need}
+                        checked={primaryNeeds.includes(need)}
+                        onCheckedChange={(checked) => {
+                          const newNeeds = checked
+                            ? [...primaryNeeds, need]
+                            : primaryNeeds.filter(n => n !== need);
+                          requestForm.setValue('primaryNeeds', newNeeds, { shouldValidate: true });
+                        }}
+                      />
+                      <label htmlFor={need} className="text-sm cursor-pointer">{need}</label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="nda"
+                    checked={ndaRequired}
+                    onCheckedChange={(checked) => requestForm.setValue('ndaRequired', checked as boolean)}
+                  />
+                  <label htmlFor="nda" className="text-sm cursor-pointer">NDA Required</label>
+                </div>
                 
-                <Button 
-                  type="submit" 
-                  size="lg" 
-                  className="w-full bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D] text-lg"
-                  data-cta="deliverables_request_access"
-                >
-                  Request Secure Access
-                </Button>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="call"
+                    checked={readinessCall}
+                    onCheckedChange={(checked) => requestForm.setValue('readinessCall', checked as boolean)}
+                  />
+                  <label htmlFor="call" className="text-sm cursor-pointer">I'd like a readiness call as well</label>
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="notes">Additional Notes</Label>
+                <Textarea
+                  id="notes"
+                  rows={3}
+                  {...requestForm.register('notes')}
+                  placeholder="Any specific requirements or questions..."
+                />
+              </div>
+              
+              <Button 
+                type="submit" 
+                size="lg" 
+                className="w-full bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D] text-lg"
+                data-cta="deliverables_request_access"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  'Request Secure Access'
+                )}
+              </Button>
                 
-                <p className="text-xs text-gray-500 text-center">
-                  We do not sell or share your data. Requests are reviewed to ensure secure distribution.
-                </p>
-              </form>
-            </Card>
-          )}
+              
+              <p className="text-xs text-gray-500 text-center">
+                We do not sell or share your data. Requests are reviewed to ensure secure distribution.
+              </p>
+            </form>
+          </Card>
         </div>
       </section>
 

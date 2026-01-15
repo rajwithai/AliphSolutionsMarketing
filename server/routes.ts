@@ -1,20 +1,99 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
 import { insertContactSubmissionSchema } from "@shared/schema";
 import { z } from "zod";
+import { sendContactEmail } from "./emailService";
+import nodemailer from 'nodemailer';
+
+// Create reusable transporter for generic form submissions
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: parseInt(process.env.SMTP_PORT || '587'),
+  secure: false,
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASSWORD,
+  },
+});
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // Contact form submission
+  // Contact form submission - sends email directly without storing
   app.post("/api/contact", async (req, res) => {
     try {
-      const validatedData = insertContactSubmissionSchema.parse(req.body);
-      const submission = await storage.createContactSubmission(validatedData);
+      // Check if this is a standard contact form or a specialized form
+      if (req.body.formType) {
+        // Handle specialized forms (Advisory, AI Governance, etc.)
+        const { formType, email, name, ...otherFields } = req.body;
+        
+        // Basic validation
+        if (!email || !name) {
+          return res.status(400).json({ 
+            success: false, 
+            message: "Name and email are required" 
+          });
+        }
+        
+        // Build email content from all form fields
+        const fieldEntries = Object.entries(otherFields)
+          .filter(([key, value]) => value !== '' && value !== undefined && value !== null)
+          .map(([key, value]) => {
+            const formattedKey = key
+              .replace(/([A-Z])/g, ' $1')
+              .replace(/^./, str => str.toUpperCase())
+              .trim();
+            return `<p style="margin: 10px 0;"><strong>${formattedKey}:</strong> ${value}</p>`;
+          })
+          .join('\n');
+        
+        const htmlContent = `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #C9A227; border-bottom: 2px solid #C9A227; padding-bottom: 10px;">
+              ${formType}
+            </h2>
+            
+            <div style="background: #f5f5f5; padding: 20px; margin: 20px 0; border-radius: 5px;">
+              <p style="margin: 10px 0;"><strong>Name:</strong> ${name}</p>
+              <p style="margin: 10px 0;"><strong>Email:</strong> ${email}</p>
+              ${fieldEntries}
+            </div>
+            
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #888; font-size: 12px;">
+              <p>This email was sent from Aliph Solutions.</p>
+              <p>Submitted on: ${new Date().toLocaleString()}</p>
+            </div>
+          </div>
+        `;
+        
+        await transporter.sendMail({
+          from: `"Aliph Solutions" <${process.env.SMTP_USER}>`,
+          to: email,
+          subject: `${formType} - ${otherFields.company || name}`,
+          html: htmlContent,
+        });
+        
+        return res.status(200).json({ 
+          success: true, 
+          message: "Email sent successfully"
+        });
+      }
       
-      res.status(201).json({ 
+      // Handle standard contact form
+      const validatedData = insertContactSubmissionSchema.parse(req.body);
+      
+      // Send email to user
+      await sendContactEmail({
+        name: validatedData.name,
+        email: validatedData.email,
+        company: validatedData.company,
+        phone: validatedData.phone,
+        subject: validatedData.subject,
+        message: validatedData.message,
+        inquiryType: validatedData.inquiryType,
+      });
+      
+      res.status(200).json({ 
         success: true, 
-        message: "Contact form submitted successfully",
-        id: submission.id 
+        message: "Email sent successfully"
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -27,7 +106,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.error("Contact form error:", error);
         res.status(500).json({ 
           success: false, 
-          message: "Internal server error" 
+          message: "Failed to send email" 
         });
       }
     }

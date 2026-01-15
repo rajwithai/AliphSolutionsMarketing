@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Link } from 'wouter';
 import useSEO from '@/hooks/useSEO';
 import { Button } from '@/components/ui/button';
@@ -8,7 +11,31 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { ArrowRight, Check, Shield, FileText, Users, Activity, Ticket, BarChart3, ChevronDown, ChevronUp, X, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Check, Shield, FileText, Users, Activity, Ticket, BarChart3, ChevronDown, ChevronUp, X, CheckCircle2, Loader2 } from 'lucide-react';
+import SuccessModal from '@/components/SuccessModal';
+
+const architectFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
+  email: z.string().email('Please enter a valid email address'),
+  company: z.string().min(2, 'Company name must be at least 2 characters').max(100),
+  role: z.string().min(2, 'Role must be at least 2 characters').max(100),
+  environment: z.string().optional(),
+  integrationNeed: z.string().max(1000).optional(),
+});
+
+const briefFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
+  email: z.string().email('Please enter a valid email address'),
+  company: z.string().min(2, 'Company name must be at least 2 characters').max(100),
+  role: z.string().min(2, 'Role must be at least 2 characters').max(100),
+  environment: z.string().min(1, 'Please select an environment type'),
+  systemsOfInterest: z.array(z.string()).optional(),
+  ndaRequired: z.string().optional(),
+  notes: z.string().max(1000).optional(),
+});
+
+type ArchitectFormData = z.infer<typeof architectFormSchema>;
+type BriefFormData = z.infer<typeof briefFormSchema>;
 
 export default function Integrations() {
   useSEO({
@@ -23,15 +50,98 @@ export default function Integrations() {
   const [showBriefForm, setShowBriefForm] = useState(false);
   const [briefSubmitted, setBriefSubmitted] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [isArchitectSubmitting, setIsArchitectSubmitting] = useState(false);
+  const [architectServerError, setArchitectServerError] = useState('');
+  const [isBriefSubmitting, setIsBriefSubmitting] = useState(false);
+  const [briefServerError, setBriefServerError] = useState('');
 
-  const handleArchitectSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setArchitectSubmitted(true);
+  const architectForm = useForm<ArchitectFormData>({
+    resolver: zodResolver(architectFormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      role: '',
+      environment: '',
+      integrationNeed: '',
+    },
+  });
+
+  const briefForm = useForm<BriefFormData>({
+    resolver: zodResolver(briefFormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      role: '',
+      environment: '',
+      systemsOfInterest: [],
+      ndaRequired: 'no',
+      notes: '',
+    },
+  });
+
+  const architectEnvironment = architectForm.watch('environment');
+  const briefEnvironment = briefForm.watch('environment');
+  const systemsOfInterest = briefForm.watch('systemsOfInterest') || [];
+
+  const handleArchitectSubmit = async (data: ArchitectFormData) => {
+    setIsArchitectSubmitting(true);
+    setArchitectServerError('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          formType: 'Integration Architect Request',
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setArchitectServerError(result.message || 'Failed to submit. Please try again.');
+        return;
+      }
+
+      setArchitectSubmitted(true);
+    } catch (error) {
+      setArchitectServerError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsArchitectSubmitting(false);
+    }
   };
 
-  const handleBriefSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setBriefSubmitted(true);
+  const handleBriefSubmit = async (data: BriefFormData) => {
+    setIsBriefSubmitting(true);
+    setBriefServerError('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          formType: 'Integration Brief Request',
+          systemsOfInterest: data.systemsOfInterest?.join(', ') || '',
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setBriefServerError(result.message || 'Failed to submit. Please try again.');
+        return;
+      }
+
+      setBriefSubmitted(true);
+    } catch (error) {
+      setBriefServerError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsBriefSubmitting(false);
+    }
   };
 
   const integrationCategories = [
@@ -117,6 +227,30 @@ export default function Integrations() {
 
   return (
     <>
+      <SuccessModal
+        open={architectSubmitted}
+        onClose={() => {
+          setArchitectSubmitted(false);
+          setShowArchitectModal(false);
+          architectForm.reset();
+        }}
+        title="Request Received!"
+        message="An architect will reach out within 24 hours to schedule a call."
+        buttonText="Close"
+      />
+
+      <SuccessModal
+        open={briefSubmitted}
+        onClose={() => {
+          setBriefSubmitted(false);
+          setShowBriefForm(false);
+          briefForm.reset();
+        }}
+        title="Request Received!"
+        message="We'll share a secure link and offer an optional walkthrough within 24-48 hours."
+        buttonText="Close"
+      />
+
       {/* Hero */}
       <section className="relative min-h-[80vh] bg-gradient-to-br from-[#0B1220] via-[#1a1f35] to-[#0B1220] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -510,7 +644,7 @@ export default function Integrations() {
       </section>
 
       {/* Architect Modal */}
-      {showArchitectModal && (
+      {showArchitectModal && !architectSubmitted && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-8">
@@ -519,7 +653,8 @@ export default function Integrations() {
                 <button
                   onClick={() => {
                     setShowArchitectModal(false);
-                    setArchitectSubmitted(false);
+                    architectForm.reset();
+                    setArchitectServerError('');
                   }}
                   className="text-slate-400 hover:text-slate-600"
                 >
@@ -527,112 +662,110 @@ export default function Integrations() {
                 </button>
               </div>
 
-              {!architectSubmitted ? (
-                <form onSubmit={handleArchitectSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Name *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Email *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      />
-                    </div>
+              <form onSubmit={architectForm.handleSubmit(handleArchitectSubmit)} className="space-y-6">
+                {architectServerError && (
+                  <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                    <p className="text-sm text-red-600">{architectServerError}</p>
                   </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Company *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Role *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      />
-                    </div>
-                  </div>
-
+                )}
+                <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">
-                      Environment Type
+                    <label className={`block text-sm font-semibold mb-2 ${architectForm.formState.errors.name ? 'text-red-600' : 'text-slate-700'}`}>
+                      {architectForm.formState.errors.name ? architectForm.formState.errors.name.message : 'Name *'}
                     </label>
-                    <select className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent">
-                      <option value="">Select environment</option>
-                      <option value="microsoft">Microsoft-centric</option>
-                      <option value="google">Google-centric</option>
-                      <option value="mixed">Mixed</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">
-                      Primary Integration Need
-                    </label>
-                    <textarea
-                      rows={4}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      placeholder="Describe your integration requirements or questions..."
+                    <input
+                      type="text"
+                      {...architectForm.register('name')}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent ${architectForm.formState.errors.name ? 'border-red-500' : 'border-slate-300'}`}
                     />
                   </div>
-
-                  <button
-                    type="submit"
-                    className="w-full px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-900 font-semibold rounded-lg transition-all hover:scale-105"
-                  >
-                    Request Call
-                  </button>
-                </form>
-              ) : (
-                <div className="text-center py-8">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Check className="text-green-600" size={32} />
+                  <div>
+                    <label className={`block text-sm font-semibold mb-2 ${architectForm.formState.errors.email ? 'text-red-600' : 'text-slate-700'}`}>
+                      {architectForm.formState.errors.email ? architectForm.formState.errors.email.message : 'Email *'}
+                    </label>
+                    <input
+                      type="email"
+                      {...architectForm.register('email')}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent ${architectForm.formState.errors.email ? 'border-red-500' : 'border-slate-300'}`}
+                    />
                   </div>
-                  <h4 className="text-xl font-bold text-slate-900 mb-2">Request Received</h4>
-                  <p className="text-slate-600 mb-6">
-                    An architect will reach out within 24 hours to schedule a call.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setShowArchitectModal(false);
-                      setArchitectSubmitted(false);
-                    }}
-                    className="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg transition-all"
-                  >
-                    Close
-                  </button>
                 </div>
-              )}
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className={`block text-sm font-semibold mb-2 ${architectForm.formState.errors.company ? 'text-red-600' : 'text-slate-700'}`}>
+                      {architectForm.formState.errors.company ? architectForm.formState.errors.company.message : 'Company *'}
+                    </label>
+                    <input
+                      type="text"
+                      {...architectForm.register('company')}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent ${architectForm.formState.errors.company ? 'border-red-500' : 'border-slate-300'}`}
+                    />
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-semibold mb-2 ${architectForm.formState.errors.role ? 'text-red-600' : 'text-slate-700'}`}>
+                      {architectForm.formState.errors.role ? architectForm.formState.errors.role.message : 'Role *'}
+                    </label>
+                    <input
+                      type="text"
+                      {...architectForm.register('role')}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent ${architectForm.formState.errors.role ? 'border-red-500' : 'border-slate-300'}`}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    Environment Type
+                  </label>
+                  <select 
+                    {...architectForm.register('environment')}
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                    value={architectEnvironment}
+                    onChange={(e) => architectForm.setValue('environment', e.target.value)}
+                  >
+                    <option value="">Select environment</option>
+                    <option value="microsoft">Microsoft-centric</option>
+                    <option value="google">Google-centric</option>
+                    <option value="mixed">Mixed</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    Primary Integration Need
+                  </label>
+                  <textarea
+                    rows={4}
+                    {...architectForm.register('integrationNeed')}
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                    placeholder="Describe your integration requirements or questions..."
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isArchitectSubmitting}
+                  className="w-full px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-900 font-semibold rounded-lg transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isArchitectSubmitting ? (
+                    <span className="flex items-center justify-center">
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Sending...
+                    </span>
+                  ) : (
+                    'Request Call'
+                  )}
+                </button>
+              </form>
             </div>
           </div>
         </div>
       )}
 
       {/* Brief Form Modal */}
-      {showBriefForm && (
+      {showBriefForm && !briefSubmitted && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-8">
@@ -646,7 +779,8 @@ export default function Integrations() {
                 <button
                   onClick={() => {
                     setShowBriefForm(false);
-                    setBriefSubmitted(false);
+                    briefForm.reset();
+                    setBriefServerError('');
                   }}
                   className="text-slate-400 hover:text-slate-600"
                 >
@@ -654,142 +788,159 @@ export default function Integrations() {
                 </button>
               </div>
 
-              {!briefSubmitted ? (
-                <form onSubmit={handleBriefSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Work Email *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      />
-                    </div>
+              <form onSubmit={briefForm.handleSubmit(handleBriefSubmit)} className="space-y-6">
+                {briefServerError && (
+                  <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                    <p className="text-sm text-red-600">{briefServerError}</p>
                   </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Company *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">
-                        Role *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      />
-                    </div>
-                  </div>
-
+                )}
+                <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">
-                      Environment Type *
+                    <label className={`block text-sm font-semibold mb-2 ${briefForm.formState.errors.name ? 'text-red-600' : 'text-slate-700'}`}>
+                      {briefForm.formState.errors.name ? briefForm.formState.errors.name.message : 'Full Name *'}
                     </label>
-                    <select
-                      required
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                    >
-                      <option value="">Select environment</option>
-                      <option value="microsoft">Microsoft-centric</option>
-                      <option value="google">Google-centric</option>
-                      <option value="mixed">Mixed</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">
-                      Systems of Interest (select all that apply)
-                    </label>
-                    <div className="grid grid-cols-2 gap-3">
-                      {['Docs', 'IAM', 'SIEM', 'Ticketing', 'Reporting', 'GRC tooling'].map((system) => (
-                        <label key={system} className="flex items-center gap-2 p-3 border border-slate-300 rounded-lg hover:bg-slate-50 cursor-pointer">
-                          <input type="checkbox" value={system.toLowerCase()} className="rounded text-amber-500 focus:ring-amber-500" />
-                          <span className="text-sm text-slate-700">{system}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">
-                      NDA Required?
-                    </label>
-                    <div className="flex gap-4">
-                      <label className="flex items-center gap-2">
-                        <input type="radio" name="nda" value="yes" className="text-amber-500 focus:ring-amber-500" />
-                        <span className="text-sm text-slate-700">Yes</span>
-                      </label>
-                      <label className="flex items-center gap-2">
-                        <input type="radio" name="nda" value="no" defaultChecked className="text-amber-500 focus:ring-amber-500" />
-                        <span className="text-sm text-slate-700">No</span>
-                      </label>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">
-                      Notes
-                    </label>
-                    <textarea
-                      rows={4}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                      placeholder="Additional context or specific integration questions..."
+                    <input
+                      type="text"
+                      {...briefForm.register('name')}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent ${briefForm.formState.errors.name ? 'border-red-500' : 'border-slate-300'}`}
                     />
                   </div>
-
-                  <p className="text-xs text-slate-500 italic">
-                    We do not share or sell your data.
-                  </p>
-
-                  <button
-                    type="submit"
-                    className="w-full px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-900 font-semibold rounded-lg transition-all hover:scale-105"
-                  >
-                    Request Brief
-                  </button>
-                </form>
-              ) : (
-                <div className="text-center py-8">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Check className="text-green-600" size={32} />
+                  <div>
+                    <label className={`block text-sm font-semibold mb-2 ${briefForm.formState.errors.email ? 'text-red-600' : 'text-slate-700'}`}>
+                      {briefForm.formState.errors.email ? briefForm.formState.errors.email.message : 'Work Email *'}
+                    </label>
+                    <input
+                      type="email"
+                      {...briefForm.register('email')}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent ${briefForm.formState.errors.email ? 'border-red-500' : 'border-slate-300'}`}
+                    />
                   </div>
-                  <h4 className="text-xl font-bold text-slate-900 mb-2">Request Received</h4>
-                  <p className="text-slate-600 mb-6">
-                    We'll share a secure link and offer an optional walkthrough within 24-48 hours.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setShowBriefForm(false);
-                      setBriefSubmitted(false);
-                    }}
-                    className="px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg transition-all"
-                  >
-                    Close
-                  </button>
                 </div>
-              )}
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label className={`block text-sm font-semibold mb-2 ${briefForm.formState.errors.company ? 'text-red-600' : 'text-slate-700'}`}>
+                      {briefForm.formState.errors.company ? briefForm.formState.errors.company.message : 'Company *'}
+                    </label>
+                    <input
+                      type="text"
+                      {...briefForm.register('company')}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent ${briefForm.formState.errors.company ? 'border-red-500' : 'border-slate-300'}`}
+                    />
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-semibold mb-2 ${briefForm.formState.errors.role ? 'text-red-600' : 'text-slate-700'}`}>
+                      {briefForm.formState.errors.role ? briefForm.formState.errors.role.message : 'Role *'}
+                    </label>
+                    <input
+                      type="text"
+                      {...briefForm.register('role')}
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent ${briefForm.formState.errors.role ? 'border-red-500' : 'border-slate-300'}`}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className={`block text-sm font-semibold mb-2 ${briefForm.formState.errors.environment ? 'text-red-600' : 'text-slate-700'}`}>
+                    {briefForm.formState.errors.environment ? briefForm.formState.errors.environment.message : 'Environment Type *'}
+                  </label>
+                  <select
+                    {...briefForm.register('environment')}
+                    value={briefEnvironment}
+                    onChange={(e) => briefForm.setValue('environment', e.target.value, { shouldValidate: true })}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent ${briefForm.formState.errors.environment ? 'border-red-500' : 'border-slate-300'}`}
+                  >
+                    <option value="">Select environment</option>
+                    <option value="microsoft">Microsoft-centric</option>
+                    <option value="google">Google-centric</option>
+                    <option value="mixed">Mixed</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    Systems of Interest (select all that apply)
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    {['Docs', 'IAM', 'SIEM', 'Ticketing', 'Reporting', 'GRC tooling'].map((system) => (
+                      <label key={system} className="flex items-center gap-2 p-3 border border-slate-300 rounded-lg hover:bg-slate-50 cursor-pointer">
+                        <input 
+                          type="checkbox" 
+                          value={system.toLowerCase()} 
+                          checked={systemsOfInterest.includes(system.toLowerCase())}
+                          onChange={(e) => {
+                            const newSystems = e.target.checked
+                              ? [...systemsOfInterest, system.toLowerCase()]
+                              : systemsOfInterest.filter(s => s !== system.toLowerCase());
+                            briefForm.setValue('systemsOfInterest', newSystems);
+                          }}
+                          className="rounded text-amber-500 focus:ring-amber-500" 
+                        />
+                        <span className="text-sm text-slate-700">{system}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    NDA Required?
+                  </label>
+                  <div className="flex gap-4">
+                    <label className="flex items-center gap-2">
+                      <input 
+                        type="radio" 
+                        {...briefForm.register('ndaRequired')}
+                        value="yes" 
+                        className="text-amber-500 focus:ring-amber-500" 
+                      />
+                      <span className="text-sm text-slate-700">Yes</span>
+                    </label>
+                    <label className="flex items-center gap-2">
+                      <input 
+                        type="radio" 
+                        {...briefForm.register('ndaRequired')}
+                        value="no" 
+                        defaultChecked 
+                        className="text-amber-500 focus:ring-amber-500" 
+                      />
+                      <span className="text-sm text-slate-700">No</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    Notes
+                  </label>
+                  <textarea
+                    rows={4}
+                    {...briefForm.register('notes')}
+                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                    placeholder="Additional context or specific integration questions..."
+                  />
+                </div>
+
+                <p className="text-xs text-slate-500 italic">
+                  We do not share or sell your data.
+                </p>
+
+                <button
+                  type="submit"
+                  disabled={isBriefSubmitting}
+                  className="w-full px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-900 font-semibold rounded-lg transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isBriefSubmitting ? (
+                    <span className="flex items-center justify-center">
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Sending...
+                    </span>
+                  ) : (
+                    'Request Brief'
+                  )}
+                </button>
+              </form>
             </div>
           </div>
         </div>

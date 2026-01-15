@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -25,8 +28,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Eye, Shield, FileText, CheckCircle2, AlertTriangle, ArrowRight, Lock, Users, Zap } from 'lucide-react';
+import { Eye, Shield, FileText, CheckCircle2, AlertTriangle, ArrowRight, Lock, Users, Zap, Loader2 } from 'lucide-react';
 import useSEO from '@/hooks/useSEO';
+import SuccessModal from '@/components/SuccessModal';
+
+const demoFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
+  email: z.string().email('Please enter a valid email address'),
+  company: z.string().min(2, 'Company name must be at least 2 characters').max(100),
+  role: z.string().min(2, 'Role must be at least 2 characters').max(100),
+  sector: z.string().min(1, 'Please select a sector'),
+  currentStatus: z.string().optional(),
+  primaryConcern: z.string().optional(),
+  timeline: z.string().optional(),
+  notes: z.string().max(1000).optional(),
+});
+
+type DemoFormData = z.infer<typeof demoFormSchema>;
 
 export default function AIGovernance() {
   useSEO({
@@ -36,23 +54,57 @@ export default function AIGovernance() {
   });
 
   const [demoModalOpen, setDemoModalOpen] = useState(false);
-  const [demoFormData, setDemoFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    role: '',
-    sector: '',
-    currentStatus: '',
-    primaryConcern: '',
-    timeline: '',
-    notes: ''
-  });
   const [demoSubmitted, setDemoSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState('');
 
-  const handleDemoSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Demo request submitted:', demoFormData);
-    setDemoSubmitted(true);
+  const demoForm = useForm<DemoFormData>({
+    resolver: zodResolver(demoFormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      role: '',
+      sector: '',
+      currentStatus: '',
+      primaryConcern: '',
+      timeline: '',
+      notes: '',
+    },
+  });
+
+  const demoSector = demoForm.watch('sector');
+  const demoStatus = demoForm.watch('currentStatus');
+  const demoConcern = demoForm.watch('primaryConcern');
+  const demoTimeline = demoForm.watch('timeline');
+
+  const handleDemoSubmit = async (data: DemoFormData) => {
+    setIsSubmitting(true);
+    setServerError('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          formType: 'AI Governance Demo Request',
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setServerError(result.message || 'Failed to submit. Please try again.');
+        return;
+      }
+
+      setDemoSubmitted(true);
+    } catch (error) {
+      setServerError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const pillars = [
@@ -124,6 +176,18 @@ export default function AIGovernance() {
 
   return (
     <>
+      <SuccessModal
+        open={demoSubmitted}
+        onClose={() => {
+          setDemoSubmitted(false);
+          setDemoModalOpen(false);
+          demoForm.reset();
+        }}
+        title="Demo Request Received!"
+        message="We'll respond with a demo agenda and next steps within 24 hours."
+        buttonText="Close"
+      />
+
       {/* HERO */}
       <section className="relative min-h-[75vh] bg-gradient-to-br from-[#0B1220] via-[#1a1f35] to-[#0B1220] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -160,7 +224,16 @@ export default function AIGovernance() {
               >
                 Run AI Exposure Check
               </Button>
-              <Dialog open={demoModalOpen} onOpenChange={setDemoModalOpen}>
+              <Dialog open={demoModalOpen && !demoSubmitted} onOpenChange={(open) => {
+                setDemoModalOpen(open);
+                if (open) {
+                  setServerError('');
+                } else {
+                  // Reset form and clear errors when closing
+                  demoForm.reset();
+                  setServerError('');
+                }
+              }}>
                 <DialogTrigger asChild>
                   <Button
                     size="lg"
@@ -178,140 +251,143 @@ export default function AIGovernance() {
                       We'll respond with a demo agenda and next steps tailored to your environment.
                     </DialogDescription>
                   </DialogHeader>
-                  {demoSubmitted ? (
-                    <div className="py-8 text-center">
-                      <CheckCircle2 className="w-16 h-16 text-green-600 mx-auto mb-4" />
-                      <h3 className="text-xl font-bold mb-2">Request Received</h3>
-                      <p className="text-gray-600">
-                        We'll respond with a demo agenda and next steps within 24 hours.
-                      </p>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleDemoSubmit} className="space-y-4 mt-4">
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="demo-name">Name *</Label>
-                          <Input
-                            id="demo-name"
-                            required
-                            value={demoFormData.name}
-                            onChange={(e) => setDemoFormData({ ...demoFormData, name: e.target.value })}
-                            className="mt-1"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="demo-email">Email *</Label>
-                          <Input
-                            id="demo-email"
-                            type="email"
-                            required
-                            value={demoFormData.email}
-                            onChange={(e) => setDemoFormData({ ...demoFormData, email: e.target.value })}
-                            className="mt-1"
-                          />
-                        </div>
+                  <form onSubmit={demoForm.handleSubmit(handleDemoSubmit)} className="space-y-4 mt-4">
+                    {serverError && (
+                      <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                        <p className="text-sm text-red-400">{serverError}</p>
                       </div>
-
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="demo-company">Company *</Label>
-                          <Input
-                            id="demo-company"
-                            required
-                            value={demoFormData.company}
-                            onChange={(e) => setDemoFormData({ ...demoFormData, company: e.target.value })}
-                            className="mt-1"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="demo-role">Role *</Label>
-                          <Input
-                            id="demo-role"
-                            required
-                            value={demoFormData.role}
-                            onChange={(e) => setDemoFormData({ ...demoFormData, role: e.target.value })}
-                            className="mt-1"
-                          />
-                        </div>
-                      </div>
-
+                    )}
+                    <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="demo-sector">Sector *</Label>
-                        <Select value={demoFormData.sector} onValueChange={(value) => setDemoFormData({ ...demoFormData, sector: value })}>
-                          <SelectTrigger id="demo-sector" className="mt-1">
-                            <SelectValue placeholder="Select sector" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="finance">Finance & Banking</SelectItem>
-                            <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
-                            <SelectItem value="healthcare">Healthcare</SelectItem>
-                            <SelectItem value="telecom">Telecom & Digital</SelectItem>
-                            <SelectItem value="government">Government</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="demo-status">Current AI Status</Label>
-                        <Select value={demoFormData.currentStatus} onValueChange={(value) => setDemoFormData({ ...demoFormData, currentStatus: value })}>
-                          <SelectTrigger id="demo-status" className="mt-1">
-                            <SelectValue placeholder="Select current status" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="unknown">Unknown</SelectItem>
-                            <SelectItem value="some-use">Some use</SelectItem>
-                            <SelectItem value="formal">Formal programs</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="demo-concern">Primary Concern</Label>
-                        <Select value={demoFormData.primaryConcern} onValueChange={(value) => setDemoFormData({ ...demoFormData, primaryConcern: value })}>
-                          <SelectTrigger id="demo-concern" className="mt-1">
-                            <SelectValue placeholder="Select primary concern" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="data-exposure">Data exposure</SelectItem>
-                            <SelectItem value="auditability">Auditability</SelectItem>
-                            <SelectItem value="policy">Policy</SelectItem>
-                            <SelectItem value="deployment">Deployment</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="demo-timeline">Timeline</Label>
-                        <Select value={demoFormData.timeline} onValueChange={(value) => setDemoFormData({ ...demoFormData, timeline: value })}>
-                          <SelectTrigger id="demo-timeline" className="mt-1">
-                            <SelectValue placeholder="Select timeline" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="now">Now</SelectItem>
-                            <SelectItem value="30">30 days</SelectItem>
-                            <SelectItem value="90">90 days</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="demo-notes">Notes</Label>
-                        <Textarea
-                          id="demo-notes"
-                          rows={3}
-                          value={demoFormData.notes}
-                          onChange={(e) => setDemoFormData({ ...demoFormData, notes: e.target.value })}
-                          placeholder="Specific questions or context..."
-                          className="mt-1"
+                        <Label htmlFor="demo-name" className={demoForm.formState.errors.name ? 'text-red-500' : ''}>
+                          {demoForm.formState.errors.name ? demoForm.formState.errors.name.message : 'Name *'}
+                        </Label>
+                        <Input
+                          id="demo-name"
+                          {...demoForm.register('name')}
+                          className={`mt-1 ${demoForm.formState.errors.name ? 'border-red-500' : ''}`}
                         />
                       </div>
+                      <div>
+                        <Label htmlFor="demo-email" className={demoForm.formState.errors.email ? 'text-red-500' : ''}>
+                          {demoForm.formState.errors.email ? demoForm.formState.errors.email.message : 'Email *'}
+                        </Label>
+                        <Input
+                          id="demo-email"
+                          type="email"
+                          {...demoForm.register('email')}
+                          className={`mt-1 ${demoForm.formState.errors.email ? 'border-red-500' : ''}`}
+                        />
+                      </div>
+                    </div>
 
-                      <Button type="submit" className="w-full bg-[#C9A227] hover:bg-[#B8921F]">
-                        Request Demo
-                      </Button>
-                    </form>
-                  )}
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="demo-company" className={demoForm.formState.errors.company ? 'text-red-500' : ''}>
+                          {demoForm.formState.errors.company ? demoForm.formState.errors.company.message : 'Company *'}
+                        </Label>
+                        <Input
+                          id="demo-company"
+                          {...demoForm.register('company')}
+                          className={`mt-1 ${demoForm.formState.errors.company ? 'border-red-500' : ''}`}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="demo-role" className={demoForm.formState.errors.role ? 'text-red-500' : ''}>
+                          {demoForm.formState.errors.role ? demoForm.formState.errors.role.message : 'Role *'}
+                        </Label>
+                        <Input
+                          id="demo-role"
+                          {...demoForm.register('role')}
+                          className={`mt-1 ${demoForm.formState.errors.role ? 'border-red-500' : ''}`}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="demo-sector" className={demoForm.formState.errors.sector ? 'text-red-500' : ''}>
+                        {demoForm.formState.errors.sector ? demoForm.formState.errors.sector.message : 'Sector *'}
+                      </Label>
+                      <Select value={demoSector} onValueChange={(value) => demoForm.setValue('sector', value, { shouldValidate: true })}>
+                        <SelectTrigger id="demo-sector" className={`mt-1 ${demoForm.formState.errors.sector ? 'border-red-500' : ''}`}>
+                          <SelectValue placeholder="Select sector" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="finance">Finance & Banking</SelectItem>
+                          <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
+                          <SelectItem value="healthcare">Healthcare</SelectItem>
+                          <SelectItem value="telecom">Telecom & Digital</SelectItem>
+                          <SelectItem value="government">Government</SelectItem>
+                          <SelectItem value="other">Other</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="demo-status">Current AI Status</Label>
+                      <Select value={demoStatus} onValueChange={(value) => demoForm.setValue('currentStatus', value)}>
+                        <SelectTrigger id="demo-status" className="mt-1">
+                          <SelectValue placeholder="Select current status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="unknown">Unknown</SelectItem>
+                          <SelectItem value="some-use">Some use</SelectItem>
+                          <SelectItem value="formal">Formal programs</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="demo-concern">Primary Concern</Label>
+                      <Select value={demoConcern} onValueChange={(value) => demoForm.setValue('primaryConcern', value)}>
+                        <SelectTrigger id="demo-concern" className="mt-1">
+                          <SelectValue placeholder="Select primary concern" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="data-exposure">Data exposure</SelectItem>
+                          <SelectItem value="auditability">Auditability</SelectItem>
+                          <SelectItem value="policy">Policy</SelectItem>
+                          <SelectItem value="deployment">Deployment</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="demo-timeline">Timeline</Label>
+                      <Select value={demoTimeline} onValueChange={(value) => demoForm.setValue('timeline', value)}>
+                        <SelectTrigger id="demo-timeline" className="mt-1">
+                          <SelectValue placeholder="Select timeline" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="now">Now</SelectItem>
+                          <SelectItem value="30">30 days</SelectItem>
+                          <SelectItem value="90">90 days</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="demo-notes">Notes</Label>
+                      <Textarea
+                        id="demo-notes"
+                        rows={3}
+                        {...demoForm.register('notes')}
+                        placeholder="Specific questions or context..."
+                        className="mt-1"
+                      />
+                    </div>
+
+                    <Button type="submit" className="w-full bg-[#C9A227] hover:bg-[#B8921F]" disabled={isSubmitting}>
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        'Request Demo'
+                      )}
+                    </Button>
+                  </form>
                 </DialogContent>
               </Dialog>
             </div>
@@ -606,7 +682,10 @@ export default function AIGovernance() {
             <Button
               size="lg"
               variant="outline"
-              onClick={() => setDemoModalOpen(true)}
+              onClick={() => {
+                setServerError('');
+                setDemoModalOpen(true);
+              }}
               className="border-white/30 text-white hover:bg-white/10"
             >
               Request AI Governance Demo

@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -25,8 +28,35 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Shield, FileText, CheckCircle2, ArrowRight, Clock, Users, BarChart3, Eye, Workflow, Brain, Settings, TrendingUp } from 'lucide-react';
+import { Shield, FileText, CheckCircle2, ArrowRight, Clock, Users, BarChart3, Eye, Workflow, Brain, Settings, TrendingUp, Loader2 } from 'lucide-react';
+import SuccessModal from '@/components/SuccessModal';
 import useSEO from '@/hooks/useSEO';
+
+// Proposal form validation schema
+const proposalFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
+  email: z.string().email('Please enter a valid email address'),
+  company: z.string().min(2, 'Company name is required').max(200),
+  role: z.string().min(2, 'Role is required').max(100),
+  sector: z.string().min(1, 'Please select a sector'),
+  serviceLines: z.array(z.string()).min(1, 'Please select at least one service line'),
+  size: z.string().min(1, 'Please select organization size'),
+  timeline: z.string().min(1, 'Please select a timeline'),
+  notes: z.string().optional(),
+});
+
+// Pilot form validation schema
+const pilotFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
+  email: z.string().email('Please enter a valid email address'),
+  company: z.string().min(2, 'Company name is required').max(200),
+  objective: z.string().min(1, 'Please select an objective'),
+  pressure: z.string().min(1, 'Please select a pressure source'),
+  notes: z.string().optional(),
+});
+
+type ProposalFormData = z.infer<typeof proposalFormSchema>;
+type PilotFormData = z.infer<typeof pilotFormSchema>;
 
 export default function ManagedServices() {
   useSEO({
@@ -37,80 +67,175 @@ export default function ManagedServices() {
 
   const [proposalModalOpen, setProposalModalOpen] = useState(false);
   const [pilotModalOpen, setPilotModalOpen] = useState(false);
-  const [proposalFormData, setProposalFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    role: '',
-    sector: '',
-    serviceLines: [] as string[],
-    size: '',
-    timeline: '',
-    notes: ''
-  });
-  const [pilotFormData, setPilotFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    objective: '',
-    pressure: '',
-    notes: ''
-  });
   const [proposalSubmitted, setProposalSubmitted] = useState(false);
   const [pilotSubmitted, setPilotSubmitted] = useState(false);
+  const [isSubmittingProposal, setIsSubmittingProposal] = useState(false);
+  const [isSubmittingPilot, setIsSubmittingPilot] = useState(false);
+  const [proposalError, setProposalError] = useState<string | null>(null);
+  const [pilotError, setPilotError] = useState<string | null>(null);
 
-  const handleProposalSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Proposal request submitted:', proposalFormData);
-    setProposalSubmitted(true);
-    setTimeout(() => {
-      setProposalSubmitted(false);
-      setProposalModalOpen(false);
-      setProposalFormData({
-        name: '',
-        email: '',
-        company: '',
-        role: '',
-        sector: '',
-        serviceLines: [],
-        size: '',
-        timeline: '',
-        notes: ''
-      });
-    }, 2000);
-  };
+  // Proposal form
+  const proposalForm = useForm<ProposalFormData>({
+    resolver: zodResolver(proposalFormSchema),
+    mode: 'onChange',
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      role: '',
+      sector: '',
+      serviceLines: [],
+      size: '',
+      timeline: '',
+      notes: '',
+    },
+  });
 
-  const handlePilotSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Pilot request submitted:', pilotFormData);
-    setPilotSubmitted(true);
-    setTimeout(() => {
-      setPilotSubmitted(false);
-      setPilotModalOpen(false);
-      setPilotFormData({
-        name: '',
-        email: '',
-        company: '',
-        objective: '',
-        pressure: '',
-        notes: ''
-      });
-    }, 2000);
-  };
+  const serviceLines = proposalForm.watch('serviceLines') || [];
+  const proposalSector = proposalForm.watch('sector');
+  const proposalSize = proposalForm.watch('size');
+  const proposalTimeline = proposalForm.watch('timeline');
+
+  // Pilot form
+  const pilotForm = useForm<PilotFormData>({
+    resolver: zodResolver(pilotFormSchema),
+    mode: 'onChange',
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      objective: '',
+      pressure: '',
+      notes: '',
+    },
+  });
+
+  const pilotObjective = pilotForm.watch('objective');
+  const pilotPressure = pilotForm.watch('pressure');
 
   const toggleServiceLine = (line: string) => {
-    setProposalFormData(prev => ({
-      ...prev,
-      serviceLines: prev.serviceLines.includes(line)
-        ? prev.serviceLines.filter(l => l !== line)
-        : [...prev.serviceLines, line]
-    }));
+    const current = serviceLines;
+    const updated = current.includes(line)
+      ? current.filter(l => l !== line)
+      : [...current, line];
+    proposalForm.setValue('serviceLines', updated, { shouldValidate: true });
+  };
+
+  const onProposalSubmit = async (data: ProposalFormData) => {
+    setIsSubmittingProposal(true);
+    setProposalError(null);
+
+    try {
+      const payload = {
+        name: data.name,
+        email: data.email,
+        company: data.company,
+        phone: '',
+        subject: `Managed Services Proposal Request - ${data.company}`,
+        message: `Role: ${data.role}\n` +
+          `Sector: ${data.sector}\n` +
+          `Service Lines: ${data.serviceLines.join(', ')}\n` +
+          `Organization Size: ${data.size}\n` +
+          `Timeline: ${data.timeline}\n\n` +
+          `Additional Notes:\n${data.notes || 'None'}`,
+        inquiryType: 'solution' as const,
+        language: 'en',
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setProposalError(result.message || 'Failed to submit. Please try again.');
+        return;
+      }
+
+      setProposalSubmitted(true);
+    } catch (error) {
+      setProposalError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmittingProposal(false);
+    }
+  };
+
+  const onPilotSubmit = async (data: PilotFormData) => {
+    setIsSubmittingPilot(true);
+    setPilotError(null);
+
+    try {
+      const payload = {
+        name: data.name,
+        email: data.email,
+        company: data.company,
+        phone: '',
+        subject: `30-Day Pilot Request - ${data.company}`,
+        message: `Primary Objective: ${data.objective}\n` +
+          `Pressure Source: ${data.pressure}\n\n` +
+          `Additional Notes:\n${data.notes || 'None'}`,
+        inquiryType: 'solution' as const,
+        language: 'en',
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setPilotError(result.message || 'Failed to submit. Please try again.');
+        return;
+      }
+
+      setPilotSubmitted(true);
+    } catch (error) {
+      setPilotError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmittingPilot(false);
+    }
   };
 
   return (
     <>
+      <SuccessModal
+        open={proposalSubmitted}
+        onClose={() => {
+          setProposalSubmitted(false);
+          setProposalModalOpen(false);
+          proposalForm.reset();
+        }}
+        title="Proposal Request Received!"
+        message="We'll respond with a scoped managed delivery model within 24-48 hours."
+        buttonText="Close"
+      />
+
+      <SuccessModal
+        open={pilotSubmitted}
+        onClose={() => {
+          setPilotSubmitted(false);
+          setPilotModalOpen(false);
+          pilotForm.reset();
+        }}
+        title="Pilot Request Received!"
+        message="We'll confirm pilot scope and kickoff steps within 48 hours."
+        buttonText="Close"
+      />
+
       {/* Request Proposal Modal */}
-      <Dialog open={proposalModalOpen} onOpenChange={setProposalModalOpen}>
+      <Dialog open={proposalModalOpen && !proposalSubmitted} onOpenChange={(open) => {
+        setProposalModalOpen(open);
+        if (!open) {
+          proposalForm.reset();
+          setProposalError(null);
+        }
+      }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl">Request a Managed Proposal</DialogTitle>
@@ -119,64 +244,66 @@ export default function ManagedServices() {
             </DialogDescription>
           </DialogHeader>
 
-          {proposalSubmitted ? (
-            <div className="py-8 text-center">
-              <CheckCircle2 className="w-16 h-16 text-green-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-green-900 mb-2">Request Received</h3>
-              <p className="text-green-800">
-                We'll respond with a scoped managed delivery model.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleProposalSubmit} className="space-y-4">
+          <form onSubmit={proposalForm.handleSubmit(onProposalSubmit)} className="space-y-4">
+              {proposalError && (
+                <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                  <p className="text-sm text-red-400">{proposalError}</p>
+                </div>
+              )}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="proposal-name">Full Name *</Label>
+                  <Label htmlFor="proposal-name" className={proposalForm.formState.errors.name ? 'text-red-500' : ''}>
+                    {proposalForm.formState.errors.name ? proposalForm.formState.errors.name.message : 'Full Name *'}
+                  </Label>
                   <Input
                     id="proposal-name"
-                    required
-                    value={proposalFormData.name}
-                    onChange={(e) => setProposalFormData({ ...proposalFormData, name: e.target.value })}
+                    {...proposalForm.register('name')}
+                    className={proposalForm.formState.errors.name ? 'border-red-500' : ''}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="proposal-email">Work Email *</Label>
+                  <Label htmlFor="proposal-email" className={proposalForm.formState.errors.email ? 'text-red-500' : ''}>
+                    {proposalForm.formState.errors.email ? proposalForm.formState.errors.email.message : 'Work Email *'}
+                  </Label>
                   <Input
                     id="proposal-email"
                     type="email"
-                    required
-                    value={proposalFormData.email}
-                    onChange={(e) => setProposalFormData({ ...proposalFormData, email: e.target.value })}
+                    {...proposalForm.register('email')}
+                    className={proposalForm.formState.errors.email ? 'border-red-500' : ''}
                   />
                 </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="proposal-company">Company *</Label>
+                  <Label htmlFor="proposal-company" className={proposalForm.formState.errors.company ? 'text-red-500' : ''}>
+                    {proposalForm.formState.errors.company ? proposalForm.formState.errors.company.message : 'Company *'}
+                  </Label>
                   <Input
                     id="proposal-company"
-                    required
-                    value={proposalFormData.company}
-                    onChange={(e) => setProposalFormData({ ...proposalFormData, company: e.target.value })}
+                    {...proposalForm.register('company')}
+                    className={proposalForm.formState.errors.company ? 'border-red-500' : ''}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="proposal-role">Role *</Label>
+                  <Label htmlFor="proposal-role" className={proposalForm.formState.errors.role ? 'text-red-500' : ''}>
+                    {proposalForm.formState.errors.role ? proposalForm.formState.errors.role.message : 'Role *'}
+                  </Label>
                   <Input
                     id="proposal-role"
-                    required
-                    value={proposalFormData.role}
-                    onChange={(e) => setProposalFormData({ ...proposalFormData, role: e.target.value })}
+                    {...proposalForm.register('role')}
+                    className={proposalForm.formState.errors.role ? 'border-red-500' : ''}
                   />
                 </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="proposal-sector">Sector</Label>
-                  <Select value={proposalFormData.sector} onValueChange={(value) => setProposalFormData({ ...proposalFormData, sector: value })}>
-                    <SelectTrigger id="proposal-sector">
+                  <Label htmlFor="proposal-sector" className={proposalForm.formState.errors.sector ? 'text-red-500' : ''}>
+                    {proposalForm.formState.errors.sector ? proposalForm.formState.errors.sector.message : 'Sector *'}
+                  </Label>
+                  <Select value={proposalSector} onValueChange={(value) => proposalForm.setValue('sector', value, { shouldValidate: true })}>
+                    <SelectTrigger id="proposal-sector" className={proposalForm.formState.errors.sector ? 'border-red-500' : ''}>
                       <SelectValue placeholder="Select sector" />
                     </SelectTrigger>
                     <SelectContent>
@@ -191,9 +318,11 @@ export default function ManagedServices() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="proposal-size">Current Size</Label>
-                  <Select value={proposalFormData.size} onValueChange={(value) => setProposalFormData({ ...proposalFormData, size: value })}>
-                    <SelectTrigger id="proposal-size">
+                  <Label htmlFor="proposal-size" className={proposalForm.formState.errors.size ? 'text-red-500' : ''}>
+                    {proposalForm.formState.errors.size ? proposalForm.formState.errors.size.message : 'Current Size *'}
+                  </Label>
+                  <Select value={proposalSize} onValueChange={(value) => proposalForm.setValue('size', value, { shouldValidate: true })}>
+                    <SelectTrigger id="proposal-size" className={proposalForm.formState.errors.size ? 'border-red-500' : ''}>
                       <SelectValue placeholder="Select size" />
                     </SelectTrigger>
                     <SelectContent>
@@ -205,13 +334,15 @@ export default function ManagedServices() {
               </div>
 
               <div className="space-y-2">
-                <Label>Service Line Interest (select all that apply)</Label>
+                <Label className={proposalForm.formState.errors.serviceLines ? 'text-red-500' : ''}>
+                  {proposalForm.formState.errors.serviceLines ? proposalForm.formState.errors.serviceLines.message : 'Service Line Interest (select all that apply) *'}
+                </Label>
                 <div className="grid grid-cols-2 gap-2">
                   {['GRC Support Center', 'ZATCA Ops', 'HR Ops', 'Accounting', 'Vendor Mgmt', 'BOT'].map((line) => (
                     <div key={line} className="flex items-center space-x-2">
                       <Checkbox
                         id={`line-${line}`}
-                        checked={proposalFormData.serviceLines.includes(line)}
+                        checked={serviceLines.includes(line)}
                         onCheckedChange={() => toggleServiceLine(line)}
                       />
                       <label htmlFor={`line-${line}`} className="text-sm cursor-pointer">
@@ -223,9 +354,11 @@ export default function ManagedServices() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="proposal-timeline">Timeline</Label>
-                <Select value={proposalFormData.timeline} onValueChange={(value) => setProposalFormData({ ...proposalFormData, timeline: value })}>
-                  <SelectTrigger id="proposal-timeline">
+                <Label htmlFor="proposal-timeline" className={proposalForm.formState.errors.timeline ? 'text-red-500' : ''}>
+                  {proposalForm.formState.errors.timeline ? proposalForm.formState.errors.timeline.message : 'Timeline *'}
+                </Label>
+                <Select value={proposalTimeline} onValueChange={(value) => proposalForm.setValue('timeline', value, { shouldValidate: true })}>
+                  <SelectTrigger id="proposal-timeline" className={proposalForm.formState.errors.timeline ? 'border-red-500' : ''}>
                     <SelectValue placeholder="Select timeline" />
                   </SelectTrigger>
                   <SelectContent>
@@ -242,27 +375,38 @@ export default function ManagedServices() {
                 <Textarea
                   id="proposal-notes"
                   rows={3}
-                  value={proposalFormData.notes}
-                  onChange={(e) => setProposalFormData({ ...proposalFormData, notes: e.target.value })}
+                  {...proposalForm.register('notes')}
                   placeholder="Current challenges, specific requirements..."
                 />
               </div>
 
               <div className="flex gap-3 pt-4">
-                <Button type="button" variant="outline" onClick={() => setProposalModalOpen(false)} className="flex-1">
+                <Button type="button" variant="outline" onClick={() => setProposalModalOpen(false)} className="flex-1" disabled={isSubmittingProposal}>
                   Cancel
                 </Button>
-                <Button type="submit" className="flex-1 bg-[#C9A227] hover:bg-[#B8921F]">
-                  Request Proposal
+                <Button type="submit" className="flex-1 bg-[#C9A227] hover:bg-[#B8921F]" disabled={isSubmittingProposal}>
+                  {isSubmittingProposal ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Submitting...
+                    </>
+                  ) : (
+                    'Request Proposal'
+                  )}
                 </Button>
               </div>
             </form>
-          )}
         </DialogContent>
       </Dialog>
 
       {/* Start Pilot Modal */}
-      <Dialog open={pilotModalOpen} onOpenChange={setPilotModalOpen}>
+      <Dialog open={pilotModalOpen && !pilotSubmitted} onOpenChange={(open) => {
+        setPilotModalOpen(open);
+        if (!open) {
+          pilotForm.reset();
+          setPilotError(null);
+        }
+      }}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="text-2xl">Start a 30-Day Pilot</DialogTitle>
@@ -271,101 +415,109 @@ export default function ManagedServices() {
             </DialogDescription>
           </DialogHeader>
 
-          {pilotSubmitted ? (
-            <div className="py-8 text-center">
-              <CheckCircle2 className="w-16 h-16 text-green-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-green-900 mb-2">Pilot Request Received</h3>
-              <p className="text-green-800">
-                We'll confirm pilot scope and kickoff steps.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handlePilotSubmit} className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="pilot-name">Full Name *</Label>
-                  <Input
-                    id="pilot-name"
-                    required
-                    value={pilotFormData.name}
-                    onChange={(e) => setPilotFormData({ ...pilotFormData, name: e.target.value })}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="pilot-email">Work Email *</Label>
-                  <Input
-                    id="pilot-email"
-                    type="email"
-                    required
-                    value={pilotFormData.email}
-                    onChange={(e) => setPilotFormData({ ...pilotFormData, email: e.target.value })}
-                  />
-                </div>
+          <form onSubmit={pilotForm.handleSubmit(onPilotSubmit)} className="space-y-4">
+            {pilotError && (
+              <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                <p className="text-sm text-red-400">{pilotError}</p>
               </div>
-
+            )}
+            <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="pilot-company">Company *</Label>
+                <Label htmlFor="pilot-name" className={pilotForm.formState.errors.name ? 'text-red-500' : ''}>
+                  {pilotForm.formState.errors.name ? pilotForm.formState.errors.name.message : 'Full Name *'}
+                </Label>
                 <Input
-                  id="pilot-company"
-                  required
-                  value={pilotFormData.company}
-                  onChange={(e) => setPilotFormData({ ...pilotFormData, company: e.target.value })}
+                  id="pilot-name"
+                  {...pilotForm.register('name')}
+                  className={pilotForm.formState.errors.name ? 'border-red-500' : ''}
                 />
               </div>
-
               <div className="space-y-2">
-                <Label htmlFor="pilot-objective">Primary Objective</Label>
-                <Select value={pilotFormData.objective} onValueChange={(value) => setPilotFormData({ ...pilotFormData, objective: value })}>
-                  <SelectTrigger id="pilot-objective">
-                    <SelectValue placeholder="Select objective" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="evidence-readiness">Evidence readiness</SelectItem>
-                    <SelectItem value="reporting-cadence">Reporting cadence</SelectItem>
-                    <SelectItem value="control-execution">Control execution</SelectItem>
-                    <SelectItem value="audit-support">Audit support</SelectItem>
-                    <SelectItem value="zatca-ops">ZATCA operations</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="pilot-pressure">Where Pressure Comes From</Label>
-                <Select value={pilotFormData.pressure} onValueChange={(value) => setPilotFormData({ ...pilotFormData, pressure: value })}>
-                  <SelectTrigger id="pilot-pressure">
-                    <SelectValue placeholder="Select source" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="pdpl">PDPL</SelectItem>
-                    <SelectItem value="nca-ecc">NCA ECC</SelectItem>
-                    <SelectItem value="zatca">ZATCA</SelectItem>
-                    <SelectItem value="audit">Audit</SelectItem>
-                    <SelectItem value="board">Board</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="pilot-notes">Additional Notes</Label>
-                <Textarea
-                  id="pilot-notes"
-                  rows={3}
-                  value={pilotFormData.notes}
-                  onChange={(e) => setPilotFormData({ ...pilotFormData, notes: e.target.value })}
-                  placeholder="Specific challenges or requirements..."
+                <Label htmlFor="pilot-email" className={pilotForm.formState.errors.email ? 'text-red-500' : ''}>
+                  {pilotForm.formState.errors.email ? pilotForm.formState.errors.email.message : 'Work Email *'}
+                </Label>
+                <Input
+                  id="pilot-email"
+                  type="email"
+                  {...pilotForm.register('email')}
+                  className={pilotForm.formState.errors.email ? 'border-red-500' : ''}
                 />
               </div>
+            </div>
 
-              <div className="flex gap-3 pt-4">
-                <Button type="button" variant="outline" onClick={() => setPilotModalOpen(false)} className="flex-1">
-                  Cancel
-                </Button>
-                <Button type="submit" className="flex-1 bg-[#C9A227] hover:bg-[#B8921F]">
-                  Start Pilot
-                </Button>
-              </div>
-            </form>
-          )}
+            <div className="space-y-2">
+              <Label htmlFor="pilot-company" className={pilotForm.formState.errors.company ? 'text-red-500' : ''}>
+                {pilotForm.formState.errors.company ? pilotForm.formState.errors.company.message : 'Company *'}
+              </Label>
+              <Input
+                id="pilot-company"
+                {...pilotForm.register('company')}
+                className={pilotForm.formState.errors.company ? 'border-red-500' : ''}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="pilot-objective" className={pilotForm.formState.errors.objective ? 'text-red-500' : ''}>
+                {pilotForm.formState.errors.objective ? pilotForm.formState.errors.objective.message : 'Primary Objective *'}
+              </Label>
+              <Select value={pilotObjective} onValueChange={(value) => pilotForm.setValue('objective', value, { shouldValidate: true })}>
+                <SelectTrigger id="pilot-objective" className={pilotForm.formState.errors.objective ? 'border-red-500' : ''}>
+                  <SelectValue placeholder="Select objective" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="evidence-readiness">Evidence readiness</SelectItem>
+                  <SelectItem value="reporting-cadence">Reporting cadence</SelectItem>
+                  <SelectItem value="control-execution">Control execution</SelectItem>
+                  <SelectItem value="audit-support">Audit support</SelectItem>
+                  <SelectItem value="zatca-ops">ZATCA operations</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="pilot-pressure" className={pilotForm.formState.errors.pressure ? 'text-red-500' : ''}>
+                {pilotForm.formState.errors.pressure ? pilotForm.formState.errors.pressure.message : 'Where Pressure Comes From *'}
+              </Label>
+              <Select value={pilotPressure} onValueChange={(value) => pilotForm.setValue('pressure', value, { shouldValidate: true })}>
+                <SelectTrigger id="pilot-pressure" className={pilotForm.formState.errors.pressure ? 'border-red-500' : ''}>
+                  <SelectValue placeholder="Select source" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="pdpl">PDPL</SelectItem>
+                  <SelectItem value="nca-ecc">NCA ECC</SelectItem>
+                  <SelectItem value="zatca">ZATCA</SelectItem>
+                  <SelectItem value="audit">Audit</SelectItem>
+                  <SelectItem value="board">Board</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="pilot-notes">Additional Notes</Label>
+              <Textarea
+                id="pilot-notes"
+                rows={3}
+                {...pilotForm.register('notes')}
+                placeholder="Specific challenges or requirements..."
+              />
+            </div>
+
+            <div className="flex gap-3 pt-4">
+              <Button type="button" variant="outline" onClick={() => setPilotModalOpen(false)} className="flex-1" disabled={isSubmittingPilot}>
+                Cancel
+              </Button>
+              <Button type="submit" className="flex-1 bg-[#C9A227] hover:bg-[#B8921F]" disabled={isSubmittingPilot}>
+                {isSubmittingPilot ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  'Start Pilot'
+                )}
+              </Button>
+            </div>
+          </form>
         </DialogContent>
       </Dialog>
 

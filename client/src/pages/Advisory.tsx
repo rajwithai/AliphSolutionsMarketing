@@ -1,5 +1,8 @@
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -26,9 +29,25 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Shield, FileText, CheckCircle2, ArrowRight, Building2, TrendingUp, Target, Brain, Eye, Workflow, BookOpen, Scale, Server, Zap, Lock, FileCheck, Users } from 'lucide-react';
+import { Shield, FileText, CheckCircle2, ArrowRight, Building2, TrendingUp, Target, Brain, Eye, Workflow, BookOpen, Scale, Server, Zap, Lock, FileCheck, Users, Loader2 } from 'lucide-react';
 import WhoWeServeCards from '@/components/WhoWeServeCards';
+import SuccessModal from '@/components/SuccessModal';
 import useSEO from '@/hooks/useSEO';
+
+// Form validation schema
+const advisoryFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
+  email: z.string().email('Please enter a valid email address'),
+  company: z.string().min(2, 'Company name is required').max(200),
+  role: z.string().min(2, 'Role is required').max(100),
+  sector: z.string().min(1, 'Please select a sector'),
+  focusAreas: z.array(z.string()).min(1, 'Please select at least one focus area'),
+  regulations: z.array(z.string()).optional(),
+  timeline: z.string().min(1, 'Please select a timeline'),
+  notes: z.string().optional(),
+});
+
+type AdvisoryFormData = z.infer<typeof advisoryFormSchema>;
 
 export default function Advisory() {
   useSEO({
@@ -38,62 +57,126 @@ export default function Advisory() {
   });
 
   const [scopeModalOpen, setScopeModalOpen] = useState(false);
-  const [scopeFormData, setScopeFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    role: '',
-    sector: '',
-    focusAreas: [] as string[],
-    regulations: [] as string[],
-    timeline: '',
-    notes: ''
-  });
   const [scopeSubmitted, setScopeSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
 
-  const handleScopeSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Scope request submitted:', scopeFormData);
-    setScopeSubmitted(true);
-    setTimeout(() => {
-      setScopeSubmitted(false);
-      setScopeModalOpen(false);
-      setScopeFormData({
-        name: '',
-        email: '',
-        company: '',
-        role: '',
-        sector: '',
-        focusAreas: [],
-        regulations: [],
-        timeline: '',
-        notes: ''
-      });
-    }, 2000);
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+    reset,
+  } = useForm<AdvisoryFormData>({
+    resolver: zodResolver(advisoryFormSchema),
+    mode: 'onChange',
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      role: '',
+      sector: '',
+      focusAreas: [],
+      regulations: [],
+      timeline: '',
+      notes: '',
+    },
+  });
+
+  const focusAreas = watch('focusAreas') || [];
+  const regulations = watch('regulations') || [];
+  const sector = watch('sector');
+  const timeline = watch('timeline');
 
   const toggleFocusArea = (area: string) => {
-    setScopeFormData(prev => ({
-      ...prev,
-      focusAreas: prev.focusAreas.includes(area)
-        ? prev.focusAreas.filter(a => a !== area)
-        : [...prev.focusAreas, area]
-    }));
+    const currentAreas = focusAreas;
+    const newAreas = currentAreas.includes(area)
+      ? currentAreas.filter(a => a !== area)
+      : [...currentAreas, area];
+    setValue('focusAreas', newAreas, { shouldValidate: true });
   };
 
   const toggleRegulation = (reg: string) => {
-    setScopeFormData(prev => ({
-      ...prev,
-      regulations: prev.regulations.includes(reg)
-        ? prev.regulations.filter(r => r !== reg)
-        : [...prev.regulations, reg]
-    }));
+    const currentRegs = regulations;
+    const newRegs = currentRegs.includes(reg)
+      ? currentRegs.filter(r => r !== reg)
+      : [...currentRegs, reg];
+    setValue('regulations', newRegs);
+  };
+
+  const onSubmit = async (data: AdvisoryFormData) => {
+    setIsSubmitting(true);
+    setServerError(null);
+
+    try {
+      const payload = {
+        name: data.name,
+        email: data.email,
+        company: data.company,
+        phone: '',
+        subject: `Advisory Scope Request - ${data.company}`,
+        message: `Role: ${data.role}\n` +
+          `Sector: ${data.sector}\n` +
+          `Focus Areas: ${data.focusAreas.join(', ')}\n` +
+          `Regulations: ${data.regulations?.join(', ') || 'N/A'}\n` +
+          `Timeline: ${data.timeline}\n\n` +
+          `Additional Notes:\n${data.notes || 'None'}`,
+        inquiryType: 'solution' as const,
+        language: 'en',
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        if (result.errors) {
+          const errorMessages = result.errors.map((err: any) => err.message).join(', ');
+          setServerError(errorMessages);
+        } else {
+          setServerError(result.message || 'Failed to submit request. Please try again.');
+        }
+        return;
+      }
+
+      setScopeSubmitted(true);
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setServerError('An unexpected error occurred. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <>
+      <SuccessModal
+        open={scopeSubmitted}
+        onClose={() => {
+          setScopeSubmitted(false);
+          setScopeModalOpen(false);
+          reset();
+        }}
+        title="Request Received!"
+        message="We'll respond with a scoped plan and sample deliverables within 24-48 hours."
+        buttonText="Close"
+      />
+
       {/* Request Scope Modal */}
-      <Dialog open={scopeModalOpen} onOpenChange={setScopeModalOpen}>
+      <Dialog open={scopeModalOpen && !scopeSubmitted} onOpenChange={(open) => {
+        setScopeModalOpen(open);
+        if (!open) {
+          reset();
+          setServerError(null);
+        }
+      }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="text-2xl">Request Advisory Scope</DialogTitle>
@@ -102,63 +185,66 @@ export default function Advisory() {
             </DialogDescription>
           </DialogHeader>
 
-          {scopeSubmitted ? (
-            <div className="py-8 text-center">
-              <CheckCircle2 className="w-16 h-16 text-green-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-green-900 mb-2">Request Received</h3>
-              <p className="text-green-800">
-                We'll respond with a scoped plan and next steps.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleScopeSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {/* Server Error Display */}
+            {serverError && (
+              <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                <p className="text-sm text-red-400">{serverError}</p>
+              </div>
+            )}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="scope-name">Full Name *</Label>
+                  <Label htmlFor="scope-name" className={errors.name ? 'text-red-500' : ''}>
+                    {errors.name ? errors.name.message : 'Full Name *'}
+                  </Label>
                   <Input
                     id="scope-name"
-                    required
-                    value={scopeFormData.name}
-                    onChange={(e) => setScopeFormData({ ...scopeFormData, name: e.target.value })}
+                    {...register('name')}
+                    className={errors.name ? 'border-red-500' : ''}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="scope-email">Work Email *</Label>
+                  <Label htmlFor="scope-email" className={errors.email ? 'text-red-500' : ''}>
+                    {errors.email ? errors.email.message : 'Work Email *'}
+                  </Label>
                   <Input
                     id="scope-email"
                     type="email"
-                    required
-                    value={scopeFormData.email}
-                    onChange={(e) => setScopeFormData({ ...scopeFormData, email: e.target.value })}
+                    {...register('email')}
+                    className={errors.email ? 'border-red-500' : ''}
                   />
                 </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="scope-company">Company *</Label>
+                  <Label htmlFor="scope-company" className={errors.company ? 'text-red-500' : ''}>
+                    {errors.company ? errors.company.message : 'Company *'}
+                  </Label>
                   <Input
                     id="scope-company"
-                    required
-                    value={scopeFormData.company}
-                    onChange={(e) => setScopeFormData({ ...scopeFormData, company: e.target.value })}
+                    {...register('company')}
+                    className={errors.company ? 'border-red-500' : ''}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="scope-role">Role *</Label>
+                  <Label htmlFor="scope-role" className={errors.role ? 'text-red-500' : ''}>
+                    {errors.role ? errors.role.message : 'Role *'}
+                  </Label>
                   <Input
                     id="scope-role"
-                    required
-                    value={scopeFormData.role}
-                    onChange={(e) => setScopeFormData({ ...scopeFormData, role: e.target.value })}
+                    {...register('role')}
+                    className={errors.role ? 'border-red-500' : ''}
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="scope-sector">Sector</Label>
-                <Select value={scopeFormData.sector} onValueChange={(value) => setScopeFormData({ ...scopeFormData, sector: value })}>
-                  <SelectTrigger id="scope-sector">
+                <Label htmlFor="scope-sector" className={errors.sector ? 'text-red-500' : ''}>
+                  {errors.sector ? errors.sector.message : 'Sector *'}
+                </Label>
+                <Select value={sector} onValueChange={(value) => setValue('sector', value, { shouldValidate: true })}>
+                  <SelectTrigger id="scope-sector" className={errors.sector ? 'border-red-500' : ''}>
                     <SelectValue placeholder="Select sector" />
                   </SelectTrigger>
                   <SelectContent>
@@ -174,13 +260,15 @@ export default function Advisory() {
               </div>
 
               <div className="space-y-2">
-                <Label>Focus Areas (select all that apply)</Label>
+                <Label className={errors.focusAreas ? 'text-red-500' : ''}>
+                  {errors.focusAreas ? errors.focusAreas.message : 'Focus Areas (select all that apply) *'}
+                </Label>
                 <div className="grid grid-cols-2 gap-2">
                   {['Governance', 'Risk', 'Compliance', 'Internal Audit', 'AI Governance'].map((area) => (
                     <div key={area} className="flex items-center space-x-2">
                       <Checkbox
                         id={`focus-${area}`}
-                        checked={scopeFormData.focusAreas.includes(area)}
+                        checked={focusAreas.includes(area)}
                         onCheckedChange={() => toggleFocusArea(area)}
                       />
                       <label htmlFor={`focus-${area}`} className="text-sm cursor-pointer">
@@ -198,7 +286,7 @@ export default function Advisory() {
                     <div key={reg} className="flex items-center space-x-2">
                       <Checkbox
                         id={`reg-${reg}`}
-                        checked={scopeFormData.regulations.includes(reg)}
+                        checked={regulations.includes(reg)}
                         onCheckedChange={() => toggleRegulation(reg)}
                       />
                       <label htmlFor={`reg-${reg}`} className="text-sm cursor-pointer">
@@ -210,9 +298,11 @@ export default function Advisory() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="scope-timeline">Timeline</Label>
-                <Select value={scopeFormData.timeline} onValueChange={(value) => setScopeFormData({ ...scopeFormData, timeline: value })}>
-                  <SelectTrigger id="scope-timeline">
+                <Label htmlFor="scope-timeline" className={errors.timeline ? 'text-red-500' : ''}>
+                  {errors.timeline ? errors.timeline.message : 'Timeline *'}
+                </Label>
+                <Select value={timeline} onValueChange={(value) => setValue('timeline', value, { shouldValidate: true })}>
+                  <SelectTrigger id="scope-timeline" className={errors.timeline ? 'border-red-500' : ''}>
                     <SelectValue placeholder="Select timeline" />
                   </SelectTrigger>
                   <SelectContent>
@@ -230,22 +320,27 @@ export default function Advisory() {
                 <Textarea
                   id="scope-notes"
                   rows={3}
-                  value={scopeFormData.notes}
-                  onChange={(e) => setScopeFormData({ ...scopeFormData, notes: e.target.value })}
+                  {...register('notes')}
                   placeholder="Specific requirements, current challenges, or questions..."
                 />
               </div>
 
               <div className="flex gap-3 pt-4">
-                <Button type="button" variant="outline" onClick={() => setScopeModalOpen(false)} className="flex-1">
+                <Button type="button" variant="outline" onClick={() => setScopeModalOpen(false)} className="flex-1" disabled={isSubmitting}>
                   Cancel
                 </Button>
-                <Button type="submit" className="flex-1 bg-[#C9A227] hover:bg-[#B8921F]">
-                  Request Scope
+                <Button type="submit" className="flex-1 bg-[#C9A227] hover:bg-[#B8921F]" disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Submitting...
+                    </>
+                  ) : (
+                    'Request Scope'
+                  )}
                 </Button>
               </div>
             </form>
-          )}
         </DialogContent>
       </Dialog>
 

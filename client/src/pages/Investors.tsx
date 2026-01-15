@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -25,9 +28,23 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { TrendingUp, Shield, Zap, CheckCircle2, ArrowRight, Brain, Lock } from 'lucide-react';
+import { TrendingUp, Shield, Zap, CheckCircle2, ArrowRight, Brain, Lock, Loader2 } from 'lucide-react';
 import useSEO from '@/hooks/useSEO';
+import SuccessModal from '@/components/SuccessModal';
 import vision2030Logo from '@assets/vision2030.png';
+
+const deckFormSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
+  email: z.string().email('Please enter a valid email address'),
+  entity: z.string().min(2, 'Fund/Entity must be at least 2 characters').max(100),
+  role: z.string().min(2, 'Role must be at least 2 characters').max(100),
+  focus: z.string().min(1, 'Please select investment focus'),
+  interests: z.array(z.string()).optional(),
+  ndaRequested: z.boolean().optional(),
+  notes: z.string().max(1000).optional(),
+});
+
+type DeckFormData = z.infer<typeof deckFormSchema>;
 
 export default function Investors() {
   useSEO({
@@ -36,38 +53,64 @@ export default function Investors() {
     keywords: 'Aliph Solutions investors, GRC investment, sovereign AI, Saudi startup, compliance technology',
   });
 
-  const [deckFormData, setDeckFormData] = useState({
-    name: '',
-    email: '',
-    entity: '',
-    role: '',
-    focus: '',
-    interests: [] as string[],
-    ndaRequested: false,
-    notes: ''
-  });
-
   const [deckSubmitted, setDeckSubmitted] = useState(false);
   const [deckModalOpen, setDeckModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState('');
 
-  const handleDeckSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Deck request submitted:', deckFormData);
-    setDeckSubmitted(true);
+  const deckForm = useForm<DeckFormData>({
+    resolver: zodResolver(deckFormSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      entity: '',
+      role: '',
+      focus: '',
+      interests: [],
+      ndaRequested: false,
+      notes: '',
+    },
+  });
+
+  const focus = deckForm.watch('focus');
+  const interests = deckForm.watch('interests') || [];
+  const ndaRequested = deckForm.watch('ndaRequested');
+
+  const handleDeckSubmit = async (data: DeckFormData) => {
+    setIsSubmitting(true);
+    setServerError('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          formType: 'Investor Deck Request',
+          interests: data.interests?.join(', ') || '',
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setServerError(result.message || 'Failed to submit. Please try again.');
+        return;
+      }
+
+      setDeckSubmitted(true);
+    } catch (error) {
+      setServerError('An unexpected error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInterestToggle = (interest: string) => {
-    if (deckFormData.interests.includes(interest)) {
-      setDeckFormData({
-        ...deckFormData,
-        interests: deckFormData.interests.filter((i) => i !== interest)
-      });
-    } else {
-      setDeckFormData({
-        ...deckFormData,
-        interests: [...deckFormData.interests, interest]
-      });
-    }
+    const newInterests = interests.includes(interest)
+      ? interests.filter((i) => i !== interest)
+      : [...interests, interest];
+    deckForm.setValue('interests', newInterests);
   };
 
   const interestOptions = [
@@ -81,6 +124,18 @@ export default function Investors() {
 
   return (
     <>
+      <SuccessModal
+        open={deckSubmitted}
+        onClose={() => {
+          setDeckSubmitted(false);
+          setDeckModalOpen(false);
+          deckForm.reset();
+        }}
+        title="Request Received!"
+        message="Thanks. We'll share a secure link and offer a briefing within 24 hours."
+        buttonText="Close"
+      />
+
       {/* HERO */}
       <section className="relative min-h-[80vh] bg-gradient-to-br from-[#0B1220] via-[#1a1f35] to-[#0B1220] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -109,7 +164,16 @@ export default function Investors() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
-              <Dialog open={deckModalOpen} onOpenChange={setDeckModalOpen}>
+              <Dialog open={deckModalOpen && !deckSubmitted} onOpenChange={(open) => {
+                setDeckModalOpen(open);
+                if (open) {
+                  setServerError('');
+                } else {
+                  // Reset form and clear errors when closing
+                  deckForm.reset();
+                  setServerError('');
+                }
+              }}>
                 <DialogTrigger asChild>
                   <Button
                     size="lg"
@@ -126,132 +190,135 @@ export default function Investors() {
                       We share the deck and detailed materials through a secure link after a quick verification.
                     </DialogDescription>
                   </DialogHeader>
-                  {deckSubmitted ? (
-                    <div className="py-8 text-center">
-                      <CheckCircle2 className="w-16 h-16 text-green-600 mx-auto mb-4" />
-                      <h3 className="text-xl font-bold mb-2">Request Received</h3>
-                      <p className="text-gray-600">
-                        Thanks. We'll share a secure link and offer a briefing within 24 hours.
-                      </p>
+                  <form onSubmit={deckForm.handleSubmit(handleDeckSubmit)} className="space-y-4 mt-4">
+                    {serverError && (
+                      <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                        <p className="text-sm text-red-400">{serverError}</p>
+                      </div>
+                    )}
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="deck-name" className={deckForm.formState.errors.name ? 'text-red-500' : ''}>
+                          {deckForm.formState.errors.name ? deckForm.formState.errors.name.message : 'Full Name *'}
+                        </Label>
+                        <Input
+                          id="deck-name"
+                          {...deckForm.register('name')}
+                          className={`mt-1 ${deckForm.formState.errors.name ? 'border-red-500' : ''}`}
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="deck-email" className={deckForm.formState.errors.email ? 'text-red-500' : ''}>
+                          {deckForm.formState.errors.email ? deckForm.formState.errors.email.message : 'Email *'}
+                        </Label>
+                        <Input
+                          id="deck-email"
+                          type="email"
+                          {...deckForm.register('email')}
+                          className={`mt-1 ${deckForm.formState.errors.email ? 'border-red-500' : ''}`}
+                        />
+                      </div>
                     </div>
-                  ) : (
-                    <form onSubmit={handleDeckSubmit} className="space-y-4 mt-4">
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="deck-name">Full Name *</Label>
-                          <Input
-                            id="deck-name"
-                            required
-                            value={deckFormData.name}
-                            onChange={(e) => setDeckFormData({ ...deckFormData, name: e.target.value })}
-                            className="mt-1"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="deck-email">Email *</Label>
-                          <Input
-                            id="deck-email"
-                            type="email"
-                            required
-                            value={deckFormData.email}
-                            onChange={(e) => setDeckFormData({ ...deckFormData, email: e.target.value })}
-                            className="mt-1"
-                          />
-                        </div>
-                      </div>
 
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="deck-entity">Fund / Entity *</Label>
-                          <Input
-                            id="deck-entity"
-                            required
-                            value={deckFormData.entity}
-                            onChange={(e) => setDeckFormData({ ...deckFormData, entity: e.target.value })}
-                            className="mt-1"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="deck-role">Role / Title *</Label>
-                          <Input
-                            id="deck-role"
-                            required
-                            value={deckFormData.role}
-                            onChange={(e) => setDeckFormData({ ...deckFormData, role: e.target.value })}
-                            className="mt-1"
-                          />
-                        </div>
-                      </div>
-
+                    <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="deck-focus">Focus *</Label>
-                        <Select value={deckFormData.focus} onValueChange={(value) => setDeckFormData({ ...deckFormData, focus: value })}>
-                          <SelectTrigger id="deck-focus" className="mt-1">
-                            <SelectValue placeholder="Select investment stage" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="pre-seed">Pre-Seed</SelectItem>
-                            <SelectItem value="seed">Seed</SelectItem>
-                            <SelectItem value="series-a">Series A</SelectItem>
-                            <SelectItem value="strategic">Strategic</SelectItem>
-                            <SelectItem value="family-office">Family Office</SelectItem>
-                            <SelectItem value="corporate-vc">Corporate VC</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-
-                      <div>
-                        <Label className="mb-2 block">Areas of Interest (select all that apply)</Label>
-                        <div className="grid md:grid-cols-2 gap-2">
-                          {interestOptions.map((interest) => (
-                            <label
-                              key={interest}
-                              className="flex items-center gap-2 p-2 border-2 rounded cursor-pointer hover:border-[#C9A227] transition-all"
-                            >
-                              <input
-                                type="checkbox"
-                                checked={deckFormData.interests.includes(interest)}
-                                onChange={() => handleInterestToggle(interest)}
-                                className="w-4 h-4 text-[#C9A227]"
-                              />
-                              <span className="text-sm">{interest}</span>
-                            </label>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          id="deck-nda"
-                          checked={deckFormData.ndaRequested}
-                          onChange={(e) => setDeckFormData({ ...deckFormData, ndaRequested: e.target.checked })}
-                          className="w-4 h-4"
-                        />
-                        <Label htmlFor="deck-nda" className="cursor-pointer">NDA Requested</Label>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="deck-notes">Notes (optional)</Label>
-                        <Textarea
-                          id="deck-notes"
-                          rows={3}
-                          value={deckFormData.notes}
-                          onChange={(e) => setDeckFormData({ ...deckFormData, notes: e.target.value })}
-                          placeholder="Timeline, specific questions, or other context..."
-                          className="mt-1"
+                        <Label htmlFor="deck-entity" className={deckForm.formState.errors.entity ? 'text-red-500' : ''}>
+                          {deckForm.formState.errors.entity ? deckForm.formState.errors.entity.message : 'Fund / Entity *'}
+                        </Label>
+                        <Input
+                          id="deck-entity"
+                          {...deckForm.register('entity')}
+                          className={`mt-1 ${deckForm.formState.errors.entity ? 'border-red-500' : ''}`}
                         />
                       </div>
+                      <div>
+                        <Label htmlFor="deck-role" className={deckForm.formState.errors.role ? 'text-red-500' : ''}>
+                          {deckForm.formState.errors.role ? deckForm.formState.errors.role.message : 'Role / Title *'}
+                        </Label>
+                        <Input
+                          id="deck-role"
+                          {...deckForm.register('role')}
+                          className={`mt-1 ${deckForm.formState.errors.role ? 'border-red-500' : ''}`}
+                        />
+                      </div>
+                    </div>
 
-                      <Button type="submit" className="w-full bg-[#C9A227] hover:bg-[#B8921F]">
-                        Request Secure Deck
-                      </Button>
+                    <div>
+                      <Label htmlFor="deck-focus" className={deckForm.formState.errors.focus ? 'text-red-500' : ''}>
+                        {deckForm.formState.errors.focus ? deckForm.formState.errors.focus.message : 'Focus *'}
+                      </Label>
+                      <Select value={focus} onValueChange={(value) => deckForm.setValue('focus', value, { shouldValidate: true })}>
+                        <SelectTrigger id="deck-focus" className={`mt-1 ${deckForm.formState.errors.focus ? 'border-red-500' : ''}`}>
+                          <SelectValue placeholder="Select investment stage" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="pre-seed">Pre-Seed</SelectItem>
+                          <SelectItem value="seed">Seed</SelectItem>
+                          <SelectItem value="series-a">Series A</SelectItem>
+                          <SelectItem value="strategic">Strategic</SelectItem>
+                          <SelectItem value="family-office">Family Office</SelectItem>
+                          <SelectItem value="corporate-vc">Corporate VC</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
 
-                      <p className="text-xs text-gray-500 text-center">
-                        We do not publish fundraising terms publicly. Details shared privately with qualified investors.
-                      </p>
-                    </form>
-                  )}
+                    <div>
+                      <Label className="mb-2 block">Areas of Interest (select all that apply)</Label>
+                      <div className="grid md:grid-cols-2 gap-2">
+                        {interestOptions.map((interest) => (
+                          <label
+                            key={interest}
+                            className="flex items-center gap-2 p-2 border-2 rounded cursor-pointer hover:border-[#C9A227] transition-all"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={interests.includes(interest)}
+                              onChange={() => handleInterestToggle(interest)}
+                              className="w-4 h-4 text-[#C9A227]"
+                            />
+                            <span className="text-sm">{interest}</span>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        id="deck-nda"
+                        checked={ndaRequested}
+                        onChange={(e) => deckForm.setValue('ndaRequested', e.target.checked)}
+                        className="w-4 h-4"
+                      />
+                      <Label htmlFor="deck-nda" className="cursor-pointer">NDA Requested</Label>
+                    </div>
+
+                    <div>
+                      <Label htmlFor="deck-notes">Notes (optional)</Label>
+                      <Textarea
+                        id="deck-notes"
+                        rows={3}
+                        {...deckForm.register('notes')}
+                        placeholder="Timeline, specific questions, or other context..."
+                        className="mt-1"
+                      />
+                    </div>
+
+                    <Button type="submit" disabled={isSubmitting} className="w-full bg-[#C9A227] hover:bg-[#B8921F]">
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Sending...
+                        </>
+                      ) : (
+                        'Request Secure Deck'
+                      )}
+                    </Button>
+
+                    <p className="text-xs text-gray-500 text-center">
+                      We do not publish fundraising terms publicly. Details shared privately with qualified investors.
+                    </p>
+                  </form>
                 </DialogContent>
               </Dialog>
 
