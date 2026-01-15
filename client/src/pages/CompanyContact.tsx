@@ -418,7 +418,7 @@ export default function CompanyContact() {
                     <Mail className="w-5 h-5 text-[#C9A227] flex-shrink-0 mt-1" />
                     <div>
                       <p className="font-semibold text-gray-900">Email</p>
-                      <p className="text-sm text-gray-600">info@aliphsolutions.sa</p>
+                      <p className="text-sm text-gray-600">connect@aliphsolutions.sa</p>
                     </div>
                   </div>
 

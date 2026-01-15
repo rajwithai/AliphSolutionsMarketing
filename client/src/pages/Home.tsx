@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -23,6 +24,8 @@ const newsletterSchema = z.object({
 type NewsletterData = z.infer<typeof newsletterSchema>;
 
 export default function Home() {
+  const { t } = useTranslation();
+  
   useSEO({
     title: 'Aliph Solutions - Sovereign AI Advisory Engine for Saudi GRC',
     description: 'Big Four discipline, accelerated by governed AI workflows—delivering audit-ready outcomes for PDPL, NCA ECC, ZATCA, enterprise governance, ERM, and internal audit.',
@@ -109,13 +112,13 @@ export default function Home() {
               {/* Content */}
               <div className="flex-1 text-center md:text-left">
                 <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">
-                  Aligned with Vision 2030
+                  {t('home.vision2030.title')}
                 </h3>
                 <p className="text-base text-gray-600 leading-relaxed mb-2">
-                  Supporting national priorities in data sovereignty, institutional readiness, and digital transformation for Saudi Arabia's governance ecosystem.
+                  {t('home.vision2030.description')}
                 </p>
                 <p className="text-xs text-gray-500 italic">
-                  Use of the Vision 2030 logo indicates alignment with national priorities, not endorsement.
+                  {t('home.vision2030.disclaimer')}
                 </p>
               </div>
             </div>
@@ -132,15 +135,14 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight leading-tight">
-              Two Forces Colliding — <br className="hidden md:block" />
-              And the Path Forward for Saudi Enterprises
+              {t('home.collisionSection.title')}
             </h2>
             <div className="text-xl md:text-2xl text-gray-400 max-w-4xl mx-auto font-light leading-relaxed space-y-2">
               <p>
-                <span className="text-white font-medium">Vision 2030</span> accelerates AI adoption across the Kingdom's transformation agenda.
+                <span className="text-white font-medium">Vision 2030</span> {t('home.collisionSection.vision2030Text').replace('Vision 2030 ', '')}
               </p>
               <p>
-                <span className="text-white font-medium">PDPL</span> enforcement is now fully active, demanding unbreakable data sovereignty and accountability.
+                <span className="text-white font-medium">PDPL</span> {t('home.collisionSection.pdplText').replace('PDPL ', '').replace('إنفاذ نظام حماية البيانات الشخصية ', '')}
               </p>
             </div>
           </div>
@@ -152,20 +154,20 @@ export default function Home() {
                 <Shield className="w-7 h-7 text-gray-400 group-hover:text-red-500 transition-colors" />
               </div>
               <h3 className="text-2xl font-bold mb-6 text-white group-hover:text-red-400 transition-colors">
-                Uncontrolled AI Creates Invisible Exposure at Enterprise Scale
+                {t('home.collisionSection.aiRisk.title')}
               </h3>
               <ul className="space-y-4 text-gray-400">
                 <li className="flex items-start gap-3">
                   <span className="text-red-500/70 mt-1.5 text-xs">●</span>
-                  <span className="leading-relaxed">Employees and teams increasingly adopt public AI tools for speed, often bypassing formal procurement and governance controls.</span>
+                  <span className="leading-relaxed">{t('home.collisionSection.aiRisk.point1')}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-red-500/70 mt-1.5 text-xs">●</span>
-                  <span className="leading-relaxed">When sensitive data leaves sovereign control, accountability, audit trails, and national data residency are compromised — risking regulatory scrutiny in an active PDPL environment.</span>
+                  <span className="leading-relaxed">{t('home.collisionSection.aiRisk.point2')}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-red-500/70 mt-1.5 text-xs">●</span>
-                  <span className="leading-relaxed">For PIF-linked entities, listed companies, and regulated institutions, this exposure threatens strategic projects and Vision 2030 commitments.</span>
+                  <span className="leading-relaxed">{t('home.collisionSection.aiRisk.point3')}</span>
                 </li>
               </ul>
             </Card>
@@ -176,20 +178,20 @@ export default function Home() {
                 <Scale className="w-7 h-7 text-gray-400 group-hover:text-[#C9A227] transition-colors" />
               </div>
               <h3 className="text-2xl font-bold mb-6 text-white group-hover:text-[#C9A227] transition-colors">
-                Elite Advisory Remains Inaccessible at Required Velocity
+                {t('home.collisionSection.advisoryGap.title')}
               </h3>
               <ul className="space-y-4 text-gray-400">
                 <li className="flex items-start gap-3">
                   <span className="text-[#C9A227]/70 mt-1.5 text-xs">●</span>
-                  <span className="leading-relaxed">Traditional Big Four cycles — rigorous but slow and resource-intensive — struggle to match the pace of AI-driven transformation.</span>
+                  <span className="leading-relaxed">{t('home.collisionSection.advisoryGap.point1')}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#C9A227]/70 mt-1.5 text-xs">●</span>
-                  <span className="leading-relaxed">Compliance obligations (PDPL, CMA, SAMA, NCA) apply universally across organizations, yet procurement timelines and costs limit timely support.</span>
+                  <span className="leading-relaxed">{t('home.collisionSection.advisoryGap.point2')}</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#C9A227]/70 mt-1.5 text-xs">●</span>
-                  <span className="leading-relaxed">Enterprises need governed, audit-ready GRC solutions now — not after prolonged engagements.</span>
+                  <span className="leading-relaxed">{t('home.collisionSection.advisoryGap.point3')}</span>
                 </li>
               </ul>
             </Card>
@@ -198,9 +200,7 @@ export default function Home() {
           {/* Closing Narrative */}
           <div className="text-center max-w-4xl mx-auto">
             <p className="text-lg md:text-xl text-gray-300 font-light leading-relaxed mb-8">
-              We understand the pressures you face: delivering on Vision 2030's ambitious timeline while safeguarding data sovereignty in a regulated landscape.
-              <br /><br />
-              At <strong className="text-white">Aliph Solutions</strong>, we bridge this collision with sovereign AI-enabled advisory — combining 30+ years of proven Big Four expertise with governed, Kingdom-first architecture. Our 15-agent workflows and compounding Aliph Brain deliver precise, audit-ready outcomes — faster, more securely, and fully aligned with Saudi priorities.
+              {t('home.collisionSection.closing')}
             </p>
 
             <a
@@ -208,7 +208,7 @@ export default function Home() {
               onClick={(e) => { e.preventDefault(); setDemoModalOpen(true); }}
               className="inline-flex items-center gap-2 text-[#C9A227] hover:text-[#B8921F] font-semibold text-lg transition-colors border-b border-[#C9A227]/30 hover:border-[#C9A227] pb-1"
             >
-              Discover How We Resolve This Tension <ArrowRight className="w-5 h-5" /> Request a Sovereign Compliance Scan
+              {t('home.collisionSection.cta').split('→')[0]} <ArrowRight className="w-5 h-5" /> {t('home.collisionSection.cta').split('→')[1]}
             </a>
           </div>
         </div>
@@ -222,11 +222,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
-              The Sovereign Advantage — <br className="hidden md:block" />
-              Built for Saudi Regulated Environments
+              {t('home.whyAliph.title')}
             </h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto font-light leading-relaxed">
-              Institutional rigor meets AI velocity — without compromising Kingdom-first sovereignty.
+              {t('home.whyAliph.subtitle')}
             </p>
           </div>
 
@@ -235,13 +234,13 @@ export default function Home() {
             <Card className="p-8 bg-white/[0.02] border border-white/5 opacity-80 hover:opacity-100 transition-all duration-500 hover:border-white/10 group h-full">
               <div className="text-center mb-6">
                 <Building2 className="w-10 h-10 mx-auto text-gray-600 mb-4 group-hover:text-gray-400 transition-colors" />
-                <h3 className="text-lg font-bold text-gray-400 group-hover:text-white transition-colors">Traditional Consulting</h3>
+                <h3 className="text-lg font-bold text-gray-400 group-hover:text-white transition-colors">{t('home.whyAliph.traditionalConsulting.title')}</h3>
               </div>
-              <p className="text-center text-gray-500 mb-6 text-sm">Rigorous and trusted — but not optimized for AI-era velocity in regulated Saudi environments.</p>
+              <p className="text-center text-gray-500 mb-6 text-sm">{t('home.whyAliph.traditionalConsulting.description')}</p>
               <ul className="space-y-3 text-sm text-gray-600 group-hover:text-gray-400 transition-colors text-center">
-                <li className="flex items-center gap-2 justify-center"><span className="text-gray-700">•</span> Heavy manual execution</li>
-                <li className="flex items-center gap-2 justify-center"><span className="text-gray-700">•</span> Long mobilization cycles</li>
-                <li className="flex items-center gap-2 justify-center"><span className="text-gray-700">•</span> Linear engagement models</li>
+                <li className="flex items-center gap-2 justify-center"><span className="text-gray-700">•</span> {t('home.whyAliph.traditionalConsulting.point1')}</li>
+                <li className="flex items-center gap-2 justify-center"><span className="text-gray-700">•</span> {t('home.whyAliph.traditionalConsulting.point2')}</li>
+                <li className="flex items-center gap-2 justify-center"><span className="text-gray-700">•</span> {t('home.whyAliph.traditionalConsulting.point3')}</li>
               </ul>
             </Card>
 
@@ -249,13 +248,13 @@ export default function Home() {
             <Card className="p-8 bg-white/[0.02] border border-white/5 opacity-80 hover:opacity-100 transition-all duration-500 hover:border-red-500/20 group h-full">
               <div className="text-center mb-6">
                 <Zap className="w-10 h-10 mx-auto text-gray-600 mb-4 group-hover:text-red-400 transition-colors" />
-                <h3 className="text-lg font-bold text-gray-400 group-hover:text-white transition-colors">Generic AI</h3>
+                <h3 className="text-lg font-bold text-gray-400 group-hover:text-white transition-colors">{t('home.whyAliph.genericAI.title')}</h3>
               </div>
-              <p className="text-center text-gray-500 mb-6 text-sm">Fast and flexible — but misaligned with Saudi regulatory requirements.</p>
+              <p className="text-center text-gray-500 mb-6 text-sm">{t('home.whyAliph.genericAI.description')}</p>
               <ul className="space-y-3 text-sm text-gray-600 group-hover:text-gray-400 transition-colors text-center">
-                <li className="flex items-center gap-2 justify-center"><span className="text-red-900">•</span> Data sovereignty exposure (risks to PDPL compliance)</li>
-                <li className="flex items-center gap-2 justify-center"><span className="text-red-900">•</span> Non-contextual, broad outputs lacking audit trails</li>
-                <li className="flex items-center gap-2 justify-center"><span className="text-red-900">•</span> No regulator-grade validation or traceability</li>
+                <li className="flex items-center gap-2 justify-center"><span className="text-red-900">•</span> {t('home.whyAliph.genericAI.point1')}</li>
+                <li className="flex items-center gap-2 justify-center"><span className="text-red-900">•</span> {t('home.whyAliph.genericAI.point2')}</li>
+                <li className="flex items-center gap-2 justify-center"><span className="text-red-900">•</span> {t('home.whyAliph.genericAI.point3')}</li>
               </ul>
             </Card>
 
@@ -266,29 +265,29 @@ export default function Home() {
                 <div className="w-16 h-16 mx-auto bg-gradient-to-br from-[#C9A227] to-[#B8921F] rounded-full flex items-center justify-center mb-5 shadow-lg shadow-[#C9A227]/20">
                   <Brain className="w-8 h-8 text-black" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-1">Aliph Solutions</h3>
-                <span className="text-[#C9A227] text-xs font-bold tracking-widest uppercase">THE SOVEREIGN STANDARD</span>
+                <h3 className="text-2xl font-bold text-white mb-1">{t('home.whyAliph.aliphSolutions.title')}</h3>
+                <span className="text-[#C9A227] text-xs font-bold tracking-widest uppercase">{t('home.whyAliph.aliphSolutions.subtitle')}</span>
               </div>
               <ul className="space-y-4 text-sm relative z-10 text-left">
                 <li className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-[#C9A227] flex-shrink-0" />
-                  <span className="text-gray-200">Big Four-grade validation</span>
+                  <span className="text-gray-200">{t('home.whyAliph.aliphSolutions.point1')}</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-[#C9A227] flex-shrink-0" />
-                  <span className="text-gray-200">Sovereign-hosted infrastructure (KSA Azure Region, edge-ready)</span>
+                  <span className="text-gray-200">{t('home.whyAliph.aliphSolutions.point2')}</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-[#C9A227] flex-shrink-0" />
-                  <span className="text-gray-200">Audit-ready GRC outputs with unbreakable compliance checks</span>
+                  <span className="text-gray-200">{t('home.whyAliph.aliphSolutions.point3')}</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-[#C9A227] flex-shrink-0" />
-                  <span className="text-gray-200">Instant expert deployment within governed 15-AI Agent workflows</span>
+                  <span className="text-gray-200">{t('home.whyAliph.aliphSolutions.point4')}</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-[#C9A227] flex-shrink-0" />
-                  <span className="text-gray-200">Compounding intelligence via the Aliph Brain — quality improves with every engagement</span>
+                  <span className="text-gray-200">{t('home.whyAliph.aliphSolutions.point5')}</span>
                 </li>
               </ul>
             </Card>
@@ -296,9 +295,7 @@ export default function Home() {
 
           <div className="text-center mt-20 max-w-3xl mx-auto">
             <p className="text-lg text-gray-400 font-light mb-8">
-              We bridge the gap between <span className="font-semibold text-white">institutional rigor</span> and <span className="font-semibold text-white">AI velocity</span> — delivering precise, audit-ready outcomes that accelerate Vision 2030 commitments while preserving full data sovereignty.
-              <br className="hidden md:block" />
-              We are honored to support Saudi enterprises and institutions in this transformative era.
+              {t('home.whyAliph.closing')}
             </p>
 
             <a
@@ -306,7 +303,7 @@ export default function Home() {
               onClick={(e) => { e.preventDefault(); setDemoModalOpen(true); }}
               className="inline-flex items-center gap-2 text-[#C9A227] hover:text-[#B8921F] font-semibold text-lg transition-colors border-b border-[#C9A227]/30 hover:border-[#C9A227] pb-1"
             >
-              Discover the Sovereign Advantage <ArrowRight className="w-5 h-5" /> Request Private Demo
+              {t('home.whyAliph.cta').split('→')[0]} <ArrowRight className="w-5 h-5" /> {t('home.whyAliph.cta').split('→')[1]}
             </a>
           </div>
         </div>
@@ -323,22 +320,22 @@ export default function Home() {
       <section className="py-20 bg-[#0B1220] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
-            Sovereign AI Workflow Layer
+            {t('home.architecture.title')}
           </h2>
           <p className="text-xl text-center text-gray-300 mb-16">
-            AI workflows that don't break compliance
+            {t('home.architecture.subtitle')}
           </p>
 
           {/* Simple Flow Diagram */}
           <div className="max-w-6xl mx-auto mb-12">
             <div className="flex flex-col md:flex-row items-center justify-center gap-1">
               {[
-                { label: 'Inputs', icon: Database, desc: 'Docs, policies, obligations' },
-                { label: 'Privacy Layer', icon: Shield, desc: 'Data minimization' },
-                { label: 'Policy Engine', icon: Lock, desc: 'Role controls' },
-                { label: 'Workflows', icon: Brain, desc: 'Agentic processing' },
-                { label: 'Validation', icon: Users, desc: 'Expert review' },
-                { label: 'Output', icon: FileText, desc: 'Audit pack' },
+                { label: t('home.architecture.inputs'), icon: Database, desc: t('home.architecture.inputsDesc') },
+                { label: t('home.architecture.privacyLayer'), icon: Shield, desc: t('home.architecture.privacyLayerDesc') },
+                { label: t('home.architecture.policyEngine'), icon: Lock, desc: t('home.architecture.policyEngineDesc') },
+                { label: t('home.architecture.workflows'), icon: Brain, desc: t('home.architecture.workflowsDesc') },
+                { label: t('home.architecture.validation'), icon: Users, desc: t('home.architecture.validationDesc') },
+                { label: t('home.architecture.output'), icon: FileText, desc: t('home.architecture.outputDesc') },
               ].map((step, idx) => (
                 <div key={idx} className="flex items-center">
                   <Card className="p-4 bg-white/5 border-white/10 text-center hover:bg-white/10 transition-all min-w-[140px] w-[140px] min-h-[120px] flex flex-col items-center justify-center">
@@ -359,10 +356,10 @@ export default function Home() {
           {/* Key Points */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
-              'Data minimization + optional masking',
-              'Role-based controls and approvals',
-              'Traceability via audit logs',
-              'Evidence-ready deliverables',
+              t('home.architecture.point1'),
+              t('home.architecture.point2'),
+              t('home.architecture.point3'),
+              t('home.architecture.point4'),
             ].map((point, idx) => (
               <div key={idx} className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-[#C9A227] flex-shrink-0 mt-1" />
@@ -377,7 +374,7 @@ export default function Home() {
               className="bg-[#C9A227] hover:bg-[#B8921F]"
               onClick={() => setDemoModalOpen(true)}
             >
-              Speak to an Architect
+              {t('home.architecture.cta')}
             </Button>
           </div>
         </div>
@@ -388,22 +385,21 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              The Market Opportunity — <br className="hidden md:block" />
-              Why Now for Saudi Enterprises
+              {t('home.marketStats.title')}
             </h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto font-light leading-relaxed">
-              Vision 2030 accelerates digital transformation and AI adoption — while active PDPL enforcement demands unbreakable sovereignty and compliance.
+              {t('home.marketStats.subtitle')}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {[
-              { label: 'KSA Consulting Market', value: '$4.3B+', sublabel: '2025 annual size, leading GCC growth' },
-              { label: 'GRC Platform & Advisory Growth', value: '11–13% CAGR', sublabel: '2025–2033 projection' },
-              { label: 'PDPL Maximum Fine', value: 'SAR 5M', sublabel: 'Per violation (active enforcement ceiling)' },
-              { label: 'Vision 2030 Pipeline', value: '$1T+', sublabel: 'Mega-projects driving compliance demand' },
-              { label: 'Active Mega-Projects', value: '50+', sublabel: 'Requiring Audit-Ready GRC' },
-              { label: 'AI Adoption Growth', value: '45%+', sublabel: 'YoY, fueled by national initiatives' },
+              { label: t('home.marketStats.stat1Label'), value: t('home.marketStats.stat1Value'), sublabel: t('home.marketStats.stat1Sublabel') },
+              { label: t('home.marketStats.stat2Label'), value: t('home.marketStats.stat2Value'), sublabel: t('home.marketStats.stat2Sublabel') },
+              { label: t('home.marketStats.stat3Label'), value: t('home.marketStats.stat3Value'), sublabel: t('home.marketStats.stat3Sublabel') },
+              { label: t('home.marketStats.stat4Label'), value: t('home.marketStats.stat4Value'), sublabel: t('home.marketStats.stat4Sublabel') },
+              { label: t('home.marketStats.stat5Label'), value: t('home.marketStats.stat5Value'), sublabel: t('home.marketStats.stat5Sublabel') },
+              { label: t('home.marketStats.stat6Label'), value: t('home.marketStats.stat6Value'), sublabel: t('home.marketStats.stat6Sublabel') },
             ].map((stat, idx) => (
               <Card key={idx} className="p-8 text-center border-2 hover:border-[#C9A227] transition-all hover:shadow-lg group">
                 <div className="text-4xl md:text-5xl font-bold text-[#C9A227] mb-3 group-hover:scale-110 transition-transform duration-300">{stat.value}</div>
@@ -415,7 +411,7 @@ export default function Home() {
 
           <div className="text-center">
             <p className="text-sm text-gray-500 italic mb-8 max-w-2xl mx-auto">
-              Indicative market signals based on 2025–2026 reports (Mordor Intelligence, Source Global Research, IMARC, SDAIA updates). Sources available upon request.
+              {t('home.marketStats.disclaimer')}
             </p>
 
             <a
@@ -423,7 +419,7 @@ export default function Home() {
               onClick={(e) => { e.preventDefault(); setDemoModalOpen(true); }}
               className="inline-flex items-center gap-2 bg-[#C9A227] hover:bg-[#B8921F] text-white font-semibold py-3 px-6 rounded-md transition-colors shadow-sm hover:shadow-md"
             >
-              See How Aliph Positions Your Organization <ArrowRight className="w-5 h-5" />
+              {t('home.marketStats.cta')} <ArrowRight className="w-5 h-5" />
             </a>
           </div>
         </div>
@@ -442,10 +438,10 @@ export default function Home() {
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="w-16 h-1 bg-gradient-to-r from-[#C9A227] to-[#B8921F] mx-auto mb-8"></div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Build Sovereign, Audit-Ready GRC for Vision 2030
+            {t('home.finalCTA.title')}
           </h2>
           <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-            Secure, Kingdom-first GRC delivery — powered by governed AI workflows and senior-led expertise.
+            {t('home.finalCTA.subtitle')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
@@ -454,7 +450,7 @@ export default function Home() {
               onClick={() => setDemoModalOpen(true)}
               className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D] text-white text-lg px-8"
             >
-              Schedule a Sovereign Demo
+              {t('home.finalCTA.primaryBtn')}
             </Button>
             <Button
               size="lg"
@@ -462,24 +458,24 @@ export default function Home() {
               onClick={() => setPartnershipModalOpen(true)}
               className="border-white/30 text-white hover:bg-white/10 text-lg px-8"
             >
-              Request Government Engagement Brief
+              {t('home.finalCTA.secondaryBtn')}
             </Button>
           </div>
 
           {/* Newsletter */}
           <div className="max-w-md mx-auto">
-            <p className="text-sm text-gray-400 mb-4 text-center">Receive Saudi regulatory intelligence briefs (PDPL, NCA ECC, ZATCA) — concise and action-ready.</p>
+            <p className="text-sm text-gray-400 mb-4 text-center">{t('home.finalCTA.newsletterTitle')}</p>
             {subscribed ? (
               <div className="flex items-center justify-center gap-2 text-green-400 text-sm py-3">
                 <CheckCircle2 className="w-5 h-5" />
-                <span>Subscribed! Check your inbox.</span>
+                <span>{t('home.finalCTA.newsletterSuccess')}</span>
               </div>
             ) : (
               <form onSubmit={handleNewsletterSubmit(onSubscribe)}>
                 <div className="flex gap-2">
                   <Input
                     type="email"
-                    placeholder="Work email"
+                    placeholder={t('home.finalCTA.newsletterPlaceholder')}
                     {...register('email')}
                     className={`bg-white/10 border-white/20 text-white placeholder:text-gray-400 ${errors.email ? 'border-red-500' : ''}`}
                   />
@@ -488,7 +484,7 @@ export default function Home() {
                     disabled={isSubmitting}
                     className="bg-[#C9A227] hover:bg-[#B8921F] disabled:opacity-50"
                   >
-                    {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Get Briefs'}
+                    {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : t('home.finalCTA.newsletterBtn')}
                   </Button>
                 </div>
                 {errors.email && (
