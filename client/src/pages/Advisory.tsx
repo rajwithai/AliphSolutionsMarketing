@@ -34,21 +34,22 @@ import { Shield, FileText, CheckCircle2, ArrowRight, Building2, TrendingUp, Targ
 import WhoWeServeCards from '@/components/WhoWeServeCards';
 import SuccessModal from '@/components/SuccessModal';
 import useSEO from '@/hooks/useSEO';
+import i18n from '@/i18n/config';
 
-// Form validation schema
-const advisoryFormSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
-  email: z.string().email('Please enter a valid email address'),
-  company: z.string().min(2, 'Company name is required').max(200),
-  role: z.string().min(2, 'Role is required').max(100),
-  sector: z.string().min(1, 'Please select a sector'),
-  focusAreas: z.array(z.string()).min(1, 'Please select at least one focus area'),
+// Form validation schema with i18n
+const getAdvisoryFormSchema = () => z.object({
+  name: z.string().min(2, i18n.t('advisory.form.validation.nameMin')).max(100),
+  email: z.string().email(i18n.t('advisory.form.validation.emailInvalid')),
+  company: z.string().min(2, i18n.t('advisory.form.validation.companyRequired')).max(200),
+  role: z.string().min(2, i18n.t('advisory.form.validation.roleRequired')).max(100),
+  sector: z.string().min(1, i18n.t('advisory.form.validation.sectorRequired')),
+  focusAreas: z.array(z.string()).min(1, i18n.t('advisory.form.validation.focusAreasRequired')),
   regulations: z.array(z.string()).optional(),
-  timeline: z.string().min(1, 'Please select a timeline'),
+  timeline: z.string().min(1, i18n.t('advisory.form.validation.timelineRequired')),
   notes: z.string().optional(),
 });
 
-type AdvisoryFormData = z.infer<typeof advisoryFormSchema>;
+type AdvisoryFormData = z.infer<ReturnType<typeof getAdvisoryFormSchema>>;
 
 export default function Advisory() {
   const { t } = useTranslation();
@@ -72,7 +73,7 @@ export default function Advisory() {
     watch,
     reset,
   } = useForm<AdvisoryFormData>({
-    resolver: zodResolver(advisoryFormSchema),
+    resolver: zodResolver(getAdvisoryFormSchema()),
     mode: 'onChange',
     defaultValues: {
       name: '',
@@ -144,7 +145,7 @@ export default function Advisory() {
           const errorMessages = result.errors.map((err: any) => err.message).join(', ');
           setServerError(errorMessages);
         } else {
-          setServerError(result.message || 'Failed to submit request. Please try again.');
+          setServerError(result.message || t('advisory.form.validation.submitError'));
         }
         return;
       }
@@ -152,7 +153,7 @@ export default function Advisory() {
       setScopeSubmitted(true);
     } catch (error) {
       console.error('Form submission error:', error);
-      setServerError('An unexpected error occurred. Please try again later.');
+      setServerError(t('advisory.form.validation.unexpectedError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -500,60 +501,20 @@ export default function Advisory() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              {
-                title: 'PDPL Readiness & Privacy Operating Model',
-                outputs: 'Gap analysis, policy suite, DPO framework',
-                bestFor: 'Data controllers, processors, e-commerce',
-                link: '/deliverables'
-              },
-              {
-                title: 'NCA ECC Readiness & Evidence Packs',
-                outputs: 'Control mapping, evidence checklists, roadmap',
-                bestFor: 'Critical infrastructure, government vendors',
-                link: '/deliverables'
-              },
-              {
-                title: 'ZATCA Compliance Operations',
-                outputs: 'Process controls, operating cadence, records',
-                bestFor: 'Tax-exposed entities, e-invoicing readiness',
-                link: '/deliverables'
-              },
-              {
-                title: 'Corporate Governance',
-                outputs: 'DoA matrix, board charters, reporting framework',
-                bestFor: 'Enterprises and listed entities preparing for CMA compliance and board-level oversight.',
-                link: '/advisory/governance'
-              },
-              {
-                title: 'ERM Foundation & Risk Reporting',
-                outputs: 'Risk taxonomy, appetite, KRI dashboard',
-                bestFor: 'Enterprises scaling risk management',
-                link: '/advisory/risk'
-              },
-              {
-                title: 'Internal Audit Enablement',
-                outputs: 'Audit charter, annual plan, methodology',
-                bestFor: 'Building or scaling audit function',
-                link: '/advisory/internal-audit'
-              },
-              {
-                title: 'Third-Party / Vendor Risk',
-                outputs: 'Risk assessment, due diligence, monitoring',
-                bestFor: 'Organizations with critical vendor dependencies',
-                link: '/advisory/risk'
-              },
-              {
-                title: 'AI Governance',
-                outputs: 'Policy, approval framework, auditability structure',
-                bestFor: 'Aliph Brain-powered policy and approval frameworks with unbreakable validation.',
-                link: '/advisory/ai-governance'
-              },
-            ].map((outcome, idx) => (
-              <Card key={idx} className="p-6 border-2 hover:border-[#C9A227] transition-all hover:shadow-lg group">
-                <h3 className="text-lg font-bold mb-3 text-gray-900">{outcome.title}</h3>
+              { link: '/deliverables', idx: 0 },
+              { link: '/deliverables', idx: 1 },
+              { link: '/deliverables', idx: 2 },
+              { link: '/advisory/governance', idx: 3 },
+              { link: '/advisory/risk', idx: 4 },
+              { link: '/advisory/internal-audit', idx: 5 },
+              { link: '/advisory/risk', idx: 6 },
+              { link: '/advisory/ai-governance', idx: 7 },
+            ].map((outcome, cardIdx) => (
+              <Card key={cardIdx} className="p-6 border-2 hover:border-[#C9A227] transition-all hover:shadow-lg group">
+                <h3 className="text-lg font-bold mb-3 text-gray-900">{t(`advisory.outcomes.items.${outcome.idx}.title`)}</h3>
                 <div className="space-y-2 mb-4">
-                  <p className="text-xs text-gray-600"><span className="font-semibold">{t('advisory.outcomes.typicalOutputs')}</span> {outcome.outputs}</p>
-                  <p className="text-xs text-gray-600"><span className="font-semibold">{t('advisory.outcomes.bestFor')}</span> {outcome.bestFor}</p>
+                  <p className="text-xs text-gray-600"><span className="font-semibold">{t('advisory.outcomes.typicalOutputs')}</span> {t(`advisory.outcomes.items.${outcome.idx}.outputs`)}</p>
+                  <p className="text-xs text-gray-600"><span className="font-semibold">{t('advisory.outcomes.bestFor')}</span> {t(`advisory.outcomes.items.${outcome.idx}.bestFor`)}</p>
                 </div>
                 <a
                   href={outcome.link}
@@ -578,72 +539,22 @@ export default function Advisory() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {[
-              {
-                title: 'Governance Advisory',
-                icon: Scale,
-                offerings: [
-                  'Board & committee governance structure',
-                  'Delegation of authority frameworks',
-                  'Policy architecture & governance operating model'
-                ],
-                receives: ['Charters', 'DoA matrix', 'Reporting packs'],
-                link: '/advisory/governance'
-              },
-              {
-                title: 'Risk Management',
-                icon: Shield,
-                offerings: [
-                  'Enterprise risk management (ERM) foundation',
-                  'Risk appetite & tolerance frameworks',
-                  'Third-party & vendor risk governance'
-                ],
-                receives: ['Risk taxonomy', 'KRI dashboards', 'Risk register'],
-                link: '/advisory/risk'
-              },
-              {
-                title: 'Compliance',
-                icon: CheckCircle2,
-                offerings: [
-                  'PDPL, NCA ECC, ZATCA readiness',
-                  'Regulatory change management',
-                  'Compliance operating model & evidence'
-                ],
-                receives: ['Gap analyses', 'Policy suites', 'Roadmaps'],
-                link: '/advisory/compliance'
-              },
-              {
-                title: 'Internal Audit',
-                icon: Eye,
-                offerings: [
-                  'Audit function setup & enablement',
-                  'Annual audit planning & risk-based methodology',
-                  'Co-sourcing & managed audit delivery'
-                ],
-                receives: ['Audit charter', 'Annual plan', 'Audit reports'],
-                link: '/advisory/internal-audit'
-              },
-              {
-                title: 'AI Governance',
-                icon: Brain,
-                offerings: [
-                  'AI policy & approval frameworks',
-                  'AI exposure & risk assessment',
-                  'Auditability & transparency controls'
-                ],
-                receives: ['AI policy', 'Approval process', 'Risk register'],
-                link: '/advisory/ai-governance'
-              },
-            ].map((domain, idx) => (
-              <Card key={idx} className="p-8 border-2 hover:border-[#C9A227] transition-all hover:shadow-xl group">
+              { icon: Scale, idx: 0, link: '/advisory/governance' },
+              { icon: Shield, idx: 1, link: '/advisory/risk' },
+              { icon: CheckCircle2, idx: 2, link: '/advisory/compliance' },
+              { icon: Eye, idx: 3, link: '/advisory/internal-audit' },
+              { icon: Brain, idx: 4, link: '/advisory/ai-governance' },
+            ].map((domain, cardIdx) => (
+              <Card key={cardIdx} className="p-8 border-2 hover:border-[#C9A227] transition-all hover:shadow-xl group">
                 <div className="w-14 h-14 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#C9A227]/20 transition-colors">
                   <domain.icon className="w-8 h-8 text-[#C9A227]" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4 text-gray-900">{domain.title}</h3>
+                <h3 className="text-2xl font-bold mb-4 text-gray-900">{t(`advisory.domains.items.${domain.idx}.title`)}</h3>
 
                 <div className="mb-4">
                   <p className="text-xs font-semibold text-gray-700 mb-2">{t('advisory.domains.keyOfferings')}</p>
                   <ul className="space-y-1">
-                    {domain.offerings.map((item, i) => (
+                    {t(`advisory.domains.items.${domain.idx}.offerings`, { returnObjects: true }).map((item: string, i: number) => (
                       <li key={i} className="text-sm text-gray-600">• {item}</li>
                     ))}
                   </ul>
@@ -652,7 +563,7 @@ export default function Advisory() {
                 <div className="mb-6">
                   <p className="text-xs font-semibold text-gray-700 mb-2">{t('advisory.domains.whatYouReceive')}</p>
                   <div className="flex flex-wrap gap-2">
-                    {domain.receives.map((item, i) => (
+                    {t(`advisory.domains.items.${domain.idx}.receives`, { returnObjects: true }).map((item: string, i: number) => (
                       <span key={i} className="text-xs bg-gray-100 px-2 py-1 rounded">{item}</span>
                     ))}
                   </div>

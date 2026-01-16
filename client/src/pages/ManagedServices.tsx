@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
+import i18n from '@/i18n/config';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -32,33 +34,34 @@ import { Shield, FileText, CheckCircle2, ArrowRight, Clock, Users, BarChart3, Ey
 import SuccessModal from '@/components/SuccessModal';
 import useSEO from '@/hooks/useSEO';
 
-// Proposal form validation schema
-const proposalFormSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
-  email: z.string().email('Please enter a valid email address'),
-  company: z.string().min(2, 'Company name is required').max(200),
-  role: z.string().min(2, 'Role is required').max(100),
-  sector: z.string().min(1, 'Please select a sector'),
-  serviceLines: z.array(z.string()).min(1, 'Please select at least one service line'),
-  size: z.string().min(1, 'Please select organization size'),
-  timeline: z.string().min(1, 'Please select a timeline'),
+// Proposal form validation schema with i18n
+const getProposalFormSchema = () => z.object({
+  name: z.string().min(2, i18n.t('managedServices.proposalForm.validation.nameMin')).max(100),
+  email: z.string().email(i18n.t('managedServices.proposalForm.validation.emailInvalid')),
+  company: z.string().min(2, i18n.t('managedServices.proposalForm.validation.companyRequired')).max(200),
+  role: z.string().min(2, i18n.t('managedServices.proposalForm.validation.roleRequired')).max(100),
+  sector: z.string().min(1, i18n.t('managedServices.proposalForm.validation.sectorRequired')),
+  serviceLines: z.array(z.string()).min(1, i18n.t('managedServices.proposalForm.validation.serviceLinesRequired')),
+  size: z.string().min(1, i18n.t('managedServices.proposalForm.validation.sizeRequired')),
+  timeline: z.string().min(1, i18n.t('managedServices.proposalForm.validation.timelineRequired')),
   notes: z.string().optional(),
 });
 
-// Pilot form validation schema
-const pilotFormSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
-  email: z.string().email('Please enter a valid email address'),
-  company: z.string().min(2, 'Company name is required').max(200),
-  objective: z.string().min(1, 'Please select an objective'),
-  pressure: z.string().min(1, 'Please select a pressure source'),
+// Pilot form validation schema with i18n
+const getPilotFormSchema = () => z.object({
+  name: z.string().min(2, i18n.t('managedServices.pilotForm.validation.nameMin')).max(100),
+  email: z.string().email(i18n.t('managedServices.pilotForm.validation.emailInvalid')),
+  company: z.string().min(2, i18n.t('managedServices.pilotForm.validation.companyRequired')).max(200),
+  objective: z.string().min(1, i18n.t('managedServices.pilotForm.validation.objectiveRequired')),
+  pressure: z.string().min(1, i18n.t('managedServices.pilotForm.validation.pressureRequired')),
   notes: z.string().optional(),
 });
 
-type ProposalFormData = z.infer<typeof proposalFormSchema>;
-type PilotFormData = z.infer<typeof pilotFormSchema>;
+type ProposalFormData = z.infer<ReturnType<typeof getProposalFormSchema>>;
+type PilotFormData = z.infer<ReturnType<typeof getPilotFormSchema>>;
 
 export default function ManagedServices() {
+  const { t } = useTranslation();
   useSEO({
     title: 'Managed Services | Aliph Solutions',
     description: 'Managed GRC and compliance operations for Saudi organizations—SOPs, controls, evidence workflows, reporting cadence, and continuous readiness. Built for PDPL, NCA ECC, and ZATCA environments.',
@@ -76,7 +79,7 @@ export default function ManagedServices() {
 
   // Proposal form
   const proposalForm = useForm<ProposalFormData>({
-    resolver: zodResolver(proposalFormSchema),
+    resolver: zodResolver(getProposalFormSchema()),
     mode: 'onChange',
     defaultValues: {
       name: '',
@@ -98,7 +101,7 @@ export default function ManagedServices() {
 
   // Pilot form
   const pilotForm = useForm<PilotFormData>({
-    resolver: zodResolver(pilotFormSchema),
+    resolver: zodResolver(getPilotFormSchema()),
     mode: 'onChange',
     defaultValues: {
       name: '',

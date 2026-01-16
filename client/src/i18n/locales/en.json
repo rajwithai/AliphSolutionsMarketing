@@ -554,7 +554,54 @@
       "title": "Advisory Domains",
       "keyOfferings": "Key Offerings:",
       "whatYouReceive": "What You Receive:",
-      "viewDeliverables": "View deliverables"
+      "viewDeliverables": "View deliverables",
+      "items": [
+        {
+          "title": "Governance Advisory",
+          "offerings": [
+            "Board & committee governance structure",
+            "Delegation of authority frameworks",
+            "Policy architecture & governance operating model"
+          ],
+          "receives": ["Charters", "DoA matrix", "Reporting packs"]
+        },
+        {
+          "title": "Risk Management",
+          "offerings": [
+            "Enterprise risk management (ERM) foundation",
+            "Risk appetite & tolerance frameworks",
+            "Third-party & vendor risk governance"
+          ],
+          "receives": ["Risk taxonomy", "KRI dashboards", "Risk register"]
+        },
+        {
+          "title": "Compliance",
+          "offerings": [
+            "PDPL, NCA ECC, ZATCA readiness",
+            "Regulatory change management",
+            "Compliance operating model & evidence"
+          ],
+          "receives": ["Gap analyses", "Policy suites", "Roadmaps"]
+        },
+        {
+          "title": "Internal Audit",
+          "offerings": [
+            "Audit function setup & enablement",
+            "Annual audit planning & risk-based methodology",
+            "Co-sourcing & managed audit delivery"
+          ],
+          "receives": ["Audit charter", "Annual plan", "Audit reports"]
+        },
+        {
+          "title": "AI Governance",
+          "offerings": [
+            "AI policy & approval frameworks",
+            "AI exposure & risk assessment",
+            "Auditability & transparency controls"
+          ],
+          "receives": ["AI policy", "Approval process", "Risk register"]
+        }
+      ]
     },
     "delivery": {
       "title": "How Aliph Delivers Faster—Without Losing Rigor",
@@ -646,6 +693,17 @@
       "successTitle": "Request Received!",
       "successMessage": "We'll respond with a scoped plan and sample deliverables within 24-48 hours.",
       "successButton": "Close",
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "companyRequired": "Company name is required",
+        "roleRequired": "Role is required",
+        "sectorRequired": "Please select a sector",
+        "focusAreasRequired": "Please select at least one focus area",
+        "timelineRequired": "Please select a timeline",
+        "submitError": "Failed to submit request. Please try again.",
+        "unexpectedError": "An unexpected error occurred. Please try again later."
+      },
       "sectors": {
         "finance": "Finance & Banking",
         "energy": "Energy & Petrochemicals",
@@ -668,6 +726,29 @@
         "90": "Within 90 days",
         "6months": "Within 6 months",
         "exploring": "Exploring"
+      }
+    }
+  },
+  "managedServices": {
+    "proposalForm": {
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "companyRequired": "Company name is required",
+        "roleRequired": "Role is required",
+        "sectorRequired": "Please select a sector",
+        "serviceLinesRequired": "Please select at least one service line",
+        "sizeRequired": "Please select organization size",
+        "timelineRequired": "Please select a timeline"
+      }
+    },
+    "pilotForm": {
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "companyRequired": "Company name is required",
+        "objectiveRequired": "Please select an objective",
+        "pressureRequired": "Please select a pressure source"
       }
     }
   }
