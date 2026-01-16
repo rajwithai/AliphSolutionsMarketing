@@ -3,6 +3,15 @@ import { initReactI18next } from 'react-i18next';
 import enTranslations from './locales/en.json';
 import arTranslations from './locales/ar.json';
 
+// Set initial language from localStorage
+const initialLang = localStorage.getItem('language') || 'en';
+// Keep LTR direction for both languages (no mirroring)
+document.documentElement.dir = 'ltr';
+document.documentElement.lang = initialLang;
+if (initialLang === 'ar') {
+  document.body.classList.add('font-arabic');
+}
+
 i18n
   .use(initReactI18next)
   .init({
@@ -14,7 +23,7 @@ i18n
         translation: arTranslations,
       },
     },
-    lng: localStorage.getItem('language') || 'en',
+    lng: initialLang,
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
@@ -24,12 +33,14 @@ i18n
     },
   });
 
-// Update HTML attributes when language changes
+// Update HTML attributes when language changes (but keep LTR direction)
 i18n.on('languageChanged', (lng) => {
-  document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
+  // Always keep LTR direction - no mirroring
+  document.documentElement.dir = 'ltr';
   document.documentElement.lang = lng;
   localStorage.setItem('language', lng);
   
+  // Update Arabic font class
   if (lng === 'ar') {
     document.body.classList.add('font-arabic');
   } else {
