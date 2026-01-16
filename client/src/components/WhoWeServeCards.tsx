@@ -3,52 +3,33 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Building2, TrendingUp, Target, Shield, ChevronDown } from "lucide-react";
 import { useLocation } from "wouter";
+import { useTranslation } from "react-i18next";
 
 type ServeCard = {
     icon: any;
-    title: string;
-    description: string;
-    typicalNeed: string;
-    commonOutputs: string;
-    ctaText: string;
+    key: string;
     ctaAction: "deliverables" | "advisor" | "vendor" | "government";
 };
 
 const SERVE_CARDS: ServeCard[] = [
     {
         icon: Building2,
-        title: "Regulated Enterprises",
-        description: "Organizations operating under PDPL, NCA ECC, and audit expectations.",
-        typicalNeed: "Typical need: defensible documentation, board charters, and evidence readiness",
-        commonOutputs: "Common outputs: readiness packs, control mapping, audit kits aligned to Vision 2030",
-        ctaText: "Request Deliverables Preview",
+        key: "regulated",
         ctaAction: "deliverables",
     },
     {
         icon: TrendingUp,
-        title: "Scaling Organizations",
-        description: "Mid-level and growing organizations formalizing compliance for enterprise and government readiness.",
-        typicalNeed: "Typical need: baseline policies, controls, and evidence structure for procurement",
-        commonOutputs: "Common outputs: PDPL baseline, governance setup, risk register",
-        ctaText: "Speak with an Advisor",
+        key: "scaling",
         ctaAction: "advisor",
     },
     {
         icon: Target,
-        title: "Giga-Project Vendors",
-        description: "Suppliers needing rapid compliance readiness and audit-grade documentation.",
-        typicalNeed: "Typical need: onboarding compliance + internal readiness for mega-projects",
-        commonOutputs: "Common outputs: vendor readiness pack, audit enablement kit",
-        ctaText: "Request Vendor Readiness Pack",
+        key: "giga",
         ctaAction: "vendor",
     },
     {
         icon: Shield,
-        title: "Government & Public Sector",
-        description: "Entities requiring sovereign delivery and traceable outputs.",
-        typicalNeed: "Typical need: sovereignty controls + regulator-defensible evidence",
-        commonOutputs: "Common outputs: ECC readiness, audit packs, sovereign governed workflows",
-        ctaText: "Request Government Engagement Brief",
+        key: "government",
         ctaAction: "government",
     },
 ];
@@ -58,6 +39,7 @@ type Props = {
 };
 
 export default function WhoWeServeCards({ setScopeModalOpen }: Props) {
+    const { t } = useTranslation();
     const [expandedCard, setExpandedCard] = useState<number | null>(null);
     const [, setLocation] = useLocation();
 
@@ -95,8 +77,8 @@ export default function WhoWeServeCards({ setScopeModalOpen }: Props) {
                                     }`}
                             />
                         </div>
-                        <h3 className="text-lg font-bold mb-3 text-gray-900">{card.title}</h3>
-                        <p className="text-sm text-gray-600">{card.description}</p>
+                        <h3 className="text-lg font-bold mb-3 text-gray-900">{t(`advisory.whoWeServe.cards.${card.key}.title`)}</h3>
+                        <p className="text-sm text-gray-600">{t(`advisory.whoWeServe.cards.${card.key}.description`)}</p>
                     </button>
 
                     {/* Expanded Panel */}
@@ -106,14 +88,14 @@ export default function WhoWeServeCards({ setScopeModalOpen }: Props) {
                             }`}
                     >
                         <div className="px-6 pb-6 pt-2 bg-gray-50/50 border-t border-gray-100 space-y-3">
-                            <p className="text-xs text-gray-600 leading-relaxed">• {card.typicalNeed}</p>
-                            <p className="text-xs text-gray-600 leading-relaxed">• {card.commonOutputs}</p>
+                            <p className="text-xs text-gray-600 leading-relaxed">• {t(`advisory.whoWeServe.cards.${card.key}.typicalNeed`)}</p>
+                            <p className="text-xs text-gray-600 leading-relaxed">• {t(`advisory.whoWeServe.cards.${card.key}.commonOutputs`)}</p>
 
                             <Button
                                 onClick={() => handleCtaClick(card.ctaAction)}
                                 className="w-full bg-[#C9A227] hover:bg-[#B8921F] text-white text-sm h-9 mt-2"
                             >
-                                {card.ctaText}
+                                {t(`advisory.whoWeServe.cards.${card.key}.ctaText`)}
                             </Button>
                         </div>
                     </div>

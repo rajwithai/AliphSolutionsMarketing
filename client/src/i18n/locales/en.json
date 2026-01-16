@@ -447,5 +447,228 @@
     "filter": "Filter",
     "clear": "Clear",
     "apply": "Apply"
+  },
+  "advisory": {
+    "hero": {
+      "brand": "Aliph Solutions",
+      "headline1": "Sovereign AI-Enabled",
+      "headline2": "GRC Advisory",
+      "headline3": "for Saudi Enterprises & Institutions",
+      "subheadline": "We are an AI-enabled advisory company combining 30+ years of proven Big Four expertise — serving PIF portfolio companies, major enterprises, and regulators — with sovereign AI architecture and compounding organizational memory to deliver audit-ready governance, risk, and compliance outcomes with exceptional precision.",
+      "quality": "Big 4 QUALITY",
+      "qualityDesc": "Proven methodologies trusted in CMA, SAMA, NCA environments",
+      "speed": "10× FASTER",
+      "speedDesc": "15-agent intelligent workflows compressing months into days",
+      "precision": "Sovereign Precision",
+      "precisionDesc": "Kingdom-first infrastructure with unbreakable compliance validation",
+      "footer1": "Service excellence today powers scalable intelligence tomorrow.",
+      "footer2": "We understand the strategic imperatives of Vision 2030 and are honored to support your priorities in this transformative era.",
+      "ctaDemo": "Request Sovereign Demo",
+      "ctaOutcomes": "View Outcomes"
+    },
+    "whoWeServe": {
+      "title": "Built for Saudi Organizations Under Scrutiny",
+      "cta": "Discuss Your Environment",
+      "cards": {
+        "regulated": {
+          "title": "Regulated Enterprises",
+          "description": "Organizations operating under PDPL, NCA ECC, and audit expectations.",
+          "typicalNeed": "Typical need: defensible documentation, board charters, and evidence readiness",
+          "commonOutputs": "Common outputs: readiness packs, control mapping, audit kits aligned to Vision 2030",
+          "ctaText": "Request Deliverables Preview"
+        },
+        "scaling": {
+          "title": "Scaling Organizations",
+          "description": "Mid-level and growing organizations formalizing compliance for enterprise and government readiness.",
+          "typicalNeed": "Typical need: baseline policies, controls, and evidence structure for procurement",
+          "commonOutputs": "Common outputs: PDPL baseline, governance setup, risk register",
+          "ctaText": "Speak with an Advisor"
+        },
+        "giga": {
+          "title": "Giga-Project Vendors",
+          "description": "Suppliers needing rapid compliance readiness and audit-grade documentation.",
+          "typicalNeed": "Typical need: onboarding compliance + internal readiness for mega-projects",
+          "commonOutputs": "Common outputs: vendor readiness pack, audit enablement kit",
+          "ctaText": "Request Vendor Readiness Pack"
+        },
+        "government": {
+          "title": "Government & Public Sector",
+          "description": "Entities requiring sovereign delivery and traceable outputs.",
+          "typicalNeed": "Typical need: sovereignty controls + regulator-defensible evidence",
+          "commonOutputs": "Common outputs: ECC readiness, audit packs, sovereign governed workflows",
+          "ctaText": "Request Government Engagement Brief"
+        }
+      }
+    },
+    "outcomes": {
+      "title": "Outcomes We Deliver",
+      "subtitle": "Tangible, audit-ready deliverables aligned to your regulatory and governance needs",
+      "vision2030": "Aligned with Vision 2030's digital sovereignty and institutional readiness priorities.",
+      "explore": "Explore",
+      "typicalOutputs": "Typical outputs:",
+      "bestFor": "Best for:",
+      "items": [
+        {
+          "title": "PDPL Readiness & Privacy Operating Model",
+          "outputs": "Gap analysis, policy suite, DPO framework",
+          "bestFor": "Data controllers, processors, e-commerce"
+        },
+        {
+          "title": "NCA ECC Readiness & Evidence Packs",
+          "outputs": "Control mapping, evidence checklists, roadmap",
+          "bestFor": "Critical infrastructure, government vendors"
+        },
+        {
+          "title": "ZATCA Compliance Operations",
+          "outputs": "Process controls, operating cadence, records",
+          "bestFor": "Tax-exposed entities, e-invoicing readiness"
+        },
+        {
+          "title": "Corporate Governance",
+          "outputs": "DoA matrix, board charters, reporting framework",
+          "bestFor": "Enterprises and listed entities preparing for CMA compliance and board-level oversight."
+        },
+        {
+          "title": "ERM Foundation & Risk Reporting",
+          "outputs": "Risk taxonomy, appetite, KRI dashboard",
+          "bestFor": "Enterprises scaling risk management"
+        },
+        {
+          "title": "Internal Audit Enablement",
+          "outputs": "Audit charter, annual plan, methodology",
+          "bestFor": "Building or scaling audit function"
+        },
+        {
+          "title": "Third-Party / Vendor Risk",
+          "outputs": "Risk assessment, due diligence, monitoring",
+          "bestFor": "Organizations with critical vendor dependencies"
+        },
+        {
+          "title": "AI Governance",
+          "outputs": "Policy, approval framework, auditability structure",
+          "bestFor": "Aliph Brain-powered policy and approval frameworks with unbreakable validation."
+        }
+      ]
+    },
+    "domains": {
+      "title": "Advisory Domains",
+      "keyOfferings": "Key Offerings:",
+      "whatYouReceive": "What You Receive:",
+      "viewDeliverables": "View deliverables"
+    },
+    "delivery": {
+      "title": "How Aliph Delivers Faster—Without Losing Rigor",
+      "subtitle": "We combine advisory methodology with governed workflows and expert validation... with full Kingdom-first data residency (KSA Azure Region), edge-ready deployment, and unbreakable compliance validation (Agent A12 — never bypassed).",
+      "methodology": "Methodology-Led Advisory",
+      "methodologyDesc": "Clear scope, milestones, governance cadence. We structure engagements like traditional consulting—with discipline.",
+      "workflows": "Aliph Brain Workflows",
+      "workflowsDesc": "Repeatable generation of structured outputs—gap analyses, policy suites, control mappings—through governed workflows.",
+      "validation": "Expert Validation",
+      "validationDesc": "Judgment where it matters. Every output is validated by experts before delivery to ensure quality and relevance.",
+      "step1": "Discover",
+      "step1Desc": "Current state + objectives",
+      "step2": "Map",
+      "step2Desc": "Requirements + gaps",
+      "step3": "Build",
+      "step3Desc": "Governed workflows",
+      "step4": "Validate",
+      "step4Desc": "Expert review",
+      "step5": "Evidence-Ready",
+      "step5Desc": "Audit-ready output",
+      "ctaBrain": "See the Aliph Brain",
+      "ctaSecurity": "Security & Sovereignty"
+    },
+    "engagement": {
+      "title": "Engage at Your Depth",
+      "mode1Title": "Start with an Assessment",
+      "mode1Desc": "Readiness call, AI exposure check, or regulatory gap assessment to understand current state and priorities.",
+      "mode1Duration": "Typical duration: 1–2 weeks",
+      "mode2Title": "Deliver One Outcome Pack",
+      "mode2Desc": "PDPL readiness, NCA ECC controls, ZATCA compliance, or governance foundation. Fixed scope, clear deliverables.",
+      "mode2Duration": "Typical duration: 4–8 weeks",
+      "mode3Title": "Scale into Implementation",
+      "mode3Desc": "Multi-phase projects, co-sourcing, managed readiness, or ongoing advisory retainer for continuous support.",
+      "mode3Duration": "Typical duration: 3–12 months",
+      "footer": "Engagements are fixed-scope where possible, with clear deliverables and governance.",
+      "ctaScope": "Request Scope",
+      "ctaCall": "Book a Readiness Call"
+    },
+    "proof": {
+      "title": "What \"Audit-Ready\" Looks Like",
+      "evidence": "Evidence Checklist",
+      "evidenceDesc": "Structured requirements mapped to your artifacts, with ownership and completion tracking.",
+      "board": "Board Reporting Outline",
+      "boardDesc": "Executive summaries, heat maps, and recommendation frameworks ready for board presentation.",
+      "roadmap": "Roadmap + Ownership",
+      "roadmapDesc": "Clear milestones, owners, dependencies, and success criteria for implementation tracking.",
+      "viewSample": "View sample",
+      "cta": "Request Sample Deliverables"
+    },
+    "finalCTA": {
+      "title": "Get a Scoped Plan in One Conversation",
+      "subtitle": "Tell us your regulation focus and timeline. We'll respond with a scope, delivery plan, and sample outputs.",
+      "ctaScope": "Request Scope",
+      "ctaSamples": "Request Sample Deliverables"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Are you a product company or advisory?",
+      "a1": "We are an AI-enabled advisory company — service-led with scalable governed AI workflows (not a pure product). We deliver consulting-grade outcomes using a governed system (the Aliph Brain) that combines expert methodology with workflow automation.",
+      "q2": "Do you support SMEs or enterprises?",
+      "a2": "We primarily serve enterprises, mid-level organizations, boardrooms, government partners, and giga-project vendors — with proven expertise in regulated Saudi environments.",
+      "q3": "Can you support strict data requirements?",
+      "a3": "Yes — full KSA Azure residency, customer-owned keys, edge deployment, and unbreakable validation.",
+      "q4": "Can you work with our existing compliance team?",
+      "a4": "Yes. We complement internal teams by providing specialized regulatory expertise, structured deliverables, and capacity during peak periods. Many engagements involve co-delivery with internal compliance, risk, or audit functions.",
+      "q5": "Do you provide evidence-ready deliverables?",
+      "a5": "Yes. Every engagement includes audit-ready documentation: policies, evidence checklists, control mappings, board reports, and implementation roadmaps with owners. Outputs are designed for regulator or auditor review.",
+      "q6": "How do we start?",
+      "a6": "Request a scope or book a readiness call. We'll understand your environment, regulation focus, and timeline. You'll receive a clear scope, sample deliverables, and a delivery plan. If it fits, we start discovery within days."
+    },
+    "form": {
+      "title": "Request Advisory Scope",
+      "subtitle": "Tell us your needs. We'll respond with a scoped plan and sample deliverables.",
+      "fullName": "Full Name *",
+      "workEmail": "Work Email *",
+      "company": "Company *",
+      "role": "Role *",
+      "sector": "Sector *",
+      "sectorPlaceholder": "Select sector",
+      "focusAreas": "Focus Areas (select all that apply) *",
+      "regulationFocus": "Regulation Focus (optional)",
+      "timeline": "Timeline *",
+      "timelinePlaceholder": "Select timeline",
+      "notes": "Additional Notes",
+      "notesPlaceholder": "Specific requirements, current challenges, or questions...",
+      "cancel": "Cancel",
+      "submit": "Request Scope",
+      "submitting": "Submitting...",
+      "successTitle": "Request Received!",
+      "successMessage": "We'll respond with a scoped plan and sample deliverables within 24-48 hours.",
+      "successButton": "Close",
+      "sectors": {
+        "finance": "Finance & Banking",
+        "energy": "Energy & Petrochemicals",
+        "healthcare": "Healthcare",
+        "government": "Government",
+        "giga": "Giga Vendor",
+        "sme": "SME",
+        "other": "Other"
+      },
+      "focusOptions": {
+        "governance": "Governance",
+        "risk": "Risk",
+        "compliance": "Compliance",
+        "internalAudit": "Internal Audit",
+        "aiGovernance": "AI Governance"
+      },
+      "timelines": {
+        "now": "Now",
+        "30": "Within 30 days",
+        "90": "Within 90 days",
+        "6months": "Within 6 months",
+        "exploring": "Exploring"
+      }
+    }
   }
 }

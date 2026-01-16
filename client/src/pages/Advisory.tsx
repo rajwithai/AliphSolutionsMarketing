@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -50,6 +51,8 @@ const advisoryFormSchema = z.object({
 type AdvisoryFormData = z.infer<typeof advisoryFormSchema>;
 
 export default function Advisory() {
+  const { t } = useTranslation();
+
   useSEO({
     title: 'Advisory Services | Aliph Solutions',
     description: 'Saudi-first governance, risk, compliance, internal audit, and AI governance advisory—delivered through governed workflows and expert validation. Audit-ready outcomes for PDPL, NCA ECC, ZATCA and enterprise readiness.',
@@ -164,9 +167,9 @@ export default function Advisory() {
           setScopeModalOpen(false);
           reset();
         }}
-        title="Request Received!"
-        message="We'll respond with a scoped plan and sample deliverables within 24-48 hours."
-        buttonText="Close"
+        title={t('advisory.form.successTitle')}
+        message={t('advisory.form.successMessage')}
+        buttonText={t('advisory.form.successButton')}
       />
 
       {/* Request Scope Modal */}
@@ -179,9 +182,9 @@ export default function Advisory() {
       }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl">Request Advisory Scope</DialogTitle>
+            <DialogTitle className="text-2xl">{t('advisory.form.title')}</DialogTitle>
             <DialogDescription>
-              Tell us your needs. We'll respond with a scoped plan and sample deliverables.
+              {t('advisory.form.subtitle')}
             </DialogDescription>
           </DialogHeader>
 
@@ -195,7 +198,7 @@ export default function Advisory() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="scope-name" className={errors.name ? 'text-red-500' : ''}>
-                    {errors.name ? errors.name.message : 'Full Name *'}
+                    {errors.name ? errors.name.message : t('advisory.form.fullName')}
                   </Label>
                   <Input
                     id="scope-name"
@@ -205,7 +208,7 @@ export default function Advisory() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="scope-email" className={errors.email ? 'text-red-500' : ''}>
-                    {errors.email ? errors.email.message : 'Work Email *'}
+                    {errors.email ? errors.email.message : t('advisory.form.workEmail')}
                   </Label>
                   <Input
                     id="scope-email"
@@ -219,7 +222,7 @@ export default function Advisory() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="scope-company" className={errors.company ? 'text-red-500' : ''}>
-                    {errors.company ? errors.company.message : 'Company *'}
+                    {errors.company ? errors.company.message : t('advisory.form.company')}
                   </Label>
                   <Input
                     id="scope-company"
@@ -229,7 +232,7 @@ export default function Advisory() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="scope-role" className={errors.role ? 'text-red-500' : ''}>
-                    {errors.role ? errors.role.message : 'Role *'}
+                    {errors.role ? errors.role.message : t('advisory.form.role')}
                   </Label>
                   <Input
                     id="scope-role"
@@ -241,38 +244,44 @@ export default function Advisory() {
 
               <div className="space-y-2">
                 <Label htmlFor="scope-sector" className={errors.sector ? 'text-red-500' : ''}>
-                  {errors.sector ? errors.sector.message : 'Sector *'}
+                  {errors.sector ? errors.sector.message : t('advisory.form.sector')}
                 </Label>
                 <Select value={sector} onValueChange={(value) => setValue('sector', value, { shouldValidate: true })}>
                   <SelectTrigger id="scope-sector" className={errors.sector ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select sector" />
+                    <SelectValue placeholder={t('advisory.form.sectorPlaceholder')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="finance">Finance & Banking</SelectItem>
-                    <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
-                    <SelectItem value="healthcare">Healthcare</SelectItem>
-                    <SelectItem value="government">Government</SelectItem>
-                    <SelectItem value="giga">Giga Vendor</SelectItem>
-                    <SelectItem value="sme">SME</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="finance">{t('advisory.form.sectors.finance')}</SelectItem>
+                    <SelectItem value="energy">{t('advisory.form.sectors.energy')}</SelectItem>
+                    <SelectItem value="healthcare">{t('advisory.form.sectors.healthcare')}</SelectItem>
+                    <SelectItem value="government">{t('advisory.form.sectors.government')}</SelectItem>
+                    <SelectItem value="giga">{t('advisory.form.sectors.giga')}</SelectItem>
+                    <SelectItem value="sme">{t('advisory.form.sectors.sme')}</SelectItem>
+                    <SelectItem value="other">{t('advisory.form.sectors.other')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
                 <Label className={errors.focusAreas ? 'text-red-500' : ''}>
-                  {errors.focusAreas ? errors.focusAreas.message : 'Focus Areas (select all that apply) *'}
+                  {errors.focusAreas ? errors.focusAreas.message : t('advisory.form.focusAreas')}
                 </Label>
                 <div className="grid grid-cols-2 gap-2">
-                  {['Governance', 'Risk', 'Compliance', 'Internal Audit', 'AI Governance'].map((area) => (
-                    <div key={area} className="flex items-center space-x-2">
+                  {[
+                    { value: 'Governance', key: 'governance' },
+                    { value: 'Risk', key: 'risk' },
+                    { value: 'Compliance', key: 'compliance' },
+                    { value: 'Internal Audit', key: 'internalAudit' },
+                    { value: 'AI Governance', key: 'aiGovernance' }
+                  ].map((area) => (
+                    <div key={area.value} className="flex items-center space-x-2">
                       <Checkbox
-                        id={`focus-${area}`}
-                        checked={focusAreas.includes(area)}
-                        onCheckedChange={() => toggleFocusArea(area)}
+                        id={`focus-${area.value}`}
+                        checked={focusAreas.includes(area.value)}
+                        onCheckedChange={() => toggleFocusArea(area.value)}
                       />
-                      <label htmlFor={`focus-${area}`} className="text-sm cursor-pointer">
-                        {area}
+                      <label htmlFor={`focus-${area.value}`} className="text-sm cursor-pointer">
+                        {t(`advisory.form.focusOptions.${area.key}`)}
                       </label>
                     </div>
                   ))}
@@ -280,7 +289,7 @@ export default function Advisory() {
               </div>
 
               <div className="space-y-2">
-                <Label>Regulation Focus (optional)</Label>
+                <Label>{t('advisory.form.regulationFocus')}</Label>
                 <div className="grid grid-cols-2 gap-2">
                   {['PDPL', 'NCA ECC', 'ZATCA', 'CMA', 'SAMA'].map((reg) => (
                     <div key={reg} className="flex items-center space-x-2">
@@ -299,44 +308,44 @@ export default function Advisory() {
 
               <div className="space-y-2">
                 <Label htmlFor="scope-timeline" className={errors.timeline ? 'text-red-500' : ''}>
-                  {errors.timeline ? errors.timeline.message : 'Timeline *'}
+                  {errors.timeline ? errors.timeline.message : t('advisory.form.timeline')}
                 </Label>
                 <Select value={timeline} onValueChange={(value) => setValue('timeline', value, { shouldValidate: true })}>
                   <SelectTrigger id="scope-timeline" className={errors.timeline ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select timeline" />
+                    <SelectValue placeholder={t('advisory.form.timelinePlaceholder')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="now">Now</SelectItem>
-                    <SelectItem value="30">Within 30 days</SelectItem>
-                    <SelectItem value="90">Within 90 days</SelectItem>
-                    <SelectItem value="6months">Within 6 months</SelectItem>
-                    <SelectItem value="exploring">Exploring</SelectItem>
+                    <SelectItem value="now">{t('advisory.form.timelines.now')}</SelectItem>
+                    <SelectItem value="30">{t('advisory.form.timelines.30')}</SelectItem>
+                    <SelectItem value="90">{t('advisory.form.timelines.90')}</SelectItem>
+                    <SelectItem value="6months">{t('advisory.form.timelines.6months')}</SelectItem>
+                    <SelectItem value="exploring">{t('advisory.form.timelines.exploring')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="scope-notes">Additional Notes</Label>
+                <Label htmlFor="scope-notes">{t('advisory.form.notes')}</Label>
                 <Textarea
                   id="scope-notes"
                   rows={3}
                   {...register('notes')}
-                  placeholder="Specific requirements, current challenges, or questions..."
+                  placeholder={t('advisory.form.notesPlaceholder')}
                 />
               </div>
 
               <div className="flex gap-3 pt-4">
                 <Button type="button" variant="outline" onClick={() => setScopeModalOpen(false)} className="flex-1" disabled={isSubmitting}>
-                  Cancel
+                  {t('advisory.form.cancel')}
                 </Button>
                 <Button type="submit" className="flex-1 bg-[#C9A227] hover:bg-[#B8921F]" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Submitting...
+                      {t('advisory.form.submitting')}
                     </>
                   ) : (
-                    'Request Scope'
+                    t('advisory.form.submit')
                   )}
                 </Button>
               </div>
@@ -362,14 +371,14 @@ export default function Advisory() {
             className="flex flex-col items-center justify-center mb-6 md:mb-8"
           >
             <span className="text-sm md:text-base font-semibold text-[#C9A227] tracking-[0.2em] mb-4 uppercase">
-              Aliph Solutions
+              {t('advisory.hero.brand')}
             </span>
             <span className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.1] mb-2 md:mb-3 text-center">
-              Sovereign AI-Enabled <br />
-              <span className="text-[#C9A227]">GRC Advisory</span>
+              {t('advisory.hero.headline1')} <br />
+              <span className="text-[#C9A227]">{t('advisory.hero.headline2')}</span>
             </span>
             <span className="text-xl md:text-3xl lg:text-4xl font-medium text-gray-400 tracking-tight text-center mt-2">
-              for Saudi Enterprises & Institutions
+              {t('advisory.hero.headline3')}
             </span>
           </motion.h1>
 
@@ -381,7 +390,7 @@ export default function Advisory() {
             className="text-base md:text-xl text-gray-300/90 mb-8 leading-relaxed font-light max-w-4xl mx-auto"
           >
             <p className="mb-4">
-              We are an AI-enabled advisory company combining 30+ years of proven Big Four expertise — serving PIF portfolio companies, major enterprises, and regulators — with sovereign AI architecture and compounding organizational memory to deliver audit-ready governance, risk, and compliance outcomes with exceptional precision.
+              {t('advisory.hero.subheadline')}
             </p>
           </motion.div>
 
@@ -393,16 +402,16 @@ export default function Advisory() {
             className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10 text-left"
           >
             <div className="bg-white/[0.03] border border-white/10 p-5 rounded-lg backdrop-blur-sm">
-              <div className="text-[#C9A227] font-bold text-lg mb-2">Big 4 QUALITY</div>
-              <p className="text-sm text-gray-400">Proven methodologies trusted in CMA, SAMA, NCA environments</p>
+              <div className="text-[#C9A227] font-bold text-lg mb-2">{t('advisory.hero.quality')}</div>
+              <p className="text-sm text-gray-400">{t('advisory.hero.qualityDesc')}</p>
             </div>
             <div className="bg-white/[0.03] border border-white/10 p-5 rounded-lg backdrop-blur-sm">
-              <div className="text-[#C9A227] font-bold text-lg mb-2">10× FASTER</div>
-              <p className="text-sm text-gray-400">15-agent intelligent workflows compressing months into days</p>
+              <div className="text-[#C9A227] font-bold text-lg mb-2">{t('advisory.hero.speed')}</div>
+              <p className="text-sm text-gray-400">{t('advisory.hero.speedDesc')}</p>
             </div>
             <div className="bg-white/[0.03] border border-white/10 p-5 rounded-lg backdrop-blur-sm">
-              <div className="text-[#C9A227] font-bold text-lg mb-2">Sovereign Precision</div>
-              <p className="text-sm text-gray-400">Kingdom-first infrastructure with unbreakable compliance validation</p>
+              <div className="text-[#C9A227] font-bold text-lg mb-2">{t('advisory.hero.precision')}</div>
+              <p className="text-sm text-gray-400">{t('advisory.hero.precisionDesc')}</p>
             </div>
           </motion.div>
 
@@ -413,7 +422,7 @@ export default function Advisory() {
             transition={{ duration: 1, delay: 0.5 }}
             className="text-sm md:text-base text-gray-400 font-medium relative z-10 text-center mb-8 max-w-3xl mx-auto"
           >
-            Service excellence today powers scalable intelligence tomorrow.
+            {t('advisory.hero.footer1')}
           </motion.p>
 
           {/* CLOSING */}
@@ -423,7 +432,7 @@ export default function Advisory() {
             transition={{ duration: 1, delay: 0.6 }}
             className="text-xs md:text-sm text-gray-500 italic relative z-10 text-center mb-10"
           >
-            We understand the strategic imperatives of Vision 2030 and are honored to support your priorities in this transformative era.
+            {t('advisory.hero.footer2')}
           </motion.p>
 
 
@@ -439,7 +448,7 @@ export default function Advisory() {
               onClick={() => setScopeModalOpen(true)}
               className="h-14 px-10 bg-[#C9A227] hover:bg-[#B8921F] text-black font-semibold text-lg transition-all shadow-[0_0_30px_rgba(201,162,39,0.15)] hover:shadow-[0_0_40px_rgba(201,162,39,0.3)] hover:-translate-y-0.5 w-full sm:w-auto"
             >
-              Request Sovereign Demo
+              {t('advisory.hero.ctaDemo')}
             </Button>
             <Button
               size="lg"
@@ -447,7 +456,7 @@ export default function Advisory() {
               onClick={() => document.getElementById('outcomes')?.scrollIntoView({ behavior: 'smooth' })}
               className="h-14 px-8 bg-white/[0.02] border-white/20 hover:border-white/40 text-gray-200 hover:text-white hover:bg-white/5 text-lg font-medium transition-all w-full sm:w-auto"
             >
-              View Outcomes
+              {t('advisory.hero.ctaOutcomes')}
             </Button>
           </motion.div>
         </div>
@@ -457,7 +466,7 @@ export default function Advisory() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Built for Saudi Organizations Under Scrutiny
+            {t('advisory.whoWeServe.title')}
           </h2>
 
           <WhoWeServeCards setScopeModalOpen={setScopeModalOpen} />
@@ -469,7 +478,7 @@ export default function Advisory() {
               size="lg"
               data-cta="advisory_request_scope"
             >
-              Discuss Your Environment
+              {t('advisory.whoWeServe.cta')}
             </Button>
           </div>
         </div>
@@ -479,14 +488,14 @@ export default function Advisory() {
       <section id="outcomes" className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            Outcomes We Deliver
+            {t('advisory.outcomes.title')}
           </h2>
           <p className="text-xl text-center text-gray-600 mb-4">
-            Tangible, audit-ready deliverables aligned to your regulatory and governance needs
+            {t('advisory.outcomes.subtitle')}
           </p>
           <div className="flex items-center justify-center gap-2 mb-16">
             <Shield className="w-5 h-5 text-[#C9A227]" />
-            <p className="text-center text-gray-500 font-medium">Aligned with Vision 2030's digital sovereignty and institutional readiness priorities.</p>
+            <p className="text-center text-gray-500 font-medium">{t('advisory.outcomes.vision2030')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -543,15 +552,15 @@ export default function Advisory() {
               <Card key={idx} className="p-6 border-2 hover:border-[#C9A227] transition-all hover:shadow-lg group">
                 <h3 className="text-lg font-bold mb-3 text-gray-900">{outcome.title}</h3>
                 <div className="space-y-2 mb-4">
-                  <p className="text-xs text-gray-600"><span className="font-semibold">Typical outputs:</span> {outcome.outputs}</p>
-                  <p className="text-xs text-gray-600"><span className="font-semibold">Best for:</span> {outcome.bestFor}</p>
+                  <p className="text-xs text-gray-600"><span className="font-semibold">{t('advisory.outcomes.typicalOutputs')}</span> {outcome.outputs}</p>
+                  <p className="text-xs text-gray-600"><span className="font-semibold">{t('advisory.outcomes.bestFor')}</span> {outcome.bestFor}</p>
                 </div>
                 <a
                   href={outcome.link}
                   className="text-[#C9A227] hover:text-[#B8921F] text-sm font-medium inline-flex items-center gap-1"
                   data-cta="advisory_view_domain"
                 >
-                  Explore
+                  {t('advisory.outcomes.explore')}
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </Card>
@@ -564,7 +573,7 @@ export default function Advisory() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Advisory Domains
+            {t('advisory.domains.title')}
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
@@ -632,7 +641,7 @@ export default function Advisory() {
                 <h3 className="text-2xl font-bold mb-4 text-gray-900">{domain.title}</h3>
 
                 <div className="mb-4">
-                  <p className="text-xs font-semibold text-gray-700 mb-2">Key Offerings:</p>
+                  <p className="text-xs font-semibold text-gray-700 mb-2">{t('advisory.domains.keyOfferings')}</p>
                   <ul className="space-y-1">
                     {domain.offerings.map((item, i) => (
                       <li key={i} className="text-sm text-gray-600">• {item}</li>
@@ -641,7 +650,7 @@ export default function Advisory() {
                 </div>
 
                 <div className="mb-6">
-                  <p className="text-xs font-semibold text-gray-700 mb-2">What You Receive:</p>
+                  <p className="text-xs font-semibold text-gray-700 mb-2">{t('advisory.domains.whatYouReceive')}</p>
                   <div className="flex flex-wrap gap-2">
                     {domain.receives.map((item, i) => (
                       <span key={i} className="text-xs bg-gray-100 px-2 py-1 rounded">{item}</span>
@@ -654,7 +663,7 @@ export default function Advisory() {
                   className="text-[#C9A227] hover:text-[#B8921F] text-sm font-medium inline-flex items-center gap-1"
                   data-cta="advisory_view_domain"
                 >
-                  View deliverables
+                  {t('advisory.domains.viewDeliverables')}
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </Card>
@@ -667,10 +676,10 @@ export default function Advisory() {
       <section id="delivery-model" className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            How Aliph Delivers Faster—Without Losing Rigor
+            {t('advisory.delivery.title')}
           </h2>
           <p className="text-xl text-center text-gray-600 mb-16 max-w-4xl mx-auto">
-            We combine advisory methodology with governed workflows and expert validation... with full Kingdom-first data residency (KSA Azure Region), edge-ready deployment, and unbreakable compliance validation (Agent A12 — never bypassed).
+            {t('advisory.delivery.subtitle')}
           </p>
 
           <div className="grid md:grid-cols-3 gap-8 mb-16">
@@ -678,9 +687,9 @@ export default function Advisory() {
               <div className="w-14 h-14 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mb-6">
                 <BookOpen className="w-8 h-8 text-[#C9A227]" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Methodology-Led Advisory</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">{t('advisory.delivery.methodology')}</h3>
               <p className="text-gray-600">
-                Clear scope, milestones, governance cadence. We structure engagements like traditional consulting—with discipline.
+                {t('advisory.delivery.methodologyDesc')}
               </p>
             </Card>
 
@@ -688,9 +697,9 @@ export default function Advisory() {
               <div className="w-14 h-14 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mb-6">
                 <Workflow className="w-8 h-8 text-[#C9A227]" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Aliph Brain Workflows</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">{t('advisory.delivery.workflows')}</h3>
               <p className="text-gray-600">
-                Repeatable generation of structured outputs—gap analyses, policy suites, control mappings—through governed workflows.
+                {t('advisory.delivery.workflowsDesc')}
               </p>
             </Card>
 
@@ -698,9 +707,9 @@ export default function Advisory() {
               <div className="w-14 h-14 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mb-6">
                 <Users className="w-8 h-8 text-[#C9A227]" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Expert Validation</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">{t('advisory.delivery.validation')}</h3>
               <p className="text-gray-600">
-                Judgment where it matters. Every output is validated by experts before delivery to ensure quality and relevance.
+                {t('advisory.delivery.validationDesc')}
               </p>
             </Card>
           </div>
@@ -709,11 +718,11 @@ export default function Advisory() {
           <div className="max-w-5xl mx-auto mb-12">
             <div className="grid grid-cols-1 md:grid-cols-5 gap-3 items-center">
               {[
-                { label: 'Discover', desc: 'Current state + objectives' },
-                { label: 'Map', desc: 'Requirements + gaps' },
-                { label: 'Build', desc: 'Governed workflows' },
-                { label: 'Validate', desc: 'Expert review' },
-                { label: 'Evidence-Ready', desc: 'Audit-ready output' },
+                { label: t('advisory.delivery.step1'), desc: t('advisory.delivery.step1Desc') },
+                { label: t('advisory.delivery.step2'), desc: t('advisory.delivery.step2Desc') },
+                { label: t('advisory.delivery.step3'), desc: t('advisory.delivery.step3Desc') },
+                { label: t('advisory.delivery.step4'), desc: t('advisory.delivery.step4Desc') },
+                { label: t('advisory.delivery.step5'), desc: t('advisory.delivery.step5Desc') },
               ].map((step, idx) => (
                 <div key={idx} className="relative">
                   <Card className="p-4 bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-[#C9A227]/30 text-center hover:border-[#C9A227] transition-all">
@@ -734,14 +743,14 @@ export default function Advisory() {
               onClick={() => window.location.href = '/technology/aliph-brain'}
               className="bg-[#C9A227] hover:bg-[#B8921F]"
             >
-              See the Aliph Brain
+              {t('advisory.delivery.ctaBrain')}
             </Button>
             <Button
               size="lg"
               variant="outline"
               onClick={() => window.location.href = '/technology/security-sovereignty'}
             >
-              Security & Sovereignty
+              {t('advisory.delivery.ctaSecurity')}
             </Button>
           </div>
         </div>
@@ -751,46 +760,46 @@ export default function Advisory() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Engage at Your Depth
+            {t('advisory.engagement.title')}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <Card className="p-8 border-2 hover:border-[#C9A227] transition-all hover:shadow-lg">
               <div className="text-4xl font-bold text-[#C9A227] mb-3">01</div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Start with an Assessment</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">{t('advisory.engagement.mode1Title')}</h3>
               <p className="text-gray-600 mb-4">
-                Readiness call, AI exposure check, or regulatory gap assessment to understand current state and priorities.
+                {t('advisory.engagement.mode1Desc')}
               </p>
               <p className="text-xs text-gray-500 italic">
-                Typical duration: 1–2 weeks
+                {t('advisory.engagement.mode1Duration')}
               </p>
             </Card>
 
             <Card className="p-8 border-2 hover:border-[#C9A227] transition-all hover:shadow-lg">
               <div className="text-4xl font-bold text-[#C9A227] mb-3">02</div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Deliver One Outcome Pack</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">{t('advisory.engagement.mode2Title')}</h3>
               <p className="text-gray-600 mb-4">
-                PDPL readiness, NCA ECC controls, ZATCA compliance, or governance foundation. Fixed scope, clear deliverables.
+                {t('advisory.engagement.mode2Desc')}
               </p>
               <p className="text-xs text-gray-500 italic">
-                Typical duration: 4–8 weeks
+                {t('advisory.engagement.mode2Duration')}
               </p>
             </Card>
 
             <Card className="p-8 border-2 hover:border-[#C9A227] transition-all hover:shadow-lg">
               <div className="text-4xl font-bold text-[#C9A227] mb-3">03</div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Scale into Implementation</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">{t('advisory.engagement.mode3Title')}</h3>
               <p className="text-gray-600 mb-4">
-                Multi-phase projects, co-sourcing, managed readiness, or ongoing advisory retainer for continuous support.
+                {t('advisory.engagement.mode3Desc')}
               </p>
               <p className="text-xs text-gray-500 italic">
-                Typical duration: 3–12 months
+                {t('advisory.engagement.mode3Duration')}
               </p>
             </Card>
           </div>
 
           <p className="text-center text-gray-600 mb-8 italic">
-            Engagements are fixed-scope where possible, with clear deliverables and governance.
+            {t('advisory.engagement.footer')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -800,7 +809,7 @@ export default function Advisory() {
               className="bg-[#C9A227] hover:bg-[#B8921F]"
               data-cta="advisory_request_scope"
             >
-              Request Scope
+              {t('advisory.engagement.ctaScope')}
             </Button>
             <Button
               size="lg"
@@ -808,7 +817,7 @@ export default function Advisory() {
               onClick={() => window.location.href = '/company/contact'}
               data-cta="advisory_book_readiness_call"
             >
-              Book a Readiness Call
+              {t('advisory.engagement.ctaCall')}
             </Button>
           </div>
         </div>
@@ -818,22 +827,22 @@ export default function Advisory() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            What "Audit-Ready" Looks Like
+            {t('advisory.proof.title')}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
               <div className="p-6 backdrop-blur-sm">
                 <FileText className="w-10 h-10 text-[#C9A227] mb-4" />
-                <h3 className="text-lg font-bold mb-2 text-gray-900">Evidence Checklist</h3>
+                <h3 className="text-lg font-bold mb-2 text-gray-900">{t('advisory.proof.evidence')}</h3>
                 <p className="text-sm text-gray-600 mb-4">
-                  Structured requirements mapped to your artifacts, with ownership and completion tracking.
+                  {t('advisory.proof.evidenceDesc')}
                 </p>
                 <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
               </div>
               <div className="p-4 bg-gray-100 border-t">
                 <a href="/deliverables" className="text-[#C9A227] hover:text-[#B8921F] text-sm font-medium inline-flex items-center gap-1">
-                  View sample
+                  {t('advisory.proof.viewSample')}
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
@@ -842,15 +851,15 @@ export default function Advisory() {
             <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
               <div className="p-6 backdrop-blur-sm">
                 <FileText className="w-10 h-10 text-[#C9A227] mb-4" />
-                <h3 className="text-lg font-bold mb-2 text-gray-900">Board Reporting Outline</h3>
+                <h3 className="text-lg font-bold mb-2 text-gray-900">{t('advisory.proof.board')}</h3>
                 <p className="text-sm text-gray-600 mb-4">
-                  Executive summaries, heat maps, and recommendation frameworks ready for board presentation.
+                  {t('advisory.proof.boardDesc')}
                 </p>
                 <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
               </div>
               <div className="p-4 bg-gray-100 border-t">
                 <a href="/deliverables" className="text-[#C9A227] hover:text-[#B8921F] text-sm font-medium inline-flex items-center gap-1">
-                  View sample
+                  {t('advisory.proof.viewSample')}
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
@@ -859,15 +868,15 @@ export default function Advisory() {
             <Card className="relative overflow-hidden border-2 hover:shadow-lg transition-all">
               <div className="p-6 backdrop-blur-sm">
                 <FileText className="w-10 h-10 text-[#C9A227] mb-4" />
-                <h3 className="text-lg font-bold mb-2 text-gray-900">Roadmap + Ownership</h3>
+                <h3 className="text-lg font-bold mb-2 text-gray-900">{t('advisory.proof.roadmap')}</h3>
                 <p className="text-sm text-gray-600 mb-4">
-                  Clear milestones, owners, dependencies, and success criteria for implementation tracking.
+                  {t('advisory.proof.roadmapDesc')}
                 </p>
                 <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
               </div>
               <div className="p-4 bg-gray-100 border-t">
                 <a href="/deliverables" className="text-[#C9A227] hover:text-[#B8921F] text-sm font-medium inline-flex items-center gap-1">
-                  View sample
+                  {t('advisory.proof.viewSample')}
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
@@ -881,7 +890,7 @@ export default function Advisory() {
               className="bg-[#C9A227] hover:bg-[#B8921F]"
               data-cta="advisory_request_samples"
             >
-              Request Sample Deliverables
+              {t('advisory.proof.cta')}
             </Button>
           </div>
         </div>
@@ -891,10 +900,10 @@ export default function Advisory() {
       <section className="py-16 bg-gradient-to-r from-[#0B1220] to-[#1a1f35] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Get a Scoped Plan in One Conversation
+            {t('advisory.finalCTA.title')}
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Tell us your regulation focus and timeline. We'll respond with a scope, delivery plan, and sample outputs.
+            {t('advisory.finalCTA.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -903,7 +912,7 @@ export default function Advisory() {
               className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
               data-cta="advisory_request_scope"
             >
-              Request Scope
+              {t('advisory.finalCTA.ctaScope')}
             </Button>
             <Button
               size="lg"
@@ -912,7 +921,7 @@ export default function Advisory() {
               className="border-white/30 text-white hover:bg-white/10"
               data-cta="advisory_request_samples"
             >
-              Request Sample Deliverables
+              {t('advisory.finalCTA.ctaSamples')}
             </Button>
           </div>
         </div>
@@ -922,61 +931,61 @@ export default function Advisory() {
       <section className="py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">
-            Frequently Asked Questions
+            {t('advisory.faq.title')}
           </h2>
 
           <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Are you a product company or advisory?
+                {t('advisory.faq.q1')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                We are an AI-enabled advisory company — service-led with scalable governed AI workflows (not a pure product). We deliver consulting-grade outcomes using a governed system (the Aliph Brain) that combines expert methodology with workflow automation.
+                {t('advisory.faq.a1')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-support" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Do you support SMEs or enterprises?
+                {t('advisory.faq.q2')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                We primarily serve enterprises, mid-level organizations, boardrooms, government partners, and giga-project vendors — with proven expertise in regulated Saudi environments.
+                {t('advisory.faq.a2')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-data" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Can you support strict data requirements?
+                {t('advisory.faq.q3')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Yes — full KSA Azure residency, customer-owned keys, edge deployment, and unbreakable validation.
+                {t('advisory.faq.a3')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Can you work with our existing compliance team?
+                {t('advisory.faq.q4')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Yes. We complement internal teams by providing specialized regulatory expertise, structured deliverables, and capacity during peak periods. Many engagements involve co-delivery with internal compliance, risk, or audit functions.
+                {t('advisory.faq.a4')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Do you provide evidence-ready deliverables?
+                {t('advisory.faq.q5')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Yes. Every engagement includes audit-ready documentation: policies, evidence checklists, control mappings, board reports, and implementation roadmaps with owners. Outputs are designed for regulator or auditor review.
+                {t('advisory.faq.a5')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-6" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                How do we start?
+                {t('advisory.faq.q6')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Request a scope or book a readiness call. We'll understand your environment, regulation focus, and timeline. You'll receive a clear scope, sample deliverables, and a delivery plan. If it fits, we start discovery within days.
+                {t('advisory.faq.a6')}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
