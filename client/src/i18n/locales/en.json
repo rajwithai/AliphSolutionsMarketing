@@ -3684,5 +3684,290 @@
       "title": "Submission Error",
       "description": "There was an error sending your message. Please try again."
     }
+  },
+  "advisoryGovernance": {
+    "hero": {
+      "label": "Advisory Services",
+      "title": "Governance Advisory",
+      "subtitle": "Build governance structures that meet board, regulator, and investor expectations—with clear accountability, delegation frameworks, and policy architecture.",
+      "sampleBtn": "Request Sample Deliverables",
+      "scopeBtn": "Request Scope"
+    },
+    "covers": {
+      "title": "What Governance Advisory Covers",
+      "board": {
+        "title": "Board & Committee Governance",
+        "desc": "Structure, charters, composition, reporting lines, and meeting cadences for boards, audit committees, risk committees, and governance committees."
+      },
+      "doa": {
+        "title": "Delegation of Authority (DoA)",
+        "desc": "Decision-making frameworks that define who can approve what, with thresholds, escalation paths, and segregation of duties."
+      },
+      "policy": {
+        "title": "Policy Architecture",
+        "desc": "Enterprise-wide policy structure, hierarchies (framework → policy → procedure → work instruction), ownership, review cycles."
+      },
+      "operating": {
+        "title": "Governance Operating Model",
+        "desc": "How governance operates day-to-day: three lines of defense, reporting structures, escalation protocols, board reporting packs."
+      }
+    },
+    "deliverables": {
+      "title": "Typical Deliverables",
+      "subtitle": "What you receive at the end of a governance engagement",
+      "items": {
+        "charters": "Board charter & committee charters",
+        "doa": "Delegation of Authority matrix",
+        "threeLines": "Three lines of defense model",
+        "reporting": "Board reporting pack template",
+        "policy": "Policy framework & hierarchy",
+        "calendar": "Governance calendar & cadence",
+        "raci": "Role & responsibility (RACI) matrices",
+        "escalation": "Escalation & decision protocols",
+        "procedures": "Governance operating procedures"
+      }
+    },
+    "cta": {
+      "title": "Ready to Build Governance That Scales?",
+      "subtitle": "Request sample deliverables or a scoped plan for your governance needs.",
+      "sampleBtn": "Request Sample Deliverables",
+      "backBtn": "Back to Advisory Services"
+    }
+  },
+  "advisoryRisk": {
+    "hero": {
+      "label": "Advisory Services",
+      "title": "Risk Management Advisory",
+      "subtitle": "Build enterprise risk management foundations, risk appetite frameworks, and third-party risk governance—with structured methodologies and board-ready reporting.",
+      "sampleBtn": "Request Sample Deliverables",
+      "scopeBtn": "Request Scope"
+    },
+    "covers": {
+      "title": "What Risk Advisory Covers",
+      "erm": {
+        "title": "ERM Foundation",
+        "desc": "Risk taxonomy, universe, identification process, assessment methodology, and integration with strategy and planning cycles."
+      },
+      "appetite": {
+        "title": "Risk Appetite & Tolerance",
+        "desc": "Risk appetite statements, tolerance thresholds, Key Risk Indicators (KRIs), escalation triggers, and monitoring frameworks."
+      },
+      "vendor": {
+        "title": "Third-Party & Vendor Risk",
+        "desc": "Vendor risk assessment, due diligence questionnaires, criticality classification, ongoing monitoring, and contract governance."
+      },
+      "reporting": {
+        "title": "Risk Reporting & Governance",
+        "desc": "Board risk dashboards, heat maps, risk register management, risk committee reporting, and escalation protocols."
+      }
+    },
+    "deliverables": {
+      "title": "Typical Deliverables",
+      "subtitle": "What you receive at the end of a risk engagement",
+      "items": {
+        "taxonomy": "Risk taxonomy & universe",
+        "appetite": "Risk appetite statement",
+        "register": "Risk register with scoring",
+        "dashboard": "KRI dashboard & thresholds",
+        "methodology": "Risk assessment methodology",
+        "assessment": "Third-party risk assessment templates",
+        "dueDiligence": "Vendor due diligence questionnaires",
+        "pack": "Board risk reporting pack",
+        "procedures": "Risk governance operating procedures"
+      }
+    },
+    "cta": {
+      "title": "Ready to Build Risk Management That Drives Decisions?",
+      "subtitle": "Request sample deliverables or a scoped plan for your risk management needs.",
+      "sampleBtn": "Request Sample Deliverables",
+      "backBtn": "Back to Advisory Services"
+    }
+  },
+  "advisoryCompliance": {
+    "hero": {
+      "label": "Advisory Services",
+      "title": "Compliance Advisory",
+      "subtitle": "Navigate PDPL, NCA ECC, ZATCA, and sector-specific regulations—with gap analyses, policy suites, evidence documentation, and compliance operating models.",
+      "sampleBtn": "Request Sample Deliverables",
+      "scopeBtn": "Request Scope"
+    },
+    "covers": {
+      "title": "What Compliance Advisory Covers",
+      "pdpl": {
+        "title": "PDPL Readiness",
+        "desc": "Gap analysis, privacy policy suite, data mapping, DPO framework, consent management, breach response, and evidence documentation."
+      },
+      "nca": {
+        "title": "NCA ECC Readiness",
+        "desc": "Control mapping to ECC framework, evidence requirements, implementation roadmap, audit preparation, and control testing support."
+      },
+      "zatca": {
+        "title": "ZATCA Compliance Operations",
+        "desc": "E-invoicing readiness, process controls, record-keeping procedures, compliance cadence, and tax governance documentation."
+      },
+      "change": {
+        "title": "Regulatory Change Management",
+        "desc": "Monitoring framework, impact assessment process, change implementation protocols, and stakeholder communication plans."
+      }
+    },
+    "deliverables": {
+      "title": "Typical Deliverables",
+      "subtitle": "What you receive at the end of a compliance engagement",
+      "items": {
+        "gapAnalysis": "Regulatory gap analysis",
+        "policySuite": "Policy & procedure suites",
+        "controlMap": "Control mapping & evidence checklists",
+        "roadmap": "Implementation roadmap & milestones",
+        "training": "Training materials & awareness programs",
+        "monitoring": "Compliance monitoring framework",
+        "auditPack": "Audit preparation packs",
+        "impactAssessment": "Regulatory change impact assessments",
+        "reporting": "Board compliance reporting"
+      }
+    },
+    "cta": {
+      "title": "Ready to Achieve Compliance That Stands Up to Scrutiny?",
+      "subtitle": "Request sample deliverables or a scoped plan for your compliance needs.",
+      "sampleBtn": "Request Sample Deliverables",
+      "backBtn": "Back to Advisory Services"
+    }
+  },
+  "advisoryInternalAudit": {
+    "hero": {
+      "label": "Advisory Services",
+      "title": "Internal Audit Advisory",
+      "subtitle": "Build or scale your internal audit function—from setup to annual planning to co-sourced execution—with risk-based methodologies and governance alignment.",
+      "sampleBtn": "Request Sample Deliverables",
+      "scopeBtn": "Request Scope"
+    },
+    "covers": {
+      "title": "What Internal Audit Advisory Covers",
+      "setup": {
+        "title": "Audit Function Setup",
+        "desc": "Audit charter, independence structure, reporting lines, resource planning, and audit committee governance integration."
+      },
+      "planning": {
+        "title": "Annual Audit Planning",
+        "desc": "Risk-based audit universe, audit plan prioritization, resource allocation, coverage analysis, and committee approval preparation."
+      },
+      "methodology": {
+        "title": "Risk-Based Methodology",
+        "desc": "Audit approach, testing procedures, sampling techniques, risk assessment integration, and quality assurance frameworks."
+      },
+      "cosourcing": {
+        "title": "Co-Sourcing & Managed Audit",
+        "desc": "Augment internal teams with specialized skills, execute specific audits, or manage full audit delivery under your governance."
+      }
+    },
+    "deliverables": {
+      "title": "Typical Deliverables",
+      "subtitle": "What you receive at the end of an internal audit engagement",
+      "items": {
+        "charter": "Internal audit charter",
+        "universe": "Audit universe & risk assessment",
+        "plan": "Annual audit plan",
+        "methodology": "Audit methodology & procedures",
+        "templates": "Audit program templates",
+        "reports": "Audit reports & findings",
+        "tracking": "Issue tracking & follow-up framework",
+        "packs": "Audit committee reporting packs",
+        "qaip": "Quality assurance & improvement plan"
+      }
+    },
+    "cta": {
+      "title": "Ready to Build or Scale Your Audit Function?",
+      "subtitle": "Request sample deliverables or a scoped plan for your internal audit needs.",
+      "sampleBtn": "Request Sample Deliverables",
+      "backBtn": "Back to Advisory Services"
+    }
+  },
+  "advisoryAIGovernance": {
+    "hero": {
+      "label": "Advisory Services",
+      "title": "AI Governance Advisory",
+      "subtitle": "Govern AI adoption with clarity—policy frameworks, approval processes, risk assessment, and auditability controls that allow innovation without exposure.",
+      "sampleBtn": "Request Sample Deliverables",
+      "scopeBtn": "Request Scope"
+    },
+    "covers": {
+      "title": "What AI Governance Advisory Covers",
+      "policy": {
+        "title": "AI Policy & Principles",
+        "desc": "AI acceptable use policy, ethical principles, data governance integration, model lifecycle requirements, and prohibited use cases."
+      },
+      "approval": {
+        "title": "AI Approval Framework",
+        "desc": "Review and approval workflows, risk classification, authority matrix, pilot-to-production gating, and escalation protocols."
+      },
+      "risk": {
+        "title": "AI Exposure & Risk Assessment",
+        "desc": "AI system inventory, risk scoring (data privacy, bias, explainability, security), vendor AI assessment, and mitigation roadmaps."
+      },
+      "audit": {
+        "title": "Auditability & Transparency Controls",
+        "desc": "Model documentation requirements, decision traceability, audit trail structures, and regulatory readiness for AI scrutiny."
+      }
+    },
+    "deliverables": {
+      "title": "Typical Deliverables",
+      "subtitle": "What you receive at the end of an AI governance engagement",
+      "items": {
+        "policy": "AI acceptable use policy",
+        "principles": "AI governance principles",
+        "approval": "AI approval & review process",
+        "inventory": "AI system inventory & classification",
+        "riskFramework": "AI risk assessment framework",
+        "templates": "Model documentation templates",
+        "dueDiligence": "Vendor AI due diligence checklist",
+        "traceability": "Auditability & traceability structure",
+        "reporting": "Board AI governance reporting"
+      }
+    },
+    "cta": {
+      "title": "Ready to Govern AI Adoption with Confidence?",
+      "subtitle": "Request sample deliverables or a scoped plan for your AI governance needs.",
+      "sampleBtn": "Request Sample Deliverables",
+      "backBtn": "Back to Advisory Services"
+    }
+  },
+  "managedGRC": {
+    "hero": {
+      "label": "Managed Services",
+      "title": "GRC Support Center",
+      "subtitle": "Continuous governance, risk, and compliance operations—run through SOPs, evidence workflows, and reporting cadence.",
+      "proposalBtn": "Request Proposal",
+      "deliverablesBtn": "View Sample Deliverables"
+    },
+    "included": {
+      "title": "What's Included",
+      "subtitle": "Governed execution across compliance, risk, and governance functions",
+      "items": {
+        "calendar": "Compliance calendar management & task scheduling",
+        "evidence": "Evidence capture workflows & tracker maintenance",
+        "risk": "Risk register updates & KRI monitoring",
+        "tracking": "Issue & action tracking with escalation protocols",
+        "reporting": "Board & committee reporting support",
+        "policy": "Policy lifecycle tracking & review coordination",
+        "audit": "Audit coordination & evidence readiness",
+        "dashboard": "Monthly status reports & dashboards"
+      }
+    },
+    "outputs": {
+      "title": "Typical Monthly Outputs",
+      "items": {
+        "calendar": "Compliance calendar with completion status",
+        "tracker": "Evidence readiness tracker",
+        "risk": "Risk register & KRI dashboard",
+        "log": "Issues & actions log",
+        "pack": "Board reporting pack",
+        "policy": "Policy review status report"
+      }
+    },
+    "cta": {
+      "title": "Ready to Operate GRC with Governance?",
+      "subtitle": "Start with a 30-day pilot or request a managed proposal for your GRC operations.",
+      "proposalBtn": "Request Proposal",
+      "deliverablesBtn": "View Sample Deliverables"
+    }
   }
 }
