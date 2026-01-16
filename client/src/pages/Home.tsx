@@ -18,7 +18,7 @@ import vision2030Logo from '@assets/vision2030.png';
 
 // Newsletter validation schema
 const newsletterSchema = z.object({
-  email: z.string().email('Invalid email'),
+  email: z.string().email(),
 });
 
 type NewsletterData = z.infer<typeof newsletterSchema>;
@@ -488,7 +488,7 @@ export default function Home() {
                   </Button>
                 </div>
                 {errors.email && (
-                  <p className="text-xs text-red-400 mt-2">{errors.email.message}</p>
+                  <p className="text-xs text-red-400 mt-2">{t('common.invalidEmail')}</p>
                 )}
               </form>
             )}

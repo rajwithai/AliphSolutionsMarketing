@@ -17,6 +17,15 @@ const transporter = nodemailer.createTransport({
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Verify SMTP configuration on startup
+  console.log('SMTP Configuration:');
+  console.log('- Host:', process.env.SMTP_HOST);
+  console.log('- Port:', process.env.SMTP_PORT);
+  console.log('- User:', process.env.SMTP_USER);
+  console.log('- From:', process.env.SMTP_FROM);
+  console.log('- To:', process.env.SMTP_TO);
+  console.log('- Password configured:', !!process.env.SMTP_PASSWORD);
+
   // Contact form submission - sends email directly without storing
   app.post("/api/contact", async (req, res) => {
     try {
@@ -32,6 +41,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
             message: "Name and email are required" 
           });
         }
+        
+        console.log(`Processing ${formType} from ${name} (${email})`);
+        console.log('Sending to:', process.env.SMTP_TO);
         
         // Build email content from all form fields
         const fieldEntries = Object.entries(otherFields)
@@ -64,12 +76,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
           </div>
         `;
         
-        await transporter.sendMail({
-          from: `"Aliph Solutions" <${process.env.SMTP_USER}>`,
-          to: email,
+        const mailOptions = {
+          from: `"Aliph Solutions" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+          to: process.env.SMTP_TO || process.env.SMTP_USER,
+          replyTo: email,
           subject: `${formType} - ${otherFields.company || name}`,
           html: htmlContent,
-        });
+        };
+        
+        
+        
+        const info = await transporter.sendMail(mailOptions);
+        
         
         return res.status(200).json({ 
           success: true, 
@@ -104,9 +122,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       } else {
         console.error("Contact form error:", error);
+        console.error("SMTP Config at error time:", {
+          host: process.env.SMTP_HOST,
+          port: process.env.SMTP_PORT,
+          user: process.env.SMTP_USER,
+          hasPassword: !!process.env.SMTP_PASSWORD
+        });
         res.status(500).json({ 
           success: false, 
-          message: "Failed to send email" 
+          message: "Failed to send email. Please check server logs." 
         });
       }
     }

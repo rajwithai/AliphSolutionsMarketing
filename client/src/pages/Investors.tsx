@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
+import '@/i18n/config';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -33,20 +35,22 @@ import useSEO from '@/hooks/useSEO';
 import SuccessModal from '@/components/SuccessModal';
 import vision2030Logo from '@assets/vision2030.png';
 
-const deckFormSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
-  email: z.string().email('Please enter a valid email address'),
-  entity: z.string().min(2, 'Fund/Entity must be at least 2 characters').max(100),
-  role: z.string().min(2, 'Role must be at least 2 characters').max(100),
-  focus: z.string().min(1, 'Please select investment focus'),
+const getDeckFormSchema = () => z.object({
+  name: z.string().min(2).max(100),
+  email: z.string().email(),
+  entity: z.string().min(2).max(100),
+  role: z.string().min(2).max(100),
+  focus: z.string().min(1),
   interests: z.array(z.string()).optional(),
   ndaRequested: z.boolean().optional(),
   notes: z.string().max(1000).optional(),
 });
 
-type DeckFormData = z.infer<typeof deckFormSchema>;
+type DeckFormData = z.infer<ReturnType<typeof getDeckFormSchema>>;
 
 export default function Investors() {
+  const { t } = useTranslation();
+  
   useSEO({
     title: 'Investors | Aliph Solutions',
     description: 'Aliph Solutions is building a sovereign-by-design AI advisory engine for Saudi GRC—combining consulting-grade delivery with workflow scalability. Request the investor deck.',
@@ -59,7 +63,7 @@ export default function Investors() {
   const [serverError, setServerError] = useState('');
 
   const deckForm = useForm<DeckFormData>({
-    resolver: zodResolver(deckFormSchema),
+    resolver: zodResolver(getDeckFormSchema()),
     defaultValues: {
       name: '',
       email: '',
@@ -114,12 +118,12 @@ export default function Investors() {
   };
 
   const interestOptions = [
-    'GRC platforms',
-    'Sovereign AI',
-    'Compliance automation',
-    'KSA market',
-    'GCC expansion',
-    'Advisory services'
+    t('investors.interestOptions.grcPlatforms'),
+    t('investors.interestOptions.sovereignAI'),
+    t('investors.interestOptions.complianceAutomation'),
+    t('investors.interestOptions.ksaMarket'),
+    t('investors.interestOptions.gccExpansion'),
+    t('investors.interestOptions.advisoryServices')
   ];
 
   return (
@@ -131,9 +135,9 @@ export default function Investors() {
           setDeckModalOpen(false);
           deckForm.reset();
         }}
-        title="Request Received!"
-        message="Thanks. We'll share a secure link and offer a briefing within 24 hours."
-        buttonText="Close"
+        title={t('investors.successModal.title')}
+        message={t('investors.successModal.message')}
+        buttonText={t('investors.successModal.btn')}
       />
 
       {/* HERO */}
@@ -148,19 +152,19 @@ export default function Investors() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
           <div className="max-w-4xl">
             <div className="flex items-center gap-4 mb-6 text-sm text-[#C9A227]">
-              <span>Saudi-first</span>
+              <span>{t('investors.hero.badge1')}</span>
               <span>•</span>
-              <span>Sovereign-by-design</span>
+              <span>{t('investors.hero.badge2')}</span>
               <span>•</span>
-              <span>Workflow-scaled advisory</span>
+              <span>{t('investors.hero.badge3')}</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Investors
+              {t('investors.hero.title')}
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed">
-              Aliph Solutions is building a sovereign AI advisory engine for governance, risk, and compliance—where regulation, sovereignty, and AI adoption are converging.
+              {t('investors.hero.description')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -180,14 +184,14 @@ export default function Investors() {
                     className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
                     data-cta="investors_request_deck"
                   >
-                    Request the Deck
+                    {t('investors.hero.btnPrimary')}
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
-                    <DialogTitle>Request Investor Deck</DialogTitle>
+                    <DialogTitle>{t('investors.deckModal.title')}</DialogTitle>
                     <DialogDescription>
-                      We share the deck and detailed materials through a secure link after a quick verification.
+                      {t('investors.deckModal.description')}
                     </DialogDescription>
                   </DialogHeader>
                   <form onSubmit={deckForm.handleSubmit(handleDeckSubmit)} className="space-y-4 mt-4">
@@ -199,7 +203,7 @@ export default function Investors() {
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="deck-name" className={deckForm.formState.errors.name ? 'text-red-500' : ''}>
-                          {deckForm.formState.errors.name ? deckForm.formState.errors.name.message : 'Full Name *'}
+                          {deckForm.formState.errors.name ? t('investors.deckModal.errorName') : t('investors.deckModal.nameLabel')}
                         </Label>
                         <Input
                           id="deck-name"
@@ -209,7 +213,7 @@ export default function Investors() {
                       </div>
                       <div>
                         <Label htmlFor="deck-email" className={deckForm.formState.errors.email ? 'text-red-500' : ''}>
-                          {deckForm.formState.errors.email ? deckForm.formState.errors.email.message : 'Email *'}
+                          {deckForm.formState.errors.email ? t('investors.deckModal.errorEmail') : t('investors.deckModal.emailLabel')}
                         </Label>
                         <Input
                           id="deck-email"
@@ -223,7 +227,7 @@ export default function Investors() {
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="deck-entity" className={deckForm.formState.errors.entity ? 'text-red-500' : ''}>
-                          {deckForm.formState.errors.entity ? deckForm.formState.errors.entity.message : 'Fund / Entity *'}
+                          {deckForm.formState.errors.entity ? t('investors.deckModal.errorEntity') : t('investors.deckModal.entityLabel')}
                         </Label>
                         <Input
                           id="deck-entity"
@@ -233,7 +237,7 @@ export default function Investors() {
                       </div>
                       <div>
                         <Label htmlFor="deck-role" className={deckForm.formState.errors.role ? 'text-red-500' : ''}>
-                          {deckForm.formState.errors.role ? deckForm.formState.errors.role.message : 'Role / Title *'}
+                          {deckForm.formState.errors.role ? t('investors.deckModal.errorRole') : t('investors.deckModal.roleLabel')}
                         </Label>
                         <Input
                           id="deck-role"
@@ -245,29 +249,29 @@ export default function Investors() {
 
                     <div>
                       <Label htmlFor="deck-focus" className={deckForm.formState.errors.focus ? 'text-red-500' : ''}>
-                        {deckForm.formState.errors.focus ? deckForm.formState.errors.focus.message : 'Focus *'}
+                        {deckForm.formState.errors.focus ? t('investors.deckModal.errorFocus') : t('investors.deckModal.focusLabel')}
                       </Label>
                       <Select value={focus} onValueChange={(value) => deckForm.setValue('focus', value, { shouldValidate: true })}>
                         <SelectTrigger id="deck-focus" className={`mt-1 ${deckForm.formState.errors.focus ? 'border-red-500' : ''}`}>
-                          <SelectValue placeholder="Select investment stage" />
+                          <SelectValue placeholder={t('investors.deckModal.focusPlaceholder')} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="pre-seed">Pre-Seed</SelectItem>
-                          <SelectItem value="seed">Seed</SelectItem>
-                          <SelectItem value="series-a">Series A</SelectItem>
-                          <SelectItem value="strategic">Strategic</SelectItem>
-                          <SelectItem value="family-office">Family Office</SelectItem>
-                          <SelectItem value="corporate-vc">Corporate VC</SelectItem>
+                          <SelectItem value="pre-seed">{t('investors.focusOptions.preSeed')}</SelectItem>
+                          <SelectItem value="seed">{t('investors.focusOptions.seed')}</SelectItem>
+                          <SelectItem value="series-a">{t('investors.focusOptions.seriesA')}</SelectItem>
+                          <SelectItem value="strategic">{t('investors.focusOptions.strategic')}</SelectItem>
+                          <SelectItem value="family-office">{t('investors.focusOptions.familyOffice')}</SelectItem>
+                          <SelectItem value="corporate-vc">{t('investors.focusOptions.corporateVC')}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div>
-                      <Label className="mb-2 block">Areas of Interest (select all that apply)</Label>
+                      <Label className="mb-2 block">{t('investors.deckModal.interestsLabel')}</Label>
                       <div className="grid md:grid-cols-2 gap-2">
-                        {interestOptions.map((interest) => (
+                        {interestOptions.map((interest, idx) => (
                           <label
-                            key={interest}
+                            key={idx}
                             className="flex items-center gap-2 p-2 border-2 rounded cursor-pointer hover:border-[#C9A227] transition-all"
                           >
                             <input
@@ -290,16 +294,16 @@ export default function Investors() {
                         onChange={(e) => deckForm.setValue('ndaRequested', e.target.checked)}
                         className="w-4 h-4"
                       />
-                      <Label htmlFor="deck-nda" className="cursor-pointer">NDA Requested</Label>
+                      <Label htmlFor="deck-nda" className="cursor-pointer">{t('investors.deckModal.ndaLabel')}</Label>
                     </div>
 
                     <div>
-                      <Label htmlFor="deck-notes">Notes (optional)</Label>
+                      <Label htmlFor="deck-notes">{t('investors.deckModal.notesLabel')}</Label>
                       <Textarea
                         id="deck-notes"
                         rows={3}
                         {...deckForm.register('notes')}
-                        placeholder="Timeline, specific questions, or other context..."
+                        placeholder={t('investors.deckModal.notesPlaceholder')}
                         className="mt-1"
                       />
                     </div>
@@ -308,15 +312,15 @@ export default function Investors() {
                       {isSubmitting ? (
                         <>
                           <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                          Sending...
+                          {t('investors.deckModal.submittingBtn')}
                         </>
                       ) : (
-                        'Request Secure Deck'
+                        t('investors.deckModal.submitBtn')
                       )}
                     </Button>
 
                     <p className="text-xs text-gray-500 text-center">
-                      We do not publish fundraising terms publicly. Details shared privately with qualified investors.
+                      {t('investors.deckModal.disclaimer')}
                     </p>
                   </form>
                 </DialogContent>
@@ -329,7 +333,7 @@ export default function Investors() {
                 className="border-white/30 text-white hover:bg-white/10"
                 data-cta="investors_book_briefing"
               >
-                Book an Investor Briefing
+                {t('investors.hero.btnSecondary')}
               </Button>
             </div>
 
@@ -338,11 +342,11 @@ export default function Investors() {
               className="text-sm text-[#C9A227] hover:text-[#B8921F] inline-flex items-center gap-1"
               data-cta="investors_view_aliph_brain"
             >
-              Explore the Aliph Brain <ArrowRight className="w-4 h-4" />
+              {t('investors.hero.linkAliphBrain')} <ArrowRight className="w-4 h-4" />
             </a>
 
             <p className="text-sm text-gray-400 mt-8 italic">
-              Detailed metrics, roadmap, and architecture walkthrough available upon request.
+              {t('investors.hero.footer')}
             </p>
           </div>
         </div>
@@ -352,31 +356,31 @@ export default function Investors() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Why Now
+            {t('investors.whyNow.title')}
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <Card className="p-8 border-2 hover:border-[#C9A227] transition-all hover:shadow-lg">
               <Zap className="w-12 h-12 text-[#C9A227] mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-3">AI adoption is unavoidable</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t('investors.whyNow.card1Title')}</h3>
               <p className="text-gray-600">
-                Organizations are accelerating AI use across operations—creating productivity gains but also governance gaps and audit risk.
+                {t('investors.whyNow.card1Desc')}
               </p>
             </Card>
 
             <Card className="p-8 border-2 hover:border-[#C9A227] transition-all hover:shadow-lg">
               <Shield className="w-12 h-12 text-[#C9A227] mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Sovereignty is becoming a requirement</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t('investors.whyNow.card2Title')}</h3>
               <p className="text-gray-600">
-                Data residency, control, and auditability are no longer optional. Regulations and buyer expectations are shifting toward sovereign patterns.
+                {t('investors.whyNow.card2Desc')}
               </p>
             </Card>
 
             <Card className="p-8 border-2 hover:border-[#C9A227] transition-all hover:shadow-lg">
               <TrendingUp className="w-12 h-12 text-[#C9A227] mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Compliance needs audit-ready execution</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t('investors.whyNow.card3Title')}</h3>
               <p className="text-gray-600">
-                Not just documentation. Organizations need evidence-backed outputs with clear ownership, timelines, and implementation roadmaps.
+                {t('investors.whyNow.card3Desc')}
               </p>
             </Card>
 
@@ -388,13 +392,13 @@ export default function Investors() {
                   className="h-12 w-auto"
                 />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Macro Alignment</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">{t('investors.whyNow.card4Title')}</h3>
               <ul className="text-gray-600 text-sm space-y-2 mb-4">
-                <li>• Sovereignty and national infrastructure direction</li>
-                <li>• Regulatory modernization + AI adoption at scale</li>
+                <li>{t('investors.whyNow.card4Point1')}</li>
+                <li>{t('investors.whyNow.card4Point2')}</li>
               </ul>
               <p className="text-xs text-gray-500 mt-4 italic">
-                Use of the Vision 2030 logo indicates alignment with national priorities, not endorsement.
+                {t('investors.whyNow.card4Disclaimer')}
               </p>
             </Card>
           </div>
@@ -405,34 +409,34 @@ export default function Investors() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            The Market Gap
+            {t('investors.marketGap.title')}
           </h2>
           <p className="text-center text-gray-600 mb-16 max-w-3xl mx-auto">
-            Traditional consulting vs generic AI vs Aliph
+            {t('investors.marketGap.subtitle')}
           </p>
 
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             <Card className="p-6 bg-white border-2">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Traditional Consulting</h3>
-              <p className="text-sm text-gray-600 mb-4">Rigorous methodology, credible outcomes, but slow and hard to scale.</p>
-              <p className="text-xs text-gray-500">Expensive per engagement • Limited repeatability</p>
+              <h3 className="text-lg font-bold text-gray-900 mb-3">{t('investors.marketGap.traditional.title')}</h3>
+              <p className="text-sm text-gray-600 mb-4">{t('investors.marketGap.traditional.desc')}</p>
+              <p className="text-xs text-gray-500">{t('investors.marketGap.traditional.footer')}</p>
             </Card>
 
             <Card className="p-6 bg-white border-2">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Generic AI Tools</h3>
-              <p className="text-sm text-gray-600 mb-4">Fast generation, but risky, uncontrolled, and not auditable.</p>
-              <p className="text-xs text-gray-500">Black-box outputs • No validation layer</p>
+              <h3 className="text-lg font-bold text-gray-900 mb-3">{t('investors.marketGap.genericAI.title')}</h3>
+              <p className="text-sm text-gray-600 mb-4">{t('investors.marketGap.genericAI.desc')}</p>
+              <p className="text-xs text-gray-500">{t('investors.marketGap.genericAI.footer')}</p>
             </Card>
 
             <Card className="p-6 bg-gradient-to-br from-[#C9A227]/10 to-white border-2 border-[#C9A227]">
-              <h3 className="text-lg font-bold text-gray-900 mb-3">Aliph Solutions</h3>
-              <p className="text-sm text-gray-700 mb-4">Consulting-grade outcomes delivered through governed workflows and sovereignty patterns.</p>
-              <p className="text-xs text-[#C9A227] font-semibold">Repeatable • Auditable • Scalable</p>
+              <h3 className="text-lg font-bold text-gray-900 mb-3">{t('investors.marketGap.aliph.title')}</h3>
+              <p className="text-sm text-gray-700 mb-4">{t('investors.marketGap.aliph.desc')}</p>
+              <p className="text-xs text-[#C9A227] font-semibold">{t('investors.marketGap.aliph.footer')}</p>
             </Card>
           </div>
 
           <p className="text-center text-xl font-semibold text-gray-900">
-            Service-backed delivery today. Workflow-scaled advantage tomorrow.
+            {t('investors.marketGap.closing')}
           </p>
         </div>
       </section>
@@ -441,7 +445,7 @@ export default function Investors() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            The Aliph Engine
+            {t('investors.engine.title')}
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -451,8 +455,8 @@ export default function Investors() {
                   <span className="text-[#C9A227] font-bold">1</span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Saudi Regulatory Intelligence Layer</h3>
-                  <p className="text-gray-600">Knowledge base mapping regulations to controls, templates, and implementation patterns.</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{t('investors.engine.component1Title')}</h3>
+                  <p className="text-gray-600">{t('investors.engine.component1Desc')}</p>
                 </div>
               </div>
             </Card>
@@ -463,8 +467,8 @@ export default function Investors() {
                   <span className="text-[#C9A227] font-bold">2</span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Workflow Library</h3>
-                  <p className="text-gray-600">Agentic workflows producing structured, evidence-backed outputs aligned to advisory methodology.</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{t('investors.engine.component2Title')}</h3>
+                  <p className="text-gray-600">{t('investors.engine.component2Desc')}</p>
                 </div>
               </div>
             </Card>
@@ -475,8 +479,8 @@ export default function Investors() {
                   <span className="text-[#C9A227] font-bold">3</span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Validation Layer</h3>
-                  <p className="text-gray-600">Expert review gates where needed—automated QA checks plus human sign-off for critical outputs.</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{t('investors.engine.component3Title')}</h3>
+                  <p className="text-gray-600">{t('investors.engine.component3Desc')}</p>
                 </div>
               </div>
             </Card>
@@ -487,8 +491,8 @@ export default function Investors() {
                   <span className="text-[#C9A227] font-bold">4</span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Evidence-Ready Output Packaging</h3>
-                  <p className="text-gray-600">Audit trail, ownership mapping, implementation roadmap—ready for board and regulator review.</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{t('investors.engine.component4Title')}</h3>
+                  <p className="text-gray-600">{t('investors.engine.component4Desc')}</p>
                 </div>
               </div>
             </Card>
@@ -496,15 +500,15 @@ export default function Investors() {
 
           <div className="flex flex-wrap justify-center gap-4">
             <a href="/technology/aliph-brain" className="text-[#C9A227] hover:text-[#B8921F] font-medium underline">
-              The Aliph Brain
+              {t('investors.engine.link1')}
             </a>
             <span className="text-gray-400">•</span>
             <a href="/technology/security-sovereignty" className="text-[#C9A227] hover:text-[#B8921F] font-medium underline">
-              Security & Sovereignty
+              {t('investors.engine.link2')}
             </a>
             <span className="text-gray-400">•</span>
             <a href="/deliverables" className="text-[#C9A227] hover:text-[#B8921F] font-medium underline">
-              Sample Deliverables
+              {t('investors.engine.link3')}
             </a>
           </div>
         </div>
@@ -514,16 +518,16 @@ export default function Investors() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Defensibility
+            {t('investors.defensibility.title')}
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              'Compounding knowledge + workflows from delivery',
-              'Sovereign-by-design architecture patterns',
-              'Distribution via advisory and managed services',
-              'Repeatable deliverables (packs) that scale across sectors',
-              'Saudi-first positioning aligned to Vision 2030 direction'
+              t('investors.defensibility.moat1'),
+              t('investors.defensibility.moat2'),
+              t('investors.defensibility.moat3'),
+              t('investors.defensibility.moat4'),
+              t('investors.defensibility.moat5')
             ].map((moat, idx) => (
               <Card key={idx} className="p-6 border-2 hover:border-[#C9A227] transition-all hover:shadow-lg">
                 <CheckCircle2 className="w-8 h-8 text-[#C9A227] mb-4" />
@@ -538,31 +542,31 @@ export default function Investors() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Business Model
+            {t('investors.businessModel.title')}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <Card className="p-8 border-2 hover:border-[#C9A227] transition-all">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Advisory</h3>
-              <p className="text-gray-600 mb-4">Fixed-scope outcome packs and programs for governance, risk, compliance, and AI governance.</p>
-              <p className="text-sm text-gray-500">Service-led revenue with structured scoping</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t('investors.businessModel.advisory.title')}</h3>
+              <p className="text-gray-600 mb-4">{t('investors.businessModel.advisory.desc')}</p>
+              <p className="text-sm text-gray-500">{t('investors.businessModel.advisory.footer')}</p>
             </Card>
 
             <Card className="p-8 border-2 hover:border-[#C9A227] transition-all">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Managed Services</h3>
-              <p className="text-gray-600 mb-4">Continuous readiness operations—GRC support center, compliance monitoring, evidence tracking.</p>
-              <p className="text-sm text-gray-500">Recurring revenue + operational leverage</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t('investors.businessModel.managedServices.title')}</h3>
+              <p className="text-gray-600 mb-4">{t('investors.businessModel.managedServices.desc')}</p>
+              <p className="text-sm text-gray-500">{t('investors.businessModel.managedServices.footer')}</p>
             </Card>
 
             <Card className="p-8 border-2 hover:border-[#C9A227] transition-all">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Platform Workflows</h3>
-              <p className="text-gray-600 mb-4">Accelerators, tooling, workflow modules that increase delivery speed and margin expansion.</p>
-              <p className="text-sm text-gray-500">Margin improvement through repeatability</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">{t('investors.businessModel.platformWorkflows.title')}</h3>
+              <p className="text-gray-600 mb-4">{t('investors.businessModel.platformWorkflows.desc')}</p>
+              <p className="text-sm text-gray-500">{t('investors.businessModel.platformWorkflows.footer')}</p>
             </Card>
           </div>
 
           <p className="text-center text-gray-700 max-w-3xl mx-auto">
-            <strong>Revenue is service-led while workflows increase margins and repeatability.</strong> Advisory and managed services provide cash flow and market validation while platform workflows compound value.
+            {t('investors.businessModel.closing')}
           </p>
         </div>
       </section>
@@ -571,35 +575,35 @@ export default function Investors() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Traction Signals
+            {t('investors.traction.title')}
           </h2>
 
           <div className="max-w-4xl mx-auto space-y-6">
             <Card className="p-6 border-2 hover:border-[#C9A227] transition-all">
               <div className="flex items-start gap-4">
                 <CheckCircle2 className="w-6 h-6 text-[#C9A227] flex-shrink-0 mt-1" />
-                <p className="text-gray-700">Active market engagement with Saudi ecosystem partners</p>
+                <p className="text-gray-700">{t('investors.traction.signal1')}</p>
               </div>
             </Card>
 
             <Card className="p-6 border-2 hover:border-[#C9A227] transition-all">
               <div className="flex items-start gap-4">
                 <CheckCircle2 className="w-6 h-6 text-[#C9A227] flex-shrink-0 mt-1" />
-                <p className="text-gray-700">Deliverable library and workflow system in development and expansion</p>
+                <p className="text-gray-700">{t('investors.traction.signal2')}</p>
               </div>
             </Card>
 
             <Card className="p-6 border-2 hover:border-[#C9A227] transition-all">
               <div className="flex items-start gap-4">
                 <CheckCircle2 className="w-6 h-6 text-[#C9A227] flex-shrink-0 mt-1" />
-                <p className="text-gray-700">Ongoing discussions across regulated and growth sectors</p>
+                <p className="text-gray-700">{t('investors.traction.signal3')}</p>
               </div>
             </Card>
 
             <Card className="p-6 border-2 hover:border-[#C9A227] transition-all">
               <div className="flex items-start gap-4">
                 <CheckCircle2 className="w-6 h-6 text-[#C9A227] flex-shrink-0 mt-1" />
-                <p className="text-gray-700">Product roadmap aligned to platform expansion milestones</p>
+                <p className="text-gray-700">{t('investors.traction.signal4')}</p>
               </div>
             </Card>
           </div>
@@ -610,7 +614,7 @@ export default function Investors() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Roadmap
+            {t('investors.roadmap.title')}
           </h2>
 
           <div className="max-w-5xl mx-auto">
@@ -618,11 +622,11 @@ export default function Investors() {
               <Card className="p-8 border-2 border-[#C9A227] bg-gradient-to-r from-[#C9A227]/5 to-white">
                 <div className="flex items-start gap-6">
                   <div className="w-20 h-20 bg-[#C9A227] text-white rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-sm font-bold">Now</span>
+                    <span className="text-sm font-bold">{t('investors.roadmap.now.label')}</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Expand Deliverable Packs + Workflow Library</h3>
-                    <p className="text-gray-700">Building out advisory domain coverage and workflow depth across PDPL, NCA ECC, ZATCA, internal audit, and AI governance.</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">{t('investors.roadmap.now.title')}</h3>
+                    <p className="text-gray-700">{t('investors.roadmap.now.desc')}</p>
                   </div>
                 </div>
               </Card>
@@ -630,11 +634,11 @@ export default function Investors() {
               <Card className="p-8 border-2 hover:border-[#C9A227] transition-all">
                 <div className="flex items-start gap-6">
                   <div className="w-20 h-20 bg-gray-200 text-gray-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-sm font-bold">Next</span>
+                    <span className="text-sm font-bold">{t('investors.roadmap.next.label')}</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Scale Managed Services + Integrations</h3>
-                    <p className="text-gray-700">Launch GRC support center operations, evidence tracking platform, and integration capabilities for enterprise systems.</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">{t('investors.roadmap.next.title')}</h3>
+                    <p className="text-gray-700">{t('investors.roadmap.next.desc')}</p>
                   </div>
                 </div>
               </Card>
@@ -642,11 +646,11 @@ export default function Investors() {
               <Card className="p-8 border-2 hover:border-[#C9A227] transition-all">
                 <div className="flex items-start gap-6">
                   <div className="w-20 h-20 bg-gray-200 text-gray-700 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-sm font-bold">Future</span>
+                    <span className="text-sm font-bold">{t('investors.roadmap.future.label')}</span>
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Regional Expansion + Regulated Modules</h3>
-                    <p className="text-gray-700">GCC readiness, additional regulatory modules for banking/finance, and partnership ecosystem development.</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">{t('investors.roadmap.future.title')}</h3>
+                    <p className="text-gray-700">{t('investors.roadmap.future.desc')}</p>
                   </div>
                 </div>
               </Card>
@@ -659,10 +663,10 @@ export default function Investors() {
       <section id="request-deck" className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-            Request the Investor Deck
+            {t('investors.requestDeck.title')}
           </h2>
           <p className="text-xl text-gray-600 mb-12">
-            We share the deck and detailed materials through a secure link after a quick verification.
+            {t('investors.requestDeck.subtitle')}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -671,19 +675,19 @@ export default function Investors() {
               onClick={() => setDeckModalOpen(true)}
               className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
             >
-              Request Secure Deck
+              {t('investors.requestDeck.btnPrimary')}
             </Button>
             <Button
               size="lg"
               variant="outline"
               onClick={() => window.location.href = '/company/contact'}
             >
-              Book Investor Briefing
+              {t('investors.requestDeck.btnSecondary')}
             </Button>
           </div>
 
           <p className="text-sm text-gray-500 italic">
-            We do not publish fundraising terms publicly. Details shared privately with qualified investors.
+            {t('investors.requestDeck.disclaimer')}
           </p>
         </div>
       </section>
@@ -692,61 +696,61 @@ export default function Investors() {
       <section className="py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">
-            Investor FAQ
+            {t('investors.faq.title')}
           </h2>
 
           <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Are you a consultancy or a product company?
+                {t('investors.faq.q1')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Aliph is building a product-enabled advisory firm. We deliver consulting-grade services today using a workflow engine that compounds in value. Revenue is service-led with increasing margin leverage through repeatable workflows and deliverable packs.
+                {t('investors.faq.a1')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                What makes this defensible vs Big Four?
+                {t('investors.faq.q2')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                We combine consulting rigor with workflow scalability that Big Four cannot replicate without cannibalizing their model. Our sovereign-by-design architecture, Saudi-first positioning, and compounding workflow library create structural advantages in speed, cost, and repeatability.
+                {t('investors.faq.a2')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                How do you avoid generic AI risks?
+                {t('investors.faq.q3')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Through governed workflows with validation layers—not black-box generation. Outputs go through automated QA checks, consistency validation, and expert review gates where needed. Every deliverable has ownership, audit trail, and evidence packaging.
+                {t('investors.faq.a3')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                How does sovereignty factor into delivery?
+                {t('investors.faq.q4')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Sovereignty is a distribution and defensibility advantage. Our architecture supports data residency requirements, enhanced logging, and strict access controls—addressing buyer concerns that generic AI tools cannot. This opens doors in regulated sectors and government programs.
+                {t('investors.faq.a4')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-5" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                What is the go-to-market?
+                {t('investors.faq.q5')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Direct advisory sales to regulated enterprises and high-growth SMEs, plus ecosystem partnerships with consulting firms, legal advisors, and technology providers. Managed services create recurring revenue while advisory engagements validate and expand workflow coverage.
+                {t('investors.faq.a5')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-6" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                How do you scale margins?
+                {t('investors.faq.q6')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Through workflow repeatability and deliverable pack standardization. Each engagement feeds the workflow library, reducing time-to-delivery and increasing quality consistency. Advisory margins improve as workflows mature; managed services add operational leverage; platform modules create software-like economics at the margin.
+                {t('investors.faq.a6')}
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -757,17 +761,17 @@ export default function Investors() {
       <section className="py-16 bg-gradient-to-r from-[#0B1220] to-[#1a1f35] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Building the Sovereign AI Advisory Engine for Saudi GRC
+            {t('investors.finalCta.title')}
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Request the deck to see detailed metrics, architecture, and roadmap.
+            {t('investors.finalCta.subtitle')}
           </p>
           <Button
             size="lg"
             onClick={() => setDeckModalOpen(true)}
             className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
           >
-            Request Investor Deck
+            {t('investors.finalCta.btn')}
           </Button>
         </div>
       </section>

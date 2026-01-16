@@ -49,7 +49,7 @@ export default function Industries() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Sector readiness call requested:', formData);
+    
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);

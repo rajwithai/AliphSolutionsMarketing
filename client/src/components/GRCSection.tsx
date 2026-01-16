@@ -30,7 +30,7 @@ export default function GRCSection() {
   const { t } = useLanguage();
   
   const handleLearnMore = () => {
-    console.log('Learn more about GRC clicked');
+    
     // In real app, navigate to GRC solutions page
   };
   

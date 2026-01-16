@@ -78,19 +78,18 @@ export default function CompanyContact() {
     setServerError(null);
 
     try {
-      // Map the form data to the API schema
+      // Use specialized form format to include all fields
       const payload = {
+        formType: 'Contact Form Inquiry',
         name: data.name,
         email: data.email,
         company: data.company,
-        phone: '', // Optional field
-        subject: `${data.interestType} - ${data.sector}`,
-        message: `Role: ${data.role}\n` +
-                 `Timeline: ${data.timeline}\n` +
-                 `Primary Focus: ${data.primaryFocus?.join(', ') || 'None'}\n\n` +
-                 `Additional Notes:\n${data.notes || 'None'}`,
-        inquiryType: 'solution' as const,
-        language: 'en',
+        role: data.role,
+        interestType: data.interestType,
+        sector: data.sector,
+        primaryFocus: data.primaryFocus?.join(', ') || 'None',
+        timeline: data.timeline,
+        notes: data.notes || 'None',
       };
 
       const response = await fetch('/api/contact', {
@@ -132,16 +131,16 @@ export default function CompanyContact() {
   };
 
   const focusAreas = [
-    { key: 'pdpl', label: t('companyContact.focusAreas.pdpl') },
-    { key: 'nca', label: t('companyContact.focusAreas.nca') },
-    { key: 'zatca', label: t('companyContact.focusAreas.zatca') },
-    { key: 'audit', label: t('companyContact.focusAreas.audit') },
-    { key: 'ai', label: t('companyContact.focusAreas.ai') },
-    { key: 'board', label: t('companyContact.focusAreas.board') },
-    { key: 'thirdParty', label: t('companyContact.focusAreas.thirdParty') },
-    { key: 'managed', label: t('companyContact.focusAreas.managed') },
-    { key: 'sovereign', label: t('companyContact.focusAreas.sovereign') },
-    { key: 'other', label: t('companyContact.focusAreas.other') }
+    t('companyContact.focusAreas.pdpl'),
+    t('companyContact.focusAreas.nca'),
+    t('companyContact.focusAreas.zatca'),
+    t('companyContact.focusAreas.audit'),
+    t('companyContact.focusAreas.ai'),
+    t('companyContact.focusAreas.board'),
+    t('companyContact.focusAreas.thirdParty'),
+    t('companyContact.focusAreas.managed'),
+    t('companyContact.focusAreas.sovereign'),
+    t('companyContact.focusAreas.other')
   ];
 
   if (submitted) {

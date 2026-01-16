@@ -81,15 +81,17 @@ Submitted on: ${new Date().toLocaleString()}
   `;
 
   try {
+    // Send notification to company email
     await transporter.sendMail({
-      from: `"Aliph Solutions Contact Form" <${process.env.SMTP_USER}>`,
-      to: email, // Send to the user who submitted the form
+      from: `"Aliph Solutions Contact Form" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+      to: process.env.SMTP_TO || process.env.SMTP_USER, // Send to company email
+      replyTo: email, // Allow replying directly to the user
       subject: `Contact Form: ${subject}`,
       text: textContent,
       html: htmlContent,
     });
 
-    console.log(`Email sent successfully to ${email}`);
+    console.log(`Email sent successfully to ${process.env.SMTP_TO}`);
   } catch (error) {
     console.error('Error sending email:', error);
     throw new Error('Failed to send email');

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
+import '@/i18n/config';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -43,141 +45,141 @@ interface DeliverablePackType {
   badge?: string;
 }
 
-const deliverablePacks: DeliverablePackType[] = [
+const getDeliverablePacks = (t: any): DeliverablePackType[] => [
   {
     id: 'pdpl',
-    title: 'PDPL Readiness Pack',
-    category: 'Regulation',
-    audience: ['Enterprise', 'SME'],
-    badge: 'Popular',
-    description: 'Complete data protection compliance framework',
+    title: t('deliverables.packs.pdpl.title'),
+    category: t('deliverables.categories.regulation'),
+    audience: [t('deliverables.audience.enterprise'), t('deliverables.audience.sme')],
+    badge: t('deliverables.badges.popular'),
+    description: t('deliverables.packs.pdpl.description'),
     preview: [
-      'Policy suite map (21 policies)',
-      'Operating roles outline (DPO, processors)',
-      'Roadmap template (redacted milestones)',
-      'Breach response plan structure',
-      'Data inventory format',
-      'Rights request workflow'
+      t('deliverables.packs.pdpl.preview1'),
+      t('deliverables.packs.pdpl.preview2'),
+      t('deliverables.packs.pdpl.preview3'),
+      t('deliverables.packs.pdpl.preview4'),
+      t('deliverables.packs.pdpl.preview5'),
+      t('deliverables.packs.pdpl.preview6')
     ]
   },
   {
     id: 'nca-ecc',
-    title: 'NCA ECC Readiness Pack',
-    category: 'Regulation',
-    audience: ['Enterprise', 'Government'],
-    badge: 'New',
-    description: 'Essential Cybersecurity Controls compliance suite',
+    title: t('deliverables.packs.ncaEcc.title'),
+    category: t('deliverables.categories.regulation'),
+    audience: [t('deliverables.audience.enterprise'), t('deliverables.audience.government')],
+    badge: t('deliverables.badges.new'),
+    description: t('deliverables.packs.ncaEcc.description'),
     preview: [
-      'Controls mapping structure (114 controls)',
-      'Evidence pack template (redacted)',
-      'Remediation plan format',
-      'Assessment methodology',
-      'Domain-by-domain roadmap',
-      'Certification prep checklist'
+      t('deliverables.packs.ncaEcc.preview1'),
+      t('deliverables.packs.ncaEcc.preview2'),
+      t('deliverables.packs.ncaEcc.preview3'),
+      t('deliverables.packs.ncaEcc.preview4'),
+      t('deliverables.packs.ncaEcc.preview5'),
+      t('deliverables.packs.ncaEcc.preview6')
     ]
   },
   {
     id: 'zatca',
-    title: 'ZATCA Compliance Operations Pack',
-    category: 'Regulation',
-    audience: ['Enterprise', 'SME'],
-    description: 'Tax compliance and e-invoicing framework',
+    title: t('deliverables.packs.zatca.title'),
+    category: t('deliverables.categories.regulation'),
+    audience: [t('deliverables.audience.enterprise'), t('deliverables.audience.sme')],
+    description: t('deliverables.packs.zatca.description'),
     preview: [
-      'Operating cadence (monthly/quarterly)',
-      'Process control map',
-      'Records readiness checklist structure',
-      'E-invoicing integration checklist',
-      'Audit trail requirements',
-      'Exception handling procedures'
+      t('deliverables.packs.zatca.preview1'),
+      t('deliverables.packs.zatca.preview2'),
+      t('deliverables.packs.zatca.preview3'),
+      t('deliverables.packs.zatca.preview4'),
+      t('deliverables.packs.zatca.preview5'),
+      t('deliverables.packs.zatca.preview6')
     ]
   },
   {
     id: 'governance',
-    title: 'Corporate Governance Pack',
-    category: 'Governance',
-    audience: ['Enterprise'],
-    badge: 'Popular',
-    description: 'Board-ready governance documentation suite',
+    title: t('deliverables.packs.governance.title'),
+    category: t('deliverables.categories.governance'),
+    audience: [t('deliverables.audience.enterprise')],
+    badge: t('deliverables.badges.popular'),
+    description: t('deliverables.packs.governance.description'),
     preview: [
-      'Delegation of Authority (DoA) structure',
-      'Committee charter structures',
-      'Reporting pack outline',
-      'Conflict of interest policy format',
-      'Board meeting cadence',
-      'Escalation protocols'
+      t('deliverables.packs.governance.preview1'),
+      t('deliverables.packs.governance.preview2'),
+      t('deliverables.packs.governance.preview3'),
+      t('deliverables.packs.governance.preview4'),
+      t('deliverables.packs.governance.preview5'),
+      t('deliverables.packs.governance.preview6')
     ]
   },
   {
     id: 'erm',
-    title: 'ERM Foundation Pack',
-    category: 'Risk',
-    audience: ['Enterprise', 'Government'],
-    description: 'Enterprise risk management framework',
+    title: t('deliverables.packs.erm.title'),
+    category: t('deliverables.categories.risk'),
+    audience: [t('deliverables.audience.enterprise'), t('deliverables.audience.government')],
+    description: t('deliverables.packs.erm.description'),
     preview: [
-      'Risk taxonomy and appetite outline',
-      'Risk register structure',
-      'KRI catalog format',
-      'Three lines of defense model',
-      'Risk committee charter',
-      'Risk reporting dashboard structure'
+      t('deliverables.packs.erm.preview1'),
+      t('deliverables.packs.erm.preview2'),
+      t('deliverables.packs.erm.preview3'),
+      t('deliverables.packs.erm.preview4'),
+      t('deliverables.packs.erm.preview5'),
+      t('deliverables.packs.erm.preview6')
     ]
   },
   {
     id: 'internal-audit',
-    title: 'Internal Audit Enablement Pack',
-    category: 'Audit',
-    audience: ['Enterprise', 'Government'],
-    description: 'Complete internal audit function setup',
+    title: t('deliverables.packs.internalAudit.title'),
+    category: t('deliverables.categories.audit'),
+    audience: [t('deliverables.audience.enterprise'), t('deliverables.audience.government')],
+    description: t('deliverables.packs.internalAudit.description'),
     preview: [
-      'IA charter structure',
-      'Annual plan format (risk-based)',
-      'Reporting templates (redacted)',
-      'Workpaper standards',
-      'Issue tracking system',
-      'Quality assurance framework'
+      t('deliverables.packs.internalAudit.preview1'),
+      t('deliverables.packs.internalAudit.preview2'),
+      t('deliverables.packs.internalAudit.preview3'),
+      t('deliverables.packs.internalAudit.preview4'),
+      t('deliverables.packs.internalAudit.preview5'),
+      t('deliverables.packs.internalAudit.preview6')
     ]
   },
   {
     id: 'ai-governance',
-    title: 'AI Governance Pack',
-    category: 'Governance',
-    audience: ['Enterprise', 'SME'],
-    badge: 'New',
-    description: 'Sovereign AI governance and control framework',
+    title: t('deliverables.packs.aiGovernance.title'),
+    category: t('deliverables.categories.governance'),
+    audience: [t('deliverables.audience.enterprise'), t('deliverables.audience.sme')],
+    badge: t('deliverables.badges.new'),
+    description: t('deliverables.packs.aiGovernance.description'),
     preview: [
-      'AI policy structure',
-      'Roles & approvals model',
-      'Audit logging checklist',
-      'Model risk assessment format',
-      'Data minimization controls',
-      'AI ethics framework'
+      t('deliverables.packs.aiGovernance.preview1'),
+      t('deliverables.packs.aiGovernance.preview2'),
+      t('deliverables.packs.aiGovernance.preview3'),
+      t('deliverables.packs.aiGovernance.preview4'),
+      t('deliverables.packs.aiGovernance.preview5'),
+      t('deliverables.packs.aiGovernance.preview6')
     ]
   },
   {
     id: 'vendor-risk',
-    title: 'Vendor / Third-Party Risk Pack',
-    category: 'Risk',
-    audience: ['Enterprise', 'Government', 'Giga'],
-    description: 'Third-party risk management framework',
+    title: t('deliverables.packs.vendorRisk.title'),
+    category: t('deliverables.categories.risk'),
+    audience: [t('deliverables.audience.enterprise'), t('deliverables.audience.government'), t('deliverables.audience.giga')],
+    description: t('deliverables.packs.vendorRisk.description'),
     preview: [
-      'Assessment structure (tiered)',
-      'Onboarding controls checklist',
-      'Monitoring cadence',
-      'Contract requirements template',
-      'Exit management procedures',
-      'Vendor scorecard format'
+      t('deliverables.packs.vendorRisk.preview1'),
+      t('deliverables.packs.vendorRisk.preview2'),
+      t('deliverables.packs.vendorRisk.preview3'),
+      t('deliverables.packs.vendorRisk.preview4'),
+      t('deliverables.packs.vendorRisk.preview5'),
+      t('deliverables.packs.vendorRisk.preview6')
     ]
   },
 ];
 
 const requestFormSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
-  email: z.string().email('Please enter a valid email address'),
-  company: z.string().min(2, 'Company name must be at least 2 characters').max(100),
-  role: z.string().min(2, 'Role must be at least 2 characters').max(100),
-  sector: z.string().min(1, 'Please select a sector'),
-  timeline: z.string().min(1, 'Please select a timeline'),
-  primaryNeeds: z.array(z.string()).min(1, 'Please select at least one need'),
+  name: z.string().min(2).max(100),
+  email: z.string().email(),
+  company: z.string().min(2).max(100),
+  role: z.string().min(2).max(100),
+  sector: z.string().min(1),
+  timeline: z.string().min(1),
+  primaryNeeds: z.array(z.string()).min(1),
   ndaRequired: z.boolean().optional(),
   readinessCall: z.boolean().optional(),
   notes: z.string().max(1000).optional(),
@@ -186,13 +188,15 @@ const requestFormSchema = z.object({
 type RequestFormData = z.infer<typeof requestFormSchema>;
 
 export default function Deliverables() {
+  const { t } = useTranslation();
+  
   useSEO({
     title: 'Sample Deliverables | Aliph Solutions',
     description: 'Preview audit-ready Saudi GRC deliverables—PDPL, NCA ECC, ZATCA, governance, ERM, and internal audit. Request sample packs with secure access.',
     keywords: 'GRC deliverables, PDPL templates, NCA ECC samples, ZATCA compliance, governance templates, Saudi Arabia',
   });
 
-  const [selectedFilter, setSelectedFilter] = useState<string>('All');
+  const [selectedFilter, setSelectedFilter] = useState<string>(t('deliverables.categories.all'));
   const [selectedPack, setSelectedPack] = useState<DeliverablePackType | null>(null);
   const [previewModalOpen, setPreviewModalOpen] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -221,10 +225,18 @@ export default function Deliverables() {
   const ndaRequired = requestForm.watch('ndaRequired');
   const readinessCall = requestForm.watch('readinessCall');
 
-  const categories = ['All', 'Regulation', 'Governance', 'Risk', 'Audit'];
+  const deliverablePacks = getDeliverablePacks(t);
+  
+  const categories = [
+    { key: 'all', label: t('deliverables.categories.all') },
+    { key: 'regulation', label: t('deliverables.categories.regulation') },
+    { key: 'governance', label: t('deliverables.categories.governance') },
+    { key: 'risk', label: t('deliverables.categories.risk') },
+    { key: 'audit', label: t('deliverables.categories.audit') }
+  ];
 
   const filteredPacks = deliverablePacks.filter(pack => 
-    selectedFilter === 'All' || pack.category === selectedFilter
+    selectedFilter === t('deliverables.categories.all') || pack.category === selectedFilter
   );
 
   const handlePreview = (pack: DeliverablePackType) => {
@@ -280,9 +292,9 @@ export default function Deliverables() {
           setFormSubmitted(false);
           requestForm.reset();
         }}
-        title="Request Received!"
-        message="We'll respond with a secure preview link and next steps within 24 hours."
-        buttonText="Close"
+        title={t('deliverables.successModal.title')}
+        message={t('deliverables.successModal.message')}
+        buttonText={t('deliverables.successModal.button')}
       />
 
       {/* Preview Modal */}
@@ -308,7 +320,7 @@ export default function Deliverables() {
                   <div className="absolute inset-0 backdrop-blur-sm bg-white/40 flex items-center justify-center">
                     <Badge variant="secondary" className="text-lg px-4 py-2">
                       <Lock className="w-4 h-4 mr-2" />
-                      Preview Redacted
+                      {t('deliverables.previewModal.redacted')}
                     </Badge>
                   </div>
                 </div>
@@ -324,7 +336,7 @@ export default function Deliverables() {
               
               {/* Right: TOC and Details */}
               <div>
-                <h3 className="font-bold text-lg mb-4">Preview Includes:</h3>
+                <h3 className="font-bold text-lg mb-4">{t('deliverables.previewModal.includesTitle')}</h3>
                 <ul className="space-y-2 mb-6">
                   {selectedPack.preview.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-2 text-sm">
@@ -336,8 +348,8 @@ export default function Deliverables() {
                 
                 <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
                   <p className="text-sm text-amber-900">
-                    <strong>What you receive in full pack:</strong><br />
-                    Complete, unredacted templates ready for implementation with your organization details. Includes all supporting worksheets, checklists, and evidence formats.
+                    <strong>{t('deliverables.previewModal.fullPackTitle')}</strong><br />
+                    {t('deliverables.previewModal.fullPackDesc')}
                   </p>
                 </div>
                 
@@ -347,7 +359,7 @@ export default function Deliverables() {
                     onClick={() => handleRequestAccess(selectedPack.id)}
                     data-cta="deliverables_request_full_sample"
                   >
-                    Request Secure Access
+                    {t('deliverables.previewModal.requestBtn')}
                   </Button>
                   <Button 
                     variant="outline" 
@@ -355,7 +367,7 @@ export default function Deliverables() {
                     onClick={() => window.location.href = '/company/contact'}
                     data-cta="deliverables_book_call"
                   >
-                    Book a Readiness Call
+                    {t('deliverables.previewModal.bookCallBtn')}
                   </Button>
                 </div>
               </div>
@@ -376,19 +388,19 @@ export default function Deliverables() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <div className="flex items-center gap-4 mb-6 text-sm text-[#C9A227]">
-                <span>Audit-Ready</span>
+                <span>{t('deliverables.hero.badge1')}</span>
                 <span>•</span>
-                <span>Implementation-First</span>
+                <span>{t('deliverables.hero.badge2')}</span>
                 <span>•</span>
-                <span>Saudi-Aligned</span>
+                <span>{t('deliverables.hero.badge3')}</span>
               </div>
               
               <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                Sample Deliverables — Built for Saudi Regulation
+                {t('deliverables.hero.title')}
               </h1>
               
               <p className="text-xl text-gray-300 mb-8">
-                Preview the structure and quality of Aliph outputs. Full packs are shared securely based on your sector and need.
+                {t('deliverables.hero.description')}
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -398,7 +410,7 @@ export default function Deliverables() {
                   className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
                   data-cta="deliverables_request_access"
                 >
-                  Request Sample Access
+                  {t('deliverables.hero.btnPrimary')}
                 </Button>
                 <Button 
                   size="lg"
@@ -406,13 +418,13 @@ export default function Deliverables() {
                   onClick={() => window.location.href = '/company/contact'}
                   className="border-white/30 text-white hover:bg-white/10"
                 >
-                  Book a Readiness Call
+                  {t('deliverables.hero.btnSecondary')}
                 </Button>
               </div>
               
               <p className="text-sm text-gray-400">
                 <Lock className="w-4 h-4 inline mr-1" />
-                Optional NDA available. Samples are shared with secure access.
+                {t('deliverables.hero.ndaNote')}
               </p>
             </div>
             
@@ -420,10 +432,10 @@ export default function Deliverables() {
             <div className="relative">
               <div className="relative">
                 {[
-                  { label: 'Policy Suite', offset: '0', color: 'from-blue-500 to-blue-600' },
-                  { label: 'Controls Mapping', offset: '12', color: 'from-indigo-500 to-indigo-600' },
-                  { label: 'Evidence Pack', offset: '24', color: 'from-purple-500 to-purple-600' },
-                  { label: 'Roadmap', offset: '36', color: 'from-[#C9A227] to-[#B8921F]' },
+                  { label: t('deliverables.hero.doc1'), offset: '0', color: 'from-blue-500 to-blue-600' },
+                  { label: t('deliverables.hero.doc2'), offset: '12', color: 'from-indigo-500 to-indigo-600' },
+                  { label: t('deliverables.hero.doc3'), offset: '24', color: 'from-purple-500 to-purple-600' },
+                  { label: t('deliverables.hero.doc4'), offset: '36', color: 'from-[#C9A227] to-[#B8921F]' },
                 ].map((doc, idx) => (
                   <div 
                     key={idx}
@@ -458,7 +470,7 @@ export default function Deliverables() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            What's Included in the Preview
+            {t('deliverables.whatsIncluded.title')}
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -466,9 +478,9 @@ export default function Deliverables() {
               <div className="w-14 h-14 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mb-6">
                 <FileText className="w-8 h-8 text-[#C9A227]" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Table of Contents + Structure</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">{t('deliverables.whatsIncluded.card1Title')}</h3>
               <p className="text-gray-600">
-                Shows headings, sections, implementation approach, and overall framework architecture.
+                {t('deliverables.whatsIncluded.card1Desc')}
               </p>
             </Card>
             
@@ -476,9 +488,9 @@ export default function Deliverables() {
               <div className="w-14 h-14 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mb-6">
                 <Eye className="w-8 h-8 text-[#C9A227]" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Sample Pages (Redacted)</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">{t('deliverables.whatsIncluded.card2Title')}</h3>
               <p className="text-gray-600">
-                Demonstrates writing quality, format standards, and professional presentation level.
+                {t('deliverables.whatsIncluded.card2Desc')}
               </p>
             </Card>
             
@@ -486,9 +498,9 @@ export default function Deliverables() {
               <div className="w-14 h-14 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mb-6">
                 <CheckCircle2 className="w-8 h-8 text-[#C9A227]" />
               </div>
-              <h3 className="text-xl font-bold mb-3 text-gray-900">Delivery Checklist</h3>
+              <h3 className="text-xl font-bold mb-3 text-gray-900">{t('deliverables.whatsIncluded.card3Title')}</h3>
               <p className="text-gray-600">
-                Owners, timelines, evidence checkpoints, and implementation milestones.
+                {t('deliverables.whatsIncluded.card3Desc')}
               </p>
             </Card>
           </div>
@@ -497,9 +509,9 @@ export default function Deliverables() {
             <div className="flex items-start gap-4">
               <Shield className="w-6 h-6 text-amber-700 flex-shrink-0 mt-1" />
               <div>
-                <h4 className="font-bold text-amber-900 mb-2">IP Protection Policy</h4>
+                <h4 className="font-bold text-amber-900 mb-2">{t('deliverables.whatsIncluded.ipTitle')}</h4>
                 <p className="text-amber-800">
-                  We don't publish full templates openly. Regulated-ready outputs are shared securely to protect your organization and our IP.
+                  {t('deliverables.whatsIncluded.ipDesc')}
                 </p>
               </div>
             </div>
@@ -511,10 +523,10 @@ export default function Deliverables() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            Deliverable Packs
+            {t('deliverables.library.title')}
           </h2>
           <p className="text-xl text-center text-gray-600 mb-12">
-            Select a pack to preview the structure and request secure access
+            {t('deliverables.library.subtitle')}
           </p>
           
           {/* Filters */}
@@ -522,15 +534,15 @@ export default function Deliverables() {
             <Filter className="w-5 h-5 text-gray-500" />
             {categories.map((category) => (
               <button
-                key={category}
-                onClick={() => setSelectedFilter(category)}
+                key={category.key}
+                onClick={() => setSelectedFilter(category.label)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  selectedFilter === category
+                  selectedFilter === category.label
                     ? 'bg-[#C9A227] text-white'
                     : 'bg-white border border-gray-300 text-gray-700 hover:border-[#C9A227]'
                 }`}
               >
-                {category}
+                {category.label}
               </button>
             ))}
           </div>
@@ -552,7 +564,7 @@ export default function Deliverables() {
                 <p className="text-sm text-gray-600 mb-4">{pack.description}</p>
                 
                 <div className="mb-4">
-                  <p className="text-xs font-semibold text-gray-500 mb-2">PREVIEW INCLUDES:</p>
+                  <p className="text-xs font-semibold text-gray-500 mb-2">{t('deliverables.library.previewIncludes')}</p>
                   <ul className="space-y-1">
                     {pack.preview.slice(0, 3).map((item, idx) => (
                       <li key={idx} className="text-xs text-gray-600 flex items-start gap-1">
@@ -561,7 +573,7 @@ export default function Deliverables() {
                       </li>
                     ))}
                     {pack.preview.length > 3 && (
-                      <li className="text-xs text-gray-500 italic">+ {pack.preview.length - 3} more</li>
+                      <li className="text-xs text-gray-500 italic">{t('deliverables.library.moreItems', { count: pack.preview.length - 3 })}</li>
                     )}
                   </ul>
                 </div>
@@ -575,7 +587,7 @@ export default function Deliverables() {
                     data-cta="deliverables_preview_open"
                   >
                     <Eye className="w-4 h-4 mr-1" />
-                    Preview
+                    {t('deliverables.library.previewBtn')}
                   </Button>
                   <Button 
                     size="sm" 
@@ -583,7 +595,7 @@ export default function Deliverables() {
                     onClick={() => handleRequestAccess()}
                     data-cta="deliverables_request_access"
                   >
-                    Request
+                    {t('deliverables.library.requestBtn')}
                   </Button>
                 </div>
               </Card>
@@ -596,21 +608,21 @@ export default function Deliverables() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            How Aliph Deliverables Are Built
+            {t('deliverables.standards.title')}
           </h2>
           <p className="text-xl text-center text-gray-600 mb-16">
-            Every output follows a proven implementation methodology
+            {t('deliverables.standards.subtitle')}
           </p>
           
           {/* Workflow */}
           <div className="max-w-4xl mx-auto mb-12">
             <div className="grid grid-cols-5 gap-4">
               {[
-                { label: 'Discover', icon: Sparkles },
-                { label: 'Map', icon: FileText },
-                { label: 'Build', icon: CheckCircle2 },
-                { label: 'Validate', icon: Shield },
-                { label: 'Evidence-Ready', icon: Download },
+                { label: t('deliverables.standards.step1'), icon: Sparkles },
+                { label: t('deliverables.standards.step2'), icon: FileText },
+                { label: t('deliverables.standards.step3'), icon: CheckCircle2 },
+                { label: t('deliverables.standards.step4'), icon: Shield },
+                { label: t('deliverables.standards.step5'), icon: Download },
               ].map((step, idx) => (
                 <div key={idx} className="relative">
                   <Card className="p-4 text-center border-2 border-[#C9A227]/30 hover:border-[#C9A227] transition-all">
@@ -628,10 +640,10 @@ export default function Deliverables() {
           {/* Standards */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              'Implementation owners & roles',
-              'Evidence checkpoints for audit',
-              'Change log format (versioning)',
-              'Saudi-aligned language and structure',
+              t('deliverables.standards.feature1'),
+              t('deliverables.standards.feature2'),
+              t('deliverables.standards.feature3'),
+              t('deliverables.standards.feature4'),
             ].map((standard, idx) => (
               <div key={idx} className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-[#C9A227] flex-shrink-0 mt-1" />
@@ -643,7 +655,7 @@ export default function Deliverables() {
           <div className="text-center mt-8">
             <a href="/security" className="text-[#C9A227] hover:text-[#B8921F] text-sm font-medium inline-flex items-center gap-1">
               <Lock className="w-4 h-4" />
-              View Security Standards
+              {t('deliverables.standards.securityLink')}
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
@@ -655,10 +667,10 @@ export default function Deliverables() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-              Request Sample Access
+              {t('deliverables.form.title')}
             </h2>
             <p className="text-xl text-gray-600">
-              We'll share the most relevant preview set based on your sector and needs
+              {t('deliverables.form.subtitle')}
             </p>
           </div>
           
@@ -672,7 +684,7 @@ export default function Deliverables() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="name" className={requestForm.formState.errors.name ? 'text-red-500' : ''}>
-                    {requestForm.formState.errors.name ? requestForm.formState.errors.name.message : 'Full Name *'}
+                    {requestForm.formState.errors.name ? t('deliverables.form.errors.name') : t('deliverables.form.fields.name')}
                   </Label>
                   <Input
                     id="name"
@@ -682,7 +694,7 @@ export default function Deliverables() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email" className={requestForm.formState.errors.email ? 'text-red-500' : ''}>
-                    {requestForm.formState.errors.email ? requestForm.formState.errors.email.message : 'Work Email *'}
+                    {requestForm.formState.errors.email ? t('common.invalidEmail') : t('deliverables.form.fields.email')}
                   </Label>
                   <Input
                     id="email"
@@ -696,7 +708,7 @@ export default function Deliverables() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="company" className={requestForm.formState.errors.company ? 'text-red-500' : ''}>
-                    {requestForm.formState.errors.company ? requestForm.formState.errors.company.message : 'Company *'}
+                    {requestForm.formState.errors.company ? t('deliverables.form.errors.company') : t('deliverables.form.fields.company')}
                   </Label>
                   <Input
                     id="company"
@@ -706,7 +718,7 @@ export default function Deliverables() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="role" className={requestForm.formState.errors.role ? 'text-red-500' : ''}>
-                    {requestForm.formState.errors.role ? requestForm.formState.errors.role.message : 'Role/Title *'}
+                    {requestForm.formState.errors.role ? t('deliverables.form.errors.role') : t('deliverables.form.fields.role')}
                   </Label>
                   <Input
                     id="role"
@@ -719,38 +731,38 @@ export default function Deliverables() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="sector" className={requestForm.formState.errors.sector ? 'text-red-500' : ''}>
-                    {requestForm.formState.errors.sector ? requestForm.formState.errors.sector.message : 'Sector *'}
+                    {requestForm.formState.errors.sector ? t('deliverables.form.errors.sector') : t('deliverables.form.fields.sector')}
                   </Label>
                   <Select value={sector} onValueChange={(value) => requestForm.setValue('sector', value, { shouldValidate: true })}>
                     <SelectTrigger id="sector" className={requestForm.formState.errors.sector ? 'border-red-500' : ''}>
-                      <SelectValue placeholder="Select sector" />
+                      <SelectValue placeholder={t('deliverables.form.placeholders.sector')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="finance">Finance & Banking</SelectItem>
-                      <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
-                      <SelectItem value="healthcare">Healthcare</SelectItem>
-                      <SelectItem value="telecom">Telecom</SelectItem>
-                      <SelectItem value="retail">Retail</SelectItem>
-                      <SelectItem value="government">Government</SelectItem>
-                      <SelectItem value="giga">Giga Vendor</SelectItem>
-                      <SelectItem value="sme">SME/Startup</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="finance">{t('deliverables.form.sectors.finance')}</SelectItem>
+                      <SelectItem value="energy">{t('deliverables.form.sectors.energy')}</SelectItem>
+                      <SelectItem value="healthcare">{t('deliverables.form.sectors.healthcare')}</SelectItem>
+                      <SelectItem value="telecom">{t('deliverables.form.sectors.telecom')}</SelectItem>
+                      <SelectItem value="retail">{t('deliverables.form.sectors.retail')}</SelectItem>
+                      <SelectItem value="government">{t('deliverables.form.sectors.government')}</SelectItem>
+                      <SelectItem value="giga">{t('deliverables.form.sectors.giga')}</SelectItem>
+                      <SelectItem value="sme">{t('deliverables.form.sectors.sme')}</SelectItem>
+                      <SelectItem value="other">{t('deliverables.form.sectors.other')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="timeline" className={requestForm.formState.errors.timeline ? 'text-red-500' : ''}>
-                    {requestForm.formState.errors.timeline ? requestForm.formState.errors.timeline.message : 'Timeline *'}
+                    {requestForm.formState.errors.timeline ? t('deliverables.form.errors.timeline') : t('deliverables.form.fields.timeline')}
                   </Label>
                   <Select value={timeline} onValueChange={(value) => requestForm.setValue('timeline', value, { shouldValidate: true })}>
                     <SelectTrigger id="timeline" className={requestForm.formState.errors.timeline ? 'border-red-500' : ''}>
-                      <SelectValue placeholder="Select timeline" />
+                      <SelectValue placeholder={t('deliverables.form.placeholders.timeline')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="immediate">Immediate (0-30 days)</SelectItem>
-                      <SelectItem value="30-90">30-90 days</SelectItem>
-                      <SelectItem value="3-6">3-6 months</SelectItem>
-                      <SelectItem value="exploring">Exploring</SelectItem>
+                      <SelectItem value="immediate">{t('deliverables.form.timelines.immediate')}</SelectItem>
+                      <SelectItem value="30-90">{t('deliverables.form.timelines.month1to3')}</SelectItem>
+                      <SelectItem value="3-6">{t('deliverables.form.timelines.month3to6')}</SelectItem>
+                      <SelectItem value="exploring">{t('deliverables.form.timelines.exploring')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -758,22 +770,31 @@ export default function Deliverables() {
               
               <div className="space-y-2">
                 <Label className={requestForm.formState.errors.primaryNeeds ? 'text-red-500' : ''}>
-                  {requestForm.formState.errors.primaryNeeds ? requestForm.formState.errors.primaryNeeds.message : 'Primary Needs (select all that apply) *'}
+                  {requestForm.formState.errors.primaryNeeds ? t('deliverables.form.errors.primaryNeeds') : t('deliverables.form.fields.primaryNeeds')}
                 </Label>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  {['PDPL', 'NCA ECC', 'ZATCA', 'Governance', 'ERM', 'Internal Audit', 'AI Governance', 'Vendor Risk'].map((need) => (
-                    <div key={need} className="flex items-center space-x-2">
+                  {[
+                    { key: 'PDPL', label: t('deliverables.form.needs.pdpl') },
+                    { key: 'NCA ECC', label: t('deliverables.form.needs.ncaEcc') },
+                    { key: 'ZATCA', label: t('deliverables.form.needs.zatca') },
+                    { key: 'Governance', label: t('deliverables.form.needs.governance') },
+                    { key: 'ERM', label: t('deliverables.form.needs.erm') },
+                    { key: 'Internal Audit', label: t('deliverables.form.needs.internalAudit') },
+                    { key: 'AI Governance', label: t('deliverables.form.needs.aiGovernance') },
+                    { key: 'Vendor Risk', label: t('deliverables.form.needs.vendorRisk') }
+                  ].map((need) => (
+                    <div key={need.key} className="flex items-center space-x-2">
                       <Checkbox
-                        id={need}
-                        checked={primaryNeeds.includes(need)}
+                        id={need.key}
+                        checked={primaryNeeds.includes(need.key)}
                         onCheckedChange={(checked) => {
                           const newNeeds = checked
-                            ? [...primaryNeeds, need]
-                            : primaryNeeds.filter(n => n !== need);
+                            ? [...primaryNeeds, need.key]
+                            : primaryNeeds.filter(n => n !== need.key);
                           requestForm.setValue('primaryNeeds', newNeeds, { shouldValidate: true });
                         }}
                       />
-                      <label htmlFor={need} className="text-sm cursor-pointer">{need}</label>
+                      <label htmlFor={need.key} className="text-sm cursor-pointer">{need.label}</label>
                     </div>
                   ))}
                 </div>
@@ -786,7 +807,7 @@ export default function Deliverables() {
                     checked={ndaRequired}
                     onCheckedChange={(checked) => requestForm.setValue('ndaRequired', checked as boolean)}
                   />
-                  <label htmlFor="nda" className="text-sm cursor-pointer">NDA Required</label>
+                  <label htmlFor="nda" className="text-sm cursor-pointer">{t('deliverables.form.fields.ndaRequired')}</label>
                 </div>
                 
                 <div className="flex items-center space-x-2">
@@ -795,17 +816,17 @@ export default function Deliverables() {
                     checked={readinessCall}
                     onCheckedChange={(checked) => requestForm.setValue('readinessCall', checked as boolean)}
                   />
-                  <label htmlFor="call" className="text-sm cursor-pointer">I'd like a readiness call as well</label>
+                  <label htmlFor="call" className="text-sm cursor-pointer">{t('deliverables.form.fields.readinessCall')}</label>
                 </div>
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="notes">Additional Notes</Label>
+                <Label htmlFor="notes">{t('deliverables.form.fields.notes')}</Label>
                 <Textarea
                   id="notes"
                   rows={3}
                   {...requestForm.register('notes')}
-                  placeholder="Any specific requirements or questions..."
+                  placeholder={t('deliverables.form.placeholders.notes')}
                 />
               </div>
               
@@ -819,16 +840,16 @@ export default function Deliverables() {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Sending...
+                    {t('deliverables.form.submitting')}
                   </>
                 ) : (
-                  'Request Secure Access'
+                  t('deliverables.form.submitBtn')
                 )}
               </Button>
                 
               
               <p className="text-xs text-gray-500 text-center">
-                We do not sell or share your data. Requests are reviewed to ensure secure distribution.
+                {t('deliverables.form.privacyNote')}
               </p>
             </form>
           </Card>
@@ -839,7 +860,7 @@ export default function Deliverables() {
       <section className="py-16 bg-gradient-to-r from-[#0B1220] to-[#1a1f35] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Need a scoped proposal instead of samples?
+            {t('deliverables.secondaryCta.title')}
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
@@ -847,7 +868,7 @@ export default function Deliverables() {
               onClick={() => window.location.href = '/'}
               className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
             >
-              Schedule Enterprise Demo
+              {t('deliverables.secondaryCta.btn1')}
             </Button>
             <Button 
               size="lg"
@@ -855,7 +876,7 @@ export default function Deliverables() {
               onClick={() => window.location.href = '/partnerships'}
               className="border-white/30 text-white hover:bg-white/10"
             >
-              Request Government Partnership Proposal
+              {t('deliverables.secondaryCta.btn2')}
             </Button>
           </div>
         </div>
@@ -865,52 +886,52 @@ export default function Deliverables() {
       <section className="py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">
-            Frequently Asked Questions
+            {t('deliverables.faq.title')}
           </h2>
           
           <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Why are samples gated?
+                {t('deliverables.faq.q1')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Our deliverables contain proprietary methodologies and Saudi-specific frameworks that represent significant IP. Gating ensures we share with serious prospects and protect both your organization's confidentiality and our competitive advantage.
+                {t('deliverables.faq.a1')}
               </AccordionContent>
             </AccordionItem>
             
             <AccordionItem value="item-2" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Can you sign an NDA?
+                {t('deliverables.faq.q2')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Yes. We routinely sign mutual NDAs, especially for government and large enterprise engagements. Simply check the NDA option in the request form and we'll send our standard template or review yours.
+                {t('deliverables.faq.a2')}
               </AccordionContent>
             </AccordionItem>
             
             <AccordionItem value="item-3" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Do you customize per sector?
+                {t('deliverables.faq.q3')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Absolutely. While our frameworks are sector-agnostic, we customize terminology, risk scenarios, and control examples for your industry (finance, energy, healthcare, etc.). Full deliverables include sector-specific case studies and implementation guidance.
+                {t('deliverables.faq.a3')}
               </AccordionContent>
             </AccordionItem>
             
             <AccordionItem value="item-4" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                What is 'evidence-ready'?
+                {t('deliverables.faq.q4')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Every deliverable includes built-in evidence collection formats, audit logs, and documentation standards that satisfy regulator requirements. You receive not just policies, but the proof system auditors expect.
+                {t('deliverables.faq.a4')}
               </AccordionContent>
             </AccordionItem>
             
             <AccordionItem value="item-5" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                How quickly can you share samples?
+                {t('deliverables.faq.q5')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                We typically respond within 24 hours with secure access links. For NDA requests or government partnerships, allow 2-3 business days for legal review and approval.
+                {t('deliverables.faq.a5')}
               </AccordionContent>
             </AccordionItem>
           </Accordion>

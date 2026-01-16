@@ -446,7 +446,8 @@
     "search": "Search",
     "filter": "Filter",
     "clear": "Clear",
-    "apply": "Apply"
+    "apply": "Apply",
+    "invalidEmail": "Invalid email"
   },
   "advisory": {
     "hero": {
@@ -2435,6 +2436,536 @@
       "title": "Need Sample Deliverables First?",
       "description": "See the quality and structure of our audit-ready outputs before booking a call.",
       "btn": "Request Sample Deliverables"
+    }
+  },
+  "investors": {
+    "hero": {
+      "badge1": "Saudi-first",
+      "badge2": "Sovereign-by-design",
+      "badge3": "Workflow-scaled advisory",
+      "title": "Investors",
+      "description": "Aliph Solutions is building a sovereign AI advisory engine for governance, risk, and compliance—where regulation, sovereignty, and AI adoption are converging.",
+      "btnPrimary": "Request the Deck",
+      "btnSecondary": "Book an Investor Briefing",
+      "linkAliphBrain": "Explore the Aliph Brain",
+      "footer": "Detailed metrics, roadmap, and architecture walkthrough available upon request."
+    },
+    "deckModal": {
+      "title": "Request Investor Deck",
+      "description": "We share the deck and detailed materials through a secure link after a quick verification.",
+      "nameLabel": "Full Name *",
+      "emailLabel": "Email *",
+      "entityLabel": "Fund / Entity *",
+      "roleLabel": "Role / Title *",
+      "focusLabel": "Focus *",
+      "focusPlaceholder": "Select investment stage",
+      "interestsLabel": "Areas of Interest (select all that apply)",
+      "ndaLabel": "NDA Requested",
+      "notesLabel": "Notes (optional)",
+      "notesPlaceholder": "Timeline, specific questions, or other context...",
+      "submitBtn": "Request Secure Deck",
+      "submittingBtn": "Sending...",
+      "disclaimer": "We do not publish fundraising terms publicly. Details shared privately with qualified investors.",
+      "errorName": "Name must be at least 2 characters",
+      "errorEmail": "Please enter a valid email address",
+      "errorEntity": "Fund/Entity must be at least 2 characters",
+      "errorRole": "Role must be at least 2 characters",
+      "errorFocus": "Please select investment focus"
+    },
+    "focusOptions": {
+      "preSeed": "Pre-Seed",
+      "seed": "Seed",
+      "seriesA": "Series A",
+      "strategic": "Strategic",
+      "familyOffice": "Family Office",
+      "corporateVC": "Corporate VC"
+    },
+    "interestOptions": {
+      "grcPlatforms": "GRC platforms",
+      "sovereignAI": "Sovereign AI",
+      "complianceAutomation": "Compliance automation",
+      "ksaMarket": "KSA market",
+      "gccExpansion": "GCC expansion",
+      "advisoryServices": "Advisory services"
+    },
+    "successModal": {
+      "title": "Request Received!",
+      "message": "Thanks. We'll share a secure link and offer a briefing within 24 hours.",
+      "btn": "Close"
+    },
+    "whyNow": {
+      "title": "Why Now",
+      "card1Title": "AI adoption is unavoidable",
+      "card1Desc": "Organizations are accelerating AI use across operations—creating productivity gains but also governance gaps and audit risk.",
+      "card2Title": "Sovereignty is becoming a requirement",
+      "card2Desc": "Data residency, control, and auditability are no longer optional. Regulations and buyer expectations are shifting toward sovereign patterns.",
+      "card3Title": "Compliance needs audit-ready execution",
+      "card3Desc": "Not just documentation. Organizations need evidence-backed outputs with clear ownership, timelines, and implementation roadmaps.",
+      "card4Title": "Macro Alignment",
+      "card4Point1": "• Sovereignty and national infrastructure direction",
+      "card4Point2": "• Regulatory modernization + AI adoption at scale",
+      "card4Disclaimer": "Use of the Vision 2030 logo indicates alignment with national priorities, not endorsement."
+    },
+    "marketGap": {
+      "title": "The Market Gap",
+      "subtitle": "Traditional consulting vs generic AI vs Aliph",
+      "traditional": {
+        "title": "Traditional Consulting",
+        "desc": "Rigorous methodology, credible outcomes, but slow and hard to scale.",
+        "footer": "Expensive per engagement • Limited repeatability"
+      },
+      "genericAI": {
+        "title": "Generic AI Tools",
+        "desc": "Fast generation, but risky, uncontrolled, and not auditable.",
+        "footer": "Black-box outputs • No validation layer"
+      },
+      "aliph": {
+        "title": "Aliph Solutions",
+        "desc": "Consulting-grade outcomes delivered through governed workflows and sovereignty patterns.",
+        "footer": "Repeatable • Auditable • Scalable"
+      },
+      "closing": "Service-backed delivery today. Workflow-scaled advantage tomorrow."
+    },
+    "engine": {
+      "title": "The Aliph Engine",
+      "component1Title": "Saudi Regulatory Intelligence Layer",
+      "component1Desc": "Knowledge base mapping regulations to controls, templates, and implementation patterns.",
+      "component2Title": "Workflow Library",
+      "component2Desc": "Agentic workflows producing structured, evidence-backed outputs aligned to advisory methodology.",
+      "component3Title": "Validation Layer",
+      "component3Desc": "Expert review gates where needed—automated QA checks plus human sign-off for critical outputs.",
+      "component4Title": "Evidence-Ready Output Packaging",
+      "component4Desc": "Audit trail, ownership mapping, implementation roadmap—ready for board and regulator review.",
+      "link1": "The Aliph Brain",
+      "link2": "Security & Sovereignty",
+      "link3": "Sample Deliverables"
+    },
+    "defensibility": {
+      "title": "Defensibility",
+      "moat1": "Compounding knowledge + workflows from delivery",
+      "moat2": "Sovereign-by-design architecture patterns",
+      "moat3": "Distribution via advisory and managed services",
+      "moat4": "Repeatable deliverables (packs) that scale across sectors",
+      "moat5": "Saudi-first positioning aligned to Vision 2030 direction"
+    },
+    "businessModel": {
+      "title": "Business Model",
+      "advisory": {
+        "title": "Advisory",
+        "desc": "Fixed-scope outcome packs and programs for governance, risk, compliance, and AI governance.",
+        "footer": "Service-led revenue with structured scoping"
+      },
+      "managedServices": {
+        "title": "Managed Services",
+        "desc": "Continuous readiness operations—GRC support center, compliance monitoring, evidence tracking.",
+        "footer": "Recurring revenue + operational leverage"
+      },
+      "platformWorkflows": {
+        "title": "Platform Workflows",
+        "desc": "Accelerators, tooling, workflow modules that increase delivery speed and margin expansion.",
+        "footer": "Margin improvement through repeatability"
+      },
+      "closing": "Revenue is service-led while workflows increase margins and repeatability. Advisory and managed services provide cash flow and market validation while platform workflows compound value."
+    },
+    "traction": {
+      "title": "Traction Signals",
+      "signal1": "Active market engagement with Saudi ecosystem partners",
+      "signal2": "Deliverable library and workflow system in development and expansion",
+      "signal3": "Ongoing discussions across regulated and growth sectors",
+      "signal4": "Product roadmap aligned to platform expansion milestones"
+    },
+    "roadmap": {
+      "title": "Roadmap",
+      "now": {
+        "label": "Now",
+        "title": "Expand Deliverable Packs + Workflow Library",
+        "desc": "Building out advisory domain coverage and workflow depth across PDPL, NCA ECC, ZATCA, internal audit, and AI governance."
+      },
+      "next": {
+        "label": "Next",
+        "title": "Scale Managed Services + Integrations",
+        "desc": "Launch GRC support center operations, evidence tracking platform, and integration capabilities for enterprise systems."
+      },
+      "future": {
+        "label": "Future",
+        "title": "Regional Expansion + Regulated Modules",
+        "desc": "GCC readiness, additional regulatory modules for banking/finance, and partnership ecosystem development."
+      }
+    },
+    "requestDeck": {
+      "title": "Request the Investor Deck",
+      "subtitle": "We share the deck and detailed materials through a secure link after a quick verification.",
+      "btnPrimary": "Request Secure Deck",
+      "btnSecondary": "Book Investor Briefing",
+      "disclaimer": "We do not publish fundraising terms publicly. Details shared privately with qualified investors."
+    },
+    "faq": {
+      "title": "Investor FAQ",
+      "q1": "Are you a consultancy or a product company?",
+      "a1": "Aliph is building a product-enabled advisory firm. We deliver consulting-grade services today using a workflow engine that compounds in value. Revenue is service-led with increasing margin leverage through repeatable workflows and deliverable packs.",
+      "q2": "What makes this defensible vs Big Four?",
+      "a2": "We combine consulting rigor with workflow scalability that Big Four cannot replicate without cannibalizing their model. Our sovereign-by-design architecture, Saudi-first positioning, and compounding workflow library create structural advantages in speed, cost, and repeatability.",
+      "q3": "How do you avoid generic AI risks?",
+      "a3": "Through governed workflows with validation layers—not black-box generation. Outputs go through automated QA checks, consistency validation, and expert review gates where needed. Every deliverable has ownership, audit trail, and evidence packaging.",
+      "q4": "How does sovereignty factor into delivery?",
+      "a4": "Sovereignty is a distribution and defensibility advantage. Our architecture supports data residency requirements, enhanced logging, and strict access controls—addressing buyer concerns that generic AI tools cannot. This opens doors in regulated sectors and government programs.",
+      "q5": "What is the go-to-market?",
+      "a5": "Direct advisory sales to regulated enterprises and high-growth SMEs, plus ecosystem partnerships with consulting firms, legal advisors, and technology providers. Managed services create recurring revenue while advisory engagements validate and expand workflow coverage.",
+      "q6": "How do you scale margins?",
+      "a6": "Through workflow repeatability and deliverable pack standardization. Each engagement feeds the workflow library, reducing time-to-delivery and increasing quality consistency. Advisory margins improve as workflows mature; managed services add operational leverage; platform modules create software-like economics at the margin."
+    },
+    "finalCta": {
+      "title": "Building the Sovereign AI Advisory Engine for Saudi GRC",
+      "subtitle": "Request the deck to see detailed metrics, architecture, and roadmap.",
+      "btn": "Request Investor Deck"
+    }
+  },
+  "deliverables": {
+    "categories": {
+      "all": "All",
+      "regulation": "Regulation",
+      "governance": "Governance",
+      "risk": "Risk",
+      "audit": "Audit"
+    },
+    "audience": {
+      "enterprise": "Enterprise",
+      "sme": "SME",
+      "government": "Government",
+      "giga": "Giga"
+    },
+    "badges": {
+      "popular": "Popular",
+      "new": "New"
+    },
+    "packs": {
+      "pdpl": {
+        "title": "PDPL Readiness Pack",
+        "description": "Complete data protection compliance framework",
+        "preview1": "Policy suite map (21 policies)",
+        "preview2": "Operating roles outline (DPO, processors)",
+        "preview3": "Roadmap template (redacted milestones)",
+        "preview4": "Breach response plan structure",
+        "preview5": "Data inventory format",
+        "preview6": "Rights request workflow"
+      },
+      "ncaEcc": {
+        "title": "NCA ECC Readiness Pack",
+        "description": "Essential Cybersecurity Controls compliance suite",
+        "preview1": "Controls mapping structure (114 controls)",
+        "preview2": "Evidence pack template (redacted)",
+        "preview3": "Remediation plan format",
+        "preview4": "Assessment methodology",
+        "preview5": "Domain-by-domain roadmap",
+        "preview6": "Certification prep checklist"
+      },
+      "zatca": {
+        "title": "ZATCA Compliance Operations Pack",
+        "description": "Tax compliance and e-invoicing framework",
+        "preview1": "Operating cadence (monthly/quarterly)",
+        "preview2": "Process control map",
+        "preview3": "Records readiness checklist structure",
+        "preview4": "E-invoicing integration checklist",
+        "preview5": "Audit trail requirements",
+        "preview6": "Exception handling procedures"
+      },
+      "governance": {
+        "title": "Corporate Governance Pack",
+        "description": "Board-ready governance documentation suite",
+        "preview1": "Delegation of Authority (DoA) structure",
+        "preview2": "Committee charter structures",
+        "preview3": "Reporting pack outline",
+        "preview4": "Conflict of interest policy format",
+        "preview5": "Board meeting cadence",
+        "preview6": "Escalation protocols"
+      },
+      "erm": {
+        "title": "ERM Foundation Pack",
+        "description": "Enterprise risk management framework",
+        "preview1": "Risk taxonomy and appetite outline",
+        "preview2": "Risk register structure",
+        "preview3": "KRI catalog format",
+        "preview4": "Three lines of defense model",
+        "preview5": "Risk committee charter",
+        "preview6": "Risk reporting dashboard structure"
+      },
+      "internalAudit": {
+        "title": "Internal Audit Enablement Pack",
+        "description": "Complete internal audit function setup",
+        "preview1": "IA charter structure",
+        "preview2": "Annual plan format (risk-based)",
+        "preview3": "Reporting templates (redacted)",
+        "preview4": "Workpaper standards",
+        "preview5": "Issue tracking system",
+        "preview6": "Quality assurance framework"
+      },
+      "aiGovernance": {
+        "title": "AI Governance Pack",
+        "description": "Sovereign AI governance and control framework",
+        "preview1": "AI policy structure",
+        "preview2": "Roles & approvals model",
+        "preview3": "Audit logging checklist",
+        "preview4": "Model risk assessment format",
+        "preview5": "Data minimization controls",
+        "preview6": "AI ethics framework"
+      },
+      "vendorRisk": {
+        "title": "Vendor / Third-Party Risk Pack",
+        "description": "Third-party risk management framework",
+        "preview1": "Assessment structure (tiered)",
+        "preview2": "Onboarding controls checklist",
+        "preview3": "Monitoring cadence",
+        "preview4": "Contract requirements template",
+        "preview5": "Exit management procedures",
+        "preview6": "Vendor scorecard format"
+      }
+    },
+    "successModal": {
+      "title": "Request Received!",
+      "message": "We'll respond with a secure preview link and next steps within 24 hours.",
+      "button": "Close"
+    },
+    "previewModal": {
+      "redacted": "Preview Redacted",
+      "includesTitle": "Preview Includes:",
+      "fullPackTitle": "What you receive in full pack:",
+      "fullPackDesc": "Complete, unredacted templates ready for implementation with your organization details. Includes all supporting worksheets, checklists, and evidence formats.",
+      "requestBtn": "Request Secure Access",
+      "bookCallBtn": "Book a Readiness Call"
+    },
+    "hero": {
+      "badge1": "Audit-Ready",
+      "badge2": "Implementation-First",
+      "badge3": "Saudi-Aligned",
+      "title": "Sample Deliverables — Built for Saudi Regulation",
+      "description": "Preview the structure and quality of Aliph outputs. Full packs are shared securely based on your sector and need.",
+      "btnPrimary": "Request Sample Access",
+      "btnSecondary": "Book a Readiness Call",
+      "ndaNote": "Optional NDA available. Samples are shared with secure access.",
+      "doc1": "Policy Suite",
+      "doc2": "Controls Mapping",
+      "doc3": "Evidence Pack",
+      "doc4": "Roadmap"
+    },
+    "whatsIncluded": {
+      "title": "What's Included in the Preview",
+      "card1Title": "Table of Contents + Structure",
+      "card1Desc": "Shows headings, sections, implementation approach, and overall framework architecture.",
+      "card2Title": "Sample Pages (Redacted)",
+      "card2Desc": "Demonstrates writing quality, format standards, and professional presentation level.",
+      "card3Title": "Delivery Checklist",
+      "card3Desc": "Owners, timelines, evidence checkpoints, and implementation milestones.",
+      "ipTitle": "IP Protection Policy",
+      "ipDesc": "We don't publish full templates openly. Regulated-ready outputs are shared securely to protect your organization and our IP."
+    },
+    "library": {
+      "title": "Deliverable Packs",
+      "subtitle": "Select a pack to preview the structure and request secure access",
+      "previewIncludes": "PREVIEW INCLUDES:",
+      "moreItems": "+ {{count}} more",
+      "previewBtn": "Preview",
+      "requestBtn": "Request"
+    },
+    "standards": {
+      "title": "How Aliph Deliverables Are Built",
+      "subtitle": "Every output follows a proven implementation methodology",
+      "step1": "Discover",
+      "step2": "Map",
+      "step3": "Build",
+      "step4": "Validate",
+      "step5": "Evidence-Ready",
+      "feature1": "Implementation owners & roles",
+      "feature2": "Evidence checkpoints for audit",
+      "feature3": "Change log format (versioning)",
+      "feature4": "Saudi-aligned language and structure",
+      "securityLink": "View Security Standards"
+    },
+    "form": {
+      "title": "Request Sample Access",
+      "subtitle": "We'll share the most relevant preview set based on your sector and needs",
+      "fields": {
+        "name": "Full Name *",
+        "email": "Work Email *",
+        "company": "Company *",
+        "role": "Role/Title *",
+        "sector": "Sector *",
+        "timeline": "Timeline *",
+        "primaryNeeds": "Primary Needs (select all that apply) *",
+        "ndaRequired": "NDA Required",
+        "readinessCall": "I'd like a readiness call as well",
+        "notes": "Additional Notes"
+      },
+      "placeholders": {
+        "sector": "Select sector",
+        "timeline": "Select timeline",
+        "notes": "Any specific requirements or questions..."
+      },
+      "sectors": {
+        "finance": "Finance & Banking",
+        "energy": "Energy & Petrochemicals",
+        "healthcare": "Healthcare",
+        "telecom": "Telecom",
+        "retail": "Retail",
+        "government": "Government",
+        "giga": "Giga Vendor",
+        "sme": "SME/Startup",
+        "other": "Other"
+      },
+      "timelines": {
+        "immediate": "Immediate (0-30 days)",
+        "month1to3": "30-90 days",
+        "month3to6": "3-6 months",
+        "exploring": "Exploring"
+      },
+      "needs": {
+        "pdpl": "PDPL",
+        "ncaEcc": "NCA ECC",
+        "zatca": "ZATCA",
+        "governance": "Governance",
+        "erm": "ERM",
+        "internalAudit": "Internal Audit",
+        "aiGovernance": "AI Governance",
+        "vendorRisk": "Vendor Risk"
+      },
+      "errors": {
+        "name": "Name must be at least 2 characters",
+        "company": "Company name must be at least 2 characters",
+        "role": "Role must be at least 2 characters",
+        "sector": "Please select a sector",
+        "timeline": "Please select a timeline",
+        "primaryNeeds": "Please select at least one need"
+      },
+      "submitBtn": "Request Secure Access",
+      "submitting": "Sending...",
+      "privacyNote": "We do not sell or share your data. Requests are reviewed to ensure secure distribution."
+    },
+    "secondaryCta": {
+      "title": "Need a scoped proposal instead of samples?",
+      "btn1": "Schedule Enterprise Demo",
+      "btn2": "Request Government Partnership Proposal"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Why are samples gated?",
+      "a1": "Our deliverables contain proprietary methodologies and Saudi-specific frameworks that represent significant IP. Gating ensures we share with serious prospects and protect both your organization's confidentiality and our competitive advantage.",
+      "q2": "Can you sign an NDA?",
+      "a2": "Yes. We routinely sign mutual NDAs, especially for government and large enterprise engagements. Simply check the NDA option in the request form and we'll send our standard template or review yours.",
+      "q3": "Do you customize per sector?",
+      "a3": "Absolutely. While our frameworks are sector-agnostic, we customize terminology, risk scenarios, and control examples for your industry (finance, energy, healthcare, etc.). Full deliverables include sector-specific case studies and implementation guidance.",
+      "q4": "What is 'evidence-ready'?",
+      "a4": "Every deliverable includes built-in evidence collection formats, audit logs, and documentation standards that satisfy regulator requirements. You receive not just policies, but the proof system auditors expect.",
+      "q5": "How quickly can you share samples?",
+      "a5": "We typically respond within 24 hours with secure access links. For NDA requests or government partnerships, allow 2-3 business days for legal review and approval."
+    }
+  },
+  "security": {
+    "hero": {
+      "badge1": "Enterprise-ready",
+      "badge2": "Sovereign-by-design",
+      "badge3": "Auditability-first",
+      "title": "Security Statement",
+      "description": "This page summarizes how we approach secure delivery and controlled handling of information during advisory and managed engagements.",
+      "btn1": "Speak to an Architect",
+      "btn2": "Request Security Brief (PDF)",
+      "link": "View full Security & Sovereignty page →"
+    },
+    "principles": {
+      "title": "Our Security Principles",
+      "principle1Title": "Data minimization",
+      "principle1Desc": "Collect only what's required for scope",
+      "principle2Title": "Least privilege access",
+      "principle2Desc": "Role-based access patterns",
+      "principle3Title": "Secure by default",
+      "principle3Desc": "Delivery workflows built for control",
+      "principle4Title": "Traceability & versioning",
+      "principle4Desc": "Change logs where applicable",
+      "principle5Title": "Environment separation",
+      "principle5Desc": "Pattern-based boundaries",
+      "principle6Title": "Continuous improvement",
+      "principle6Desc": "Regular reviews and updates"
+    },
+    "dataHandling": {
+      "title": "How We Handle Data",
+      "subtitle": "Our approach to data handling during advisory and managed engagements",
+      "point1": "We limit collection to what's required for scope.",
+      "point2": "We structure engagements to respect sensitivity and classification.",
+      "point3": "We avoid unnecessary replication of client information.",
+      "point4": "We can work with redaction/masking patterns when needed.",
+      "point5": "Where possible, we package outputs without including raw sensitive data.",
+      "note": "Specific handling details depend on the engagement model and your environment requirements.",
+      "privacyLink": "Privacy Policy",
+      "contactLink": "Contact Us"
+    },
+    "accessControl": {
+      "title": "Access Controls & Governance",
+      "patternsTitle": "Access Patterns",
+      "pattern1": "Role-based access patterns",
+      "pattern2": "Approval workflows (scope-dependent)",
+      "pattern3": "Controlled sharing of deliverables",
+      "pattern4": "Optional NDA execution",
+      "ndaTitle": "NDA",
+      "ndaDesc": "We can sign NDAs and structure secure distribution for samples and deliverables.",
+      "ndaBtn": "Request NDA"
+    },
+    "auditability": {
+      "title": "Auditability & Evidence Readiness",
+      "subtitle": "Built for audit-ready delivery and clear accountability",
+      "feature1Title": "Versioned deliverables",
+      "feature1Desc": "Change tracking and version control where applicable",
+      "feature2Title": "Change logs for key artifacts",
+      "feature2Desc": "Documentation of material updates and revisions",
+      "feature3Title": "Ownership and accountability mapping",
+      "feature3Desc": "Clear assignment of deliverable ownership and review",
+      "feature4Title": "Evidence checklists and implementation roadmaps",
+      "feature4Desc": "Structured documentation for audit readiness",
+      "btn": "View Sample Deliverables"
+    },
+    "deliveryPatterns": {
+      "title": "Delivery Patterns",
+      "subtitle": "Engagements can be structured to support stricter environments where required",
+      "pattern1Title": "Standard Secure Delivery",
+      "pattern1Desc": "Controlled access to deliverables, versioned artifacts, role-based sharing",
+      "pattern1Feature1": "Secure document delivery",
+      "pattern1Feature2": "Versioning and change logs",
+      "pattern1Feature3": "Access controls",
+      "pattern2Title": "Private Environment Pattern",
+      "pattern2Desc": "Engagement structured for stricter data boundaries and enhanced logging",
+      "pattern2Feature1": "Data boundary controls",
+      "pattern2Feature2": "Enhanced audit logging",
+      "pattern2Feature3": "Custom approval workflows",
+      "pattern3Title": "Edge / On-Prem Pattern",
+      "pattern3Desc": "Use-case dependent deployment for highly sensitive or air-gapped environments",
+      "pattern3Feature1": "On-premise deployment options",
+      "pattern3Feature2": "Custom security posture",
+      "pattern3Feature3": "Full traceability",
+      "btn": "Discuss the Right Pattern"
+    },
+    "reporting": {
+      "title": "Security Concerns or Reporting",
+      "description": "If you believe you've identified a security issue related to an Aliph engagement or artifact, contact us.",
+      "btn": "Contact Security"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Do you store client data?",
+      "a1": "We structure engagements to minimize data replication. Where context is required, we limit storage to what's necessary for delivery and can implement data retention and deletion policies aligned with your requirements.",
+      "q2": "Can you work under strict data requirements?",
+      "a2": "Yes. Engagements can be structured with data boundary controls, enhanced logging, custom approval workflows, and deployment patterns designed for strict or air-gapped environments. We recommend discussing specific requirements with our architects.",
+      "q3": "Do you provide audit logs?",
+      "a3": "Audit logging capabilities depend on the engagement model and deployment pattern. For private environment and on-premise patterns, we can structure comprehensive audit logging. Standard engagements include versioning and change logs for deliverables.",
+      "q4": "Can you sign an NDA?",
+      "a4": "Yes. We routinely sign NDAs and can structure secure distribution and handling protocols for samples, deliverables, and engagement materials.",
+      "q5": "How are samples shared securely?",
+      "a5": "Sample deliverables are typically shared through controlled access mechanisms. For sensitive previews, we can implement password protection, time-limited access, or secure file transfer protocols based on your requirements.",
+      "q6": "How do you minimize sensitive exposure?",
+      "a6": "Through data minimization, masking/redaction patterns where needed, separation of sensitive context from deliverable packaging, and controlled access patterns. Specific techniques depend on the engagement scope and can be structured during scoping."
+    },
+    "finalCta": {
+      "title": "Need a security walkthrough?",
+      "description": "We can align delivery patterns to your environment and scope.",
+      "btn1": "Speak to an Architect",
+      "btn2": "Request Security Brief",
+      "link": "View Sample Deliverables →"
     }
   }
 }

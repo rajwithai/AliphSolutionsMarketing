@@ -37,7 +37,7 @@ export default function ExpertsSection() {
   const { t } = useLanguage();
   
   const handleMeetExperts = () => {
-    console.log('Meet our experts clicked');
+    
     // In real app, navigate to experts page
   };
   
