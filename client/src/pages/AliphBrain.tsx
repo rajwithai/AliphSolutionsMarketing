@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -31,22 +32,25 @@ import {
 import { Brain, FileText, Shield, CheckCircle2, ArrowRight, Zap, Users, Database, Eye, Lock, AlertTriangle, Workflow, Building2, Loader2 } from 'lucide-react';
 import SuccessModal from '@/components/SuccessModal';
 import useSEO from '@/hooks/useSEO';
+import i18n from '@/i18n/config';
 
 // Demo form validation schema
-const demoFormSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
-  email: z.string().email('Please enter a valid email address'),
-  company: z.string().min(2, 'Company name is required').max(200),
-  role: z.string().min(2, 'Role is required').max(100),
-  sector: z.string().min(1, 'Please select a sector'),
-  focus: z.string().min(1, 'Please select a focus area'),
-  timeline: z.string().min(1, 'Please select a timeline'),
+const getDemoFormSchema = () => z.object({
+  name: z.string().min(2, i18n.t('aliphBrain.demoForm.validation.nameMin')).max(100),
+  email: z.string().email(i18n.t('aliphBrain.demoForm.validation.emailInvalid')),
+  company: z.string().min(2, i18n.t('aliphBrain.demoForm.validation.companyRequired')).max(200),
+  role: z.string().min(2, i18n.t('aliphBrain.demoForm.validation.roleRequired')).max(100),
+  sector: z.string().min(1, i18n.t('aliphBrain.demoForm.validation.sectorRequired')),
+  focus: z.string().min(1, i18n.t('aliphBrain.demoForm.validation.focusRequired')),
+  timeline: z.string().min(1, i18n.t('aliphBrain.demoForm.validation.timelineRequired')),
   notes: z.string().optional(),
 });
 
-type DemoFormData = z.infer<typeof demoFormSchema>;
+type DemoFormData = z.infer<ReturnType<typeof getDemoFormSchema>>;
 
 export default function AliphBrain() {
+  const { t } = useTranslation();
+
   useSEO({
     title: 'Aliph Brain | Saudi GRC Advisory Engine',
     description: 'The Aliph Brain is a sovereign-by-design workflow engine and organizational memory for Saudi GRC—turning PDPL, NCA ECC, ZATCA, and governance requirements into audit-ready deliverables with expert validation.',
@@ -59,7 +63,7 @@ export default function AliphBrain() {
   const [serverError, setServerError] = useState<string | null>(null);
 
   const demoForm = useForm<DemoFormData>({
-    resolver: zodResolver(demoFormSchema),
+    resolver: zodResolver(getDemoFormSchema()),
     mode: 'onChange',
     defaultValues: {
       name: '',
@@ -106,13 +110,13 @@ export default function AliphBrain() {
       const result = await response.json();
 
       if (!response.ok) {
-        setServerError(result.message || 'Failed to submit. Please try again.');
+        setServerError(result.message || t('aliphBrain.demoForm.validation.submitError'));
         return;
       }
 
       setDemoSubmitted(true);
     } catch (error) {
-      setServerError('An unexpected error occurred. Please try again.');
+      setServerError(t('aliphBrain.demoForm.validation.unexpectedError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -127,9 +131,9 @@ export default function AliphBrain() {
           setDemoModalOpen(false);
           demoForm.reset();
         }}
-        title="Demo Request Received!"
-        message="We'll share a demo agenda and confirm a time within 24-48 hours."
-        buttonText="Close"
+        title={t('aliphBrain.demoForm.successTitle')}
+        message={t('aliphBrain.demoForm.successMessage')}
+        buttonText={t('aliphBrain.demoForm.successButton')}
       />
 
       {/* Demo Modal */}
@@ -142,9 +146,9 @@ export default function AliphBrain() {
       }}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl">Request an Aliph Brain Demo</DialogTitle>
+            <DialogTitle className="text-2xl">{t('aliphBrain.demoForm.modalTitle')}</DialogTitle>
             <DialogDescription>
-              See how governed workflows produce audit-ready outputs faster
+              {t('aliphBrain.demoForm.modalDescription')}
             </DialogDescription>
           </DialogHeader>
 
@@ -157,7 +161,7 @@ export default function AliphBrain() {
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="demo-name" className={demoForm.formState.errors.name ? 'text-red-500' : ''}>
-                  {demoForm.formState.errors.name ? demoForm.formState.errors.name.message : 'Full Name *'}
+                  {demoForm.formState.errors.name ? demoForm.formState.errors.name.message : t('aliphBrain.demoForm.labelName')}
                 </Label>
                 <Input
                   id="demo-name"
@@ -167,7 +171,7 @@ export default function AliphBrain() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="demo-email" className={demoForm.formState.errors.email ? 'text-red-500' : ''}>
-                  {demoForm.formState.errors.email ? demoForm.formState.errors.email.message : 'Work Email *'}
+                  {demoForm.formState.errors.email ? demoForm.formState.errors.email.message : t('aliphBrain.demoForm.labelEmail')}
                 </Label>
                 <Input
                   id="demo-email"
@@ -181,7 +185,7 @@ export default function AliphBrain() {
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="demo-company" className={demoForm.formState.errors.company ? 'text-red-500' : ''}>
-                  {demoForm.formState.errors.company ? demoForm.formState.errors.company.message : 'Company *'}
+                  {demoForm.formState.errors.company ? demoForm.formState.errors.company.message : t('aliphBrain.demoForm.labelCompany')}
                 </Label>
                 <Input
                   id="demo-company"
@@ -191,7 +195,7 @@ export default function AliphBrain() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="demo-role" className={demoForm.formState.errors.role ? 'text-red-500' : ''}>
-                  {demoForm.formState.errors.role ? demoForm.formState.errors.role.message : 'Role *'}
+                  {demoForm.formState.errors.role ? demoForm.formState.errors.role.message : t('aliphBrain.demoForm.labelRole')}
                 </Label>
                 <Input
                   id="demo-role"
@@ -204,39 +208,39 @@ export default function AliphBrain() {
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="demo-sector" className={demoForm.formState.errors.sector ? 'text-red-500' : ''}>
-                  {demoForm.formState.errors.sector ? demoForm.formState.errors.sector.message : 'Sector *'}
+                  {demoForm.formState.errors.sector ? demoForm.formState.errors.sector.message : t('aliphBrain.demoForm.labelSector')}
                 </Label>
                 <Select value={demoSector} onValueChange={(value) => demoForm.setValue('sector', value, { shouldValidate: true })}>
                   <SelectTrigger id="demo-sector" className={demoForm.formState.errors.sector ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select sector" />
+                    <SelectValue placeholder={t('aliphBrain.demoForm.placeholderSector')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="finance">Finance & Banking</SelectItem>
-                    <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
-                    <SelectItem value="healthcare">Healthcare</SelectItem>
-                    <SelectItem value="government">Government</SelectItem>
-                    <SelectItem value="giga">Giga Vendor</SelectItem>
-                    <SelectItem value="sme">SME</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="finance">{t('aliphBrain.demoForm.sectors.finance')}</SelectItem>
+                    <SelectItem value="energy">{t('aliphBrain.demoForm.sectors.energy')}</SelectItem>
+                    <SelectItem value="healthcare">{t('aliphBrain.demoForm.sectors.healthcare')}</SelectItem>
+                    <SelectItem value="government">{t('aliphBrain.demoForm.sectors.government')}</SelectItem>
+                    <SelectItem value="giga">{t('aliphBrain.demoForm.sectors.giga')}</SelectItem>
+                    <SelectItem value="sme">{t('aliphBrain.demoForm.sectors.sme')}</SelectItem>
+                    <SelectItem value="other">{t('aliphBrain.demoForm.sectors.other')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="demo-focus" className={demoForm.formState.errors.focus ? 'text-red-500' : ''}>
-                  {demoForm.formState.errors.focus ? demoForm.formState.errors.focus.message : 'Focus Area *'}
+                  {demoForm.formState.errors.focus ? demoForm.formState.errors.focus.message : t('aliphBrain.demoForm.labelFocus')}
                 </Label>
                 <Select value={demoFocus} onValueChange={(value) => demoForm.setValue('focus', value, { shouldValidate: true })}>
                   <SelectTrigger id="demo-focus" className={demoForm.formState.errors.focus ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select focus" />
+                    <SelectValue placeholder={t('aliphBrain.demoForm.placeholderFocus')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="pdpl">PDPL</SelectItem>
-                    <SelectItem value="nca-ecc">NCA ECC</SelectItem>
-                    <SelectItem value="zatca">ZATCA</SelectItem>
-                    <SelectItem value="governance">Governance</SelectItem>
-                    <SelectItem value="erm">ERM</SelectItem>
-                    <SelectItem value="internal-audit">Internal Audit</SelectItem>
-                    <SelectItem value="ai-governance">AI Governance</SelectItem>
+                    <SelectItem value="pdpl">{t('aliphBrain.demoForm.focusAreas.pdpl')}</SelectItem>
+                    <SelectItem value="ncaEcc">{t('aliphBrain.demoForm.focusAreas.ncaEcc')}</SelectItem>
+                    <SelectItem value="zatca">{t('aliphBrain.demoForm.focusAreas.zatca')}</SelectItem>
+                    <SelectItem value="governance">{t('aliphBrain.demoForm.focusAreas.governance')}</SelectItem>
+                    <SelectItem value="erm">{t('aliphBrain.demoForm.focusAreas.erm')}</SelectItem>
+                    <SelectItem value="internalAudit">{t('aliphBrain.demoForm.focusAreas.internalAudit')}</SelectItem>
+                    <SelectItem value="aiGovernance">{t('aliphBrain.demoForm.focusAreas.aiGovernance')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -244,43 +248,43 @@ export default function AliphBrain() {
 
             <div className="space-y-2">
               <Label htmlFor="demo-timeline" className={demoForm.formState.errors.timeline ? 'text-red-500' : ''}>
-                {demoForm.formState.errors.timeline ? demoForm.formState.errors.timeline.message : 'Timeline *'}
+                {demoForm.formState.errors.timeline ? demoForm.formState.errors.timeline.message : t('aliphBrain.demoForm.labelTimeline')}
               </Label>
               <Select value={demoTimeline} onValueChange={(value) => demoForm.setValue('timeline', value, { shouldValidate: true })}>
                 <SelectTrigger id="demo-timeline" className={demoForm.formState.errors.timeline ? 'border-red-500' : ''}>
-                  <SelectValue placeholder="Select timeline" />
+                  <SelectValue placeholder={t('aliphBrain.demoForm.placeholderTimeline')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="now">Now</SelectItem>
-                  <SelectItem value="30">Within 30 days</SelectItem>
-                  <SelectItem value="90">Within 90 days</SelectItem>
-                  <SelectItem value="exploring">Exploring</SelectItem>
+                  <SelectItem value="now">{t('aliphBrain.demoForm.timelines.now')}</SelectItem>
+                  <SelectItem value="within30">{t('aliphBrain.demoForm.timelines.within30')}</SelectItem>
+                  <SelectItem value="within90">{t('aliphBrain.demoForm.timelines.within90')}</SelectItem>
+                  <SelectItem value="exploring">{t('aliphBrain.demoForm.timelines.exploring')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="demo-notes">Additional Notes</Label>
+              <Label htmlFor="demo-notes">{t('aliphBrain.demoForm.labelNotes')}</Label>
               <Textarea
                 id="demo-notes"
                 rows={3}
                 {...demoForm.register('notes')}
-                placeholder="Specific requirements or questions..."
+                placeholder={t('aliphBrain.demoForm.placeholderNotes')}
               />
             </div>
 
             <div className="flex gap-3 pt-4">
                 <Button type="button" variant="outline" onClick={() => setDemoModalOpen(false)} className="flex-1" disabled={isSubmitting}>
-                  Cancel
+                  {t('aliphBrain.demoForm.btnCancel')}
                 </Button>
                 <Button type="submit" className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Sending...
+                      {t('aliphBrain.demoForm.btnSubmitting')}
                     </>
                   ) : (
-                    'Request Demo'
+                    t('aliphBrain.demoForm.btnSubmit')
                   )}
                 </Button>
               </div>
@@ -300,20 +304,20 @@ export default function AliphBrain() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
           <div className="max-w-4xl">
             <div className="flex items-center gap-4 mb-6 text-sm text-[#C9A227]">
-              <span>Sovereign-by-Design</span>
+              <span>{t('aliphBrain.hero.badge1')}</span>
               <span>•</span>
-              <span>Compounding Intelligence</span>
+              <span>{t('aliphBrain.hero.badge2')}</span>
               <span>•</span>
-              <span>Audit-Ready Delivery</span>
+              <span>{t('aliphBrain.hero.badge3')}</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight flex items-center gap-4">
               <Brain className="w-16 h-16 md:w-20 md:h-20 text-[#C9A227]" />
-              The Aliph Brain
+              {t('aliphBrain.hero.title')}
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed">
-              A Saudi-first organizational memory and governed workflow engine—built to deliver consulting-grade GRC outputs faster, with control and auditability.
+              {t('aliphBrain.hero.subtitle')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -323,7 +327,7 @@ export default function AliphBrain() {
                 className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
                 data-cta="aliph_brain_request_demo"
               >
-                Request an Aliph Brain Demo
+                {t('aliphBrain.hero.ctaPrimary')}
               </Button>
               <Button
                 size="lg"
@@ -332,7 +336,7 @@ export default function AliphBrain() {
                 className="border-white/30 text-white hover:bg-white/10"
                 data-cta="aliph_brain_request_samples"
               >
-                Request Sample Deliverables
+                {t('aliphBrain.hero.ctaSecondary')}
               </Button>
             </div>
 
@@ -342,7 +346,7 @@ export default function AliphBrain() {
               data-cta="aliph_brain_security_link"
             >
               <Shield className="w-4 h-4" />
-              Security & Sovereignty
+              {t('aliphBrain.hero.securityLink')}
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
@@ -368,7 +372,7 @@ export default function AliphBrain() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Why Most Organizations Don't Scale Compliance
+            {t('aliphBrain.problem.title')}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -377,10 +381,10 @@ export default function AliphBrain() {
                 <AlertTriangle className="w-6 h-6 text-amber-600" />
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-900">
-                Regulations change faster than documentation
+                {t('aliphBrain.problem.card1Title')}
               </h3>
               <p className="text-gray-600">
-                Updates to PDPL, NCA ECC, ZATCA require constant revision. Static deliverables go stale quickly.
+                {t('aliphBrain.problem.card1Text')}
               </p>
             </Card>
 
@@ -389,10 +393,10 @@ export default function AliphBrain() {
                 <Users className="w-6 h-6 text-amber-600" />
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-900">
-                Knowledge lives in people, not systems
+                {t('aliphBrain.problem.card2Title')}
               </h3>
               <p className="text-gray-600">
-                Advisory insights don't transfer. Every engagement starts from scratch. Lessons don't compound.
+                {t('aliphBrain.problem.card2Text')}
               </p>
             </Card>
 
@@ -401,16 +405,16 @@ export default function AliphBrain() {
                 <Shield className="w-6 h-6 text-amber-600" />
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-900">
-                AI without governance creates exposure
+                {t('aliphBrain.problem.card3Title')}
               </h3>
               <p className="text-gray-600">
-                Public tools are fast but uncontrolled. Data leaks, no audit trail, unclear accountability.
+                {t('aliphBrain.problem.card3Text')}
               </p>
             </Card>
           </div>
 
           <p className="text-center text-xl text-gray-700 max-w-3xl mx-auto border-l-4 border-[#C9A227] pl-6 italic">
-            The Aliph Brain exists to turn Saudi regulatory complexity into repeatable execution.
+            {t('aliphBrain.problem.quote')}
           </p>
         </div>
       </section>
@@ -419,11 +423,11 @@ export default function AliphBrain() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-8 text-gray-900">
-            What the Aliph Brain Is
+            {t('aliphBrain.whatItIs.title')}
           </h2>
 
           <p className="text-2xl text-center text-gray-700 mb-16 max-w-4xl mx-auto font-medium">
-            The Aliph Brain converts advisory knowledge into reusable workflows and evidence-ready deliverables—without sacrificing sovereignty or quality.
+            {t('aliphBrain.whatItIs.subtitle')}
           </p>
 
           <div className="grid md:grid-cols-3 gap-8 mb-16">
@@ -431,9 +435,9 @@ export default function AliphBrain() {
               <div className="w-14 h-14 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#C9A227]/20 transition-colors">
                 <Database className="w-8 h-8 text-[#C9A227]" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Organizational Memory</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">{t('aliphBrain.whatItIs.card1Title')}</h3>
               <p className="text-gray-600">
-                Saudi-first knowledge base covering PDPL, NCA ECC, ZATCA, governance frameworks, with client context boundary separation.
+                {t('aliphBrain.whatItIs.card1Text')}
               </p>
             </Card>
 
@@ -441,9 +445,9 @@ export default function AliphBrain() {
               <div className="w-14 h-14 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#C9A227]/20 transition-colors">
                 <Workflow className="w-8 h-8 text-[#C9A227]" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Workflow Library</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">{t('aliphBrain.whatItIs.card2Title')}</h3>
               <p className="text-gray-600">
-                Agentic workflows that produce structured outputs—gap analyses, policy suites, control mappings, risk registers, audit plans.
+                {t('aliphBrain.whatItIs.card2Text')}
               </p>
             </Card>
 
@@ -451,9 +455,9 @@ export default function AliphBrain() {
               <div className="w-14 h-14 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#C9A227]/20 transition-colors">
                 <CheckCircle2 className="w-8 h-8 text-[#C9A227]" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Validation Layer</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">{t('aliphBrain.whatItIs.card3Title')}</h3>
               <p className="text-gray-600">
-                Expert review where required, automated QA checks, consistency validation, and evidence formatting.
+                {t('aliphBrain.whatItIs.card3Text')}
               </p>
             </Card>
           </div>
@@ -462,20 +466,20 @@ export default function AliphBrain() {
           <Card className="bg-red-50 border-2 border-red-200 p-8 max-w-4xl mx-auto">
             <h3 className="text-xl font-bold mb-4 text-red-900 flex items-center gap-2">
               <AlertTriangle className="w-6 h-6" />
-              What the Aliph Brain is NOT
+              {t('aliphBrain.whatItIs.notTitle')}
             </h3>
             <ul className="space-y-2 text-red-800">
               <li className="flex items-start gap-2">
                 <span className="text-red-500 mt-1">×</span>
-                <span>Not a public chatbot without data controls</span>
+                <span>{t('aliphBrain.whatItIs.notItem1')}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-red-500 mt-1">×</span>
-                <span>Not a generic template dump without context</span>
+                <span>{t('aliphBrain.whatItIs.notItem2')}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-red-500 mt-1">×</span>
-                <span>Not a black box without audit trail or explainability</span>
+                <span>{t('aliphBrain.whatItIs.notItem3')}</span>
               </li>
             </ul>
           </Card>
@@ -486,55 +490,51 @@ export default function AliphBrain() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            How It Works
+            {t('aliphBrain.howItWorks.title')}
           </h2>
           <p className="text-xl text-center text-gray-600 mb-16">
-            The core engine: from intake to audit-ready output
+            {t('aliphBrain.howItWorks.subtitle')}
           </p>
 
           <div className="max-w-6xl mx-auto mb-12">
             <div className="grid grid-cols-1 md:grid-cols-7 gap-3 items-center">
-              {[
-                { label: 'Intake', icon: FileText, desc: 'Objective + sector + regulation' },
-                { label: 'Context', icon: Database, desc: 'Brain + client materials' },
-                { label: 'Generation', icon: Workflow, desc: 'Governed workflows' },
-                { label: 'QA Checks', icon: CheckCircle2, desc: 'Rules + scoring' },
-                { label: 'Validation', icon: Users, desc: 'Expert review' },
-                { label: 'Packaging', icon: FileText, desc: 'Deliverable + evidence' },
-                { label: 'Audit Log', icon: Eye, desc: 'Traceability' },
-              ].map((step, idx) => (
-                <div key={idx} className="relative">
-                  <Card className="p-3 bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-[#C9A227]/30 text-center hover:border-[#C9A227] transition-all">
-                    <step.icon className="w-6 h-6 mx-auto mb-2 text-[#C9A227]" />
-                    <p className="text-xs font-bold text-gray-900 mb-1">{step.label}</p>
-                    <p className="text-xs text-gray-600">{step.desc}</p>
-                  </Card>
-                  {idx < 6 && (
-                    <ArrowRight className="hidden md:block absolute -right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C9A227] z-10" />
-                  )}
-                </div>
-              ))}
+              {Object.values(t('aliphBrain.howItWorks.steps', { returnObjects: true }) as Record<string, {label: string, desc: string}>).map((step, idx) => {
+                const icons = [FileText, Database, Workflow, CheckCircle2, Users, FileText, Eye];
+                const StepIcon = icons[idx];
+                return (
+                  <div key={idx} className="relative">
+                    <Card className="p-3 bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-[#C9A227]/30 text-center hover:border-[#C9A227] transition-all">
+                      <StepIcon className="w-6 h-6 mx-auto mb-2 text-[#C9A227]" />
+                      <p className="text-xs font-bold text-gray-900 mb-1">{step.label}</p>
+                      <p className="text-xs text-gray-600">{step.desc}</p>
+                    </Card>
+                    {idx < 6 && (
+                      <ArrowRight className="hidden md:block absolute -right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C9A227] z-10" />
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
           {/* Output formats */}
           <div className="max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold mb-6 text-gray-900 text-center">Output Formats</h3>
+            <h3 className="text-2xl font-bold mb-6 text-gray-900 text-center">{t('aliphBrain.howItWorks.outputsTitle')}</h3>
             <div className="grid md:grid-cols-2 gap-6">
               <Card className="p-6 border-2">
-                <h4 className="font-bold text-gray-900 mb-3">Documentation</h4>
+                <h4 className="font-bold text-gray-900 mb-3">{t('aliphBrain.howItWorks.documentationTitle')}</h4>
                 <ul className="space-y-2 text-gray-600">
-                  <li>• PDF deliverable packs</li>
-                  <li>• Word/Doc templates (redacted samples)</li>
-                  <li>• Implementation roadmaps</li>
+                  {(t('aliphBrain.howItWorks.documentationItems', { returnObjects: true }) as string[]).map((item, idx) => (
+                    <li key={idx}>• {item}</li>
+                  ))}
                 </ul>
               </Card>
               <Card className="p-6 border-2">
-                <h4 className="font-bold text-gray-900 mb-3">Structured Outputs</h4>
+                <h4 className="font-bold text-gray-900 mb-3">{t('aliphBrain.howItWorks.structuredTitle')}</h4>
                 <ul className="space-y-2 text-gray-600">
-                  <li>• Excel registers (risk, compliance tracker)</li>
-                  <li>• Slide-ready board summaries</li>
-                  <li>• Evidence pack formats</li>
+                  {(t('aliphBrain.howItWorks.structuredItems', { returnObjects: true }) as string[]).map((item, idx) => (
+                    <li key={idx}>• {item}</li>
+                  ))}
                 </ul>
               </Card>
             </div>
@@ -546,65 +546,14 @@ export default function AliphBrain() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            What the Aliph Brain Can Produce
+            {t('aliphBrain.workflows.title')}
           </h2>
           <p className="text-xl text-center text-gray-600 mb-16">
-            Workflow capabilities without exposing full IP
+            {t('aliphBrain.workflows.subtitle')}
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: 'PDPL Gap & Roadmap Builder',
-                inputs: 'Current state + obligations',
-                output: 'Gap analysis + remediation roadmap'
-              },
-              {
-                title: 'NCA ECC Controls Mapping Builder',
-                inputs: 'Scope + current controls',
-                output: 'Control mapping + evidence requirements'
-              },
-              {
-                title: 'ZATCA Compliance Ops Builder',
-                inputs: 'Business processes + tax obligations',
-                output: 'Compliance cadence + operating procedures'
-              },
-              {
-                title: 'Policy Suite Generator',
-                inputs: 'Sector + regulatory scope',
-                output: 'Full policy suite (governance/compliance)'
-              },
-              {
-                title: 'Evidence Pack Builder',
-                inputs: 'Requirements + current artifacts',
-                output: 'Audit-ready evidence documentation'
-              },
-              {
-                title: 'Risk Register + KRIs Builder',
-                inputs: 'Risk universe + appetite',
-                output: 'Risk register + KRI dashboard'
-              },
-              {
-                title: 'Internal Audit Plan Builder',
-                inputs: 'Universe + risk assessment',
-                output: 'Annual audit plan + methodology'
-              },
-              {
-                title: 'Third-Party Risk Assessment',
-                inputs: 'Vendor profile + criticality',
-                output: 'Risk assessment + monitoring cadence'
-              },
-              {
-                title: 'Board Governance Toolkit',
-                inputs: 'Structure + regulatory requirements',
-                output: 'Charters + DoA + reporting pack'
-              },
-              {
-                title: 'Regulatory Change Monitor',
-                inputs: 'Subscribed regulations',
-                output: 'Change summaries + impact analysis'
-              },
-            ].map((workflow, idx) => (
+            {(t('aliphBrain.workflows.items', { returnObjects: true }) as Array<{title: string, inputs: string, output: string}>).map((workflow, idx) => (
               <Card key={idx} className="p-6 border-2 hover:border-[#C9A227] transition-all hover:shadow-lg group">
                 <div className="w-10 h-10 bg-[#C9A227]/10 rounded-lg flex items-center justify-center mb-4">
                   <Workflow className="w-6 h-6 text-[#C9A227]" />
@@ -618,7 +567,7 @@ export default function AliphBrain() {
                   href="/deliverables"
                   className="text-[#C9A227] hover:text-[#B8921F] text-sm font-medium inline-flex items-center gap-1"
                 >
-                  See sample output
+                  {t('aliphBrain.workflows.sampleLink')}
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </Card>
@@ -631,7 +580,7 @@ export default function AliphBrain() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            How We're Different
+            {t('aliphBrain.comparison.title')}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -639,24 +588,24 @@ export default function AliphBrain() {
             <Card className="p-8 bg-white border-2">
               <div className="text-center mb-4">
                 <Zap className="w-12 h-12 mx-auto text-gray-600 mb-4" />
-                <h3 className="text-xl font-bold text-gray-900">Generic AI Tools</h3>
+                <h3 className="text-xl font-bold text-gray-900">{t('aliphBrain.comparison.genericTitle')}</h3>
               </div>
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500" />
-                  Fast drafts
+                  {t('aliphBrain.comparison.genericItem1')}
                 </li>
                 <li className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-red-500" />
-                  Weak governance
+                  {t('aliphBrain.comparison.genericItem2')}
                 </li>
                 <li className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-red-500" />
-                  Unclear data boundary
+                  {t('aliphBrain.comparison.genericItem3')}
                 </li>
                 <li className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-red-500" />
-                  No audit structure
+                  {t('aliphBrain.comparison.genericItem4')}
                 </li>
               </ul>
             </Card>
@@ -665,24 +614,24 @@ export default function AliphBrain() {
             <Card className="p-8 bg-white border-2">
               <div className="text-center mb-4">
                 <Building2 className="w-12 h-12 mx-auto text-gray-600 mb-4" />
-                <h3 className="text-xl font-bold text-gray-900">Traditional Consulting</h3>
+                <h3 className="text-xl font-bold text-gray-900">{t('aliphBrain.comparison.traditionalTitle')}</h3>
               </div>
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500" />
-                  Rigorous methodology
+                  {t('aliphBrain.comparison.traditionalItem1')}
                 </li>
                 <li className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-amber-500" />
-                  Slower cycles
+                  {t('aliphBrain.comparison.traditionalItem2')}
                 </li>
                 <li className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-amber-500" />
-                  Manual repetition
+                  {t('aliphBrain.comparison.traditionalItem3')}
                 </li>
                 <li className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-amber-500" />
-                  Knowledge trapped in teams
+                  {t('aliphBrain.comparison.traditionalItem4')}
                 </li>
               </ul>
             </Card>
@@ -691,35 +640,35 @@ export default function AliphBrain() {
             <Card className="p-8 bg-gradient-to-br from-[#C9A227] to-[#B8921F] text-white border-2 border-[#C9A227] shadow-xl transform hover:scale-105 transition-all">
               <div className="text-center mb-4">
                 <Brain className="w-12 h-12 mx-auto mb-4" />
-                <h3 className="text-xl font-bold">Aliph Brain + Advisory</h3>
+                <h3 className="text-xl font-bold">{t('aliphBrain.comparison.aliphTitle')}</h3>
               </div>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4" />
-                  Governed workflows
+                  {t('aliphBrain.comparison.aliphItem1')}
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4" />
-                  Sovereignty patterns
+                  {t('aliphBrain.comparison.aliphItem2')}
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4" />
-                  Expert validation
+                  {t('aliphBrain.comparison.aliphItem3')}
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4" />
-                  Evidence-ready packaging
+                  {t('aliphBrain.comparison.aliphItem4')}
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4" />
-                  Compounding improvement
+                  {t('aliphBrain.comparison.aliphItem5')}
                 </li>
               </ul>
             </Card>
           </div>
 
           <p className="text-center text-xl text-gray-700 max-w-3xl mx-auto font-medium italic">
-            Service-backed delivery today. Workflow-scaled advantage tomorrow.
+            {t('aliphBrain.comparison.quote')}
           </p>
         </div>
       </section>
@@ -728,19 +677,14 @@ export default function AliphBrain() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            Built to Respect Sovereignty
+            {t('aliphBrain.security.title')}
           </h2>
           <p className="text-xl text-center text-gray-600 mb-16">
-            Control, auditability, and deployment flexibility
+            {t('aliphBrain.security.subtitle')}
           </p>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
-            {[
-              'Data minimization patterns by design',
-              'Policy enforcement and access control at workflow layer',
-              'Audit logs and traceability for every step',
-              'Deployment patterns for stricter environments when required'
-            ].map((item, idx) => (
+            {(t('aliphBrain.security.items', { returnObjects: true }) as string[]).map((item, idx) => (
               <div key={idx} className="flex items-start gap-3">
                 <Shield className="w-6 h-6 text-[#C9A227] flex-shrink-0 mt-1" />
                 <span className="text-gray-700">{item}</span>
@@ -755,7 +699,7 @@ export default function AliphBrain() {
               className="bg-[#C9A227] hover:bg-[#B8921F]"
               data-cta="aliph_brain_security_link"
             >
-              Read Security & Sovereignty
+              {t('aliphBrain.security.ctaPrimary')}
             </Button>
             <Button
               size="lg"
@@ -763,7 +707,7 @@ export default function AliphBrain() {
               onClick={() => setDemoModalOpen(true)}
               data-cta="aliph_brain_speak_to_architect"
             >
-              Speak to an Architect
+              {t('aliphBrain.security.ctaSecondary')}
             </Button>
           </div>
         </div>
@@ -773,21 +717,14 @@ export default function AliphBrain() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            Outcome Packs Delivered Through the Brain
+            {t('aliphBrain.packs.title')}
           </h2>
           <p className="text-xl text-center text-gray-600 mb-16">
-            What you receive at the end of an engagement
+            {t('aliphBrain.packs.subtitle')}
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {[
-              { title: 'PDPL Readiness Pack', items: ['Gap analysis', 'Policy suite', 'Evidence documentation'] },
-              { title: 'NCA ECC Readiness Pack', items: ['Control mapping', 'Implementation roadmap', 'Audit prep'] },
-              { title: 'ZATCA Compliance Operations Pack', items: ['Process controls', 'Operating cadence', 'Records checklist'] },
-              { title: 'Corporate Governance Pack', items: ['DoA matrix', 'Board charters', 'Reporting framework'] },
-              { title: 'ERM Foundation Pack', items: ['Risk taxonomy', 'Appetite statements', 'KRI dashboard'] },
-              { title: 'Internal Audit Enablement Pack', items: ['Audit charter', 'Annual plan', 'Methodology'] },
-            ].map((pack, idx) => (
+            {(t('aliphBrain.packs.items', { returnObjects: true }) as Array<{title: string, items: string[]}>).map((pack, idx) => (
               <Card key={idx} className="p-6 border-2 hover:border-[#C9A227] transition-all hover:shadow-lg">
                 <div className="w-10 h-10 bg-[#C9A227]/10 rounded-lg flex items-center justify-center mb-4">
                   <FileText className="w-6 h-6 text-[#C9A227]" />
@@ -809,7 +746,7 @@ export default function AliphBrain() {
               className="bg-[#C9A227] hover:bg-[#B8921F]"
               data-cta="aliph_brain_request_samples"
             >
-              Request Sample Deliverables
+              {t('aliphBrain.packs.ctaPrimary')}
             </Button>
             <Button
               size="lg"
@@ -817,7 +754,7 @@ export default function AliphBrain() {
               onClick={() => setDemoModalOpen(true)}
               data-cta="aliph_brain_request_demo"
             >
-              Request a Demo
+              {t('aliphBrain.packs.ctaSecondary')}
             </Button>
           </div>
         </div>
@@ -827,10 +764,10 @@ export default function AliphBrain() {
       <section className="py-16 bg-gradient-to-r from-[#0B1220] to-[#1a1f35] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            See the Aliph Brain in Action
+            {t('aliphBrain.demoCTA.title')}
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            A short demo showing how workflows produce audit-ready outputs—faster, governed, and implementation-first.
+            {t('aliphBrain.demoCTA.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -839,7 +776,7 @@ export default function AliphBrain() {
               className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
               data-cta="aliph_brain_request_demo"
             >
-              Request a Demo
+              {t('aliphBrain.demoCTA.ctaPrimary')}
             </Button>
             <Button
               size="lg"
@@ -847,7 +784,7 @@ export default function AliphBrain() {
               onClick={() => window.location.href = '/company/contact'}
               className="border-white/30 text-white hover:bg-white/10"
             >
-              Book a Readiness Call
+              {t('aliphBrain.demoCTA.ctaSecondary')}
             </Button>
           </div>
         </div>
@@ -857,61 +794,61 @@ export default function AliphBrain() {
       <section className="py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">
-            Frequently Asked Questions
+            {t('aliphBrain.faq.title')}
           </h2>
 
           <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Is Aliph a software product?
+                {t('aliphBrain.faq.q1')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Aliph is an AI-enabled advisory service. The Aliph Brain is the internal engine we use to deliver faster, governed, and more consistent outputs. You work with experts who use the Brain to produce audit-ready deliverables.
+                {t('aliphBrain.faq.a1')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                How do you avoid hallucinations?
+                {t('aliphBrain.faq.q2')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Through governed workflows, validation layers, and expert review. Outputs go through automated QA checks, consistency validation, and—when required—expert sign-off before delivery. We don't blindly trust AI generation.
+                {t('aliphBrain.faq.a2')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Do you customize by sector?
+                {t('aliphBrain.faq.q3')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Yes. The workflows adapt terminology, risk scenarios, and control examples for your industry (finance, energy, healthcare, etc.). Sector context is built into the Brain's organizational memory.
+                {t('aliphBrain.faq.a3')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Can you work under strict data requirements?
+                {t('aliphBrain.faq.q4')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Yes. The Brain supports deployment patterns for stricter environments, including private boundaries and enhanced logging. We can discuss your specific requirements and validate feasibility.
+                {t('aliphBrain.faq.a4')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-5" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                What do we receive at the end?
+                {t('aliphBrain.faq.q5')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Evidence-ready deliverable packs including: policies, control mappings, gap analyses, roadmaps, implementation guides, owners, and evidence formats. Everything is designed for audit and implementation—not just documentation.
+                {t('aliphBrain.faq.a5')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-6" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                How do we start?
+                {t('aliphBrain.faq.q6')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Request a demo or sample deliverables to see the quality. If it's a fit, we scope your engagement (PDPL, NCA ECC, ZATCA, governance, etc.), run the workflows, validate outputs, and deliver your outcome pack with implementation support.
+                {t('aliphBrain.faq.a6')}
               </AccordionContent>
             </AccordionItem>
           </Accordion>

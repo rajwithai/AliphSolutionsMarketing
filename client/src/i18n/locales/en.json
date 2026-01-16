@@ -730,26 +730,960 @@
     }
   },
   "managedServices": {
+    "hero": {
+      "badge1": "Continuous Readiness",
+      "badge2": "Evidence Workflows",
+      "badge3": "Saudi-Aligned Operations",
+      "title": "Managed Services",
+      "subtitle": "We run compliance and governance workloads through SOPs, controls, evidence capture, and reporting—so your organization stays audit-ready while teams stay focused.",
+      "ctaPrimary": "Request a Managed Proposal",
+      "ctaSecondary": "Start a 30-Day Pilot",
+      "ctaTertiary": "View Sample Deliverables"
+    },
+    "problem": {
+      "title": "Most Compliance Gaps Are Operational, Not Strategic",
+      "point1": "Policies exist but aren't executed consistently",
+      "point2": "Evidence collection happens late (during audits)",
+      "point3": "Ownership is unclear across teams",
+      "point4": "Reporting cadence is missing",
+      "quote": "Managed services turn compliance into a routine—not a crisis."
+    },
+    "serviceLines": {
+      "title": "Managed Service Lines",
+      "bestForLabel": "Best for:",
+      "whatsIncludedLabel": "What's included:",
+      "exploreBtn": "Explore",
+      "requestProposalBtn": "Request proposal",
+      "discussModelBtn": "Discuss Your Operating Model",
+      "services": {
+        "grc": {
+          "title": "GRC Support Center",
+          "bestFor": "Continuous compliance & risk operations",
+          "included": [
+            "Compliance calendar & evidence workflows",
+            "Risk register & KRI monitoring",
+            "Board reporting support"
+          ]
+        },
+        "tax": {
+          "title": "Tax/VAT/ZATCA Operations",
+          "bestFor": "E-invoicing & tax compliance cadence",
+          "included": [
+            "ZATCA e-invoicing operations",
+            "VAT return preparation & filing",
+            "Tax record management"
+          ]
+        },
+        "payroll": {
+          "title": "Payroll & HR Operations",
+          "bestFor": "GOSI, end-of-service, WPS compliance",
+          "included": [
+            "Payroll processing & GOSI filing",
+            "End-of-service calculation",
+            "WPS compliance & reporting"
+          ]
+        },
+        "accounting": {
+          "title": "Accounting & Bookkeeping",
+          "bestFor": "Month-end close & financial reporting",
+          "included": [
+            "Transaction recording & reconciliation",
+            "Month-end close & reporting",
+            "Chart of accounts management"
+          ]
+        },
+        "vendor": {
+          "title": "Vendor Management",
+          "bestFor": "Third-party risk & contract governance",
+          "included": [
+            "Vendor onboarding & due diligence",
+            "Contract lifecycle tracking",
+            "Performance & compliance monitoring"
+          ]
+        },
+        "bot": {
+          "title": "Build–Operate–Transfer (BOT)",
+          "bestFor": "Build function, operate, then transfer",
+          "included": [
+            "Function design & setup",
+            "Steady-state operations",
+            "Knowledge transfer & handover"
+          ]
+        }
+      }
+    },
+    "operations": {
+      "title": "What We Operate",
+      "compliance": {
+        "title": "Compliance Operations",
+        "item1": "Compliance calendar",
+        "item2": "Evidence capture workflows",
+        "item3": "Recurring reporting"
+      },
+      "governance": {
+        "title": "Governance Operations",
+        "item1": "Decision rights + approvals",
+        "item2": "Board/committee reporting support",
+        "item3": "Policy lifecycle tracking"
+      },
+      "risk": {
+        "title": "Risk Operations",
+        "item1": "Risk register updates",
+        "item2": "KRIs monitoring",
+        "item3": "Issue tracking"
+      },
+      "specialty": {
+        "title": "Specialty Lines",
+        "item1": "ZATCA e-invoicing ops",
+        "item2": "PDPL + NCA compliance",
+        "item3": "HR + vendor operations"
+      }
+    },
+    "model": {
+      "title": "How We Deliver",
+      "subtitle": "Pilot → Steady State → Scale",
+      "step1": {
+        "title": "Step 1: 30-Day Pilot",
+        "item1": "Baseline maturity + workflow setup",
+        "item2": "Define cadence + reporting",
+        "item3": "Implement evidence routines"
+      },
+      "step2": {
+        "title": "Step 2: Steady-State Operations",
+        "item1": "Monthly/weekly routines",
+        "item2": "Dashboards + reporting",
+        "item3": "Continuous readiness"
+      },
+      "step3": {
+        "title": "Step 3: Scale or Transfer",
+        "item1": "Expand scope (functions/locations)",
+        "item2": "BOT transfer with training",
+        "item3": "Governance handover"
+      },
+      "monthly": {
+        "title": "What You Get Every Month",
+        "item1": "Status report",
+        "item2": "Evidence readiness tracker",
+        "item3": "Risks/issues log",
+        "item4": "Next actions"
+      }
+    },
+    "governed": {
+      "title": "Governed Operations, Accelerated by Workflows",
+      "sops": {
+        "title": "SOPs + Controls",
+        "description": "Repeatable procedures with built-in controls, ownership, and checkpoints."
+      },
+      "brain": {
+        "title": "Aliph Brain Workflows",
+        "description": "Faster documentation, tracking, and reporting through governed generation."
+      },
+      "security": {
+        "title": "Security & Sovereignty Patterns",
+        "description": "Controlled handling with data minimization, access control, and audit trails."
+      },
+      "ctaPrimary": "See the Aliph Brain",
+      "ctaSecondary": "Security & Sovereignty"
+    },
+    "audience": {
+      "title": "Designed for Teams That Need Execution Capacity",
+      "segment1": "SMEs scaling fast",
+      "segment2": "Giga-project vendors",
+      "segment3": "Enterprise teams with audit pressure",
+      "segment4": "New compliance functions building maturity"
+    },
+    "proof": {
+      "title": "Operational Outputs You Can Expect",
+      "calendar": {
+        "title": "Compliance Calendar",
+        "description": "Weekly/monthly task scheduling with ownership, due dates, and completion tracking."
+      },
+      "checklist": {
+        "title": "Evidence Checklist",
+        "description": "Structured requirements mapped to your artifacts with completeness status."
+      },
+      "reporting": {
+        "title": "Monthly Reporting Pack",
+        "description": "Status dashboards, risk heat maps, and action items formatted for leadership."
+      },
+      "viewSample": "View sample",
+      "cta": "Request Sample Outputs"
+    },
+    "finalCTA": {
+      "title": "Turn Compliance Into Routine",
+      "subtitle": "Start with a 30-day pilot or request a managed proposal. We'll scope the cadence, deliverables, and reporting model.",
+      "ctaPrimary": "Start a 30-Day Pilot",
+      "ctaSecondary": "Request a Managed Proposal",
+      "link1": "View Sample Deliverables",
+      "link2": "Speak to an Architect"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Is this outsourcing or governed managed execution?",
+      "a1": "This is governed managed execution. We operate through SOPs, controls, evidence workflows, and reporting cadences—not unstructured task delivery. You retain oversight and governance; we run the operations with audit readiness built in.",
+      "q2": "Do you replace internal teams?",
+      "a2": "We augment internal teams or operate functions that don't yet exist. Many engagements involve working alongside your compliance, finance, or HR teams—providing capacity, specialized skills, or operational discipline during peak periods or growth phases.",
+      "q3": "How do you handle evidence and audits?",
+      "a3": "Evidence capture is built into operational workflows. We maintain evidence trackers, coordinate audit requests, and prepare audit-ready documentation packs. During audits, we support your team with evidence retrieval and response coordination.",
+      "q4": "Can we start with one function?",
+      "a4": "Yes. Most clients start with a single service line (e.g., GRC Support Center or ZATCA operations) as a 30-day pilot. Once proven, you can expand to additional functions or scale across locations. We support modular adoption.",
+      "q5": "How do you report progress?",
+      "a5": "You receive monthly status reports covering: completed tasks, evidence readiness status, open risks/issues, and next-period actions. Reporting cadence and format are defined during pilot setup and can be customized to your governance needs.",
+      "q6": "Can you run this under strict data requirements?",
+      "a6": "Yes. We support deployment patterns for stricter environments, including data boundary controls, enhanced logging, and on-premise or private cloud configurations. We can discuss specific sovereignty or confidentiality requirements."
+    },
     "proposalForm": {
+      "successTitle": "Proposal Request Received!",
+      "successMessage": "We'll respond with a scoped managed delivery model within 24-48 hours.",
+      "successButton": "Close",
+      "modalTitle": "Request a Managed Proposal",
+      "modalDescription": "Tell us what you need operated. We'll respond with a scoped managed delivery model.",
+      "labelName": "Full Name *",
+      "labelEmail": "Work Email *",
+      "labelCompany": "Company *",
+      "labelRole": "Role *",
+      "labelSector": "Sector *",
+      "placeholderSector": "Select sector",
+      "labelSize": "Current Size *",
+      "placeholderSize": "Select size",
+      "labelServiceLines": "Service Line Interest (select all that apply) *",
+      "labelTimeline": "Timeline *",
+      "placeholderTimeline": "Select timeline",
+      "labelNotes": "Additional Notes",
+      "placeholderNotes": "Current challenges, specific requirements...",
+      "btnCancel": "Cancel",
+      "btnSubmit": "Request Proposal",
+      "btnSubmitting": "Submitting...",
+      "sectors": {
+        "finance": "Finance & Banking",
+        "energy": "Energy & Petrochemicals",
+        "healthcare": "Healthcare",
+        "government": "Government",
+        "giga": "Giga Vendor",
+        "sme": "SME",
+        "other": "Other"
+      },
+      "sizes": {
+        "sme": "SME",
+        "enterprise": "Enterprise"
+      },
+      "serviceLines": {
+        "grc": "GRC Support Center",
+        "zatca": "ZATCA Ops",
+        "hr": "HR Ops",
+        "accounting": "Accounting",
+        "vendor": "Vendor Mgmt",
+        "bot": "BOT"
+      },
+      "timelines": {
+        "now": "Now",
+        "30": "Within 30 days",
+        "90": "Within 90 days",
+        "exploring": "Exploring"
+      },
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Please provide a valid work email",
+        "companyRequired": "Company name is required",
+        "roleRequired": "Role is required",
+        "sectorRequired": "Please select your sector",
+        "serviceLinesRequired": "Please select at least one service line",
+        "sizeRequired": "Please select your organization size",
+        "timelineRequired": "Please select your timeline",
+        "submitError": "Failed to submit proposal request. Please try again.",
+        "unexpectedError": "An unexpected error occurred. Please try again."
+      }
+    },
+    "pilotForm": {
+      "successTitle": "Pilot Request Received!",
+      "successMessage": "We'll confirm pilot scope and kickoff steps within 48 hours.",
+      "successButton": "Close",
+      "modalTitle": "Start a 30-Day Pilot",
+      "modalDescription": "Tell us the operational challenge. We'll scope a 30-day pilot for one service line.",
+      "labelName": "Full Name *",
+      "labelEmail": "Work Email *",
+      "labelCompany": "Company *",
+      "labelObjective": "Pilot Objective *",
+      "placeholderObjective": "Describe the operational challenge...",
+      "labelPressure": "Where Pressure Comes From *",
+      "placeholderPressure": "Select source",
+      "labelNotes": "Additional Notes",
+      "placeholderNotes": "Specific challenges or requirements...",
+      "btnCancel": "Cancel",
+      "btnSubmit": "Start Pilot",
+      "btnSubmitting": "Submitting...",
+      "pressures": {
+        "pdpl": "PDPL",
+        "nca": "NCA ECC",
+        "zatca": "ZATCA",
+        "audit": "Audit",
+        "board": "Board"
+      },
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Please provide a valid work email",
+        "companyRequired": "Company name is required",
+        "objectiveRequired": "Please describe your pilot objective",
+        "pressureRequired": "Please indicate the source of pressure",
+        "submitError": "Failed to submit pilot request. Please try again.",
+        "unexpectedError": "An unexpected error occurred. Please try again."
+      }
+    }
+  },
+  "securitySovereignty": {
+    "hero": {
+      "badge1": "Sovereign-by-Design",
+      "badge2": "Audit-Ready",
+      "badge3": "Built for Regulated Environments",
+      "title": "Security & Sovereignty",
+      "subtitle": "AI speed with sovereignty, control, and auditability—designed for Saudi GRC delivery.",
+      "ctaPrimary": "Speak to an Architect",
+      "ctaSecondary": "Request Security Brief (PDF)",
+      "ctaTertiary": "View Sample Deliverables"
+    },
+    "reality": {
+      "title": "Most AI risk isn't malicious. It's invisible.",
+      "point1": "Uncontrolled data sharing with public AI tools",
+      "point2": "Lack of audit trail for decisions and outputs",
+      "point3": "Unclear retention policies and access controls",
+      "point4": "Accountability still applies—even when AI is involved",
+      "cardTitle": "Sovereignty isn't a slogan. It's a design requirement.",
+      "cardText": "For organizations operating under Saudi regulation, control over data, processes, and audit trails isn't optional."
+    },
+    "principles": {
+      "title": "Sovereign-by-Design Principles",
+      "items": {
+        "dataMin": {
+          "title": "Data Minimization",
+          "description": "Only necessary data enters workflows. Limit exposure by design, not policy alone."
+        },
+        "privacy": {
+          "title": "Privacy Controls",
+          "description": "Masking and redaction patterns for sensitive content. Control what AI systems see."
+        },
+        "policy": {
+          "title": "Policy Enforcement",
+          "description": "RBAC, approval gates, and allowed actions enforced at the workflow layer."
+        },
+        "trace": {
+          "title": "Traceability",
+          "description": "Audit logs capture every step. Versioning tracks changes. Evidence is built in."
+        },
+        "separation": {
+          "title": "Separation of Concerns",
+          "description": "Data, workflows, and outputs remain logically separated for control and security."
+        },
+        "modelIndep": {
+          "title": "Model Independence",
+          "description": "Avoid vendor lock-in. Adapt as national AI ecosystems evolve and mature."
+        }
+      }
+    },
+    "architecture": {
+      "title": "The Sovereign Workflow Layer",
+      "subtitle": "How data moves through controlled, auditable processes",
+      "steps": {
+        "client": "Client Content",
+        "ingestion": "Ingestion",
+        "privacy": "Privacy Layer",
+        "policy": "Policy Engine",
+        "workflow": "Workflow",
+        "validation": "Validation",
+        "outputs": "Outputs",
+        "audit": "Audit Log"
+      },
+      "enablesTitle": "What This Enables",
+      "enables": [
+        "Speed without sacrificing control",
+        "Full visibility into data handling",
+        "Evidence-ready outputs for audit",
+        "Compliance with Saudi regulations",
+        "Scalable, repeatable processes"
+      ],
+      "distinctionTitle": "Key Distinction",
+      "distinctionText": "Unlike public AI tools, every step in Aliph workflows is logged, controlled, and auditable. Data doesn't leave your control boundary without explicit authorization."
+    },
+    "deployment": {
+      "title": "Deployment Patterns",
+      "subtitle": "Flexible architectures to match your environment and requirements",
+      "patternA": {
+        "title": "Pattern A: Standard Secure Delivery",
+        "item1": "Controlled workspace environment",
+        "item2": "Role-based access controls",
+        "item3": "Evidence-ready outputs",
+        "item4": "Standard audit logging",
+        "bestFor": "Best for: Most enterprise and SME engagements"
+      },
+      "patternB": {
+        "title": "Pattern B: Private Environment",
+        "item1": "Private boundary for workflows",
+        "item2": "Enhanced logging and monitoring",
+        "item3": "Custom policy enforcement",
+        "item4": "Stricter data controls",
+        "bestFor": "Best for: Government, regulated industries, high-sensitivity data"
+      },
+      "patternC": {
+        "title": "Pattern C: Edge / On-Prem",
+        "item1": "Highest sensitivity environments",
+        "item2": "Can be structured for on-premises",
+        "item3": "Full infrastructure control",
+        "item4": "Use-case dependent feasibility",
+        "bestFor": "Best for: Critical infrastructure, classified data environments"
+      },
+      "cta": "Discuss Your Environment"
+    },
+    "auditability": {
+      "title": "Auditability & Evidence Readiness",
+      "subtitle": "Built-in transparency for governance and assurance",
+      "items": {
+        "logs": {
+          "label": "Audit Logs",
+          "description": "Every action captured with timestamp and actor"
+        },
+        "versioning": {
+          "label": "Versioning",
+          "description": "Track changes across documents and workflows"
+        },
+        "ownership": {
+          "label": "Ownership Mapping",
+          "description": "Clear accountability for every output"
+        },
+        "evidence": {
+          "label": "Evidence Checklist",
+          "description": "Pre-built formats for regulator needs"
+        },
+        "roadmap": {
+          "label": "Implementation Roadmap",
+          "description": "Timeline and milestone tracking"
+        }
+      },
+      "cardTitle": "Designed for Governance",
+      "cardText": "Outputs are designed for governance and assurance—not just readability. Every deliverable includes the evidence trail auditors and regulators expect."
+    },
+    "privacy": {
+      "title": "Privacy Posture (PDPL-Era Expectations)",
+      "subtitle": "General principles aligned with Saudi data protection requirements",
+      "items": {
+        "dataMin": {
+          "title": "Data Minimization",
+          "description": "Workflows are designed to collect and process only what's necessary for the defined purpose."
+        },
+        "accessCtrl": {
+          "title": "Access Control",
+          "description": "Role-based permissions ensure only authorized individuals can access sensitive data."
+        },
+        "purpose": {
+          "title": "Purpose Limitation",
+          "description": "Data used in workflows is restricted to the stated compliance or advisory purpose."
+        },
+        "retention": {
+          "title": "Retention Considerations",
+          "description": "Clear policies on how long data is retained and when it's securely disposed."
+        },
+        "secure": {
+          "title": "Secure Handling",
+          "description": "Encryption in transit and at rest. Secure transfer protocols for all data movement."
+        },
+        "transparency": {
+          "title": "Transparency",
+          "description": "Clear documentation of how data flows through workflows and who has access."
+        }
+      },
+      "link1": "Read Our Privacy Policy",
+      "link2": "View Security Standards"
+    },
+    "briefForm": {
+      "title": "Request Security Brief",
+      "subtitle": "Get a detailed PDF covering our security architecture and deployment options",
+      "labelName": "Full Name *",
+      "labelEmail": "Work Email *",
+      "labelCompany": "Company *",
+      "labelRole": "Role *",
+      "labelSector": "Sector *",
+      "placeholderSector": "Select sector",
+      "labelInterest": "Primary Interest *",
+      "placeholderInterest": "Select interest",
+      "ndaLabel": "NDA Required",
+      "btnSubmit": "Request Brief",
+      "btnSubmitting": "Submitting...",
+      "disclaimer": "We do not sell or share your data. Requests are reviewed to ensure secure distribution.",
+      "successTitle": "Security Brief Request Received!",
+      "successMessage": "We'll send your security brief (PDF) within 24-48 hours.",
+      "successButton": "Close",
+      "sectors": {
+        "finance": "Finance & Banking",
+        "energy": "Energy & Petrochemicals",
+        "healthcare": "Healthcare",
+        "government": "Government",
+        "giga": "Giga Vendor",
+        "other": "Other"
+      },
+      "interests": {
+        "architecture": "Architecture Overview",
+        "deployment": "Deployment Patterns",
+        "compliance": "Compliance & Audit",
+        "privacy": "Privacy Controls"
+      },
       "validation": {
         "nameMin": "Name must be at least 2 characters",
         "emailInvalid": "Please enter a valid email address",
         "companyRequired": "Company name is required",
         "roleRequired": "Role is required",
         "sectorRequired": "Please select a sector",
-        "serviceLinesRequired": "Please select at least one service line",
-        "sizeRequired": "Please select organization size",
-        "timelineRequired": "Please select a timeline"
+        "interestRequired": "Please select a primary interest",
+        "submitError": "Failed to submit. Please try again.",
+        "unexpectedError": "An unexpected error occurred. Please try again."
       }
     },
-    "pilotForm": {
+    "architectForm": {
+      "modalTitle": "Schedule Architecture Call",
+      "modalDescription": "Discuss your environment and sovereignty requirements with our architects.",
+      "labelName": "Name *",
+      "labelEmail": "Email *",
+      "labelCompany": "Company *",
+      "labelRole": "Role *",
+      "labelEnvironment": "Environment *",
+      "placeholderEnvironment": "Select environment",
+      "labelFocus": "Focus Area *",
+      "placeholderFocus": "Select focus",
+      "labelNotes": "Additional Notes",
+      "placeholderNotes": "Specific requirements, security concerns, or questions...",
+      "btnCancel": "Cancel",
+      "btnSubmit": "Request Architecture Call",
+      "btnSubmitting": "Submitting...",
+      "successTitle": "Request Received!",
+      "successMessage": "We'll respond with available times for your architecture walkthrough within 24-48 hours.",
+      "successButton": "Close",
+      "environments": {
+        "standard": "Standard Secure",
+        "private": "Private Environment",
+        "onPrem": "Edge / On-Prem"
+      },
+      "focusAreas": {
+        "aiGov": "AI Governance",
+        "pdpl": "PDPL Compliance",
+        "nca": "NCA ECC",
+        "zatca": "ZATCA",
+        "other": "Other"
+      },
       "validation": {
         "nameMin": "Name must be at least 2 characters",
         "emailInvalid": "Please enter a valid email address",
         "companyRequired": "Company name is required",
-        "objectiveRequired": "Please select an objective",
-        "pressureRequired": "Please select a pressure source"
+        "roleRequired": "Role is required",
+        "environmentRequired": "Please select an environment",
+        "focusRequired": "Please select a focus area",
+        "submitError": "Failed to submit. Please try again.",
+        "unexpectedError": "An unexpected error occurred. Please try again."
       }
+    },
+    "architectCTA": {
+      "title": "Speak to an Architect",
+      "subtitle": "Discuss your environment, security requirements, and deployment options",
+      "ctaPrimary": "Schedule Architecture Call",
+      "ctaSecondary": "Request Secure Deliverables"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Where is data stored?",
+      "a1": "For most engagements, data remains in controlled environments with clear boundaries. For government or high-sensitivity cases, we can discuss private or on-premises patterns that meet your requirements.",
+      "q2": "Can this work in strict environments?",
+      "a2": "Yes. Our architecture can be structured to support private environments and, in specific cases, edge or on-premises deployment. We'll work with your security team to validate feasibility.",
+      "q3": "What's included in audit logs?",
+      "a3": "Logs capture user actions, data access events, workflow execution steps, output generation, and version changes. All entries include timestamps and actor identification for full traceability.",
+      "q4": "How do you prevent data leakage?",
+      "a4": "Through a combination of data minimization, access controls, masking/redaction for sensitive content, policy enforcement at the workflow layer, and continuous monitoring with alert thresholds.",
+      "q5": "Are you locked into specific AI vendors or models?",
+      "a5": "No. Our architecture is designed for model independence. As Saudi AI ecosystems evolve and mature, we can adapt without rebuilding core workflows or forcing vendor lock-in.",
+      "q6": "Can you sign an NDA for architecture discussions?",
+      "a6": "Yes. We routinely sign mutual NDAs for architecture walkthroughs and security briefings, especially for government and large enterprise engagements."
+    }
+  },
+  "aliphBrain": {
+    "hero": {
+      "badge1": "Sovereign-by-Design",
+      "badge2": "Compounding Intelligence",
+      "badge3": "Audit-Ready Delivery",
+      "title": "The Aliph Brain",
+      "subtitle": "A Saudi-first organizational memory and governed workflow engine—built to deliver consulting-grade GRC outputs faster, with control and auditability.",
+      "ctaPrimary": "Request an Aliph Brain Demo",
+      "ctaSecondary": "Request Sample Deliverables",
+      "securityLink": "Security & Sovereignty"
+    },
+    "problem": {
+      "title": "Why Most Organizations Don't Scale Compliance",
+      "card1Title": "Regulations change faster than documentation",
+      "card1Text": "Updates to PDPL, NCA ECC, ZATCA require constant revision. Static deliverables go stale quickly.",
+      "card2Title": "Knowledge lives in people, not systems",
+      "card2Text": "Advisory insights don't transfer. Every engagement starts from scratch. Lessons don't compound.",
+      "card3Title": "AI without governance creates exposure",
+      "card3Text": "Public tools are fast but uncontrolled. Data leaks, no audit trail, unclear accountability.",
+      "quote": "The Aliph Brain exists to turn Saudi regulatory complexity into repeatable execution."
+    },
+    "whatItIs": {
+      "title": "What the Aliph Brain Is",
+      "subtitle": "The Aliph Brain converts advisory knowledge into reusable workflows and evidence-ready deliverables—without sacrificing sovereignty or quality.",
+      "card1Title": "Organizational Memory",
+      "card1Text": "Saudi-first knowledge base covering PDPL, NCA ECC, ZATCA, governance frameworks, with client context boundary separation.",
+      "card2Title": "Workflow Library",
+      "card2Text": "Agentic workflows that produce structured outputs—gap analyses, policy suites, control mappings, risk registers, audit plans.",
+      "card3Title": "Validation Layer",
+      "card3Text": "Expert review where required, automated QA checks, consistency validation, and evidence formatting.",
+      "notTitle": "What the Aliph Brain is NOT",
+      "notItem1": "Not a public chatbot without data controls",
+      "notItem2": "Not a generic template dump without context",
+      "notItem3": "Not a black box without audit trail or explainability"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "The core engine: from intake to audit-ready output",
+      "steps": {
+        "intake": { "label": "Intake", "desc": "Objective + sector + regulation" },
+        "context": { "label": "Context", "desc": "Brain + client materials" },
+        "generation": { "label": "Generation", "desc": "Governed workflows" },
+        "qaChecks": { "label": "QA Checks", "desc": "Rules + scoring" },
+        "validation": { "label": "Validation", "desc": "Expert review" },
+        "packaging": { "label": "Packaging", "desc": "Deliverable + evidence" },
+        "auditLog": { "label": "Audit Log", "desc": "Traceability" }
+      },
+      "outputsTitle": "Output Formats",
+      "documentationTitle": "Documentation",
+      "documentationItems": ["PDF deliverable packs", "Word/Doc templates (redacted samples)", "Implementation roadmaps"],
+      "structuredTitle": "Structured Outputs",
+      "structuredItems": ["Excel registers (risk, compliance tracker)", "Slide-ready board summaries", "Evidence pack formats"]
+    },
+    "workflows": {
+      "title": "What the Aliph Brain Can Produce",
+      "subtitle": "Workflow capabilities without exposing full IP",
+      "items": [
+        { "title": "PDPL Gap & Roadmap Builder", "inputs": "Current state + obligations", "output": "Gap analysis + remediation roadmap" },
+        { "title": "NCA ECC Controls Mapping Builder", "inputs": "Scope + current controls", "output": "Control mapping + evidence requirements" },
+        { "title": "ZATCA Compliance Ops Builder", "inputs": "Business processes + tax obligations", "output": "Compliance cadence + operating procedures" },
+        { "title": "Policy Suite Generator", "inputs": "Sector + regulatory scope", "output": "Full policy suite (governance/compliance)" },
+        { "title": "Evidence Pack Builder", "inputs": "Requirements + current artifacts", "output": "Audit-ready evidence documentation" },
+        { "title": "Risk Register + KRIs Builder", "inputs": "Risk universe + appetite", "output": "Risk register + KRI dashboard" },
+        { "title": "Internal Audit Plan Builder", "inputs": "Universe + risk assessment", "output": "Annual audit plan + methodology" },
+        { "title": "Third-Party Risk Assessment", "inputs": "Vendor profile + criticality", "output": "Risk assessment + monitoring cadence" },
+        { "title": "Board Governance Toolkit", "inputs": "Structure + regulatory requirements", "output": "Charters + DoA + reporting pack" }
+      ],
+      "inputsLabel": "Inputs",
+      "outputLabel": "Output",
+      "sampleLink": "See sample output"
+    },
+    "comparison": {
+      "title": "How We're Different",
+      "genericTitle": "Generic AI Tools",
+      "genericItem1": "Fast drafts",
+      "genericItem2": "Weak governance",
+      "genericItem3": "Unclear data boundary",
+      "genericItem4": "No audit structure",
+      "traditionalTitle": "Traditional Consulting",
+      "traditionalItem1": "Rigorous methodology",
+      "traditionalItem2": "Slower cycles",
+      "traditionalItem3": "Manual repetition",
+      "traditionalItem4": "Knowledge trapped in teams",
+      "aliphTitle": "Aliph Brain + Advisory",
+      "aliphItem1": "Governed workflows",
+      "aliphItem2": "Sovereignty patterns",
+      "aliphItem3": "Expert validation",
+      "aliphItem4": "Evidence-ready packaging",
+      "aliphItem5": "Compounding improvement",
+      "quote": "Service-backed delivery today. Workflow-scaled advantage tomorrow."
+    },
+    "security": {
+      "title": "Built to Respect Sovereignty",
+      "subtitle": "Control, auditability, and deployment flexibility",
+      "items": [
+        "Data minimization patterns by design",
+        "Policy enforcement and access control at workflow layer",
+        "Audit logs and traceability for every step",
+        "Deployment patterns for stricter environments when required"
+      ],
+      "ctaPrimary": "Read Security & Sovereignty",
+      "ctaSecondary": "Speak to an Architect"
+    },
+    "packs": {
+      "title": "Outcome Packs Delivered Through the Brain",
+      "subtitle": "What you receive at the end of an engagement",
+      "items": [
+        { "title": "PDPL Readiness Pack", "items": ["Gap analysis", "Policy suite", "Evidence documentation"] },
+        { "title": "NCA ECC Readiness Pack", "items": ["Control mapping", "Implementation roadmap", "Audit prep"] },
+        { "title": "ZATCA Compliance Operations Pack", "items": ["Process controls", "Operating cadence", "Records checklist"] },
+        { "title": "Corporate Governance Pack", "items": ["DoA matrix", "Board charters", "Reporting framework"] },
+        { "title": "ERM Foundation Pack", "items": ["Risk taxonomy", "Appetite statements", "KRI dashboard"] },
+        { "title": "Internal Audit Enablement Pack", "items": ["Audit charter", "Annual plan", "Methodology"] }
+      ],
+      "ctaPrimary": "Request Sample Deliverables",
+      "ctaSecondary": "Request a Demo"
+    },
+    "demoCTA": {
+      "title": "See the Aliph Brain in Action",
+      "subtitle": "A short demo showing how workflows produce audit-ready outputs—faster, governed, and implementation-first.",
+      "ctaPrimary": "Request a Demo",
+      "ctaSecondary": "Book a Readiness Call"
+    },
+    "demoForm": {
+      "modalTitle": "Request an Aliph Brain Demo",
+      "modalDescription": "See how governed workflows produce audit-ready outputs faster",
+      "labelName": "Full Name *",
+      "labelEmail": "Work Email *",
+      "labelCompany": "Company *",
+      "labelRole": "Role *",
+      "labelSector": "Sector *",
+      "placeholderSector": "Select sector",
+      "labelFocus": "Focus Area *",
+      "placeholderFocus": "Select focus",
+      "labelTimeline": "Timeline *",
+      "placeholderTimeline": "Select timeline",
+      "labelNotes": "Additional Notes",
+      "placeholderNotes": "Specific requirements or questions...",
+      "btnCancel": "Cancel",
+      "btnSubmit": "Request Demo",
+      "btnSubmitting": "Sending...",
+      "successTitle": "Demo Request Received!",
+      "successMessage": "We'll share a demo agenda and confirm a time within 24-48 hours.",
+      "successButton": "Close",
+      "sectors": {
+        "finance": "Finance & Banking",
+        "energy": "Energy & Petrochemicals",
+        "healthcare": "Healthcare",
+        "government": "Government",
+        "giga": "Giga Vendor",
+        "sme": "SME",
+        "other": "Other"
+      },
+      "focusAreas": {
+        "pdpl": "PDPL",
+        "ncaEcc": "NCA ECC",
+        "zatca": "ZATCA",
+        "governance": "Governance",
+        "erm": "ERM",
+        "internalAudit": "Internal Audit",
+        "aiGovernance": "AI Governance"
+      },
+      "timelines": {
+        "now": "Now",
+        "within30": "Within 30 days",
+        "within90": "Within 90 days",
+        "exploring": "Exploring"
+      },
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "companyRequired": "Company name is required",
+        "roleRequired": "Role is required",
+        "sectorRequired": "Please select a sector",
+        "focusRequired": "Please select a focus area",
+        "timelineRequired": "Please select a timeline",
+        "submitError": "Failed to submit. Please try again.",
+        "unexpectedError": "An unexpected error occurred. Please try again."
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Is Aliph a software product?",
+      "a1": "Aliph is an AI-enabled advisory service. The Aliph Brain is the internal engine we use to deliver faster, governed, and more consistent outputs. You work with experts who use the Brain to produce audit-ready deliverables.",
+      "q2": "How do you avoid hallucinations?",
+      "a2": "Through controlled workflows, fact-grounded generation, QA scoring, and expert validation. We don't use public chatbots or uncontrolled models.",
+      "q3": "Can we use the Aliph Brain directly?",
+      "a3": "Currently, the Aliph Brain is used exclusively by our advisory team. This ensures quality, governance, and client confidentiality.",
+      "q4": "How do you protect our data?",
+      "a4": "Client data stays within bounded workspaces. We apply data minimization, access controls, privacy patterns, and full audit logging. See our Security & Sovereignty page for details.",
+      "q5": "What if we already have deliverables?",
+      "a5": "We can use existing artifacts as context inputs, validate them, enhance them with governance patterns, or help remediate gaps. The Brain adapts to your starting point.",
+      "q6": "How does pricing work?",
+      "a6": "We price based on scope and outcome, not time and materials. Whether it's PDPL readiness, NCA ECC implementation, or governance design—pricing reflects deliverable packs, not hourly rates."
+    }
+  },
+  "aiGovernance": {
+    "hero": {
+      "badge1": "Visibility",
+      "badge2": "Control",
+      "badge3": "Auditability",
+      "title": "AI Governance",
+      "subtitle": "Governed AI means your organization can adopt AI at speed—while keeping data control, clear usage boundaries, and audit-ready traceability.",
+      "ctaPrimary": "Run AI Exposure Check",
+      "ctaSecondary": "Request AI Governance Demo",
+      "securityLink": "Security & Sovereignty"
+    },
+    "reality": {
+      "title": "AI adoption is happening—whether it's approved or not.",
+      "subtitle": "The reality most organizations face today",
+      "card1": "Teams use public AI tools for speed without formal approval",
+      "card2": "Sensitive data can be copied into external systems unintentionally",
+      "card3": "No consistent logging or review of what's generated or shared",
+      "card4": "Policies lag behind actual behavior and organizational needs",
+      "quote": "The risk isn't AI. The risk is unmanaged AI."
+    },
+    "pillars": {
+      "title": "The 5 Pillars of Governed AI",
+      "pillar1Title": "Visibility",
+      "pillar1Desc": "Know where AI is used, by whom, and for what purpose across the organization.",
+      "pillar2Title": "Data Control",
+      "pillar2Desc": "Minimize exposure, implement masking patterns, and control what data flows to AI systems.",
+      "pillar3Title": "Policy & Boundaries",
+      "pillar3Desc": "Clear acceptable use rules—what is allowed, prohibited, and who can approve exceptions.",
+      "pillar4Title": "Auditability",
+      "pillar4Desc": "Logs, versioning, approval trails—everything documented for internal audit and regulators.",
+      "pillar5Title": "Safe Internal Option",
+      "pillar5Desc": "Approved workflows and tools that meet governance requirements while enabling productivity.",
+      "quote": "If one pillar is missing, adoption becomes exposure."
+    },
+    "operatingModel": {
+      "title": "Operating Model (Who Owns What)",
+      "subtitle": "Clear roles, decision rights, and reporting cadence",
+      "role1": "Executive Sponsor",
+      "responsibility1": "Strategic direction, budget approval, escalation authority",
+      "role2": "Risk/Compliance",
+      "responsibility2": "Policy ownership, risk assessment, audit coordination",
+      "role3": "IT/Security",
+      "responsibility3": "Technical controls, logging infrastructure, access management",
+      "role4": "Data/Privacy",
+      "responsibility4": "Data handling patterns, PDPL alignment, breach protocols",
+      "role5": "Business Owners",
+      "responsibility5": "Use case intake, workflow approval, training rollout",
+      "role6": "Internal Audit",
+      "responsibility6": "Assurance testing, control validation, evidence review",
+      "cta": "Request an Operating Model Sample"
+    },
+    "controls": {
+      "title": "Controls That Make AI Safe",
+      "category1": "People",
+      "category1Items": ["Training & awareness programs", "Acceptable use acknowledgment", "Approval workflows for exceptions", "Role-based access permissions"],
+      "category2": "Process",
+      "category2Items": ["Use case intake & review", "Risk assessment templates", "Escalation procedures", "Periodic usage reviews"],
+      "category3": "Technology",
+      "category3Items": ["Access controls & authentication", "Data masking patterns", "Audit logging infrastructure", "Workflow validation layers"],
+      "category4": "Assurance",
+      "category4Items": ["Control testing protocols", "Audit evidence packaging", "Output quality reviews", "Compliance reporting"],
+      "note": "Controls are tailored to your sector and environment."
+    },
+    "enablement": {
+      "title": "How Aliph Enables Governed AI Adoption",
+      "step1Title": "AI Exposure Assessment",
+      "step1Desc": "Discover current usage patterns and risk signals across the organization",
+      "step2Title": "Policy + Acceptable Use Boundaries",
+      "step2Desc": "Define what is allowed, prohibited, and exception processes",
+      "step3Title": "Data Handling Patterns",
+      "step3Desc": "Establish minimization, masking, and retention protocols",
+      "step4Title": "Workflow Enablement",
+      "step4Desc": "Deploy approved internal workflows that meet governance requirements",
+      "step5Title": "Logging + Auditability Setup",
+      "step5Desc": "Implement tracing for outputs, approvals, and usage patterns",
+      "step6Title": "Rollout + Training + Continuous Improvement",
+      "step6Desc": "Launch awareness programs and establish review cadence",
+      "link1": "The Aliph Brain (Workflows)",
+      "link2": "Security & Sovereignty"
+    },
+    "deliverables": {
+      "title": "AI Governance Deliverables",
+      "subtitle": "Tangible, audit-ready outputs from the AI Governance Pack",
+      "item1Title": "AI Acceptable Use Policy",
+      "item1Desc": "Structured policy defining permitted/prohibited use",
+      "item2Title": "AI Risk Register",
+      "item2Desc": "Format for tracking AI-related risks and controls",
+      "item3Title": "AI Approval & Exception Process",
+      "item3Desc": "SOP for use case review and exception handling",
+      "item4Title": "Data Handling Guidelines for AI",
+      "item4Desc": "Principles for minimization, masking, retention",
+      "item5Title": "Logging & Audit Checklist",
+      "item5Desc": "Evidence-ready documentation requirements",
+      "item6Title": "AI Governance Operating Model",
+      "item6Desc": "Roles, RACI, decision rights, reporting cadence",
+      "item7Title": "Training Pack",
+      "item7Desc": "Awareness materials with do/don't scenarios",
+      "item8Title": "Implementation Roadmap",
+      "item8Desc": "30/60/90-day plan format with milestones",
+      "ctaPrimary": "Request Sample Deliverables",
+      "ctaSecondary": "Speak to an Architect"
+    },
+    "diagram": {
+      "title": "Governance Layer (Simplified)",
+      "user": "User",
+      "workflow": "Approved Workflow",
+      "policy": "Policy Enforcement",
+      "privacy": "Privacy Layer",
+      "model": "Model",
+      "output": "Output",
+      "auditLog": "Underneath: Audit Log + Evidence Checklist"
+    },
+    "finalCTA": {
+      "title": "Adopt AI without losing control.",
+      "subtitle": "Run an exposure check or request a demo. We'll show the practical path to governed AI adoption in your environment.",
+      "ctaPrimary": "Run AI Exposure Check",
+      "ctaSecondary": "Request AI Governance Demo",
+      "link": "View Security & Sovereignty →"
+    },
+    "demoForm": {
+      "modalTitle": "Request AI Governance Demo",
+      "modalDescription": "We'll respond with a demo agenda and next steps tailored to your environment.",
+      "labelName": "Name *",
+      "labelEmail": "Email *",
+      "labelCompany": "Company *",
+      "labelRole": "Role *",
+      "labelSector": "Sector *",
+      "placeholderSector": "Select sector",
+      "labelCurrentStatus": "Current AI Status",
+      "placeholderCurrentStatus": "Select current status",
+      "labelPrimaryConcern": "Primary Concern",
+      "placeholderPrimaryConcern": "Select primary concern",
+      "labelTimeline": "Timeline",
+      "placeholderTimeline": "Select timeline",
+      "labelNotes": "Notes",
+      "placeholderNotes": "Specific questions or context...",
+      "btnSubmit": "Request Demo",
+      "btnSubmitting": "Sending...",
+      "successTitle": "Demo Request Received!",
+      "successMessage": "We'll respond with a demo agenda and next steps within 24 hours.",
+      "successButton": "Close",
+      "sectors": {
+        "finance": "Finance & Banking",
+        "energy": "Energy & Petrochemicals",
+        "healthcare": "Healthcare",
+        "telecom": "Telecom & Digital",
+        "government": "Government",
+        "other": "Other"
+      },
+      "currentStatus": {
+        "unknown": "Unknown",
+        "someUse": "Some use",
+        "formal": "Formal programs"
+      },
+      "primaryConcern": {
+        "dataExposure": "Data exposure",
+        "auditability": "Auditability",
+        "policy": "Policy",
+        "deployment": "Deployment"
+      },
+      "timelines": {
+        "now": "Now",
+        "30": "30 days",
+        "90": "90 days"
+      },
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "companyMin": "Company name must be at least 2 characters",
+        "roleMin": "Role must be at least 2 characters",
+        "sectorRequired": "Please select a sector",
+        "submitError": "Failed to submit. Please try again.",
+        "unexpectedError": "An unexpected error occurred. Please try again."
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Is AI governance only for large enterprises?",
+      "a1": "No. High-growth SMEs and mid-market organizations also need governance—especially when handling regulated data or preparing for audit. We offer phased implementation that scales to your current needs and maturity level.",
+      "q2": "How do you handle sensitive data?",
+      "a2": "Through data minimization, masking patterns, and controlled workflows. We help you establish protocols that prevent unnecessary exposure while enabling productive AI use. Specific handling depends on your sector and data classification requirements.",
+      "q3": "How do you ensure quality and reduce hallucinations?",
+      "a3": "Through validation layers and output review gates. Workflows include consistency checks, source citation requirements, and expert review where needed. We don't eliminate AI errors completely—we structure controls to catch and correct them before they become problems.",
+      "q4": "Do we need to stop AI usage to govern it?",
+      "a4": "Not necessarily. We often implement governance in phases while teams continue working. The goal is to channel existing usage into approved workflows and add visibility/controls—not to stop productivity. Where high-risk usage exists, we may recommend temporary restrictions while alternatives are deployed.",
+      "q5": "How long does it take to get governed?",
+      "a5": "Basic governance (policy + operating model + initial controls) can be established in 30-60 days. Full deployment including workflow enablement, training, and audit readiness typically takes 90 days. Timelines depend on your starting point and complexity.",
+      "q6": "What do we receive?",
+      "a6": "The AI Governance Pack includes policy templates, operating model with RACI, risk register format, approval processes, data handling guidelines, logging checklists, training materials, and implementation roadmap. All deliverables are evidence-ready and structured for audit review."
     }
   }
 }
