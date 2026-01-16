@@ -2,12 +2,15 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { FileText } from 'lucide-react';
 import useSEO from '@/hooks/useSEO';
+import { useTranslation } from 'react-i18next';
 
 export default function LegalTerms() {
+  const { t } = useTranslation();
+
   useSEO({
-    title: 'Terms of Use | Aliph Solutions',
-    description: 'Aliph Solutions website terms of use—conditions for accessing and using this site and its content.',
-    keywords: 'terms of use, terms and conditions, website terms, Aliph Solutions',
+    title: t('legalTerms.seo.title'),
+    description: t('legalTerms.seo.description'),
+    keywords: t('legalTerms.seo.keywords'),
   });
 
   const scrollToSection = (id: string) => {
@@ -18,16 +21,16 @@ export default function LegalTerms() {
   };
 
   const tableOfContents = [
-    { id: 'acceptance', label: 'Acceptance of Terms' },
-    { id: 'use-of-site', label: 'Use of Site' },
-    { id: 'intellectual-property', label: 'Intellectual Property' },
-    { id: 'disclaimers', label: 'Disclaimers' },
-    { id: 'limitation', label: 'Limitation of Liability' },
-    { id: 'third-party', label: 'Links to Third Parties' },
-    { id: 'privacy', label: 'Privacy and Cookies' },
-    { id: 'changes', label: 'Changes to Terms' },
-    { id: 'governing-law', label: 'Governing Law' },
-    { id: 'contact', label: 'Contact' }
+    { id: 'acceptance', label: t('legalTerms.toc.acceptance') },
+    { id: 'use-of-site', label: t('legalTerms.toc.useOfSite') },
+    { id: 'intellectual-property', label: t('legalTerms.toc.intellectualProperty') },
+    { id: 'disclaimers', label: t('legalTerms.toc.disclaimers') },
+    { id: 'limitation', label: t('legalTerms.toc.limitation') },
+    { id: 'third-party', label: t('legalTerms.toc.thirdParty') },
+    { id: 'privacy', label: t('legalTerms.toc.privacy') },
+    { id: 'changes', label: t('legalTerms.toc.changes') },
+    { id: 'governing-law', label: t('legalTerms.toc.governingLaw') },
+    { id: 'contact', label: t('legalTerms.toc.contact') }
   ];
 
   return (
@@ -37,13 +40,13 @@ export default function LegalTerms() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-4">
             <FileText className="w-8 h-8 text-[#C9A227]" />
-            <span className="text-sm text-[#C9A227]">Legal</span>
+            <span className="text-sm text-[#C9A227]">{t('legalTerms.hero.label')}</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Terms of Use</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('legalTerms.hero.title')}</h1>
           <p className="text-xl text-gray-300 max-w-3xl mb-4">
-            These Terms of Use govern your access to and use of the Aliph Solutions website and its content.
+            {t('legalTerms.hero.description')}
           </p>
-          <p className="text-sm text-gray-400">Last updated: January 8, 2026</p>
+          <p className="text-sm text-gray-400">{t('legalTerms.hero.lastUpdated')}</p>
         </div>
       </section>
 
@@ -54,7 +57,7 @@ export default function LegalTerms() {
             {/* TABLE OF CONTENTS */}
             <div className="lg:col-span-1">
               <Card className="p-6 sticky top-6">
-                <h3 className="font-bold text-gray-900 mb-4">Contents</h3>
+                <h3 className="font-bold text-gray-900 mb-4">{t('legalTerms.toc.title')}</h3>
                 <nav className="space-y-2">
                   {tableOfContents.map((item) => (
                     <button
@@ -70,7 +73,7 @@ export default function LegalTerms() {
 
               <Card className="p-4 mt-6 bg-amber-50 border-amber-200">
                 <p className="text-sm text-amber-900">
-                  These terms may be updated; check this page for changes.
+                  {t('legalTerms.toc.note')}
                 </p>
               </Card>
             </div>
@@ -80,157 +83,149 @@ export default function LegalTerms() {
               <Card className="p-8 md:p-12">
                 {/* ACCEPTANCE */}
                 <section id="acceptance" className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Acceptance of Terms</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('legalTerms.acceptance.title')}</h2>
                   <p className="text-gray-700 mb-4">
-                    By accessing or using the Aliph Solutions website ("Site"), you agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use the Site.
+                    {t('legalTerms.acceptance.p1')}
                   </p>
                   <p className="text-gray-700">
-                    These terms apply to all visitors, users, and others who access the Site. Additional terms may apply to specific services, engagements, or partnerships.
+                    {t('legalTerms.acceptance.p2')}
                   </p>
                 </section>
 
                 {/* USE OF SITE */}
                 <section id="use-of-site" className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Use of Site</h2>
-                  
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Permitted Use</h3>
-                  <p className="text-gray-700 mb-4">You may use the Site for lawful purposes, including:</p>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('legalTerms.useOfSite.title')}</h2>
+
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{t('legalTerms.useOfSite.permitted.title')}</h3>
+                  <p className="text-gray-700 mb-4">{t('legalTerms.useOfSite.permitted.intro')}</p>
                   <ul className="list-disc pl-6 text-gray-700 mb-6 space-y-2">
-                    <li>Learning about Aliph Solutions' services, technology, and offerings</li>
-                    <li>Submitting inquiries or engagement requests</li>
-                    <li>Accessing resources and informational materials</li>
-                    <li>Subscribing to newsletters and regulatory updates</li>
+                    {(t('legalTerms.useOfSite.permitted.list', { returnObjects: true }) as string[]).map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
                   </ul>
 
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Prohibited Use</h3>
-                  <p className="text-gray-700 mb-4">You agree not to:</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{t('legalTerms.useOfSite.prohibited.title')}</h3>
+                  <p className="text-gray-700 mb-4">{t('legalTerms.useOfSite.prohibited.intro')}</p>
                   <ul className="list-disc pl-6 text-gray-700 space-y-2">
-                    <li>Use the Site in any manner that violates applicable laws or regulations</li>
-                    <li>Attempt to gain unauthorized access to any part of the Site or related systems</li>
-                    <li>Use automated systems (e.g., bots, scrapers) to access or collect data from the Site without permission</li>
-                    <li>Interfere with or disrupt the Site's operation or infrastructure</li>
-                    <li>Impersonate any person or entity or falsely represent your affiliation</li>
-                    <li>Upload malicious code, viruses, or harmful materials</li>
+                    {(t('legalTerms.useOfSite.prohibited.list', { returnObjects: true }) as string[]).map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
                   </ul>
                 </section>
 
                 {/* INTELLECTUAL PROPERTY */}
                 <section id="intellectual-property" className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Intellectual Property</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('legalTerms.intellectualProperty.title')}</h2>
                   <p className="text-gray-700 mb-4">
-                    All content on the Site, including text, graphics, logos, images, software, templates, frameworks, and methodologies (collectively, "Content"), is the property of Aliph Solutions or its licensors and is protected by copyright, trademark, and other intellectual property laws.
+                    {t('legalTerms.intellectualProperty.p1')}
                   </p>
-                  <p className="text-gray-700 mb-4">
-                    <strong>Materials on this Site may not be copied, distributed, modified, reproduced, published, or used to create derivative works without the express written permission of Aliph Solutions.</strong>
-                  </p>
+                  <p className="text-gray-700 mb-4" dangerouslySetInnerHTML={{ __html: t('legalTerms.intellectualProperty.p2') }} />
                   <p className="text-gray-700">
-                    Limited viewing and printing for personal, non-commercial use is permitted. Any other use requires prior written authorization.
+                    {t('legalTerms.intellectualProperty.p3')}
                   </p>
                 </section>
 
                 {/* DISCLAIMERS */}
                 <section id="disclaimers" className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Disclaimers</h2>
-                  
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">Informational Purposes Only</h3>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('legalTerms.disclaimers.title')}</h2>
+
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{t('legalTerms.disclaimers.info.title')}</h3>
                   <p className="text-gray-700 mb-4">
-                    The information provided on this Site is for general informational purposes only. It does not constitute legal, compliance, regulatory, or professional advice. You should not rely on this information as a substitute for professional consultation tailored to your specific circumstances.
+                    {t('legalTerms.disclaimers.info.p1')}
                   </p>
 
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">No Warranties</h3>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">{t('legalTerms.disclaimers.warranty.title')}</h3>
                   <p className="text-gray-700 mb-4">
-                    The Site and all Content are provided "as is" and "as available" without warranties of any kind, either express or implied, including but not limited to:
+                    {t('legalTerms.disclaimers.warranty.p1')}
                   </p>
                   <ul className="list-disc pl-6 text-gray-700 space-y-2">
-                    <li>Accuracy, completeness, or reliability of information</li>
-                    <li>Fitness for a particular purpose or merchantability</li>
-                    <li>Uninterrupted or error-free operation</li>
-                    <li>Freedom from viruses or harmful components</li>
+                    {(t('legalTerms.disclaimers.warranty.list', { returnObjects: true }) as string[]).map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
                   </ul>
                 </section>
 
                 {/* LIMITATION OF LIABILITY */}
                 <section id="limitation" className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Limitation of Liability</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('legalTerms.limitation.title')}</h2>
                   <p className="text-gray-700 mb-4">
-                    To the maximum extent permitted by applicable law, Aliph Solutions and its affiliates, officers, employees, and agents shall not be liable for any direct, indirect, incidental, consequential, special, or punitive damages arising out of or related to:
+                    {t('legalTerms.limitation.p1')}
                   </p>
                   <ul className="list-disc pl-6 text-gray-700 mb-4 space-y-2">
-                    <li>Your access to or use of (or inability to access or use) the Site</li>
-                    <li>Any content or information obtained from the Site</li>
-                    <li>Errors, inaccuracies, or omissions in Site content</li>
-                    <li>Unauthorized access to or alteration of your data or transmissions</li>
+                    {(t('legalTerms.limitation.list', { returnObjects: true }) as string[]).map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
                   </ul>
                   <p className="text-gray-700">
-                    This limitation applies regardless of the theory of liability (contract, tort, negligence, or otherwise), even if Aliph Solutions has been advised of the possibility of such damages.
+                    {t('legalTerms.limitation.p2')}
                   </p>
                 </section>
 
                 {/* THIRD-PARTY LINKS */}
                 <section id="third-party" className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Links to Third Parties</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('legalTerms.thirdParty.title')}</h2>
                   <p className="text-gray-700 mb-4">
-                    The Site may contain links to third-party websites or services that are not owned or controlled by Aliph Solutions. We do not endorse or assume responsibility for the content, privacy policies, or practices of any third-party sites.
+                    {t('legalTerms.thirdParty.p1')}
                   </p>
                   <p className="text-gray-700">
-                    You acknowledge and agree that Aliph Solutions shall not be responsible or liable for any damage or loss caused by your use of any third-party content, products, or services.
+                    {t('legalTerms.thirdParty.p2')}
                   </p>
                 </section>
 
                 {/* PRIVACY AND COOKIES */}
                 <section id="privacy" className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Privacy and Cookies</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('legalTerms.privacy.title')}</h2>
                   <p className="text-gray-700 mb-4">
-                    Your use of the Site is also governed by our Privacy Policy and Cookie Policy. Please review these documents to understand how we collect, use, and protect your information.
+                    {t('legalTerms.privacy.p1')}
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <a
                       href="/legal/privacy"
                       className="text-[#C9A227] hover:text-[#B8921F] font-medium underline"
                     >
-                      Privacy Policy
+                      {t('legalTerms.privacy.privacy')}
                     </a>
                     <span className="text-gray-400">•</span>
                     <a
                       href="/legal/cookies"
                       className="text-[#C9A227] hover:text-[#B8921F] font-medium underline"
                     >
-                      Cookie Policy
+                      {t('legalTerms.privacy.cookies')}
                     </a>
                   </div>
                 </section>
 
                 {/* CHANGES TO TERMS */}
                 <section id="changes" className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Changes to Terms</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('legalTerms.changes.title')}</h2>
                   <p className="text-gray-700 mb-4">
-                    We may update these Terms of Use from time to time. Changes will be posted on this page with an updated "Last updated" date. We encourage you to review these terms periodically.
+                    {t('legalTerms.changes.p1')}
                   </p>
                   <p className="text-gray-700">
-                    Your continued use of the Site after changes are posted constitutes acceptance of the updated terms.
+                    {t('legalTerms.changes.p2')}
                   </p>
                 </section>
 
                 {/* GOVERNING LAW */}
                 <section id="governing-law" className="mb-12">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Governing Law</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('legalTerms.governingLaw.title')}</h2>
                   <p className="text-gray-700">
-                    These Terms of Use shall be governed by and construed in accordance with the laws of the Kingdom of Saudi Arabia, without regard to conflict of law principles. Any disputes arising from these terms or your use of the Site shall be subject to the exclusive jurisdiction of the courts of Riyadh, Saudi Arabia.
+                    {t('legalTerms.governingLaw.p1')}
                   </p>
                 </section>
 
                 {/* CONTACT */}
                 <section id="contact" className="mb-0">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Contact</h2>
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('legalTerms.contact.title')}</h2>
                   <p className="text-gray-700 mb-6">
-                    If you have questions about these Terms of Use, please contact us.
+                    {t('legalTerms.contact.p1')}
                   </p>
                   <Button
                     onClick={() => window.location.href = '/company/contact'}
                     className="bg-[#C9A227] hover:bg-[#B8921F]"
                     data-cta="terms_contact"
                   >
-                    Contact Us
+                    {t('legalTerms.contact.cta')}
                   </Button>
                 </section>
               </Card>

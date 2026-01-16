@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -19,33 +19,36 @@ import { useTranslation } from 'react-i18next';
 import '@/i18n/config';
 import useSEO from '@/hooks/useSEO';
 
-// Form validation schema - Note: validation messages will be replaced by translation keys in the UI
-const formSchema = z.object({
-  name: z.string().min(2).max(100),
-  email: z.string().email(),
-  company: z.string().min(2).max(200),
-  role: z.string().min(2).max(100),
-  interestType: z.string().min(1),
-  sector: z.string().min(1),
-  primaryFocus: z.array(z.string()).min(1),
-  timeline: z.string().min(1),
+// Schema generator function to inject translations
+const createFormSchema = (t: (key: string) => string) => z.object({
+  name: z.string().min(2, { message: t('companyContact.form.validations.nameMin') }).max(100, { message: t('companyContact.form.validations.nameMax') }),
+  email: z.string().email({ message: t('companyContact.form.validations.emailInvalid') }),
+  company: z.string().min(2, { message: t('companyContact.form.validations.companyMin') }).max(200, { message: t('companyContact.form.validations.companyMax') }),
+  role: z.string().min(2, { message: t('companyContact.form.validations.roleMin') }).max(100, { message: t('companyContact.form.validations.roleMax') }),
+  interestType: z.string().min(1, { message: t('companyContact.form.validations.interestTypeRequired') }),
+  sector: z.string().min(1, { message: t('companyContact.form.validations.sectorRequired') }),
+  primaryFocus: z.array(z.string()).min(1, { message: t('companyContact.form.validations.primaryFocusRequired') }),
+  timeline: z.string().min(1, { message: t('companyContact.form.validations.timelineRequired') }),
   notes: z.string().optional(),
 });
 
-type FormData = z.infer<typeof formSchema>;
+type FormData = z.infer<ReturnType<typeof createFormSchema>>;
 
 export default function CompanyContact() {
   const { t } = useTranslation();
   useSEO({
-    title: 'Contact | Aliph Solutions',
-    description: 'Contact Aliph Solutions to discuss GRC advisory, AI governance, managed services, or partnership opportunities. Riyadh, Saudi Arabia.',
-    keywords: 'contact Aliph Solutions, GRC advisory inquiry, Saudi compliance, sovereign AI demo, partnership inquiry',
+    title: t('companyContact.seo.title'),
+    description: t('companyContact.seo.description'),
+    keywords: t('companyContact.seo.keywords'),
   });
 
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
   const [selectedFocus, setSelectedFocus] = useState<string[]>([]);
+
+  // Memoize schema so it updates when language changes
+  const formSchema = useMemo(() => createFormSchema(t), [t]);
 
   const {
     register,
@@ -108,7 +111,7 @@ export default function CompanyContact() {
           const errorMessages = result.errors.map((err: any) => err.message).join(', ');
           setServerError(errorMessages);
         } else {
-          setServerError(result.message || 'Failed to submit form. Please try again.');
+          setServerError(result.message || t('companyContact.form.submitError'));
         }
         return;
       }
@@ -116,7 +119,7 @@ export default function CompanyContact() {
       setSubmitted(true);
     } catch (error) {
       console.error('Form submission error:', error);
-      setServerError('An unexpected error occurred. Please try again later.');
+      setServerError(t('companyContact.form.serverError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -131,16 +134,16 @@ export default function CompanyContact() {
   };
 
   const focusAreas = [
-    t('companyContact.focusAreas.pdpl'),
-    t('companyContact.focusAreas.nca'),
-    t('companyContact.focusAreas.zatca'),
-    t('companyContact.focusAreas.audit'),
-    t('companyContact.focusAreas.ai'),
-    t('companyContact.focusAreas.board'),
-    t('companyContact.focusAreas.thirdParty'),
-    t('companyContact.focusAreas.managed'),
-    t('companyContact.focusAreas.sovereign'),
-    t('companyContact.focusAreas.other')
+    { id: 'pdpl', label: t('companyContact.focusAreas.pdpl') },
+    { id: 'nca', label: t('companyContact.focusAreas.nca') },
+    { id: 'zatca', label: t('companyContact.focusAreas.zatca') },
+    { id: 'audit', label: t('companyContact.focusAreas.audit') },
+    { id: 'ai', label: t('companyContact.focusAreas.ai') },
+    { id: 'board', label: t('companyContact.focusAreas.board') },
+    { id: 'thirdParty', label: t('companyContact.focusAreas.thirdParty') },
+    { id: 'managed', label: t('companyContact.focusAreas.managed') },
+    { id: 'sovereign', label: t('companyContact.focusAreas.sovereign') },
+    { id: 'other', label: t('companyContact.focusAreas.other') }
   ];
 
   if (submitted) {
@@ -214,7 +217,7 @@ export default function CompanyContact() {
             <div className="lg:col-span-2">
               <Card className="p-8 border-2">
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                  Send Us a Message
+                  {t('companyContact.form.title')}
                 </h2>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -229,7 +232,7 @@ export default function CompanyContact() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="name" className={errors.name ? 'text-red-600' : ''}>
-                        {errors.name ? errors.name.message : 'Full Name *'}
+                        {errors.name ? errors.name.message : t('companyContact.form.labels.name')}
                       </Label>
                       <Input
                         id="name"
@@ -239,7 +242,7 @@ export default function CompanyContact() {
                     </div>
                     <div>
                       <Label htmlFor="email" className={errors.email ? 'text-red-600' : ''}>
-                        {errors.email ? errors.email.message : 'Email *'}
+                        {errors.email ? errors.email.message : t('companyContact.form.labels.email')}
                       </Label>
                       <Input
                         id="email"
@@ -254,7 +257,7 @@ export default function CompanyContact() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="company" className={errors.company ? 'text-red-600' : ''}>
-                        {errors.company ? errors.company.message : 'Company *'}
+                        {errors.company ? errors.company.message : t('companyContact.form.labels.company')}
                       </Label>
                       <Input
                         id="company"
@@ -264,7 +267,7 @@ export default function CompanyContact() {
                     </div>
                     <div>
                       <Label htmlFor="role" className={errors.role ? 'text-red-600' : ''}>
-                        {errors.role ? errors.role.message : 'Role / Title *'}
+                        {errors.role ? errors.role.message : t('companyContact.form.labels.role')}
                       </Label>
                       <Input
                         id="role"
@@ -277,22 +280,22 @@ export default function CompanyContact() {
                   {/* Interest Type */}
                   <div>
                     <Label htmlFor="interestType" className={errors.interestType ? 'text-red-600' : ''}>
-                      {errors.interestType ? errors.interestType.message : 'What brings you here? *'}
+                      {errors.interestType ? errors.interestType.message : t('companyContact.form.labels.interestType')}
                     </Label>
                     <Select
                       value={interestType}
                       onValueChange={(value) => setValue('interestType', value, { shouldValidate: true })}
                     >
                       <SelectTrigger className={`mt-2 ${errors.interestType ? 'border-red-500' : ''}`}>
-                        <SelectValue placeholder="Select interest type" />
+                        <SelectValue placeholder={t('companyContact.form.placeholders.interestType')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="demo">Request Demo (Aliph Brain or GRC Platform)</SelectItem>
-                        <SelectItem value="advisory">Advisory Scope (Governance, Risk, Compliance)</SelectItem>
-                        <SelectItem value="managed">Managed Services (GRC Support, Operations)</SelectItem>
-                        <SelectItem value="architecture">Architecture & Security Consultation</SelectItem>
-                        <SelectItem value="partnership">Partnership Inquiry</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        <SelectItem value="demo">{t('companyContact.options.interestType.demo')}</SelectItem>
+                        <SelectItem value="advisory">{t('companyContact.options.interestType.advisory')}</SelectItem>
+                        <SelectItem value="managed">{t('companyContact.options.interestType.managed')}</SelectItem>
+                        <SelectItem value="architecture">{t('companyContact.options.interestType.architecture')}</SelectItem>
+                        <SelectItem value="partnership">{t('companyContact.options.interestType.partnership')}</SelectItem>
+                        <SelectItem value="other">{t('companyContact.options.interestType.other')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -300,24 +303,24 @@ export default function CompanyContact() {
                   {/* Sector */}
                   <div>
                     <Label htmlFor="sector" className={errors.sector ? 'text-red-600' : ''}>
-                      {errors.sector ? errors.sector.message : 'Sector *'}
+                      {errors.sector ? errors.sector.message : t('companyContact.form.labels.sector')}
                     </Label>
                     <Select
                       value={sector}
                       onValueChange={(value) => setValue('sector', value, { shouldValidate: true })}
                     >
                       <SelectTrigger className={`mt-2 ${errors.sector ? 'border-red-500' : ''}`}>
-                        <SelectValue placeholder="Select sector" />
+                        <SelectValue placeholder={t('companyContact.form.placeholders.sector')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="finance">Finance & Banking</SelectItem>
-                        <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
-                        <SelectItem value="healthcare">Healthcare</SelectItem>
-                        <SelectItem value="telecom">Telecom & Digital Services</SelectItem>
-                        <SelectItem value="giga">Giga-project Vendor</SelectItem>
-                        <SelectItem value="sme">SME / Startup</SelectItem>
-                        <SelectItem value="government">Government / Public Sector</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        <SelectItem value="finance">{t('companyContact.options.sector.finance')}</SelectItem>
+                        <SelectItem value="energy">{t('companyContact.options.sector.energy')}</SelectItem>
+                        <SelectItem value="healthcare">{t('companyContact.options.sector.healthcare')}</SelectItem>
+                        <SelectItem value="telecom">{t('companyContact.options.sector.telecom')}</SelectItem>
+                        <SelectItem value="giga">{t('companyContact.options.sector.giga')}</SelectItem>
+                        <SelectItem value="sme">{t('companyContact.options.sector.sme')}</SelectItem>
+                        <SelectItem value="government">{t('companyContact.options.sector.government')}</SelectItem>
+                        <SelectItem value="other">{t('companyContact.options.sector.other')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -325,56 +328,59 @@ export default function CompanyContact() {
                   {/* Primary Focus (Multi-select checkboxes) */}
                   <div>
                     <Label className={`mb-3 block ${errors.primaryFocus ? 'text-red-600' : ''}`}>
-                      {errors.primaryFocus ? errors.primaryFocus.message : 'Primary Focus Areas (select all that apply) *'}
+                      {errors.primaryFocus ? errors.primaryFocus.message : t('companyContact.form.labels.primaryFocus')}
                     </Label>
                     <div className="grid md:grid-cols-2 gap-3">
                       {focusAreas.map((focus) => (
                         <label
-                          key={focus}
+                          key={focus.id}
                           className="flex items-center gap-2 p-3 border-2 rounded-lg cursor-pointer hover:border-[#C9A227] transition-all"
                         >
                           <input
                             type="checkbox"
-                            checked={selectedFocus.includes(focus)}
-                            onChange={() => handleFocusChange(focus)}
+                            checked={selectedFocus.includes(focus.label)}
+                            onChange={() => handleFocusChange(focus.label)}
                             className="w-4 h-4 text-[#C9A227] border-gray-300 rounded focus:ring-[#C9A227]"
                           />
-                          <span className="text-sm text-gray-700">{focus}</span>
+                          <span className="text-sm text-gray-700">{focus.label}</span>
                         </label>
                       ))}
                     </div>
+                    {errors.primaryFocus && (
+                      <p className="text-sm text-red-600 mt-1">{errors.primaryFocus.message}</p>
+                    )}
                   </div>
 
                   {/* Timeline */}
                   <div>
                     <Label htmlFor="timeline" className={errors.timeline ? 'text-red-600' : ''}>
-                      {errors.timeline ? errors.timeline.message : 'Timeline *'}
+                      {errors.timeline ? errors.timeline.message : t('companyContact.form.labels.timeline')}
                     </Label>
                     <Select
                       value={timeline}
                       onValueChange={(value) => setValue('timeline', value, { shouldValidate: true })}
                     >
                       <SelectTrigger className={`mt-2 ${errors.timeline ? 'border-red-500' : ''}`}>
-                        <SelectValue placeholder="Select timeline" />
+                        <SelectValue placeholder={t('companyContact.form.placeholders.timeline')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="urgent">Urgent (within 2 weeks)</SelectItem>
-                        <SelectItem value="1month">1 month</SelectItem>
-                        <SelectItem value="3months">1-3 months</SelectItem>
-                        <SelectItem value="6months">3-6 months</SelectItem>
-                        <SelectItem value="planning">Planning / Exploring</SelectItem>
+                        <SelectItem value="urgent">{t('companyContact.options.timeline.urgent')}</SelectItem>
+                        <SelectItem value="1month">{t('companyContact.options.timeline.1month')}</SelectItem>
+                        <SelectItem value="3months">{t('companyContact.options.timeline.3months')}</SelectItem>
+                        <SelectItem value="6months">{t('companyContact.options.timeline.6months')}</SelectItem>
+                        <SelectItem value="planning">{t('companyContact.options.timeline.planning')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   {/* Notes */}
                   <div>
-                    <Label htmlFor="notes">Additional Notes</Label>
+                    <Label htmlFor="notes">{t('companyContact.form.labels.notes')}</Label>
                     <Textarea
                       id="notes"
                       rows={5}
                       {...register('notes')}
-                      placeholder="Tell us more about your environment, challenges, or specific requirements..."
+                      placeholder={t('companyContact.form.placeholders.notes')}
                       className="mt-2"
                     />
                   </div>
@@ -390,10 +396,10 @@ export default function CompanyContact() {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                        Submitting...
+                        {t('companyContact.form.buttons.submitting')}
                       </>
                     ) : (
-                      'Submit Inquiry'
+                      t('companyContact.form.buttons.submit')
                     )}
                   </Button>
                 </form>
@@ -404,31 +410,31 @@ export default function CompanyContact() {
             <div className="space-y-6">
               {/* Contact Info */}
               <Card className="p-6 border-2">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Contact Information</h3>
-                
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{t('companyContact.sidebar.contactInfo.title')}</h3>
+
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-[#C9A227] flex-shrink-0 mt-1" />
                     <div>
-                      <p className="font-semibold text-gray-900">Location</p>
-                      <p className="text-sm text-gray-600">Riyadh, Saudi Arabia</p>
-                      <p className="text-xs text-gray-500 italic">(by appointment)</p>
+                      <p className="font-semibold text-gray-900">{t('companyContact.sidebar.contactInfo.location.label')}</p>
+                      <p className="text-sm text-gray-600">{t('companyContact.sidebar.contactInfo.location.value')}</p>
+                      <p className="text-xs text-gray-500 italic">{t('companyContact.sidebar.contactInfo.location.note')}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
                     <Mail className="w-5 h-5 text-[#C9A227] flex-shrink-0 mt-1" />
                     <div>
-                      <p className="font-semibold text-gray-900">Email</p>
-                      <p className="text-sm text-gray-600">connect@aliphsolutions.sa</p>
+                      <p className="font-semibold text-gray-900">{t('companyContact.sidebar.contactInfo.email.label')}</p>
+                      <p className="text-sm text-gray-600">{t('companyContact.sidebar.contactInfo.email.value')}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-3">
                     <Phone className="w-5 h-5 text-[#C9A227] flex-shrink-0 mt-1" />
                     <div>
-                      <p className="font-semibold text-gray-900">Response Time</p>
-                      <p className="text-sm text-gray-600">Within 24 hours</p>
+                      <p className="font-semibold text-gray-900">{t('companyContact.sidebar.contactInfo.response.label')}</p>
+                      <p className="text-sm text-gray-600">{t('companyContact.sidebar.contactInfo.response.value')}</p>
                     </div>
                   </div>
                 </div>
@@ -436,15 +442,15 @@ export default function CompanyContact() {
 
               {/* Quick Links */}
               <Card className="p-6 border-2">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Quick Links</h3>
-                
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{t('companyContact.sidebar.quickLinks.title')}</h3>
+
                 <div className="space-y-3">
                   <button
                     onClick={() => window.location.href = '/deliverables'}
                     className="w-full flex items-center justify-between p-3 border-2 rounded-lg hover:border-[#C9A227] transition-all text-left group"
                     data-attribute="contact_request_demo"
                   >
-                    <span className="text-sm font-medium text-gray-900">Request Demo</span>
+                    <span className="text-sm font-medium text-gray-900">{t('companyContact.sidebar.quickLinks.demo')}</span>
                     <ArrowRight className="w-4 h-4 text-[#C9A227] group-hover:translate-x-1 transition-transform" />
                   </button>
 
@@ -453,7 +459,7 @@ export default function CompanyContact() {
                     className="w-full flex items-center justify-between p-3 border-2 rounded-lg hover:border-[#C9A227] transition-all text-left group"
                     data-attribute="contact_request_scope"
                   >
-                    <span className="text-sm font-medium text-gray-900">Advisory Services</span>
+                    <span className="text-sm font-medium text-gray-900">{t('companyContact.sidebar.quickLinks.advisory')}</span>
                     <ArrowRight className="w-4 h-4 text-[#C9A227] group-hover:translate-x-1 transition-transform" />
                   </button>
 
@@ -461,7 +467,7 @@ export default function CompanyContact() {
                     onClick={() => window.location.href = '/managed-services'}
                     className="w-full flex items-center justify-between p-3 border-2 rounded-lg hover:border-[#C9A227] transition-all text-left group"
                   >
-                    <span className="text-sm font-medium text-gray-900">Managed Services</span>
+                    <span className="text-sm font-medium text-gray-900">{t('companyContact.sidebar.quickLinks.managed')}</span>
                     <ArrowRight className="w-4 h-4 text-[#C9A227] group-hover:translate-x-1 transition-transform" />
                   </button>
 
@@ -469,7 +475,7 @@ export default function CompanyContact() {
                     onClick={() => window.location.href = '/technology/security-sovereignty'}
                     className="w-full flex items-center justify-between p-3 border-2 rounded-lg hover:border-[#C9A227] transition-all text-left group"
                   >
-                    <span className="text-sm font-medium text-gray-900">Security & Sovereignty</span>
+                    <span className="text-sm font-medium text-gray-900">{t('companyContact.sidebar.quickLinks.security')}</span>
                     <ArrowRight className="w-4 h-4 text-[#C9A227] group-hover:translate-x-1 transition-transform" />
                   </button>
 
@@ -477,7 +483,7 @@ export default function CompanyContact() {
                     onClick={() => window.location.href = '/company/partners'}
                     className="w-full flex items-center justify-between p-3 border-2 rounded-lg hover:border-[#C9A227] transition-all text-left group"
                   >
-                    <span className="text-sm font-medium text-gray-900">Partnership Inquiry</span>
+                    <span className="text-sm font-medium text-gray-900">{t('companyContact.sidebar.quickLinks.partners')}</span>
                     <ArrowRight className="w-4 h-4 text-[#C9A227] group-hover:translate-x-1 transition-transform" />
                   </button>
 
@@ -485,7 +491,7 @@ export default function CompanyContact() {
                     onClick={() => window.location.href = '/security'}
                     className="w-full flex items-center justify-between p-3 border-2 rounded-lg hover:border-[#C9A227] transition-all text-left group"
                   >
-                    <span className="text-sm font-medium text-gray-900">Security Statement</span>
+                    <span className="text-sm font-medium text-gray-900">{t('companyContact.sidebar.quickLinks.securityStatement')}</span>
                     <ArrowRight className="w-4 h-4 text-[#C9A227] group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -493,10 +499,10 @@ export default function CompanyContact() {
 
               {/* Office Hours */}
               <Card className="p-6 border-2 bg-gradient-to-br from-[#C9A227]/5 to-white">
-                <h3 className="text-lg font-bold text-gray-900 mb-3">Office Hours</h3>
+                <h3 className="text-lg font-bold text-gray-900 mb-3">{t('companyContact.sidebar.officeHours.title')}</h3>
                 <p className="text-sm text-gray-700">
-                  Sunday - Thursday<br />
-                  9:00 AM - 6:00 PM (Riyadh Time)
+                  {t('companyContact.sidebar.officeHours.days')}<br />
+                  {t('companyContact.sidebar.officeHours.time')}
                 </p>
               </Card>
             </div>
@@ -508,17 +514,17 @@ export default function CompanyContact() {
       <section className="py-16 bg-gradient-to-r from-[#0B1220] to-[#1a1f35] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Need Sample Deliverables First?
+            {t('companyContact.finalCta.title')}
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            See the quality and structure of our audit-ready outputs before booking a call.
+            {t('companyContact.finalCta.description')}
           </p>
           <Button
             size="lg"
             onClick={() => window.location.href = '/deliverables'}
             className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
           >
-            Request Sample Deliverables
+            {t('companyContact.finalCta.btn')}
           </Button>
         </div>
       </section>

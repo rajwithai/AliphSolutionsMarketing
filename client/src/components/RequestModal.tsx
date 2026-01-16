@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/select';
 import { Loader2 } from 'lucide-react';
 import SuccessModal from '@/components/SuccessModal';
+import { useTranslation } from 'react-i18next';
 
 type RequestType = 'demo' | 'deliverables' | 'partnership';
 
@@ -31,39 +32,43 @@ interface RequestModalProps {
   type: RequestType;
 }
 
-// Validation schema
-const formSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
-  email: z.string().email('Please enter a valid email address'),
-  company: z.string().min(2, 'Company name is required').max(200),
-  role: z.string().min(2, 'Role is required').max(100),
+// Schema generator to inject translations
+const createFormSchema = (t: (key: string) => string) => z.object({
+  name: z.string().min(2, { message: t('requestModal.form.validations.nameMin') }).max(100, { message: t('requestModal.form.validations.nameMax') }),
+  email: z.string().email({ message: t('requestModal.form.validations.emailInvalid') }),
+  company: z.string().min(2, { message: t('requestModal.form.validations.companyRequired') }).max(200, { message: t('requestModal.form.validations.companyMax') }),
+  role: z.string().min(2, { message: t('requestModal.form.validations.roleRequired') }).max(100, { message: t('requestModal.form.validations.roleMax') }),
   primaryNeed: z.string().optional().or(z.literal('')),
-  sector: z.string().min(1, 'Please select your sector'),
-  timeline: z.string().min(1, 'Please select a timeline'),
+  sector: z.string().min(1, { message: t('requestModal.form.validations.sectorRequired') }),
+  timeline: z.string().min(1, { message: t('requestModal.form.validations.timelineRequired') }),
   notes: z.string().optional().or(z.literal('')),
 });
 
-type FormData = z.infer<typeof formSchema>;
-
-const modalConfig = {
-  demo: {
-    title: 'Request a Sovereign GRC Demo',
-    description: 'Tell us about your needs and we\'ll respond with a demo agenda and next steps.',
-  },
-  deliverables: {
-    title: 'Request Sample Deliverables',
-    description: 'Select the deliverable packs you\'re interested in reviewing.',
-  },
-  partnership: {
-    title: 'Request Government Partnership Proposal',
-    description: 'Let\'s discuss how Aliph can support your organization\'s compliance and governance objectives.',
-  },
-};
+type FormData = z.infer<ReturnType<typeof createFormSchema>>;
 
 export default function RequestModal({ open, onClose, type }: RequestModalProps) {
+  const { t } = useTranslation();
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+
+  // Memoize schema so it updates when language changes
+  const formSchema = useMemo(() => createFormSchema(t), [t]);
+
+  const modalConfig = {
+    demo: {
+      title: t('requestModal.types.demo.title'),
+      description: t('requestModal.types.demo.description'),
+    },
+    deliverables: {
+      title: t('requestModal.types.deliverables.title'),
+      description: t('requestModal.types.deliverables.description'),
+    },
+    partnership: {
+      title: t('requestModal.types.partnership.title'),
+      description: t('requestModal.types.partnership.description'),
+    },
+  };
 
   const config = modalConfig[type];
 
@@ -111,7 +116,7 @@ export default function RequestModal({ open, onClose, type }: RequestModalProps)
           `Timeline: ${data.timeline || 'N/A'}\n\n` +
           `Additional Notes:\n${data.notes || 'None'}`,
         inquiryType: 'solution' as const,
-        language: 'en',
+        language: 'en', // Could be dynamic based on current language
       };
 
       const response = await fetch('/api/contact', {
@@ -129,7 +134,7 @@ export default function RequestModal({ open, onClose, type }: RequestModalProps)
           const errorMessages = result.errors.map((err: any) => err.message).join(', ');
           setServerError(errorMessages);
         } else {
-          setServerError(result.message || 'Failed to submit request. Please try again.');
+          setServerError(result.message || t('requestModal.form.submitError'));
         }
         return;
       }
@@ -138,7 +143,7 @@ export default function RequestModal({ open, onClose, type }: RequestModalProps)
       // User will manually close the success modal via the Close button
     } catch (error) {
       console.error('Form submission error:', error);
-      setServerError('An unexpected error occurred. Please try again later.');
+      setServerError(t('requestModal.form.serverError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -156,9 +161,13 @@ export default function RequestModal({ open, onClose, type }: RequestModalProps)
           onClose();
           reset();
         }}
-        title="Email Sent Successfully!"
-        message={`We've received your request and will respond with ${type === 'demo' ? 'a demo agenda' : 'next steps'} within 24-48 hours.`}
-        buttonText="Close"
+        title={t('requestModal.success.title')}
+        message={t('requestModal.success.message', {
+          responseType: type === 'demo'
+            ? t('requestModal.success.responseTypes.demo')
+            : t('requestModal.success.responseTypes.nextSteps')
+        })}
+        buttonText={t('requestModal.success.button')}
       />
 
       <Dialog open={open && !submitted} onOpenChange={(isOpen) => {
@@ -185,7 +194,7 @@ export default function RequestModal({ open, onClose, type }: RequestModalProps)
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name" className={errors.name ? 'text-red-400' : labelClasses}>
-                  {errors.name ? errors.name.message : 'Name *'}
+                  {errors.name ? errors.name.message : t('requestModal.form.labels.name')}
                 </Label>
                 <Input
                   id="name"
@@ -195,7 +204,7 @@ export default function RequestModal({ open, onClose, type }: RequestModalProps)
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email" className={errors.email ? 'text-red-400' : labelClasses}>
-                  {errors.email ? errors.email.message : 'Email *'}
+                  {errors.email ? errors.email.message : t('requestModal.form.labels.email')}
                 </Label>
                 <Input
                   id="email"
@@ -209,7 +218,7 @@ export default function RequestModal({ open, onClose, type }: RequestModalProps)
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="company" className={errors.company ? 'text-red-400' : labelClasses}>
-                  {errors.company ? errors.company.message : 'Company *'}
+                  {errors.company ? errors.company.message : t('requestModal.form.labels.company')}
                 </Label>
                 <Input
                   id="company"
@@ -219,7 +228,7 @@ export default function RequestModal({ open, onClose, type }: RequestModalProps)
               </div>
               <div className="space-y-2">
                 <Label htmlFor="role" className={errors.role ? 'text-red-400' : labelClasses}>
-                  {errors.role ? errors.role.message : 'Role *'}
+                  {errors.role ? errors.role.message : t('requestModal.form.labels.role')}
                 </Label>
                 <Input
                   id="role"
@@ -232,23 +241,23 @@ export default function RequestModal({ open, onClose, type }: RequestModalProps)
             {type === 'demo' && (
               <div className="space-y-2">
                 <Label htmlFor="primaryNeed" className={errors.primaryNeed ? 'text-red-400' : labelClasses}>
-                  {errors.primaryNeed ? errors.primaryNeed.message : 'Primary Need *'}
+                  {errors.primaryNeed ? errors.primaryNeed.message : t('requestModal.form.labels.primaryNeed')}
                 </Label>
                 <Select
                   value={primaryNeed}
                   onValueChange={(value) => setValue('primaryNeed', value, { shouldValidate: true })}
                 >
                   <SelectTrigger id="primaryNeed" className={`${errors.primaryNeed ? 'border-red-500' : 'border-white/10 bg-white/5 text-white focus:ring-[#C9A227]'} h-11`}>
-                    <SelectValue placeholder="Select your primary need" />
+                    <SelectValue placeholder={t('requestModal.form.placeholders.primaryNeed')} />
                   </SelectTrigger>
                   <SelectContent className="bg-[#0B1220] border-white/10 text-white">
-                    <SelectItem value="pdpl">PDPL Compliance</SelectItem>
-                    <SelectItem value="nca-ecc">NCA ECC Compliance</SelectItem>
-                    <SelectItem value="zatca">ZATCA Compliance</SelectItem>
-                    <SelectItem value="governance">Corporate Governance</SelectItem>
-                    <SelectItem value="erm">Enterprise Risk Management</SelectItem>
-                    <SelectItem value="internal-audit">Internal Audit</SelectItem>
-                    <SelectItem value="ai-governance">AI Governance</SelectItem>
+                    <SelectItem value="pdpl">{t('requestModal.options.primaryNeed.pdpl')}</SelectItem>
+                    <SelectItem value="nca-ecc">{t('requestModal.options.primaryNeed.ncaEcc')}</SelectItem>
+                    <SelectItem value="zatca">{t('requestModal.options.primaryNeed.zatca')}</SelectItem>
+                    <SelectItem value="governance">{t('requestModal.options.primaryNeed.governance')}</SelectItem>
+                    <SelectItem value="erm">{t('requestModal.options.primaryNeed.erm')}</SelectItem>
+                    <SelectItem value="internal-audit">{t('requestModal.options.primaryNeed.internalAudit')}</SelectItem>
+                    <SelectItem value="ai-governance">{t('requestModal.options.primaryNeed.aiGovernance')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -257,69 +266,69 @@ export default function RequestModal({ open, onClose, type }: RequestModalProps)
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="sector" className={errors.sector ? 'text-red-400' : labelClasses}>
-                  {errors.sector ? errors.sector.message : 'Sector *'}
+                  {errors.sector ? errors.sector.message : t('requestModal.form.labels.sector')}
                 </Label>
                 <Select
                   value={sector}
                   onValueChange={(value) => setValue('sector', value, { shouldValidate: true })}
                 >
                   <SelectTrigger id="sector" className={`${errors.sector ? 'border-red-500' : 'border-white/10 bg-white/5 text-white focus:ring-[#C9A227]'} h-11`}>
-                    <SelectValue placeholder="Select sector" />
+                    <SelectValue placeholder={t('requestModal.form.placeholders.sector')} />
                   </SelectTrigger>
                   <SelectContent className="bg-[#0B1220] border-white/10 text-white">
-                    <SelectItem value="finance">Finance & Banking</SelectItem>
-                    <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
-                    <SelectItem value="healthcare">Healthcare</SelectItem>
-                    <SelectItem value="giga">Giga-project Vendors</SelectItem>
-                    <SelectItem value="sme">SMEs & Startups</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="finance">{t('requestModal.options.sector.finance')}</SelectItem>
+                    <SelectItem value="energy">{t('requestModal.options.sector.energy')}</SelectItem>
+                    <SelectItem value="healthcare">{t('requestModal.options.sector.healthcare')}</SelectItem>
+                    <SelectItem value="giga">{t('requestModal.options.sector.giga')}</SelectItem>
+                    <SelectItem value="sme">{t('requestModal.options.sector.sme')}</SelectItem>
+                    <SelectItem value="other">{t('requestModal.options.sector.other')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="timeline" className={errors.timeline ? 'text-red-400' : labelClasses}>
-                  {errors.timeline ? errors.timeline.message : 'Timeline *'}
+                  {errors.timeline ? errors.timeline.message : t('requestModal.form.labels.timeline')}
                 </Label>
                 <Select
                   value={timeline}
                   onValueChange={(value) => setValue('timeline', value, { shouldValidate: true })}
                 >
                   <SelectTrigger id="timeline" className={`${errors.timeline ? 'border-red-500' : 'border-white/10 bg-white/5 text-white focus:ring-[#C9A227]'} h-11`}>
-                    <SelectValue placeholder="Select timeline" />
+                    <SelectValue placeholder={t('requestModal.form.placeholders.timeline')} />
                   </SelectTrigger>
                   <SelectContent className="bg-[#0B1220] border-white/10 text-white">
-                    <SelectItem value="now">Immediate</SelectItem>
-                    <SelectItem value="30">Within 30 days</SelectItem>
-                    <SelectItem value="90">Within 90 days</SelectItem>
-                    <SelectItem value="exploratory">Exploratory</SelectItem>
+                    <SelectItem value="now">{t('requestModal.options.timeline.now')}</SelectItem>
+                    <SelectItem value="30">{t('requestModal.options.timeline.30')}</SelectItem>
+                    <SelectItem value="90">{t('requestModal.options.timeline.90')}</SelectItem>
+                    <SelectItem value="exploratory">{t('requestModal.options.timeline.exploratory')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="notes" className={labelClasses}>Additional Notes</Label>
+              <Label htmlFor="notes" className={labelClasses}>{t('requestModal.form.labels.notes')}</Label>
               <Textarea
                 id="notes"
                 rows={3}
                 {...register('notes')}
-                placeholder="Tell us more about your requirements..."
+                placeholder={t('requestModal.form.placeholders.notes')}
                 className="bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-[#C9A227] focus:ring-[#C9A227] min-h-[100px]"
               />
             </div>
 
             <div className="flex gap-4 pt-4">
               <Button type="button" variant="ghost" onClick={onClose} className="flex-1 text-gray-400 hover:text-white hover:bg-white/5" disabled={isSubmitting}>
-                Cancel
+                {t('requestModal.form.buttons.cancel')}
               </Button>
               <Button type="submit" className="flex-[2] bg-[#C9A227] hover:bg-[#B8921F] text-black font-semibold h-11" disabled={isSubmitting}>
                 {isSubmitting ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Submitting...
+                    {t('requestModal.form.buttons.submitting')}
                   </>
                 ) : (
-                  'Submit Request'
+                  t('requestModal.form.buttons.submit')
                 )}
               </Button>
             </div>

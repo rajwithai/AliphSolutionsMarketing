@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { useLanguage } from './LanguageProvider';
+import { useTranslation } from 'react-i18next';
 import { insertContactSubmissionSchema, type InsertContactSubmission } from '@shared/schema';
 import { apiRequest } from '@/lib/queryClient';
 import { CheckCircle, Send } from 'lucide-react';
@@ -20,10 +20,13 @@ interface ContactFormProps {
 }
 
 export default function ContactForm({ defaultInquiryType = 'general', className = '' }: ContactFormProps) {
-  const { t, language } = useLanguage();
+  const { t, i18n } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Use current language for the form submission
+  const currentLanguage = i18n.language;
 
   const form = useForm<InsertContactSubmission>({
     resolver: zodResolver(insertContactSubmissionSchema),
@@ -35,7 +38,7 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
       subject: '',
       message: '',
       inquiryType: defaultInquiryType,
-      language: language,
+      language: currentLanguage,
     },
   });
 
@@ -58,18 +61,14 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
       setIsSubmitted(true);
       queryClient.invalidateQueries({ queryKey: ['/api/contact'] });
       toast({
-        title: language === 'ar' ? 'تم الإرسال بنجاح' : 'Submitted Successfully',
-        description: language === 'ar' 
-          ? 'شكراً لتواصلكم معنا. سنقوم بالرد عليكم قريباً.' 
-          : 'Thank you for contacting us. We\'ll get back to you soon.',
+        title: t('contactForm.success.title'),
+        description: t('contactForm.success.description'),
       });
     },
     onError: (error: any) => {
       toast({
-        title: language === 'ar' ? 'خطأ في الإرسال' : 'Submission Error',
-        description: error?.message || (language === 'ar' 
-          ? 'حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى.' 
-          : 'There was an error sending your message. Please try again.'),
+        title: t('contactForm.error.title'),
+        description: error?.message || t('contactForm.error.description'),
         variant: 'destructive',
       });
     },
@@ -78,7 +77,7 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
   const onSubmit = (data: InsertContactSubmission) => {
     submitMutation.mutate({
       ...data,
-      language: language,
+      language: currentLanguage,
     });
   };
 
@@ -91,7 +90,7 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
       subject: '',
       message: '',
       inquiryType: defaultInquiryType,
-      language: language,
+      language: currentLanguage,
     });
     setIsSubmitted(false);
   };
@@ -105,20 +104,17 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
               <CheckCircle className="w-8 h-8 text-green-600" />
             </div>
             <h3 className="text-xl font-semibold">
-              {language === 'ar' ? 'تم إرسال رسالتك بنجاح' : 'Message Sent Successfully'}
+              {t('contactForm.success.title')}
             </h3>
             <p className="text-muted-foreground max-w-md">
-              {language === 'ar' 
-                ? 'شكراً لاهتمامكم بخدمات أليف. سيتواصل معكم أحد خبرائنا خلال 24-48 ساعة.'
-                : 'Thank you for your interest in Aliph Solutions. One of our experts will contact you within 24-48 hours.'
-              }
+              {t('contactForm.success.message')}
             </p>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               onClick={handleSendAnother}
               data-testid="button-send-another"
             >
-              {language === 'ar' ? 'إرسال رسالة أخرى' : 'Send Another Message'}
+              {t('contactForm.buttons.sendAnother')}
             </Button>
           </div>
         </CardContent>
@@ -130,13 +126,10 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
     <Card className={className}>
       <CardHeader>
         <h3 className="text-2xl font-bold text-center">
-          {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
+          {t('contactForm.title')}
         </h3>
         <p className="text-muted-foreground text-center">
-          {language === 'ar' 
-            ? 'أخبرنا عن احتياجاتك وسنساعدك في العثور على الحل المناسب'
-            : 'Tell us about your needs and we\'ll help you find the right solution'
-          }
+          {t('contactForm.description')}
         </p>
       </CardHeader>
       <CardContent>
@@ -148,11 +141,11 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{language === 'ar' ? 'الاسم *' : 'Name *'}</FormLabel>
+                    <FormLabel>{t('contactForm.labels.name')}</FormLabel>
                     <FormControl>
-                      <Input 
-                        {...field} 
-                        placeholder={language === 'ar' ? 'أدخل اسمك الكامل' : 'Enter your full name'}
+                      <Input
+                        {...field}
+                        placeholder={t('contactForm.placeholders.name')}
                         data-testid="input-name"
                       />
                     </FormControl>
@@ -160,18 +153,18 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{language === 'ar' ? 'البريد الإلكتروني *' : 'Email *'}</FormLabel>
+                    <FormLabel>{t('contactForm.labels.email')}</FormLabel>
                     <FormControl>
-                      <Input 
-                        {...field} 
+                      <Input
+                        {...field}
                         type="email"
-                        placeholder={language === 'ar' ? 'name@company.com' : 'name@company.com'}
+                        placeholder={t('contactForm.placeholders.email')}
                         data-testid="input-email"
                       />
                     </FormControl>
@@ -187,11 +180,11 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
                 name="company"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{language === 'ar' ? 'الشركة' : 'Company'}</FormLabel>
+                    <FormLabel>{t('contactForm.labels.company')}</FormLabel>
                     <FormControl>
-                      <Input 
-                        {...field} 
-                        placeholder={language === 'ar' ? 'اسم الشركة (اختياري)' : 'Company name (optional)'}
+                      <Input
+                        {...field}
+                        placeholder={t('contactForm.placeholders.company')}
                         data-testid="input-company"
                       />
                     </FormControl>
@@ -199,18 +192,18 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
                   </FormItem>
                 )}
               />
-              
+
               <FormField
                 control={form.control}
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{language === 'ar' ? 'رقم الهاتف' : 'Phone'}</FormLabel>
+                    <FormLabel>{t('contactForm.labels.phone')}</FormLabel>
                     <FormControl>
-                      <Input 
-                        {...field} 
+                      <Input
+                        {...field}
                         type="tel"
-                        placeholder={language === 'ar' ? '+966 50 123 4567' : '+966 50 123 4567'}
+                        placeholder={t('contactForm.placeholders.phone')}
                         data-testid="input-phone"
                       />
                     </FormControl>
@@ -225,17 +218,17 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
               name="inquiryType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{language === 'ar' ? 'نوع الاستفسار *' : 'Inquiry Type *'}</FormLabel>
+                  <FormLabel>{t('contactForm.labels.inquiryType')}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger data-testid="select-inquiry-type">
-                        <SelectValue placeholder={language === 'ar' ? 'اختر نوع الاستفسار' : 'Select inquiry type'} />
+                        <SelectValue placeholder={t('contactForm.placeholders.inquiryType')} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="solution">{language === 'ar' ? 'أحتاج حلاً لشركتي' : 'I need a solution for my business'}</SelectItem>
-                      <SelectItem value="expert">{language === 'ar' ? 'أريد الانضمام كخبير' : 'I want to join as an expert'}</SelectItem>
-                      <SelectItem value="general">{language === 'ar' ? 'استفسار عام' : 'General inquiry'}</SelectItem>
+                      <SelectItem value="solution">{t('contactForm.options.inquiryType.solution')}</SelectItem>
+                      <SelectItem value="expert">{t('contactForm.options.inquiryType.expert')}</SelectItem>
+                      <SelectItem value="general">{t('contactForm.options.inquiryType.general')}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -248,11 +241,11 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
               name="subject"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{language === 'ar' ? 'الموضوع *' : 'Subject *'}</FormLabel>
+                  <FormLabel>{t('contactForm.labels.subject')}</FormLabel>
                   <FormControl>
-                    <Input 
-                      {...field} 
-                      placeholder={language === 'ar' ? 'موضوع الرسالة' : 'Message subject'}
+                    <Input
+                      {...field}
+                      placeholder={t('contactForm.placeholders.subject')}
                       data-testid="input-subject"
                     />
                   </FormControl>
@@ -266,11 +259,11 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{language === 'ar' ? 'الرسالة *' : 'Message *'}</FormLabel>
+                  <FormLabel>{t('contactForm.labels.message')}</FormLabel>
                   <FormControl>
-                    <Textarea 
-                      {...field} 
-                      placeholder={language === 'ar' ? 'أخبرنا المزيد عن احتياجاتك...' : 'Tell us more about your needs...'}
+                    <Textarea
+                      {...field}
+                      placeholder={t('contactForm.placeholders.message')}
                       rows={4}
                       data-testid="textarea-message"
                     />
@@ -280,19 +273,19 @@ export default function ContactForm({ defaultInquiryType = 'general', className 
               )}
             />
 
-            <Button 
-              type="submit" 
-              size="lg" 
+            <Button
+              type="submit"
+              size="lg"
               className="w-full flex items-center gap-2"
               disabled={submitMutation.isPending}
               data-testid="button-submit-contact"
             >
               {submitMutation.isPending ? (
-                <span>{language === 'ar' ? 'جاري الإرسال...' : 'Sending...'}</span>
+                <span>{t('contactForm.buttons.sending')}</span>
               ) : (
                 <>
                   <Send className="h-4 w-4" />
-                  <span>{language === 'ar' ? 'إرسال الرسالة' : 'Send Message'}</span>
+                  <span>{t('contactForm.buttons.submit')}</span>
                 </>
               )}
             </Button>

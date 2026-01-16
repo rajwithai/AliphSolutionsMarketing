@@ -564,7 +564,11 @@
             "Delegation of authority frameworks",
             "Policy architecture & governance operating model"
           ],
-          "receives": ["Charters", "DoA matrix", "Reporting packs"]
+          "receives": [
+            "Charters",
+            "DoA matrix",
+            "Reporting packs"
+          ]
         },
         {
           "title": "Risk Management",
@@ -573,7 +577,11 @@
             "Risk appetite & tolerance frameworks",
             "Third-party & vendor risk governance"
           ],
-          "receives": ["Risk taxonomy", "KRI dashboards", "Risk register"]
+          "receives": [
+            "Risk taxonomy",
+            "KRI dashboards",
+            "Risk register"
+          ]
         },
         {
           "title": "Compliance",
@@ -582,7 +590,11 @@
             "Regulatory change management",
             "Compliance operating model & evidence"
           ],
-          "receives": ["Gap analyses", "Policy suites", "Roadmaps"]
+          "receives": [
+            "Gap analyses",
+            "Policy suites",
+            "Roadmaps"
+          ]
         },
         {
           "title": "Internal Audit",
@@ -591,7 +603,11 @@
             "Annual audit planning & risk-based methodology",
             "Co-sourcing & managed audit delivery"
           ],
-          "receives": ["Audit charter", "Annual plan", "Audit reports"]
+          "receives": [
+            "Audit charter",
+            "Annual plan",
+            "Audit reports"
+          ]
         },
         {
           "title": "AI Governance",
@@ -600,7 +616,11 @@
             "AI exposure & risk assessment",
             "Auditability & transparency controls"
           ],
-          "receives": ["AI policy", "Approval process", "Risk register"]
+          "receives": [
+            "AI policy",
+            "Approval process",
+            "Risk register"
+          ]
         }
       ]
     },
@@ -1339,33 +1359,98 @@
       "title": "How It Works",
       "subtitle": "The core engine: from intake to audit-ready output",
       "steps": {
-        "intake": { "label": "Intake", "desc": "Objective + sector + regulation" },
-        "context": { "label": "Context", "desc": "Brain + client materials" },
-        "generation": { "label": "Generation", "desc": "Governed workflows" },
-        "qaChecks": { "label": "QA Checks", "desc": "Rules + scoring" },
-        "validation": { "label": "Validation", "desc": "Expert review" },
-        "packaging": { "label": "Packaging", "desc": "Deliverable + evidence" },
-        "auditLog": { "label": "Audit Log", "desc": "Traceability" }
+        "intake": {
+          "label": "Intake",
+          "desc": "Objective + sector + regulation"
+        },
+        "context": {
+          "label": "Context",
+          "desc": "Brain + client materials"
+        },
+        "generation": {
+          "label": "Generation",
+          "desc": "Governed workflows"
+        },
+        "qaChecks": {
+          "label": "QA Checks",
+          "desc": "Rules + scoring"
+        },
+        "validation": {
+          "label": "Validation",
+          "desc": "Expert review"
+        },
+        "packaging": {
+          "label": "Packaging",
+          "desc": "Deliverable + evidence"
+        },
+        "auditLog": {
+          "label": "Audit Log",
+          "desc": "Traceability"
+        }
       },
       "outputsTitle": "Output Formats",
       "documentationTitle": "Documentation",
-      "documentationItems": ["PDF deliverable packs", "Word/Doc templates (redacted samples)", "Implementation roadmaps"],
+      "documentationItems": [
+        "PDF deliverable packs",
+        "Word/Doc templates (redacted samples)",
+        "Implementation roadmaps"
+      ],
       "structuredTitle": "Structured Outputs",
-      "structuredItems": ["Excel registers (risk, compliance tracker)", "Slide-ready board summaries", "Evidence pack formats"]
+      "structuredItems": [
+        "Excel registers (risk, compliance tracker)",
+        "Slide-ready board summaries",
+        "Evidence pack formats"
+      ]
     },
     "workflows": {
       "title": "What the Aliph Brain Can Produce",
       "subtitle": "Workflow capabilities without exposing full IP",
       "items": [
-        { "title": "PDPL Gap & Roadmap Builder", "inputs": "Current state + obligations", "output": "Gap analysis + remediation roadmap" },
-        { "title": "NCA ECC Controls Mapping Builder", "inputs": "Scope + current controls", "output": "Control mapping + evidence requirements" },
-        { "title": "ZATCA Compliance Ops Builder", "inputs": "Business processes + tax obligations", "output": "Compliance cadence + operating procedures" },
-        { "title": "Policy Suite Generator", "inputs": "Sector + regulatory scope", "output": "Full policy suite (governance/compliance)" },
-        { "title": "Evidence Pack Builder", "inputs": "Requirements + current artifacts", "output": "Audit-ready evidence documentation" },
-        { "title": "Risk Register + KRIs Builder", "inputs": "Risk universe + appetite", "output": "Risk register + KRI dashboard" },
-        { "title": "Internal Audit Plan Builder", "inputs": "Universe + risk assessment", "output": "Annual audit plan + methodology" },
-        { "title": "Third-Party Risk Assessment", "inputs": "Vendor profile + criticality", "output": "Risk assessment + monitoring cadence" },
-        { "title": "Board Governance Toolkit", "inputs": "Structure + regulatory requirements", "output": "Charters + DoA + reporting pack" }
+        {
+          "title": "PDPL Gap & Roadmap Builder",
+          "inputs": "Current state + obligations",
+          "output": "Gap analysis + remediation roadmap"
+        },
+        {
+          "title": "NCA ECC Controls Mapping Builder",
+          "inputs": "Scope + current controls",
+          "output": "Control mapping + evidence requirements"
+        },
+        {
+          "title": "ZATCA Compliance Ops Builder",
+          "inputs": "Business processes + tax obligations",
+          "output": "Compliance cadence + operating procedures"
+        },
+        {
+          "title": "Policy Suite Generator",
+          "inputs": "Sector + regulatory scope",
+          "output": "Full policy suite (governance/compliance)"
+        },
+        {
+          "title": "Evidence Pack Builder",
+          "inputs": "Requirements + current artifacts",
+          "output": "Audit-ready evidence documentation"
+        },
+        {
+          "title": "Risk Register + KRIs Builder",
+          "inputs": "Risk universe + appetite",
+          "output": "Risk register + KRI dashboard"
+        },
+        {
+          "title": "Internal Audit Plan Builder",
+          "inputs": "Universe + risk assessment",
+          "output": "Annual audit plan + methodology"
+        },
+        {
+          "title": "Third-Party Risk Assessment",
+          "inputs": "Vendor profile + criticality",
+          "output": "Risk assessment + monitoring cadence"
+        },
+        {
+          "title": "Board Governance Toolkit",
+          "inputs": "Structure + regulatory requirements",
+          "output": "Charters + DoA + reporting pack"
+        }
       ],
       "inputsLabel": "Inputs",
       "outputLabel": "Output",
@@ -1407,12 +1492,54 @@
       "title": "Outcome Packs Delivered Through the Brain",
       "subtitle": "What you receive at the end of an engagement",
       "items": [
-        { "title": "PDPL Readiness Pack", "items": ["Gap analysis", "Policy suite", "Evidence documentation"] },
-        { "title": "NCA ECC Readiness Pack", "items": ["Control mapping", "Implementation roadmap", "Audit prep"] },
-        { "title": "ZATCA Compliance Operations Pack", "items": ["Process controls", "Operating cadence", "Records checklist"] },
-        { "title": "Corporate Governance Pack", "items": ["DoA matrix", "Board charters", "Reporting framework"] },
-        { "title": "ERM Foundation Pack", "items": ["Risk taxonomy", "Appetite statements", "KRI dashboard"] },
-        { "title": "Internal Audit Enablement Pack", "items": ["Audit charter", "Annual plan", "Methodology"] }
+        {
+          "title": "PDPL Readiness Pack",
+          "items": [
+            "Gap analysis",
+            "Policy suite",
+            "Evidence documentation"
+          ]
+        },
+        {
+          "title": "NCA ECC Readiness Pack",
+          "items": [
+            "Control mapping",
+            "Implementation roadmap",
+            "Audit prep"
+          ]
+        },
+        {
+          "title": "ZATCA Compliance Operations Pack",
+          "items": [
+            "Process controls",
+            "Operating cadence",
+            "Records checklist"
+          ]
+        },
+        {
+          "title": "Corporate Governance Pack",
+          "items": [
+            "DoA matrix",
+            "Board charters",
+            "Reporting framework"
+          ]
+        },
+        {
+          "title": "ERM Foundation Pack",
+          "items": [
+            "Risk taxonomy",
+            "Appetite statements",
+            "KRI dashboard"
+          ]
+        },
+        {
+          "title": "Internal Audit Enablement Pack",
+          "items": [
+            "Audit charter",
+            "Annual plan",
+            "Methodology"
+          ]
+        }
       ],
       "ctaPrimary": "Request Sample Deliverables",
       "ctaSecondary": "Request a Demo"
@@ -1550,13 +1677,33 @@
     "controls": {
       "title": "Controls That Make AI Safe",
       "category1": "People",
-      "category1Items": ["Training & awareness programs", "Acceptable use acknowledgment", "Approval workflows for exceptions", "Role-based access permissions"],
+      "category1Items": [
+        "Training & awareness programs",
+        "Acceptable use acknowledgment",
+        "Approval workflows for exceptions",
+        "Role-based access permissions"
+      ],
       "category2": "Process",
-      "category2Items": ["Use case intake & review", "Risk assessment templates", "Escalation procedures", "Periodic usage reviews"],
+      "category2Items": [
+        "Use case intake & review",
+        "Risk assessment templates",
+        "Escalation procedures",
+        "Periodic usage reviews"
+      ],
       "category3": "Technology",
-      "category3Items": ["Access controls & authentication", "Data masking patterns", "Audit logging infrastructure", "Workflow validation layers"],
+      "category3Items": [
+        "Access controls & authentication",
+        "Data masking patterns",
+        "Audit logging infrastructure",
+        "Workflow validation layers"
+      ],
       "category4": "Assurance",
-      "category4Items": ["Control testing protocols", "Audit evidence packaging", "Output quality reviews", "Compliance reporting"],
+      "category4Items": [
+        "Control testing protocols",
+        "Audit evidence packaging",
+        "Output quality reviews",
+        "Compliance reporting"
+      ],
       "note": "Controls are tailored to your sector and environment."
     },
     "enablement": {
@@ -2333,111 +2480,6 @@
       "btn2": "Request Sample Deliverables"
     }
   },
-  "companyContact": {
-    "success": {
-      "title": "Thank You",
-      "message": "We've received your inquiry and will respond within 24 hours with next steps.",
-      "btn1": "View Sample Deliverables",
-      "btn2": "Back to Home"
-    },
-    "hero": {
-      "badge": "Get in Touch",
-      "title": "Contact Aliph",
-      "description": "Request a demo, scoped engagement plan, sample deliverables, or discuss partnership opportunities. We respond within 24 hours."
-    },
-    "form": {
-      "title": "Send Us a Message",
-      "nameLabel": "Full Name *",
-      "emailLabel": "Email *",
-      "companyLabel": "Company *",
-      "roleLabel": "Role / Title *",
-      "interestLabel": "What brings you here? *",
-      "interestPlaceholder": "Select interest type",
-      "sectorLabel": "Sector *",
-      "sectorPlaceholder": "Select sector",
-      "focusLabel": "Primary Focus Areas (select all that apply) *",
-      "timelineLabel": "Timeline *",
-      "timelinePlaceholder": "Select timeline",
-      "notesLabel": "Additional Notes",
-      "notesPlaceholder": "Tell us more about your environment, challenges, or specific requirements...",
-      "submitBtn": "Submit Inquiry",
-      "submittingBtn": "Submitting...",
-      "errorName": "Name must be at least 2 characters",
-      "errorEmail": "Please enter a valid email address",
-      "errorCompany": "Company name is required",
-      "errorRole": "Role/Title is required",
-      "errorInterest": "Please select what brings you here",
-      "errorSector": "Please select your sector",
-      "errorFocus": "Please select at least one focus area",
-      "errorTimeline": "Please select a timeline"
-    },
-    "interestOptions": {
-      "demo": "Request Demo (Aliph Brain or GRC Platform)",
-      "advisory": "Advisory Scope (Governance, Risk, Compliance)",
-      "managed": "Managed Services (GRC Support, Operations)",
-      "architecture": "Architecture & Security Consultation",
-      "partnership": "Partnership Inquiry",
-      "other": "Other"
-    },
-    "sectorOptions": {
-      "finance": "Finance & Banking",
-      "energy": "Energy & Petrochemicals",
-      "healthcare": "Healthcare",
-      "telecom": "Telecom & Digital Services",
-      "giga": "Giga-project Vendor",
-      "sme": "SME / Startup",
-      "government": "Government / Public Sector",
-      "other": "Other"
-    },
-    "focusAreas": {
-      "pdpl": "PDPL Compliance",
-      "nca": "NCA ECC Readiness",
-      "zatca": "ZATCA / Tax Compliance",
-      "audit": "Internal Audit Setup",
-      "ai": "AI Governance",
-      "board": "Board & Committee Governance",
-      "thirdParty": "Third-Party Risk",
-      "managed": "Managed GRC Operations",
-      "sovereign": "Sovereign Architecture",
-      "other": "Other"
-    },
-    "timelineOptions": {
-      "urgent": "Urgent (within 2 weeks)",
-      "1month": "1 month",
-      "3months": "1-3 months",
-      "6months": "3-6 months",
-      "planning": "Planning / Exploring"
-    },
-    "contactInfo": {
-      "title": "Contact Information",
-      "locationLabel": "Location",
-      "locationValue": "Riyadh, Saudi Arabia",
-      "locationNote": "(by appointment)",
-      "emailLabel": "Email",
-      "emailValue": "connect@aliphsolutions.sa",
-      "responseLabel": "Response Time",
-      "responseValue": "Within 24 hours"
-    },
-    "quickLinks": {
-      "title": "Quick Links",
-      "demo": "Request Demo",
-      "advisory": "Advisory Services",
-      "managed": "Managed Services",
-      "security": "Security & Sovereignty",
-      "partnership": "Partnership Inquiry",
-      "statement": "Security Statement"
-    },
-    "officeHours": {
-      "title": "Office Hours",
-      "days": "Sunday - Thursday",
-      "time": "9:00 AM - 6:00 PM (Riyadh Time)"
-    },
-    "finalCta": {
-      "title": "Need Sample Deliverables First?",
-      "description": "See the quality and structure of our audit-ready outputs before booking a call.",
-      "btn": "Request Sample Deliverables"
-    }
-  },
   "investors": {
     "hero": {
       "badge1": "Saudi-first",
@@ -2966,6 +3008,681 @@
       "btn1": "Speak to an Architect",
       "btn2": "Request Security Brief",
       "link": "View Sample Deliverables →"
+    }
+  },
+  "legalCookies": {
+    "seo": {
+      "title": "Cookie Policy | Aliph Solutions",
+      "description": "Aliph Solutions cookie policy—how we use cookies and similar technologies and how you can control them.",
+      "keywords": "cookie policy, cookies, tracking, analytics, Aliph Solutions"
+    },
+    "hero": {
+      "label": "Legal",
+      "title": "Cookie Policy",
+      "description": "This Cookie Policy explains how Aliph Solutions uses cookies and similar technologies on our website and how you can control them.",
+      "lastUpdated": "Last updated: January 8, 2026"
+    },
+    "toc": {
+      "title": "Contents",
+      "whatAreCookies": "What Are Cookies",
+      "typesUsed": "Types of Cookies We Use",
+      "howControl": "How to Control Cookies",
+      "consent": "Cookie Consent",
+      "thirdParty": "Third-Party Cookies",
+      "updates": "Updates to this Policy",
+      "contact": "Contact",
+      "note": "This policy may be updated; check this page for changes."
+    },
+    "whatAreCookies": {
+      "title": "What Are Cookies",
+      "p1": "Cookies are small text files that are stored on your device (computer, tablet, or mobile phone) when you visit a website. They help websites remember your actions and preferences over time, improving your browsing experience.",
+      "p2": "Similar technologies include web beacons, pixels, and local storage, which serve similar purposes. For simplicity, this policy refers to all such technologies as \"cookies.\""
+    },
+    "typesUsed": {
+      "title": "Types of Cookies We Use",
+      "intro": "We may use the following types of cookies on the Aliph Solutions website:",
+      "necessary": {
+        "type": "Necessary Cookies",
+        "purpose": "Essential for the Site to function properly",
+        "examples": "Session management, security, load balancing",
+        "control": "Cannot be disabled as they are required for site operation"
+      },
+      "analytics": {
+        "type": "Analytics Cookies",
+        "purpose": "Help us understand how visitors use the Site",
+        "examples": "Page views, time on site, navigation patterns, referral sources",
+        "control": "Can be controlled through browser settings or consent preferences"
+      },
+      "functional": {
+        "type": "Functional Cookies",
+        "purpose": "Remember your preferences and choices",
+        "examples": "Language preferences, region settings, form data",
+        "control": "Can be controlled through browser settings"
+      },
+      "fields": {
+        "purpose": "Purpose:",
+        "examples": "Examples:",
+        "control": "Control:"
+      },
+      "note": "<strong>Note:</strong> We do not currently use marketing or advertising cookies that track you across multiple websites. If this changes, we will update this policy and provide additional control options."
+    },
+    "howControl": {
+      "title": "How to Control Cookies",
+      "intro": "You have several options to manage and control cookies:",
+      "browserSettings": {
+        "title": "Browser Settings",
+        "p1": "Most web browsers allow you to control cookies through settings. You can typically:",
+        "list": [
+          "Block all cookies",
+          "Accept only first-party cookies",
+          "Delete cookies when you close your browser",
+          "Clear all cookies stored on your device"
+        ]
+      },
+      "browserHelp": {
+        "title": "Browser Help Resources",
+        "p1": "For instructions on managing cookies in popular browsers:",
+        "list": [
+          "<strong>Google Chrome:</strong> Settings > Privacy and security > Cookies",
+          "<strong>Mozilla Firefox:</strong> Settings > Privacy & Security > Cookies",
+          "<strong>Safari:</strong> Preferences > Privacy",
+          "<strong>Microsoft Edge:</strong> Settings > Cookies and site permissions"
+        ]
+      },
+      "important": "<strong>Important:</strong> Blocking or deleting cookies may affect your ability to use certain features of the Site and may impact your browsing experience."
+    },
+    "consent": {
+      "title": "Cookie Consent",
+      "p1": "When you first visit the Aliph Solutions website, you may see a notice informing you about our use of cookies. By continuing to use the Site, you consent to our use of cookies as described in this policy.",
+      "p2": "Where required by law, we will obtain your explicit consent before placing non-essential cookies on your device. You can withdraw your consent at any time by adjusting your browser settings or contacting us."
+    },
+    "thirdParty": {
+      "title": "Third-Party Cookies",
+      "p1": "We may use third-party services that place cookies on your device to help us analyze Site usage and improve performance. These services may include:",
+      "list": [
+        "<strong>Analytics providers:</strong> To understand traffic patterns, visitor behavior, and site performance",
+        "<strong>Hosting providers:</strong> To deliver and secure the Site infrastructure"
+      ],
+      "p2": "Third-party providers have their own privacy policies and cookie practices. We encourage you to review their policies to understand how they collect and use information.",
+      "p3": "We do not control third-party cookies and are not responsible for their practices. You can opt out of third-party analytics cookies through your browser settings or the provider's opt-out mechanisms."
+    },
+    "updates": {
+      "title": "Updates to this Policy",
+      "p1": "We may update this Cookie Policy from time to time to reflect changes in our practices or applicable laws. Changes will be posted on this page with an updated \"Last updated\" date.",
+      "p2": "We encourage you to review this policy periodically to stay informed about how we use cookies."
+    },
+    "contact": {
+      "title": "Contact",
+      "p1": "If you have questions about this Cookie Policy or how we use cookies, please contact us.",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use",
+      "cta": "Contact Us"
+    }
+  },
+  "legalTerms": {
+    "seo": {
+      "title": "Terms of Use | Aliph Solutions",
+      "description": "Aliph Solutions website terms of use—conditions for accessing and using this site and its content.",
+      "keywords": "terms of use, terms and conditions, website terms, Aliph Solutions"
+    },
+    "hero": {
+      "label": "Legal",
+      "title": "Terms of Use",
+      "description": "These Terms of Use govern your access to and use of the Aliph Solutions website and its content.",
+      "lastUpdated": "Last updated: January 8, 2026"
+    },
+    "toc": {
+      "title": "Contents",
+      "acceptance": "Acceptance of Terms",
+      "useOfSite": "Use of Site",
+      "intellectualProperty": "Intellectual Property",
+      "disclaimers": "Disclaimers",
+      "limitation": "Limitation of Liability",
+      "thirdParty": "Links to Third Parties",
+      "privacy": "Privacy and Cookies",
+      "changes": "Changes to Terms",
+      "governingLaw": "Governing Law",
+      "contact": "Contact",
+      "note": "These terms may be updated; check this page for changes."
+    },
+    "acceptance": {
+      "title": "Acceptance of Terms",
+      "p1": "By accessing or using the Aliph Solutions website (\"Site\"), you agree to be bound by these Terms of Use. If you do not agree to these terms, please do not use the Site.",
+      "p2": "These terms apply to all visitors, users, and others who access the Site. Additional terms may apply to specific services, engagements, or partnerships."
+    },
+    "useOfSite": {
+      "title": "Use of Site",
+      "permitted": {
+        "title": "Permitted Use",
+        "intro": "You may use the Site for lawful purposes, including:",
+        "list": [
+          "Learning about Aliph Solutions' services, technology, and offerings",
+          "Submitting inquiries or engagement requests",
+          "Accessing resources and informational materials",
+          "Subscribing to newsletters and regulatory updates"
+        ]
+      },
+      "prohibited": {
+        "title": "Prohibited Use",
+        "intro": "You agree not to:",
+        "list": [
+          "Use the Site in any manner that violates applicable laws or regulations",
+          "Attempt to gain unauthorized access to any part of the Site or related systems",
+          "Use automated systems (e.g., bots, scrapers) to access or collect data from the Site without permission",
+          "Interfere with or disrupt the Site's operation or infrastructure",
+          "Impersonate any person or entity or falsely represent your affiliation",
+          "Upload malicious code, viruses, or harmful materials"
+        ]
+      }
+    },
+    "intellectualProperty": {
+      "title": "Intellectual Property",
+      "p1": "All content on the Site, including text, graphics, logos, images, software, templates, frameworks, and methodologies (collectively, \"Content\"), is the property of Aliph Solutions or its licensors and is protected by copyright, trademark, and other intellectual property laws.",
+      "p2": "<strong>Materials on this Site may not be copied, distributed, modified, reproduced, published, or used to create derivative works without the express written permission of Aliph Solutions.</strong>",
+      "p3": "Limited viewing and printing for personal, non-commercial use is permitted. Any other use requires prior written authorization."
+    },
+    "disclaimers": {
+      "title": "Disclaimers",
+      "info": {
+        "title": "Informational Purposes Only",
+        "p1": "The information provided on this Site is for general informational purposes only. It does not constitute legal, compliance, regulatory, or professional advice. You should not rely on this information as a substitute for professional consultation tailored to your specific circumstances."
+      },
+      "warranty": {
+        "title": "No Warranties",
+        "p1": "The Site and all Content are provided \"as is\" and \"as available\" without warranties of any kind, either express or implied, including but not limited to:",
+        "list": [
+          "Accuracy, completeness, or reliability of information",
+          "Fitness for a particular purpose or merchantability",
+          "Uninterrupted or error-free operation",
+          "Freedom from viruses or harmful components"
+        ]
+      }
+    },
+    "limitation": {
+      "title": "Limitation of Liability",
+      "p1": "To the maximum extent permitted by applicable law, Aliph Solutions and its affiliates, officers, employees, and agents shall not be liable for any direct, indirect, incidental, consequential, special, or punitive damages arising out of or related to:",
+      "list": [
+        "Your access to or use of (or inability to access or use) the Site",
+        "Any content or information obtained from the Site",
+        "Errors, inaccuracies, or omissions in Site content",
+        "Unauthorized access to or alteration of your data or transmissions"
+      ],
+      "p2": "This limitation applies regardless of the theory of liability (contract, tort, negligence, or otherwise), even if Aliph Solutions has been advised of the possibility of such damages."
+    },
+    "thirdParty": {
+      "title": "Links to Third Parties",
+      "p1": "The Site may contain links to third-party websites or services that are not owned or controlled by Aliph Solutions. We do not endorse or assume responsibility for the content, privacy policies, or practices of any third-party sites.",
+      "p2": "You acknowledge and agree that Aliph Solutions shall not be responsible or liable for any damage or loss caused by your use of any third-party content, products, or services."
+    },
+    "privacy": {
+      "title": "Privacy and Cookies",
+      "p1": "Your use of the Site is also governed by our Privacy Policy and Cookie Policy. Please review these documents to understand how we collect, use, and protect your information.",
+      "privacy": "Privacy Policy",
+      "cookies": "Cookie Policy"
+    },
+    "changes": {
+      "title": "Changes to Terms",
+      "p1": "We may update these Terms of Use from time to time. Changes will be posted on this page with an updated \"Last updated\" date. We encourage you to review these terms periodically.",
+      "p2": "Your continued use of the Site after changes are posted constitutes acceptance of the updated terms."
+    },
+    "governingLaw": {
+      "title": "Governing Law",
+      "p1": "These Terms of Use shall be governed by and construed in accordance with the laws of the Kingdom of Saudi Arabia, without regard to conflict of law principles. Any disputes arising from these terms or your use of the Site shall be subject to the exclusive jurisdiction of the courts of Riyadh, Saudi Arabia."
+    },
+    "contact": {
+      "title": "Contact",
+      "p1": "If you have questions about these Terms of Use, please contact us.",
+      "cta": "Contact Us"
+    }
+  },
+  "legalPrivacy": {
+    "seo": {
+      "title": "Privacy Policy | Aliph Solutions",
+      "description": "Aliph Solutions privacy policy—how we collect, use, and protect personal information when you use our website and services.",
+      "keywords": "privacy policy, data protection, PDPL, personal information, Aliph Solutions"
+    },
+    "hero": {
+      "label": "Legal",
+      "title": "Privacy Policy",
+      "description": "This Privacy Policy explains how Aliph Solutions collects, uses, and protects personal information when you use our website or interact with our services.",
+      "lastUpdated": "Last updated: January 8, 2026"
+    },
+    "toc": {
+      "title": "Contents",
+      "scope": "Scope",
+      "informationCollect": "Information We Collect",
+      "howUse": "How We Use Information",
+      "legalBases": "Legal Bases",
+      "cookies": "Cookies & Analytics",
+      "sharing": "Sharing & Disclosures",
+      "transfers": "International Transfers",
+      "retention": "Data Retention",
+      "security": "Security Measures",
+      "rights": "Your Choices & Rights",
+      "thirdParty": "Third-Party Links",
+      "updates": "Updates to this Policy",
+      "contact": "Contact",
+      "note": "This policy may be updated; check this page for changes."
+    },
+    "scope": {
+      "title": "Scope",
+      "p1": "This Privacy Policy applies to information collected through the Aliph Solutions website and when you interact with us regarding our advisory, managed services, or technology offerings.",
+      "p2": "For client engagements, additional contractual terms and data processing agreements may apply. Those terms will govern the handling of information specific to the engagement."
+    },
+    "informationCollect": {
+      "title": "Information We Collect",
+      "intro": "We may collect the following categories of information:",
+      "contact": {
+        "title": "Contact Information",
+        "list": [
+          "Name, email address, company name, and role/title",
+          "Phone number (if provided)",
+          "Location and sector information"
+        ]
+      },
+      "inquiry": {
+        "title": "Inquiry Details",
+        "list": [
+          "Information about your compliance needs, sector, and timeline",
+          "Details provided in contact forms or demo requests",
+          "Preferences indicated during interactions"
+        ]
+      },
+      "usage": {
+        "title": "Website Usage Data",
+        "list": [
+          "IP address, device type, and browser information",
+          "Pages visited, time spent, and navigation patterns",
+          "Referral source and search terms used to find our site"
+        ]
+      },
+      "newsletter": {
+        "title": "Newsletter Subscription",
+        "list": [
+          "Email address and optional company information for regulatory updates"
+        ]
+      }
+    },
+    "howUse": {
+      "title": "How We Use Information",
+      "intro": "We may use collected information for the following purposes:",
+      "list": [
+        "<strong>Respond to inquiries:</strong> Provide requested information, schedule calls, and share demos or proposals",
+        "<strong>Deliver services:</strong> Support engagement scoping, delivery, and follow-up communication",
+        "<strong>Improve site performance:</strong> Understand how visitors use the site and optimize content relevance",
+        "<strong>Send communications:</strong> Deliver newsletters and regulatory updates if you have opted in (with unsubscribe option)",
+        "<strong>Comply with legal obligations:</strong> Meet regulatory, audit, or legal requirements where applicable"
+      ]
+    },
+    "legalBases": {
+      "title": "Legal Bases (General)",
+      "intro": "We process personal information based on the following general principles:",
+      "list": [
+        "<strong>Consent:</strong> Where you have provided consent (e.g., newsletter subscription, cookie acceptance)",
+        "<strong>Legitimate interests:</strong> To respond to business inquiries, improve site functionality, and support operational needs",
+        "<strong>Contractual necessity:</strong> To perform obligations under an engagement agreement if you become a client",
+        "<strong>Legal obligations:</strong> To comply with applicable laws and regulations where required"
+      ]
+    },
+    "cookies": {
+      "title": "Cookies & Analytics",
+      "p1": "We may use cookies and similar technologies to collect usage data and improve your experience. Analytics tools may be used to understand site traffic and visitor behavior.",
+      "p2": "You can control cookie preferences through your browser settings. For more details, see our ",
+      "link": "Cookie Policy"
+    },
+    "sharing": {
+      "title": "Sharing & Disclosures",
+      "intro": "We may share information in the following circumstances:",
+      "list": [
+        "<strong>Service providers:</strong> With hosting, email delivery, analytics, and other service providers that support site operations (under confidentiality obligations)",
+        "<strong>Legal requirements:</strong> If required by law, regulation, legal process, or governmental request",
+        "<strong>Business transfers:</strong> In connection with a merger, acquisition, or sale of assets (where applicable)"
+      ],
+      "note": "<strong>We do not sell personal data.</strong>"
+    },
+    "transfers": {
+      "title": "International Transfers",
+      "p1": "Some service providers may process data in jurisdictions outside Saudi Arabia. Where such transfers occur, we take reasonable steps to protect data in accordance with applicable standards and contractual safeguards.",
+      "p2": "Specific data residency and transfer controls may be implemented for client engagements depending on the engagement model and requirements."
+    },
+    "retention": {
+      "title": "Data Retention",
+      "intro": "We retain personal information for as long as needed to fulfill the purposes described in this policy, including:",
+      "list": [
+        "Inquiry and engagement records: As long as necessary for business, legal, and audit purposes",
+        "Newsletter subscriptions: Until you unsubscribe",
+        "Website usage data: Typically retained for a limited period as determined by analytics providers"
+      ]
+    },
+    "security": {
+      "title": "Security Measures",
+      "intro": "We implement reasonable technical and organizational measures to protect personal information, including:",
+      "list": [
+        "Access controls and role-based permissions",
+        "Secure hosting practices with reputable providers",
+        "Least privilege principles for data access",
+        "Monitoring and logging where applicable"
+      ],
+      "p2": "For more information, see our ",
+      "link": "Security Statement"
+    },
+    "rights": {
+      "title": "Your Choices & Rights",
+      "intro": "Depending on your jurisdiction and the nature of our relationship, you may have rights regarding your personal information:",
+      "list": [
+        "<strong>Opt-out of marketing:</strong> Unsubscribe from newsletters via the link in email communications",
+        "<strong>Access and correction:</strong> Request access to or correction of your information where applicable",
+        "<strong>Deletion:</strong> Request deletion of your information, subject to legal and contractual obligations",
+        "<strong>Withdraw consent:</strong> Withdraw consent where processing is based on consent"
+      ],
+      "p2": "To exercise these rights, contact us via the method below."
+    },
+    "thirdParty": {
+      "title": "Third-Party Links",
+      "p1": "Our website may contain links to third-party sites. We are not responsible for the privacy practices of those sites. We encourage you to review their privacy policies before providing any information."
+    },
+    "updates": {
+      "title": "Updates to this Policy",
+      "p1": "We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated \"Last updated\" date. We encourage you to review this policy periodically.",
+      "p2": "Continued use of the website after changes constitutes acceptance of the updated policy."
+    },
+    "contact": {
+      "title": "Contact",
+      "p1": "If you have questions about this Privacy Policy or wish to exercise your rights, please contact us.",
+      "cta": "Contact Us"
+    }
+  },
+  "companyContact": {
+    "seo": {
+      "title": "Contact | Aliph Solutions",
+      "description": "Contact Aliph Solutions to discuss GRC advisory, AI governance, managed services, or partnership opportunities. Riyadh, Saudi Arabia.",
+      "keywords": "contact Aliph Solutions, GRC advisory inquiry, Saudi compliance, sovereign AI demo, partnership inquiry"
+    },
+    "hero": {
+      "badge": "Get in Touch",
+      "title": "Partner with Aliph Solutions",
+      "description": "Ready to elevate your governance, risk, and compliance strategy? Our team of experts is here to discuss your unique challenges and how our sovereign AI and GRC solutions can help."
+    },
+    "form": {
+      "title": "Send Us a Message",
+      "serverError": "An unexpected error occurred. Please try again later.",
+      "submitError": "Failed to submit form. Please try again.",
+      "labels": {
+        "name": "Full Name *",
+        "email": "Email *",
+        "company": "Company *",
+        "role": "Role / Title *",
+        "interestType": "What brings you here? *",
+        "sector": "Sector *",
+        "primaryFocus": "Primary Focus Areas (select all that apply) *",
+        "timeline": "Timeline *",
+        "notes": "Additional Notes"
+      },
+      "placeholders": {
+        "interestType": "Select interest type",
+        "sector": "Select sector",
+        "timeline": "Select timeline",
+        "notes": "Tell us more about your environment, challenges, or specific requirements..."
+      },
+      "validations": {
+        "nameMin": "Name must be at least 2 characters",
+        "nameMax": "Name must be less than 100 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "companyMin": "Company name must be at least 2 characters",
+        "companyMax": "Company name must be less than 200 characters",
+        "roleMin": "Role must be at least 2 characters",
+        "roleMax": "Role must be less than 100 characters",
+        "interestTypeRequired": "Please select an interest type",
+        "sectorRequired": "Please select a sector",
+        "primaryFocusRequired": "Please select at least one focus area",
+        "timelineRequired": "Please select a timeline"
+      },
+      "buttons": {
+        "submit": "Submit Inquiry",
+        "submitting": "Submitting..."
+      }
+    },
+    "options": {
+      "interestType": {
+        "demo": "Request Demo (Aliph Brain or GRC Platform)",
+        "advisory": "Advisory Scope (Governance, Risk, Compliance)",
+        "managed": "Managed Services (GRC Support, Operations)",
+        "architecture": "Architecture & Security Consultation",
+        "partnership": "Partnership Inquiry",
+        "other": "Other"
+      },
+      "sector": {
+        "finance": "Finance & Banking",
+        "energy": "Energy & Petrochemicals",
+        "healthcare": "Healthcare",
+        "telecom": "Telecom & Digital Services",
+        "giga": "Giga-project Vendor",
+        "sme": "SME / Startup",
+        "government": "Government / Public Sector",
+        "other": "Other"
+      },
+      "timeline": {
+        "urgent": "Urgent (within 2 weeks)",
+        "1month": "1 month",
+        "3months": "1-3 months",
+        "6months": "3-6 months",
+        "planning": "Planning / Exploring"
+      }
+    },
+    "focusAreas": {
+      "pdpl": "PDPL Compliance",
+      "nca": "NCA Regulations (ECC, CSCC, etc.)",
+      "zatca": "ZATCA Integration",
+      "audit": "Internal / External Audit Readiness",
+      "ai": "AI Governance",
+      "board": "Board / Executive Reporting",
+      "thirdParty": "Third-Party Risk Management",
+      "managed": "Managed GRC Services",
+      "sovereign": "Sovereign Cloud / Data Residency",
+      "other": "Other"
+    },
+    "sidebar": {
+      "contactInfo": {
+        "title": "Contact Information",
+        "location": {
+          "label": "Location",
+          "value": "Riyadh, Saudi Arabia",
+          "note": "(by appointment)"
+        },
+        "email": {
+          "label": "Email",
+          "value": "connect@aliphsolutions.sa"
+        },
+        "response": {
+          "label": "Response Time",
+          "value": "Within 24 hours"
+        }
+      },
+      "quickLinks": {
+        "title": "Quick Links",
+        "demo": "Request Demo",
+        "advisory": "Advisory Services",
+        "managed": "Managed Services",
+        "security": "Security & Sovereignty",
+        "partners": "Partnership Inquiry",
+        "securityStatement": "Security Statement"
+      },
+      "officeHours": {
+        "title": "Office Hours",
+        "days": "Sunday - Thursday",
+        "time": "9:00 AM - 6:00 PM (Riyadh Time)"
+      }
+    },
+    "success": {
+      "title": "Message Sent!",
+      "message": "Thank you for reaching out to Aliph Solutions. We have received your inquiry and will get back to you within 24 hours.",
+      "btn1": "View Deliverables",
+      "btn2": "Back to Home"
+    },
+    "finalCta": {
+      "title": "Need Sample Deliverables First?",
+      "description": "See the quality and structure of our audit-ready outputs before booking a call.",
+      "btn": "Request Sample Deliverables"
+    }
+  },
+  "requestModal": {
+    "types": {
+      "demo": {
+        "title": "Request a Sovereign GRC Demo",
+        "description": "Tell us about your needs and we'll respond with a demo agenda and next steps."
+      },
+      "deliverables": {
+        "title": "Request Sample Deliverables",
+        "description": "Select the deliverable packs you're interested in reviewing."
+      },
+      "partnership": {
+        "title": "Request Government Partnership Proposal",
+        "description": "Let's discuss how Aliph can support your organization's compliance and governance objectives."
+      }
+    },
+    "form": {
+      "labels": {
+        "name": "Name *",
+        "email": "Email *",
+        "company": "Company *",
+        "role": "Role *",
+        "primaryNeed": "Primary Need *",
+        "sector": "Sector *",
+        "timeline": "Timeline *",
+        "notes": "Additional Notes"
+      },
+      "placeholders": {
+        "primaryNeed": "Select your primary need",
+        "sector": "Select sector",
+        "timeline": "Select timeline",
+        "notes": "Tell us more about your requirements..."
+      },
+      "validations": {
+        "nameMin": "Name must be at least 2 characters",
+        "nameMax": "Name must be less than 100 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "companyRequired": "Company name is required",
+        "companyMax": "Company name must be less than 200 characters",
+        "roleRequired": "Role is required",
+        "roleMax": "Role must be less than 100 characters",
+        "sectorRequired": "Please select your sector",
+        "timelineRequired": "Please select a timeline"
+      },
+      "buttons": {
+        "cancel": "Cancel",
+        "submit": "Submit Request",
+        "submitting": "Submitting..."
+      },
+      "serverError": "An unexpected error occurred. Please try again later.",
+      "submitError": "Failed to submit request. Please try again."
+    },
+    "options": {
+      "primaryNeed": {
+        "pdpl": "PDPL Compliance",
+        "ncaEcc": "NCA ECC Compliance",
+        "zatca": "ZATCA Compliance",
+        "governance": "Corporate Governance",
+        "erm": "Enterprise Risk Management",
+        "internalAudit": "Internal Audit",
+        "aiGovernance": "AI Governance"
+      },
+      "sector": {
+        "finance": "Finance & Banking",
+        "energy": "Energy & Petrochemicals",
+        "healthcare": "Healthcare",
+        "giga": "Giga-project Vendors",
+        "sme": "SMEs & Startups",
+        "other": "Other"
+      },
+      "timeline": {
+        "now": "Immediate",
+        "30": "Within 30 days",
+        "90": "Within 90 days",
+        "exploratory": "Exploratory"
+      }
+    },
+    "success": {
+      "title": "Email Sent Successfully!",
+      "message": "We've received your request and will respond with {{responseType}} within 24-48 hours.",
+      "responseTypes": {
+        "demo": "a demo agenda",
+        "nextSteps": "next steps"
+      },
+      "button": "Close"
+    }
+  },
+  "contactPage": {
+    "title": "Contact Us",
+    "description": "We're here to help you succeed. Contact us today and start your journey with the right GRC solutions for your business.",
+    "getInTouch": {
+      "title": "Get in Touch",
+      "description": "Choose the best way to reach us. Our team of experts is ready to help you achieve your goals.",
+      "address": {
+        "title": "Address",
+        "content": "Riyadh, Saudi Arabia"
+      },
+      "phone": {
+        "title": "Phone"
+      },
+      "email": {
+        "title": "Email"
+      },
+      "hours": {
+        "title": "Business Hours",
+        "content": "Sun - Thu: 9:00 AM - 6:00 PM"
+      }
+    },
+    "commitment": {
+      "title": "Our Commitment to Quality",
+      "items": {
+        "response": "24-hour response time",
+        "consultation": "Free 30-minute consultation",
+        "experts": "Certified local experts",
+        "bilingual": "Bilingual Arabic-English support"
+      }
+    }
+  },
+  "contactForm": {
+    "title": "Contact Us",
+    "description": "Tell us about your needs and we'll help you find the right solution",
+    "labels": {
+      "name": "Name *",
+      "email": "Email *",
+      "company": "Company",
+      "phone": "Phone",
+      "inquiryType": "Inquiry Type *",
+      "subject": "Subject *",
+      "message": "Message *"
+    },
+    "placeholders": {
+      "name": "Enter your full name",
+      "email": "name@company.com",
+      "company": "Company name (optional)",
+      "phone": "+966 50 123 4567",
+      "inquiryType": "Select inquiry type",
+      "subject": "Message subject",
+      "message": "Tell us more about your needs..."
+    },
+    "options": {
+      "inquiryType": {
+        "solution": "I need a solution for my business",
+        "expert": "I want to join as an expert",
+        "general": "General inquiry"
+      }
+    },
+    "buttons": {
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "sendAnother": "Send Another Message"
+    },
+    "success": {
+      "title": "Message Sent Successfully",
+      "description": "Thank you for contact us. We'll get back to you soon.",
+      "message": "Thank you for your interest in Aliph Solutions. One of our experts will contact you within 24-48 hours."
+    },
+    "error": {
+      "title": "Submission Error",
+      "description": "There was an error sending your message. Please try again."
     }
   }
 }

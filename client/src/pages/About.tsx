@@ -15,7 +15,7 @@ export default function About() {
   const [, setLocation] = useLocation();
 
   useSEO({
-    title: language === 'ar' 
+    title: language === 'ar'
       ? 'من نحن - أليف للحلول الاستشارية'
       : 'About Us - Aliph Solutions',
     description: language === 'ar'
@@ -78,7 +78,7 @@ export default function About() {
           <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
             {t('about.hero.subtitle')}
           </p>
-          
+
           {/* Hero Image */}
           <div className="mt-12 relative mx-auto max-w-4xl">
             <div className="relative rounded-xl overflow-hidden shadow-2xl">
@@ -184,8 +184,8 @@ export default function About() {
           <p className="text-muted-foreground mb-6">
             {t('about.cta.subtitle')}
           </p>
-          <Button 
-            size="lg" 
+          <Button
+            size="lg"
             onClick={() => setLocation('/contact')}
             data-testid="button-join-network"
           >
