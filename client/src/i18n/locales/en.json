@@ -1685,5 +1685,756 @@
       "q6": "What do we receive?",
       "a6": "The AI Governance Pack includes policy templates, operating model with RACI, risk register format, approval processes, data handling guidelines, logging checklists, training materials, and implementation roadmap. All deliverables are evidence-ready and structured for audit review."
     }
+  },
+  "grcAutomation": {
+    "hero": {
+      "badge1": "Repeatability",
+      "badge2": "Auditability",
+      "badge3": "Speed",
+      "title": "GRC Automation Workflows",
+      "subtitle": "We use governed workflows to compress manual GRC work—producing structured deliverables, trackers, evidence packs, and reporting formats faster, without sacrificing control.",
+      "ctaPrimary": "Request Workflow Demo",
+      "ctaSecondary": "Request Sample Outputs",
+      "link": "See the Aliph Brain"
+    },
+    "problem": {
+      "title": "Why GRC Delivery Gets Stuck",
+      "point1": "Manual repetition across frameworks and policies",
+      "point2": "Control mapping done from scratch each time",
+      "point3": "Evidence collection happens late",
+      "point4": "Reporting cadence is inconsistent",
+      "quote": "Workflows turn compliance into repeatable execution."
+    },
+    "workflow": {
+      "title": "What a Governed Workflow Is",
+      "subtitle": "A workflow is a repeatable module that takes inputs, applies governed processing rules, and produces structured outputs.",
+      "step1Title": "Inputs",
+      "step1Desc": "Documents, obligations, current state, business context",
+      "step2Title": "Governed Processing",
+      "step2Desc": "Policy rules, templates, consistency checks, validation logic",
+      "step3Title": "Outputs",
+      "step3Desc": "Deliverables, trackers, evidence packs, reporting formats",
+      "notTitle": "What it is NOT:",
+      "not1": "Not a public chatbot",
+      "not2": "Not uncontrolled automation",
+      "not3": "Not black-box outputs",
+      "link": "Learn about Security & Sovereignty"
+    },
+    "workflowMap": {
+      "title": "Workflow Map (Simplified)",
+      "subtitle": "Every workflow follows a governed execution path from intake to audit trail.",
+      "intakeTitle": "Intake",
+      "intakeItem1": "Requirements",
+      "intakeItem2": "Context",
+      "classificationTitle": "Classification",
+      "classificationItem1": "Obligation type",
+      "classificationItem2": "Scope",
+      "mappingTitle": "Mapping",
+      "mappingItem1": "Control mapping",
+      "mappingItem2": "Obligation mapping",
+      "draftingTitle": "Drafting",
+      "draftingItem1": "Policy suite",
+      "draftingItem2": "SOP drafts",
+      "validationTitle": "Validation",
+      "validationItem1": "Consistency checks",
+      "validationItem2": "Completeness",
+      "packagingTitle": "Packaging",
+      "packagingItem1": "Evidence pack",
+      "packagingItem2": "Ownership map",
+      "reportingTitle": "Reporting",
+      "reportingItem1": "Board summary",
+      "reportingItem2": "Dashboard format",
+      "auditTrailTitle": "Audit Trail",
+      "auditTrailItem1": "Versioning",
+      "auditTrailItem2": "Traceability"
+    },
+    "workflowLibrary": {
+      "title": "Examples of Workflows We Run",
+      "subtitle": "Each workflow is designed for a specific GRC function and produces tangible outputs.",
+      "inputLabel": "Input",
+      "outputLabel": "Output",
+      "usedForLabel": "Used For",
+      "sampleLink": "See sample output",
+      "workflows": [
+        {
+          "name": "PDPL Gap & Roadmap Workflow",
+          "input": "Current data practices, PDPL obligations",
+          "output": "Gap analysis, remediation roadmap with owners",
+          "usedFor": "PDPL readiness assessments"
+        },
+        {
+          "name": "NCA ECC Control Mapping Workflow",
+          "input": "Current controls, NCA ECC framework",
+          "output": "Control mapping, evidence requirements, gaps",
+          "usedFor": "NCA ECC compliance programs"
+        },
+        {
+          "name": "ZATCA Compliance Cadence Workflow",
+          "input": "Tax processes, ZATCA requirements",
+          "output": "Compliance tracker, periodic checklist",
+          "usedFor": "Ongoing ZATCA compliance"
+        },
+        {
+          "name": "Policy Suite Builder Workflow",
+          "input": "Business context, obligations, templates",
+          "output": "Contextualized policy suite with owners",
+          "usedFor": "Policy framework creation"
+        },
+        {
+          "name": "Evidence Pack Builder Workflow",
+          "input": "Control requirements, existing documentation",
+          "output": "Structured evidence pack with gaps flagged",
+          "usedFor": "Audit preparation"
+        },
+        {
+          "name": "Risk Register & KRI Builder Workflow",
+          "input": "Risk taxonomy, business context",
+          "output": "Risk register with KRIs and ownership",
+          "usedFor": "ERM foundation"
+        },
+        {
+          "name": "Internal Audit Annual Plan Workflow",
+          "input": "Risk register, audit universe, resources",
+          "output": "Risk-based annual audit plan",
+          "usedFor": "Internal audit planning"
+        },
+        {
+          "name": "Third-Party Risk Workflow",
+          "input": "Vendor list, criticality, requirements",
+          "output": "TPRM tracker, assessment templates",
+          "usedFor": "Vendor risk management"
+        },
+        {
+          "name": "Board Reporting Summary Workflow",
+          "input": "Compliance data, risk updates, metrics",
+          "output": "Executive summary with dashboard format",
+          "usedFor": "Board and committee reporting"
+        },
+        {
+          "name": "Remediation Plan Tracker Workflow",
+          "input": "Audit findings, gap analysis results",
+          "output": "Remediation plan with timelines and status",
+          "usedFor": "Issue closure tracking"
+        }
+      ]
+    },
+    "outputs": {
+      "title": "Outputs You Actually Receive",
+      "subtitle": "Every workflow produces implementation-ready outputs that your team can use immediately.",
+      "deliverablesTitle": "Deliverables",
+      "deliverablesItem1": "Policies, frameworks, operating model docs",
+      "deliverablesItem2": "SOPs and process documentation",
+      "deliverablesItem3": "Gap analyses and roadmaps",
+      "trackersTitle": "Trackers",
+      "trackersItem1": "Risk registers with KRIs",
+      "trackersItem2": "Compliance trackers with status",
+      "trackersItem3": "Remediation plans with timelines",
+      "evidenceTitle": "Evidence Packs",
+      "evidenceItem1": "Audit checklists and evidence structures",
+      "evidenceItem2": "Control mappings with evidence requirements",
+      "evidenceItem3": "Testing protocols and validation formats",
+      "reportingTitle": "Reporting Formats",
+      "reportingItem1": "Monthly readiness packs",
+      "reportingItem2": "Board and committee summaries",
+      "reportingItem3": "Dashboard formats with metrics",
+      "callout": "Everything ships implementation-ready: owners, timelines, evidence checkpoints.",
+      "cta": "Request Sample Outputs"
+    },
+    "whereFit": {
+      "title": "Where Workflows Fit",
+      "subtitle": "Workflows power both advisory engagements and managed services—delivering system-led execution with expert oversight.",
+      "advisoryBadge": "Advisory",
+      "advisoryTitle": "Accelerate Assessment & Pack Creation",
+      "advisoryItem1": "Speed up gap analysis and roadmap creation",
+      "advisoryItem2": "Standardize deliverable quality and structure",
+      "advisoryItem3": "Reduce time from assessment to implementation pack",
+      "advisoryLink": "Learn about Advisory",
+      "managedBadge": "Managed Services",
+      "managedTitle": "Run Recurring Routines",
+      "managedItem1": "Execute periodic compliance routines",
+      "managedItem2": "Maintain trackers and evidence structures",
+      "managedItem3": "Generate reporting cadence for board and committees",
+      "managedLink": "Learn about Managed Services"
+    },
+    "quality": {
+      "title": "Built for Quality, Not Just Speed",
+      "subtitle": "Workflows are governed by design—ensuring outputs are auditable, consistent, and implementation-ready.",
+      "feature1Title": "Governed Templates & Structured Outputs",
+      "feature1Desc": "Every output follows pre-approved formats with required sections, ownership fields, and metadata.",
+      "feature2Title": "Consistency Checks",
+      "feature2Desc": "Validation logic ensures outputs meet quality thresholds before they're delivered.",
+      "feature3Title": "Expert Validation When Required",
+      "feature3Desc": "Workflows can route outputs for expert review and approval before finalization.",
+      "feature4Title": "Traceability & Versioning Patterns",
+      "feature4Desc": "Full audit trail of inputs, processing rules, approvals, and output versions.",
+      "cta1": "See the Aliph Brain",
+      "cta2": "Security & Sovereignty"
+    },
+    "ctaBand": {
+      "title": "Turn compliance into repeatable execution.",
+      "subtitle": "Request a workflow demo or start with sample outputs. For continuous readiness, start a 30-day managed pilot.",
+      "cta1": "Request Workflow Demo",
+      "cta2": "Start a 30-Day Pilot",
+      "link": "Request Sample Outputs"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Is this a software platform?",
+      "a1": "Not in the traditional sense. We use workflows to accelerate delivery, but we deliver outputs (documents, trackers, evidence packs) rather than platform access. For organizations that want continuous execution, we can run workflows as a managed service.",
+      "q2": "Can we use workflows in strict environments?",
+      "a2": "Yes. Workflows can be structured to run on-premises or in private cloud environments, with full data sovereignty and auditability. See our Security & Sovereignty page for deployment patterns.",
+      "q3": "How do you ensure auditability?",
+      "a3": "Workflows produce versioned outputs with traceability. Every deliverable includes metadata: who approved it, when, what inputs were used, and what rules were applied. Audit trails are structured for compliance review.",
+      "q4": "What do we receive at the end?",
+      "a4": "You receive implementation-ready deliverables: policies with owners, trackers with timelines, evidence structures with checkpoints, and reporting formats. Everything is designed to be used immediately by your team.",
+      "q5": "Do workflows replace our team?",
+      "a5": "No. Workflows accelerate execution and standardize quality, but your team retains oversight, approval, and contextualization. Think of workflows as system-led delivery that amplifies your team's capacity.",
+      "q6": "How do we start?",
+      "a6": "Request a workflow demo to see how specific workflows apply to your context. You can start with sample outputs, run a pilot project, or engage us for advisory or managed services."
+    },
+    "demoForm": {
+      "title": "Request Workflow Demo",
+      "description": "We'll share a demo agenda and confirm a time within 24 hours.",
+      "nameLabel": "Name *",
+      "emailLabel": "Email *",
+      "companyLabel": "Company *",
+      "roleLabel": "Role *",
+      "sectorLabel": "Sector *",
+      "sectorPlaceholder": "Select sector",
+      "focusLabel": "Primary Focus Area *",
+      "focusPlaceholder": "Select focus area",
+      "timelineLabel": "Timeline *",
+      "timelinePlaceholder": "Select timeline",
+      "notesLabel": "Notes",
+      "notesPlaceholder": "Tell us about your specific workflow needs or questions...",
+      "submitButton": "Request Demo",
+      "submitting": "Submitting...",
+      "successTitle": "Request Received",
+      "successMessage": "We'll share a demo agenda and confirm a time within 24 hours.",
+      "sectorFinancial": "Financial Services",
+      "sectorEnergy": "Energy & Petrochemicals",
+      "sectorHealthcare": "Healthcare",
+      "sectorTelecom": "Telecom & Digital",
+      "sectorGovernment": "Government",
+      "sectorRetail": "Retail & Consumer",
+      "sectorOther": "Other",
+      "focusPdpl": "PDPL Compliance",
+      "focusNca": "NCA ECC",
+      "focusZatca": "ZATCA Compliance",
+      "focusGovernance": "Corporate Governance",
+      "focusErm": "Enterprise Risk Management",
+      "focusAudit": "Internal Audit",
+      "focusAi": "AI Governance",
+      "timelineNow": "Immediate (next 2 weeks)",
+      "timeline30": "Within 30 days",
+      "timeline90": "Within 90 days",
+      "timelineExploratory": "Exploratory",
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "companyMin": "Company name is required",
+        "roleMin": "Role is required",
+        "sectorRequired": "Please select your sector",
+        "primaryFocusRequired": "Please select a focus area",
+        "timelineRequired": "Please select a timeline"
+      }
+    }
+  },
+  "integrations": {
+    "hero": {
+      "badge1": "Environment-fit",
+      "badge2": "Secure patterns",
+      "badge3": "Audit-ready outputs",
+      "title": "Integrations",
+      "subtitle": "Aliph workflows are designed to work with the tools you already use—through integration patterns that preserve control, access boundaries, and auditability.",
+      "ctaPrimary": "Speak to an Architect",
+      "ctaSecondary": "Request Integration Brief (PDF)",
+      "link": "Security & Sovereignty"
+    },
+    "whyMatter": {
+      "title": "Why Integrations Matter",
+      "point1": "Reduce duplication and uncontrolled copies",
+      "point2": "Preserve role-based access",
+      "point3": "Ensure evidence and outputs are traceable",
+      "point4": "Keep workflows aligned to real operational systems",
+      "quote": "\"Integrations should reduce risk—not introduce it.\""
+    },
+    "patterns": {
+      "title": "How We Integrate (Patterns)",
+      "subtitle": "Integration patterns depend on environment and scope. We design approaches that fit your security posture.",
+      "pattern1Title": "Read-only Ingestion",
+      "pattern1Desc": "Controlled access to approved repositories, preserving source permissions and access boundaries.",
+      "pattern2Title": "Workflow Handoff",
+      "pattern2Desc": "Outputs packaged into your governance and review process, with clear ownership and approval gates.",
+      "pattern3Title": "Evidence & Reporting",
+      "pattern3Desc": "Evidence pack alignment with ticketing and audit routines, maintaining traceability throughout.",
+      "depends": "Depends on environment and scope"
+    },
+    "categories": {
+      "title": "Common Integration Categories",
+      "subtitle": "Examples of integration patterns we support. Availability depends on engagement scope and environment.",
+      "examplesLabel": "Examples",
+      "enablesLabel": "Enables",
+      "availability": "Available based on engagement",
+      "categories": [
+        {
+          "title": "Document & Knowledge Repositories",
+          "examples": "SharePoint, Microsoft 365, Google Drive, Confluence",
+          "enables": "Controlled content retrieval, single source of truth"
+        },
+        {
+          "title": "Identity & Access Management (IAM)",
+          "examples": "SSO/IdP patterns (Azure AD / Entra ID, Okta)",
+          "enables": "Role-based access, least privilege patterns"
+        },
+        {
+          "title": "Security & Monitoring",
+          "examples": "SIEM patterns (Splunk, Sentinel), DLP patterns, endpoint controls",
+          "enables": "Logging, monitoring, policy enforcement alignment"
+        },
+        {
+          "title": "Ticketing & Workflow Systems",
+          "examples": "ServiceNow, Jira",
+          "enables": "Remediation tracking, evidence linkage, task ownership"
+        },
+        {
+          "title": "GRC / Risk Tooling",
+          "examples": "GRC platforms, risk registers, control libraries",
+          "enables": "Mapping, reporting, governance cadence"
+        },
+        {
+          "title": "Reporting & Analytics",
+          "examples": "Power BI, dashboards",
+          "enables": "Readiness reporting, board-level summaries"
+        }
+      ]
+    },
+    "security": {
+      "title": "Integration Security Considerations",
+      "subtitle": "Integration patterns are designed with security and auditability as primary requirements.",
+      "feature1Title": "Minimize Data Movement",
+      "feature1Desc": "Read-only patterns where possible, avoiding unnecessary duplication or data transfer.",
+      "feature2Title": "Preserve Access Controls",
+      "feature2Desc": "Integration patterns honor existing role-based access and least privilege models.",
+      "feature3Title": "Log Actions & Outputs",
+      "feature3Desc": "Where applicable, all access and processing events can be logged for audit review.",
+      "feature4Title": "Avoid Unnecessary Replication",
+      "feature4Desc": "Integration patterns focus on controlled ingestion and handoff, not full data mirroring.",
+      "link": "Read Security & Sovereignty"
+    },
+    "receive": {
+      "title": "What You Receive",
+      "subtitle": "Integration engagements deliver tangible documentation and design artifacts.",
+      "item1Title": "Integration approach document",
+      "item1Desc": "fit-to-environment design with recommended patterns",
+      "item2Title": "Data boundary and access model",
+      "item2Desc": "high-level view of access controls and boundaries",
+      "item3Title": "Workflow handoff design",
+      "item3Desc": "approvals, governance gates, and ownership model",
+      "item4Title": "Evidence linkage approach",
+      "item4Desc": "audit readiness and traceability design",
+      "item5Title": "Reporting model",
+      "item5Desc": "dashboards, cadence, and board-level summary formats",
+      "cta": "Request Integration Brief"
+    },
+    "ctaBand": {
+      "title": "Want a fit-to-environment recommendation?",
+      "subtitle": "Speak to an architect and we'll recommend the right patterns for your security posture and scope.",
+      "cta1": "Speak to an Architect",
+      "cta2": "Request Sample Deliverables"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Do you have a marketplace of connectors?",
+      "a1": "No. We work with integration patterns rather than pre-built connectors. Each integration is designed for your environment, security posture, and scope. This approach gives you more control and reduces risk.",
+      "q2": "Can you integrate with Microsoft 365/SharePoint?",
+      "a2": "Yes. We can design integration patterns for Microsoft 365, SharePoint, and other Microsoft services where read-only access to approved content repositories is required. The approach depends on your access policies and data classification.",
+      "q3": "Can we keep strict access boundaries?",
+      "a3": "Yes. Integration patterns are designed to preserve role-based access controls, minimize data movement, and avoid unnecessary replication. We recommend read-only ingestion from approved sources and controlled workflow handoffs.",
+      "q4": "Do you require moving data outside our environment?",
+      "a4": "Not necessarily. Integration patterns can be structured for on-premises or private cloud deployment where data sovereignty is required. See our Security & Sovereignty page for deployment options.",
+      "q5": "How long does an integration take?",
+      "a5": "It depends on environment complexity, access approval processes, and scope. Simple read-only integrations can be designed and approved within 2-4 weeks. More complex patterns may require 6-8 weeks including testing and validation.",
+      "q6": "What do we receive?",
+      "a6": "You receive an integration approach document, data boundary and access model, workflow handoff design, evidence linkage approach, and reporting model. Everything is designed for your specific environment and audit requirements."
+    },
+    "architectForm": {
+      "title": "Speak to an Architect",
+      "nameLabel": "Name *",
+      "emailLabel": "Email *",
+      "companyLabel": "Company *",
+      "roleLabel": "Role *",
+      "environmentLabel": "Environment Type",
+      "environmentPlaceholder": "Select environment",
+      "environmentMicrosoft": "Microsoft-centric",
+      "environmentGoogle": "Google-centric",
+      "environmentMixed": "Mixed",
+      "environmentOther": "Other",
+      "integrationNeedLabel": "Primary Integration Need",
+      "integrationNeedPlaceholder": "Describe your integration requirements or questions...",
+      "submitButton": "Request Call",
+      "submitting": "Sending...",
+      "successTitle": "Request Received!",
+      "successMessage": "An architect will reach out within 24 hours to schedule a call.",
+      "successButton": "Close",
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "companyMin": "Company name must be at least 2 characters",
+        "roleMin": "Role must be at least 2 characters"
+      }
+    },
+    "briefForm": {
+      "title": "Request Integration Brief",
+      "description": "We'll share a concise PDF describing integration patterns and recommended designs based on your environment.",
+      "nameLabel": "Full Name *",
+      "emailLabel": "Work Email *",
+      "companyLabel": "Company *",
+      "roleLabel": "Role *",
+      "environmentLabel": "Environment Type *",
+      "environmentPlaceholder": "Select environment",
+      "environmentMicrosoft": "Microsoft-centric",
+      "environmentGoogle": "Google-centric",
+      "environmentMixed": "Mixed",
+      "environmentOther": "Other",
+      "systemsLabel": "Systems of Interest (select all that apply)",
+      "systemDocs": "Docs",
+      "systemIAM": "IAM",
+      "systemSIEM": "SIEM",
+      "systemTicketing": "Ticketing",
+      "systemReporting": "Reporting",
+      "systemGRC": "GRC tooling",
+      "ndaLabel": "NDA Required?",
+      "ndaYes": "Yes",
+      "ndaNo": "No",
+      "notesLabel": "Notes",
+      "notesPlaceholder": "Additional context or specific integration questions...",
+      "privacy": "We do not share or sell your data.",
+      "submitButton": "Request Brief",
+      "submitting": "Sending...",
+      "successTitle": "Request Received!",
+      "successMessage": "We'll share a secure link and offer an optional walkthrough within 24-48 hours.",
+      "successButton": "Close",
+      "validation": {
+        "nameMin": "Name must be at least 2 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "companyMin": "Company name must be at least 2 characters",
+        "roleMin": "Role must be at least 2 characters",
+        "environmentRequired": "Please select an environment type"
+      }
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "About Us",
+      "subtitle": "Aliph is a leading platform for governance, risk management, and compliance solutions in Saudi Arabia, connecting companies with the best local experts",
+      "imageAlt": "Aliph consulting team collaboration"
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "We strive to empower Saudi companies to achieve the highest standards of governance, risk management, and compliance by connecting them with a wide network of certified local experts, contributing to the achievement of Saudi Vision 2030"
+    },
+    "stats": {
+      "stat1Label": "Certified Experts",
+      "stat2Label": "Companies Trust Us",
+      "stat3Label": "Years of Experience",
+      "stat4Label": "Client Satisfaction"
+    },
+    "values": {
+      "title": "Our Values",
+      "value1Title": "Excellence",
+      "value1Desc": "We always strive to deliver the highest quality standards in our services",
+      "value2Title": "Transparency",
+      "value2Desc": "We believe in complete clarity in all our dealings with clients",
+      "value3Title": "Innovation",
+      "value3Desc": "We develop innovative solutions that keep pace with the latest developments in governance",
+      "value4Title": "Integrity",
+      "value4Desc": "We maintain the highest standards of integrity and professional ethics"
+    },
+    "vision2030": {
+      "title": "Partner in Vision 2030",
+      "description": "We are proud to be part of Saudi Vision 2030, contributing to the development of a transparent and strong business environment that supports sustainable economic growth",
+      "pillar1": "Transparency",
+      "pillar2": "Efficiency",
+      "pillar3": "Sustainability",
+      "disclaimer": "Use of the Vision 2030 logo indicates alignment with national priorities, not endorsement."
+    },
+    "cta": {
+      "title": "Join Our Success Journey",
+      "subtitle": "Be part of our growing network of successful companies",
+      "button": "Start With Us Today"
+    }
+  },
+  "companyAbout": {
+    "hero": {
+      "badge1": "Saudi-first",
+      "badge2": "Sovereign-by-Design",
+      "badge3": "Audit-ready delivery",
+      "title": "About Aliph Solutions",
+      "description": "We exist to help Saudi organizations modernize governance, risk, and compliance—and adopt AI safely—through a sovereign-by-design advisory delivery system.",
+      "btn1": "Request Sample Deliverables",
+      "btn2": "Contact Aliph",
+      "btn3": "Speak to an Architect"
+    },
+    "why": {
+      "title": "Why We Built Aliph",
+      "para1": "AI adoption is accelerating across teams—driving productivity, but also creating exposure without clear governance.",
+      "para2": "Accountability is accelerating through regulation and audit expectations—PDPL, NCA ECC, ZATCA, and board-level scrutiny.",
+      "para3": "Most organizations need speed—but cannot sacrifice sovereignty, control, and auditability.",
+      "highlight": "Aliph is designed for AI speed with governance—not AI at any cost."
+    },
+    "missionVision": {
+      "missionTitle": "Mission",
+      "missionDesc": "Make audit-ready GRC delivery faster, clearer, and governable—built for Saudi realities.",
+      "visionTitle": "Vision",
+      "visionDesc": "Become the leading Saudi-first governed AI advisory ecosystem for regulatory modernization and institutional readiness.",
+      "alignment": "Aligned with the Kingdom's digital transformation and data sovereignty direction under Vision 2030."
+    },
+    "different": {
+      "title": "What Makes Aliph Different",
+      "card1Title": "Advisory Discipline",
+      "card1What": "What it means:",
+      "card1WhatDesc": "Consulting-grade methods, implementation-first delivery, owners and timelines, evidence packaging.",
+      "card1Why": "Why it matters:",
+      "card1WhyDesc": "Deliverables that work, not just documentation that sits on shelves.",
+      "card1Link": "Explore Advisory",
+      "card2Title": "Sovereign AI Architecture",
+      "card2What": "What it means:",
+      "card2WhatDesc": "Policy enforcement, audit logs, data minimization, access controls, deployment patterns for strict environments.",
+      "card2Why": "Why it matters:",
+      "card2WhyDesc": "Control and auditability, not black-box risk.",
+      "card2Link": "Security & Sovereignty",
+      "card3Title": "The Aliph Brain",
+      "card3What": "What it means:",
+      "card3WhatDesc": "Organizational memory + workflow library + validation layer = repeatable, governed outputs.",
+      "card3Why": "Why it matters:",
+      "card3WhyDesc": "Faster delivery without losing rigor or accountability.",
+      "card3Link": "See the Aliph Brain"
+    },
+    "howWeWork": {
+      "title": "How We Work",
+      "subtitle": "Operating principles that guide every engagement",
+      "principle1Title": "Clarity before complexity",
+      "principle1Desc": "Diagnose, then build",
+      "principle2Title": "Implementation over slides",
+      "principle2Desc": "Owners, timelines, evidence",
+      "principle3Title": "Governed AI",
+      "principle3Desc": "Workflows + validation, not black boxes",
+      "principle4Title": "Security by design",
+      "principle4Desc": "Minimization, controls, traceability",
+      "principle5Title": "Saudi-first delivery",
+      "principle5Desc": "Local expectations, real operating models",
+      "principle6Title": "Partnership mindset",
+      "principle6Desc": "Fit-to-environment, long-term readiness",
+      "flowTitle": "Our Delivery Flow",
+      "flow1Label": "Discover",
+      "flow1Desc": "Current state",
+      "flow2Label": "Map",
+      "flow2Desc": "Requirements",
+      "flow3Label": "Build",
+      "flow3Desc": "Governed outputs",
+      "flow4Label": "Validate",
+      "flow4Desc": "Expert review",
+      "flow5Label": "Evidence-ready",
+      "flow5Desc": "Audit-ready",
+      "button": "View Sample Deliverables"
+    },
+    "whoWeServe": {
+      "title": "Who We Serve",
+      "segment1": "Regulated enterprises",
+      "segment2": "High-growth SMEs",
+      "segment3": "Government & public sector programs",
+      "segment4": "Giga-project vendors and ecosystem partners",
+      "btn1": "Explore Industries",
+      "btn2": "Request Scope"
+    },
+    "partnerships": {
+      "title": "Partnerships",
+      "description": "We collaborate with ecosystem partners—consulting, legal, technology, and delivery teams—to support Saudi transformation programs and organizational readiness.",
+      "btn1": "Explore Partners",
+      "btn2": "Explore Partnership Opportunities"
+    },
+    "finalCta": {
+      "title": "Build Readiness with Sovereignty and Speed",
+      "subtitle": "Request a demo, sample deliverables, or a scoped delivery plan—built for your sector and timeline.",
+      "btn1": "Request Sample Deliverables",
+      "btn2": "Contact Aliph"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "Are you a product company or advisory firm?",
+      "a1": "Aliph is an AI-enabled advisory firm. We deliver consulting-grade outcomes using a governed system (the Aliph Brain) that combines expert methodology with workflow automation. You work with advisors who use technology to produce better, faster outputs.",
+      "q2": "How do you ensure quality with AI involved?",
+      "a2": "Through governed workflows, validation layers, and expert review. Outputs go through automated QA checks, consistency validation, and—when required—expert sign-off before delivery. We don't blindly trust AI generation.",
+      "q3": "Can you support strict data environments?",
+      "a3": "Yes. The Aliph Brain supports deployment patterns for stricter environments, including data boundary controls, enhanced logging, and on-premise or private cloud configurations. We can discuss specific sovereignty or confidentiality requirements.",
+      "q4": "Do you work with SMEs and enterprises?",
+      "a4": "Yes. We work with high-growth SMEs that need structure without bureaucracy, and with large enterprises that need audit-ready governance and compliance. Our delivery model scales across both.",
+      "q5": "How do we start?",
+      "a5": "Request sample deliverables to see the quality, or book a readiness call to discuss your environment. We'll respond with a clear scope, delivery plan, and timeline. If it's a fit, we start discovery within days."
+    }
+  },
+  "companyLeadership": {
+    "hero": {
+      "badge": "Leadership & Expertise",
+      "title": "Built by advisors, architects, and delivery experts",
+      "description": "Aliph combines deep regulatory advisory expertise, sovereign architecture discipline, and AI governance experience—built for the Saudi environment.",
+      "btn1": "Speak with the Team",
+      "btn2": "Explore Advisory"
+    },
+    "team": {
+      "title": "Leadership Team",
+      "subtitle": "Combining consulting rigor, technical depth, and delivery discipline to support organizational readiness.",
+      "leader1Name": "Advisory Leadership",
+      "leader1Role": "Head of Advisory",
+      "leader1Cred1": "15+ years regulatory compliance and governance",
+      "leader1Cred2": "Led GRC transformations for enterprises and public sector",
+      "leader1Cred3": "Deep domain expertise: PDPL, NCA ECC, ZATCA, internal audit",
+      "leader2Name": "Technology Leadership",
+      "leader2Role": "Head of Sovereign Architecture",
+      "leader2Cred1": "12+ years enterprise system design and security",
+      "leader2Cred2": "Specialist in data sovereignty, audit logging, policy enforcement",
+      "leader2Cred3": "Led sensitive deployments for strict-environment organizations",
+      "leader3Name": "AI Governance Leadership",
+      "leader3Role": "Head of AI Governance & Risk",
+      "leader3Cred1": "10+ years AI risk assessment and governance frameworks",
+      "leader3Cred2": "Experience advising boards and executives on AI policy",
+      "leader3Cred3": "Expert in responsible AI, third-party risk, and audit readiness",
+      "leader4Name": "Delivery Leadership",
+      "leader4Role": "Head of Client Delivery",
+      "leader4Cred1": "14+ years engagement management and advisory delivery",
+      "leader4Cred2": "Built structured workflows for rapid, audit-ready outcomes",
+      "leader4Cred3": "Led complex multi-workstream engagements across sectors"
+    },
+    "advisoryNetwork": {
+      "title": "Advisory Network",
+      "description": "Aliph works with a network of legal, regulatory, and cybersecurity advisors to ensure every deliverable meets Saudi regulatory expectations and international best practice.",
+      "area1Title": "Legal & Regulatory",
+      "area1Desc": "Saudi compliance law, PDPL interpretation, NCA guidance",
+      "area2Title": "Cybersecurity & Privacy",
+      "area2Desc": "NCA ECC, data protection, security architecture review",
+      "area3Title": "Financial & Tax Compliance",
+      "area3Desc": "ZATCA, VAT, transfer pricing, audit coordination"
+    },
+    "principles": {
+      "title": "How the Team Operates",
+      "principle1": "Implementation-first: We build deliverables that work, not just presentations",
+      "principle2": "Expert-reviewed: Outputs validated by domain specialists before delivery",
+      "principle3": "Governed workflows: Every deliverable follows structured quality gates",
+      "principle4": "Client-embedded: We work alongside your teams, not remotely",
+      "principle5": "Outcome-driven: Timelines, owners, evidence packaging—clarity throughout",
+      "principle6": "Long-term readiness: We prepare organizations for audit, not just compliance theatre"
+    },
+    "finalCta": {
+      "title": "Work with a Team That Understands Saudi Realities",
+      "subtitle": "Request a readiness call, sample deliverables, or scoped engagement plan.",
+      "btn1": "Contact the Team",
+      "btn2": "Request Sample Deliverables"
+    }
+  },
+  "companyContact": {
+    "success": {
+      "title": "Thank You",
+      "message": "We've received your inquiry and will respond within 24 hours with next steps.",
+      "btn1": "View Sample Deliverables",
+      "btn2": "Back to Home"
+    },
+    "hero": {
+      "badge": "Get in Touch",
+      "title": "Contact Aliph",
+      "description": "Request a demo, scoped engagement plan, sample deliverables, or discuss partnership opportunities. We respond within 24 hours."
+    },
+    "form": {
+      "title": "Send Us a Message",
+      "nameLabel": "Full Name *",
+      "emailLabel": "Email *",
+      "companyLabel": "Company *",
+      "roleLabel": "Role / Title *",
+      "interestLabel": "What brings you here? *",
+      "interestPlaceholder": "Select interest type",
+      "sectorLabel": "Sector *",
+      "sectorPlaceholder": "Select sector",
+      "focusLabel": "Primary Focus Areas (select all that apply) *",
+      "timelineLabel": "Timeline *",
+      "timelinePlaceholder": "Select timeline",
+      "notesLabel": "Additional Notes",
+      "notesPlaceholder": "Tell us more about your environment, challenges, or specific requirements...",
+      "submitBtn": "Submit Inquiry",
+      "submittingBtn": "Submitting...",
+      "errorName": "Name must be at least 2 characters",
+      "errorEmail": "Please enter a valid email address",
+      "errorCompany": "Company name is required",
+      "errorRole": "Role/Title is required",
+      "errorInterest": "Please select what brings you here",
+      "errorSector": "Please select your sector",
+      "errorFocus": "Please select at least one focus area",
+      "errorTimeline": "Please select a timeline"
+    },
+    "interestOptions": {
+      "demo": "Request Demo (Aliph Brain or GRC Platform)",
+      "advisory": "Advisory Scope (Governance, Risk, Compliance)",
+      "managed": "Managed Services (GRC Support, Operations)",
+      "architecture": "Architecture & Security Consultation",
+      "partnership": "Partnership Inquiry",
+      "other": "Other"
+    },
+    "sectorOptions": {
+      "finance": "Finance & Banking",
+      "energy": "Energy & Petrochemicals",
+      "healthcare": "Healthcare",
+      "telecom": "Telecom & Digital Services",
+      "giga": "Giga-project Vendor",
+      "sme": "SME / Startup",
+      "government": "Government / Public Sector",
+      "other": "Other"
+    },
+    "focusAreas": {
+      "pdpl": "PDPL Compliance",
+      "nca": "NCA ECC Readiness",
+      "zatca": "ZATCA / Tax Compliance",
+      "audit": "Internal Audit Setup",
+      "ai": "AI Governance",
+      "board": "Board & Committee Governance",
+      "thirdParty": "Third-Party Risk",
+      "managed": "Managed GRC Operations",
+      "sovereign": "Sovereign Architecture",
+      "other": "Other"
+    },
+    "timelineOptions": {
+      "urgent": "Urgent (within 2 weeks)",
+      "1month": "1 month",
+      "3months": "1-3 months",
+      "6months": "3-6 months",
+      "planning": "Planning / Exploring"
+    },
+    "contactInfo": {
+      "title": "Contact Information",
+      "locationLabel": "Location",
+      "locationValue": "Riyadh, Saudi Arabia",
+      "locationNote": "(by appointment)",
+      "emailLabel": "Email",
+      "emailValue": "connect@aliphsolutions.sa",
+      "responseLabel": "Response Time",
+      "responseValue": "Within 24 hours"
+    },
+    "quickLinks": {
+      "title": "Quick Links",
+      "demo": "Request Demo",
+      "advisory": "Advisory Services",
+      "managed": "Managed Services",
+      "security": "Security & Sovereignty",
+      "partnership": "Partnership Inquiry",
+      "statement": "Security Statement"
+    },
+    "officeHours": {
+      "title": "Office Hours",
+      "days": "Sunday - Thursday",
+      "time": "9:00 AM - 6:00 PM (Riyadh Time)"
+    },
+    "finalCta": {
+      "title": "Need Sample Deliverables First?",
+      "description": "See the quality and structure of our audit-ready outputs before booking a call.",
+      "btn": "Request Sample Deliverables"
+    }
   }
 }

@@ -1,9 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Users, Award, CheckCircle2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import '@/i18n/config';
 import useSEO from '@/hooks/useSEO';
 
 export default function CompanyLeadership() {
+  const { t } = useTranslation();
   useSEO({
     title: 'Leadership | Aliph Solutions',
     description: 'Meet the advisory, technical, and delivery leadership behind Aliph Solutions—combining regulatory expertise, sovereign architecture, and AI governance.',
@@ -12,39 +15,39 @@ export default function CompanyLeadership() {
 
   const leaders = [
     {
-      name: 'Advisory Leadership',
-      role: 'Head of Advisory',
+      name: t('companyLeadership.team.leader1Name'),
+      role: t('companyLeadership.team.leader1Role'),
       credentials: [
-        '15+ years regulatory compliance and governance',
-        'Led GRC transformations for enterprises and public sector',
-        'Deep domain expertise: PDPL, NCA ECC, ZATCA, internal audit'
+        t('companyLeadership.team.leader1Cred1'),
+        t('companyLeadership.team.leader1Cred2'),
+        t('companyLeadership.team.leader1Cred3')
       ]
     },
     {
-      name: 'Technology Leadership',
-      role: 'Head of Sovereign Architecture',
+      name: t('companyLeadership.team.leader2Name'),
+      role: t('companyLeadership.team.leader2Role'),
       credentials: [
-        '12+ years enterprise system design and security',
-        'Specialist in data sovereignty, audit logging, policy enforcement',
-        'Led sensitive deployments for strict-environment organizations'
+        t('companyLeadership.team.leader2Cred1'),
+        t('companyLeadership.team.leader2Cred2'),
+        t('companyLeadership.team.leader2Cred3')
       ]
     },
     {
-      name: 'AI Governance Leadership',
-      role: 'Head of AI Governance & Risk',
+      name: t('companyLeadership.team.leader3Name'),
+      role: t('companyLeadership.team.leader3Role'),
       credentials: [
-        '10+ years AI risk assessment and governance frameworks',
-        'Experience advising boards and executives on AI policy',
-        'Expert in responsible AI, third-party risk, and audit readiness'
+        t('companyLeadership.team.leader3Cred1'),
+        t('companyLeadership.team.leader3Cred2'),
+        t('companyLeadership.team.leader3Cred3')
       ]
     },
     {
-      name: 'Delivery Leadership',
-      role: 'Head of Client Delivery',
+      name: t('companyLeadership.team.leader4Name'),
+      role: t('companyLeadership.team.leader4Role'),
       credentials: [
-        '14+ years engagement management and advisory delivery',
-        'Built structured workflows for rapid, audit-ready outcomes',
-        'Led complex multi-workstream engagements across sectors'
+        t('companyLeadership.team.leader4Cred1'),
+        t('companyLeadership.team.leader4Cred2'),
+        t('companyLeadership.team.leader4Cred3')
       ]
     }
   ];
@@ -64,15 +67,15 @@ export default function CompanyLeadership() {
           <div className="max-w-4xl">
             <div className="flex items-center gap-3 mb-6">
               <Users className="w-6 h-6 text-[#C9A227]" />
-              <span className="text-sm text-[#C9A227]">Leadership & Expertise</span>
+              <span className="text-sm text-[#C9A227]">{t('companyLeadership.hero.badge')}</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              Built by advisors, architects, and delivery experts
+              {t('companyLeadership.hero.title')}
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed">
-              Aliph combines deep regulatory advisory expertise, sovereign architecture discipline, and AI governance experience—built for the Saudi environment.
+              {t('companyLeadership.hero.description')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -81,7 +84,7 @@ export default function CompanyLeadership() {
                 onClick={() => window.location.href = '/company/contact'}
                 className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
               >
-                Speak with the Team
+                {t('companyLeadership.hero.btn1')}
               </Button>
               <Button
                 size="lg"
@@ -89,7 +92,7 @@ export default function CompanyLeadership() {
                 onClick={() => window.location.href = '/advisory'}
                 className="border-white/30 text-white hover:bg-white/10"
               >
-                Explore Advisory
+                {t('companyLeadership.hero.btn2')}
               </Button>
             </div>
           </div>
@@ -100,10 +103,10 @@ export default function CompanyLeadership() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            Leadership Team
+            {t('companyLeadership.team.title')}
           </h2>
           <p className="text-xl text-center text-gray-600 mb-16 max-w-3xl mx-auto">
-            Combining consulting rigor, technical depth, and delivery discipline to support organizational readiness.
+            {t('companyLeadership.team.subtitle')}
           </p>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -137,17 +140,17 @@ export default function CompanyLeadership() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-6 text-gray-900">
-            Advisory Network
+            {t('companyLeadership.advisoryNetwork.title')}
           </h2>
           <p className="text-xl text-center text-gray-700 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Aliph works with a network of legal, regulatory, and cybersecurity advisors to ensure every deliverable meets Saudi regulatory expectations and international best practice.
+            {t('companyLeadership.advisoryNetwork.description')}
           </p>
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
-              { area: 'Legal & Regulatory', desc: 'Saudi compliance law, PDPL interpretation, NCA guidance' },
-              { area: 'Cybersecurity & Privacy', desc: 'NCA ECC, data protection, security architecture review' },
-              { area: 'Financial & Tax Compliance', desc: 'ZATCA, VAT, transfer pricing, audit coordination' }
+              { area: t('companyLeadership.advisoryNetwork.area1Title'), desc: t('companyLeadership.advisoryNetwork.area1Desc') },
+              { area: t('companyLeadership.advisoryNetwork.area2Title'), desc: t('companyLeadership.advisoryNetwork.area2Desc') },
+              { area: t('companyLeadership.advisoryNetwork.area3Title'), desc: t('companyLeadership.advisoryNetwork.area3Desc') }
             ].map((advisor, idx) => (
               <Card key={idx} className="p-6 text-center border-2 hover:border-[#C9A227] transition-all">
                 <h3 className="text-lg font-bold text-gray-900 mb-2">{advisor.area}</h3>
@@ -162,17 +165,17 @@ export default function CompanyLeadership() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">
-            How the Team Operates
+            {t('companyLeadership.principles.title')}
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {[
-              'Implementation-first: We build deliverables that work, not just presentations',
-              'Expert-reviewed: Outputs validated by domain specialists before delivery',
-              'Governed workflows: Every deliverable follows structured quality gates',
-              'Client-embedded: We work alongside your teams, not remotely',
-              'Outcome-driven: Timelines, owners, evidence packaging—clarity throughout',
-              'Long-term readiness: We prepare organizations for audit, not just compliance theatre'
+              t('companyLeadership.principles.principle1'),
+              t('companyLeadership.principles.principle2'),
+              t('companyLeadership.principles.principle3'),
+              t('companyLeadership.principles.principle4'),
+              t('companyLeadership.principles.principle5'),
+              t('companyLeadership.principles.principle6')
             ].map((principle, idx) => (
               <Card key={idx} className="p-6 border-2 hover:border-[#C9A227] transition-all">
                 <CheckCircle2 className="w-6 h-6 text-[#C9A227] mb-3" />
@@ -187,10 +190,10 @@ export default function CompanyLeadership() {
       <section className="py-16 bg-gradient-to-r from-[#0B1220] to-[#1a1f35] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Work with a Team That Understands Saudi Realities
+            {t('companyLeadership.finalCta.title')}
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Request a readiness call, sample deliverables, or scoped engagement plan.
+            {t('companyLeadership.finalCta.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -198,7 +201,7 @@ export default function CompanyLeadership() {
               onClick={() => window.location.href = '/company/contact'}
               className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
             >
-              Contact the Team
+              {t('companyLeadership.finalCta.btn1')}
             </Button>
             <Button
               size="lg"
@@ -206,7 +209,7 @@ export default function CompanyLeadership() {
               onClick={() => window.location.href = '/deliverables'}
               className="border-white/30 text-white hover:bg-white/10"
             >
-              Request Sample Deliverables
+              {t('companyLeadership.finalCta.btn2')}
             </Button>
           </div>
         </div>

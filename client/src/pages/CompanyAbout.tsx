@@ -7,9 +7,12 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Shield, Brain, Users, CheckCircle2, ArrowRight, Target, Zap } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import '@/i18n/config';
 import useSEO from '@/hooks/useSEO';
 
 export default function CompanyAbout() {
+  const { t } = useTranslation();
   useSEO({
     title: 'About | Aliph Solutions',
     description: 'Aliph Solutions is a Saudi-first sovereign AI advisory engine for governance, risk, compliance, and AI governance—delivering audit-ready outcomes aligned with Vision 2030.',
@@ -30,19 +33,19 @@ export default function CompanyAbout() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
           <div className="max-w-4xl">
             <div className="flex items-center gap-4 mb-6 text-sm text-[#C9A227]">
-              <span>Saudi-first</span>
+              <span>{t('companyAbout.hero.badge1')}</span>
               <span>•</span>
-              <span>Sovereign-by-Design</span>
+              <span>{t('companyAbout.hero.badge2')}</span>
               <span>•</span>
-              <span>Audit-ready delivery</span>
+              <span>{t('companyAbout.hero.badge3')}</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              About Aliph Solutions
+              {t('companyAbout.hero.title')}
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed">
-              We exist to help Saudi organizations modernize governance, risk, and compliance—and adopt AI safely—through a sovereign-by-design advisory delivery system.
+              {t('companyAbout.hero.description')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -51,7 +54,7 @@ export default function CompanyAbout() {
                 onClick={() => window.location.href = '/deliverables'}
                 className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
               >
-                Request Sample Deliverables
+                {t('companyAbout.hero.btn1')}
               </Button>
               <Button
                 size="lg"
@@ -59,7 +62,7 @@ export default function CompanyAbout() {
                 onClick={() => window.location.href = '/company/contact'}
                 className="border-white/30 text-white hover:bg-white/10"
               >
-                Contact Aliph
+                {t('companyAbout.hero.btn2')}
               </Button>
               <Button
                 size="lg"
@@ -67,7 +70,7 @@ export default function CompanyAbout() {
                 onClick={() => window.location.href = '/technology/security-sovereignty'}
                 className="text-white hover:bg-white/10"
               >
-                Speak to an Architect
+                {t('companyAbout.hero.btn3')}
               </Button>
             </div>
           </div>
@@ -78,24 +81,24 @@ export default function CompanyAbout() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Why We Built Aliph
+            {t('companyAbout.why.title')}
           </h2>
 
           <div className="max-w-4xl mx-auto space-y-6 mb-12">
             <p className="text-xl text-gray-700 leading-relaxed">
-              AI adoption is accelerating across teams—driving productivity, but also creating exposure without clear governance.
+              {t('companyAbout.why.para1')}
             </p>
             <p className="text-xl text-gray-700 leading-relaxed">
-              Accountability is accelerating through regulation and audit expectations—PDPL, NCA ECC, ZATCA, and board-level scrutiny.
+              {t('companyAbout.why.para2')}
             </p>
             <p className="text-xl text-gray-700 leading-relaxed">
-              Most organizations need speed—but cannot sacrifice sovereignty, control, and auditability.
+              {t('companyAbout.why.para3')}
             </p>
           </div>
 
           <Card className="max-w-3xl mx-auto p-8 bg-gradient-to-br from-[#C9A227]/10 to-white border-2 border-[#C9A227]/30">
             <p className="text-2xl font-bold text-gray-900 text-center">
-              Aliph is designed for AI speed with governance—not AI at any cost.
+              {t('companyAbout.why.highlight')}
             </p>
           </Card>
         </div>
@@ -107,23 +110,23 @@ export default function CompanyAbout() {
           <div className="grid md:grid-cols-2 gap-8 mb-12">
             <Card className="p-8 border-2 hover:border-[#C9A227] transition-all">
               <Target className="w-12 h-12 text-[#C9A227] mb-4" />
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Mission</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">{t('companyAbout.missionVision.missionTitle')}</h3>
               <p className="text-lg text-gray-700">
-                Make audit-ready GRC delivery faster, clearer, and governable—built for Saudi realities.
+                {t('companyAbout.missionVision.missionDesc')}
               </p>
             </Card>
 
             <Card className="p-8 border-2 hover:border-[#C9A227] transition-all">
               <Zap className="w-12 h-12 text-[#C9A227] mb-4" />
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Vision</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">{t('companyAbout.missionVision.visionTitle')}</h3>
               <p className="text-lg text-gray-700">
-                Become the leading Saudi-first governed AI advisory ecosystem for regulatory modernization and institutional readiness.
+                {t('companyAbout.missionVision.visionDesc')}
               </p>
             </Card>
           </div>
 
           <p className="text-center text-gray-700 italic max-w-3xl mx-auto">
-            Aligned with the Kingdom's digital transformation and data sovereignty direction under Vision 2030.
+            {t('companyAbout.missionVision.alignment')}
           </p>
         </div>
       </section>
@@ -132,7 +135,7 @@ export default function CompanyAbout() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            What Makes Aliph Different
+            {t('companyAbout.different.title')}
           </h2>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -141,15 +144,15 @@ export default function CompanyAbout() {
               <div className="w-14 h-14 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#C9A227]/20 transition-colors">
                 <Users className="w-8 h-8 text-[#C9A227]" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Advisory Discipline</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">{t('companyAbout.different.card1Title')}</h3>
               <p className="text-gray-600 mb-3">
-                <span className="font-semibold">What it means:</span> Consulting-grade methods, implementation-first delivery, owners and timelines, evidence packaging.
+                <span className="font-semibold">{t('companyAbout.different.card1What')}</span> {t('companyAbout.different.card1WhatDesc')}
               </p>
               <p className="text-gray-600 mb-4">
-                <span className="font-semibold">Why it matters:</span> Deliverables that work, not just documentation that sits on shelves.
+                <span className="font-semibold">{t('companyAbout.different.card1Why')}</span> {t('companyAbout.different.card1WhyDesc')}
               </p>
               <div className="text-[#C9A227] hover:text-[#B8921F] text-sm font-medium inline-flex items-center gap-1">
-                Explore Advisory
+                {t('companyAbout.different.card1Link')}
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Card>
@@ -159,15 +162,15 @@ export default function CompanyAbout() {
               <div className="w-14 h-14 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#C9A227]/20 transition-colors">
                 <Shield className="w-8 h-8 text-[#C9A227]" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">Sovereign AI Architecture</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">{t('companyAbout.different.card2Title')}</h3>
               <p className="text-gray-600 mb-3">
-                <span className="font-semibold">What it means:</span> Policy enforcement, audit logs, data minimization, access controls, deployment patterns for strict environments.
+                <span className="font-semibold">{t('companyAbout.different.card2What')}</span> {t('companyAbout.different.card2WhatDesc')}
               </p>
               <p className="text-gray-600 mb-4">
-                <span className="font-semibold">Why it matters:</span> Control and auditability, not black-box risk.
+                <span className="font-semibold">{t('companyAbout.different.card2Why')}</span> {t('companyAbout.different.card2WhyDesc')}
               </p>
               <div className="text-[#C9A227] hover:text-[#B8921F] text-sm font-medium inline-flex items-center gap-1">
-                Security & Sovereignty
+                {t('companyAbout.different.card2Link')}
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Card>
@@ -177,15 +180,15 @@ export default function CompanyAbout() {
               <div className="w-14 h-14 bg-[#C9A227]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#C9A227]/20 transition-colors">
                 <Brain className="w-8 h-8 text-[#C9A227]" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900">The Aliph Brain</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">{t('companyAbout.different.card3Title')}</h3>
               <p className="text-gray-600 mb-3">
-                <span className="font-semibold">What it means:</span> Organizational memory + workflow library + validation layer = repeatable, governed outputs.
+                <span className="font-semibold">{t('companyAbout.different.card3What')}</span> {t('companyAbout.different.card3WhatDesc')}
               </p>
               <p className="text-gray-600 mb-4">
-                <span className="font-semibold">Why it matters:</span> Faster delivery without losing rigor or accountability.
+                <span className="font-semibold">{t('companyAbout.different.card3Why')}</span> {t('companyAbout.different.card3WhyDesc')}
               </p>
               <div className="text-[#C9A227] hover:text-[#B8921F] text-sm font-medium inline-flex items-center gap-1">
-                See the Aliph Brain
+                {t('companyAbout.different.card3Link')}
                 <ArrowRight className="w-4 h-4" />
               </div>
             </Card>
@@ -197,20 +200,20 @@ export default function CompanyAbout() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            How We Work
+            {t('companyAbout.howWeWork.title')}
           </h2>
           <p className="text-xl text-center text-gray-600 mb-16">
-            Operating principles that guide every engagement
+            {t('companyAbout.howWeWork.subtitle')}
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {[
-              { title: 'Clarity before complexity', desc: 'Diagnose, then build' },
-              { title: 'Implementation over slides', desc: 'Owners, timelines, evidence' },
-              { title: 'Governed AI', desc: 'Workflows + validation, not black boxes' },
-              { title: 'Security by design', desc: 'Minimization, controls, traceability' },
-              { title: 'Saudi-first delivery', desc: 'Local expectations, real operating models' },
-              { title: 'Partnership mindset', desc: 'Fit-to-environment, long-term readiness' }
+              { title: t('companyAbout.howWeWork.principle1Title'), desc: t('companyAbout.howWeWork.principle1Desc') },
+              { title: t('companyAbout.howWeWork.principle2Title'), desc: t('companyAbout.howWeWork.principle2Desc') },
+              { title: t('companyAbout.howWeWork.principle3Title'), desc: t('companyAbout.howWeWork.principle3Desc') },
+              { title: t('companyAbout.howWeWork.principle4Title'), desc: t('companyAbout.howWeWork.principle4Desc') },
+              { title: t('companyAbout.howWeWork.principle5Title'), desc: t('companyAbout.howWeWork.principle5Desc') },
+              { title: t('companyAbout.howWeWork.principle6Title'), desc: t('companyAbout.howWeWork.principle6Desc') }
             ].map((principle, idx) => (
               <Card key={idx} className="p-6 border-2 hover:border-[#C9A227] transition-all">
                 <h3 className="text-lg font-bold mb-2 text-gray-900">{principle.title}</h3>
@@ -221,14 +224,14 @@ export default function CompanyAbout() {
 
           {/* Mini delivery flow */}
           <div className="max-w-5xl mx-auto">
-            <h3 className="text-2xl font-bold text-center mb-8 text-gray-900">Our Delivery Flow</h3>
+            <h3 className="text-2xl font-bold text-center mb-8 text-gray-900">{t('companyAbout.howWeWork.flowTitle')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-5 gap-3 items-center mb-8">
               {[
-                { label: 'Discover', desc: 'Current state' },
-                { label: 'Map', desc: 'Requirements' },
-                { label: 'Build', desc: 'Governed outputs' },
-                { label: 'Validate', desc: 'Expert review' },
-                { label: 'Evidence-ready', desc: 'Audit-ready' },
+                { label: t('companyAbout.howWeWork.flow1Label'), desc: t('companyAbout.howWeWork.flow1Desc') },
+                { label: t('companyAbout.howWeWork.flow2Label'), desc: t('companyAbout.howWeWork.flow2Desc') },
+                { label: t('companyAbout.howWeWork.flow3Label'), desc: t('companyAbout.howWeWork.flow3Desc') },
+                { label: t('companyAbout.howWeWork.flow4Label'), desc: t('companyAbout.howWeWork.flow4Desc') },
+                { label: t('companyAbout.howWeWork.flow5Label'), desc: t('companyAbout.howWeWork.flow5Desc') },
               ].map((step, idx) => (
                 <div key={idx} className="relative">
                   <Card className="p-4 bg-gradient-to-br from-gray-50 to-gray-100 border-2 border-[#C9A227]/30 text-center">
@@ -246,7 +249,7 @@ export default function CompanyAbout() {
                 onClick={() => window.location.href = '/deliverables'}
                 variant="outline"
               >
-                View Sample Deliverables
+                {t('companyAbout.howWeWork.button')}
               </Button>
             </div>
           </div>
@@ -257,15 +260,15 @@ export default function CompanyAbout() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Who We Serve
+            {t('companyAbout.whoWeServe.title')}
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {[
-              'Regulated enterprises',
-              'High-growth SMEs',
-              'Government & public sector programs',
-              'Giga-project vendors and ecosystem partners'
+              t('companyAbout.whoWeServe.segment1'),
+              t('companyAbout.whoWeServe.segment2'),
+              t('companyAbout.whoWeServe.segment3'),
+              t('companyAbout.whoWeServe.segment4')
             ].map((segment, idx) => (
               <Card key={idx} className="p-6 border-2 hover:border-[#C9A227] transition-all hover:shadow-lg">
                 <CheckCircle2 className="w-8 h-8 text-[#C9A227] mb-4" />
@@ -280,14 +283,14 @@ export default function CompanyAbout() {
               onClick={() => window.location.href = '/industries'}
               className="bg-[#C9A227] hover:bg-[#B8921F]"
             >
-              Explore Industries
+              {t('companyAbout.whoWeServe.btn1')}
             </Button>
             <Button
               size="lg"
               variant="outline"
               onClick={() => window.location.href = '/company/contact'}
             >
-              Request Scope
+              {t('companyAbout.whoWeServe.btn2')}
             </Button>
           </div>
         </div>
@@ -297,10 +300,10 @@ export default function CompanyAbout() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6 text-gray-900">
-            Partnerships
+            {t('companyAbout.partnerships.title')}
           </h2>
           <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-            We collaborate with ecosystem partners—consulting, legal, technology, and delivery teams—to support Saudi transformation programs and organizational readiness.
+            {t('companyAbout.partnerships.description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -308,14 +311,14 @@ export default function CompanyAbout() {
               onClick={() => window.location.href = '/company/partners'}
               className="bg-[#C9A227] hover:bg-[#B8921F]"
             >
-              Explore Partners
+              {t('companyAbout.partnerships.btn1')}
             </Button>
             <Button
               size="lg"
               variant="outline"
               onClick={() => window.location.href = '/company/contact'}
             >
-              Explore Partnership Opportunities
+              {t('companyAbout.partnerships.btn2')}
             </Button>
           </div>
         </div>
@@ -325,10 +328,10 @@ export default function CompanyAbout() {
       <section className="py-16 bg-gradient-to-r from-[#0B1220] to-[#1a1f35] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Build Readiness with Sovereignty and Speed
+            {t('companyAbout.finalCta.title')}
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Request a demo, sample deliverables, or a scoped delivery plan—built for your sector and timeline.
+            {t('companyAbout.finalCta.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -336,7 +339,7 @@ export default function CompanyAbout() {
               onClick={() => window.location.href = '/deliverables'}
               className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
             >
-              Request Sample Deliverables
+              {t('companyAbout.finalCta.btn1')}
             </Button>
             <Button
               size="lg"
@@ -344,7 +347,7 @@ export default function CompanyAbout() {
               onClick={() => window.location.href = '/company/contact'}
               className="border-white/30 text-white hover:bg-white/10"
             >
-              Contact Aliph
+              {t('companyAbout.finalCta.btn2')}
             </Button>
           </div>
         </div>
@@ -354,52 +357,52 @@ export default function CompanyAbout() {
       <section className="py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">
-            Frequently Asked Questions
+            {t('companyAbout.faq.title')}
           </h2>
 
           <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Are you a product company or advisory firm?
+                {t('companyAbout.faq.q1')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Aliph is an AI-enabled advisory firm. We deliver consulting-grade outcomes using a governed system (the Aliph Brain) that combines expert methodology with workflow automation. You work with advisors who use technology to produce better, faster outputs.
+                {t('companyAbout.faq.a1')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                How do you ensure quality with AI involved?
+                {t('companyAbout.faq.q2')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Through governed workflows, validation layers, and expert review. Outputs go through automated QA checks, consistency validation, and—when required—expert sign-off before delivery. We don't blindly trust AI generation.
+                {t('companyAbout.faq.a2')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Can you support strict data environments?
+                {t('companyAbout.faq.q3')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Yes. The Aliph Brain supports deployment patterns for stricter environments, including data boundary controls, enhanced logging, and on-premise or private cloud configurations. We can discuss specific sovereignty or confidentiality requirements.
+                {t('companyAbout.faq.a3')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Do you work with SMEs and enterprises?
+                {t('companyAbout.faq.q4')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Yes. We work with high-growth SMEs that need structure without bureaucracy, and with large enterprises that need audit-ready governance and compliance. Our delivery model scales across both.
+                {t('companyAbout.faq.a4')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-5" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                How do we start?
+                {t('companyAbout.faq.q5')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Request sample deliverables to see the quality, or book a readiness call to discuss your environment. We'll respond with a clear scope, delivery plan, and timeline. If it's a fit, we start discovery within days.
+                {t('companyAbout.faq.a5')}
               </AccordionContent>
             </AccordionItem>
           </Accordion>

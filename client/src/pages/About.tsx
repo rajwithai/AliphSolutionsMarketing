@@ -1,4 +1,6 @@
 import { useLanguage } from '@/components/LanguageProvider';
+import { useTranslation } from 'react-i18next';
+import '@/i18n/config';
 import useSEO from '@/hooks/useSEO';
 import { useLocation } from 'wouter';
 import { Award, Users, Globe, Shield } from 'lucide-react';
@@ -9,6 +11,7 @@ import Vision2030Mark from '@/components/brand/Vision2030Mark';
 
 export default function About() {
   const { language } = useLanguage();
+  const { t } = useTranslation();
   const [, setLocation] = useLocation();
 
   useSEO({
@@ -27,49 +30,41 @@ export default function About() {
     {
       icon: Users,
       number: '500+',
-      label: language === 'ar' ? 'خبير معتمد' : 'Certified Experts'
+      label: t('about.stats.stat1Label')
     },
     {
       icon: Globe,
       number: '1000+',
-      label: language === 'ar' ? 'شركة تثق بنا' : 'Companies Trust Us'
+      label: t('about.stats.stat2Label')
     },
     {
       icon: Award,
       number: '15+',
-      label: language === 'ar' ? 'سنة خبرة' : 'Years of Experience'
+      label: t('about.stats.stat3Label')
     },
     {
       icon: Shield,
       number: '99%',
-      label: language === 'ar' ? 'معدل رضا العملاء' : 'Client Satisfaction'
+      label: t('about.stats.stat4Label')
     }
   ];
 
   const values = [
     {
-      title: language === 'ar' ? 'التميز' : 'Excellence',
-      description: language === 'ar' 
-        ? 'نسعى دائماً لتقديم أعلى مستويات الجودة في خدماتنا'
-        : 'We always strive to deliver the highest quality standards in our services'
+      title: t('about.values.value1Title'),
+      description: t('about.values.value1Desc')
     },
     {
-      title: language === 'ar' ? 'الشفافية' : 'Transparency',
-      description: language === 'ar'
-        ? 'نؤمن بالوضوح الكامل في جميع تعاملاتنا مع عملائنا'
-        : 'We believe in complete clarity in all our dealings with clients'
+      title: t('about.values.value2Title'),
+      description: t('about.values.value2Desc')
     },
     {
-      title: language === 'ar' ? 'الابتكار' : 'Innovation',
-      description: language === 'ar'
-        ? 'نطور حلولاً مبتكرة تواكب أحدث التطورات في مجال الحوكمة'
-        : 'We develop innovative solutions that keep pace with the latest developments in governance'
+      title: t('about.values.value3Title'),
+      description: t('about.values.value3Desc')
     },
     {
-      title: language === 'ar' ? 'المصداقية' : 'Integrity',
-      description: language === 'ar'
-        ? 'نحافظ على أعلى معايير النزاهة والأخلاق المهنية'
-        : 'We maintain the highest standards of integrity and professional ethics'
+      title: t('about.values.value4Title'),
+      description: t('about.values.value4Desc')
     }
   ];
 
@@ -78,13 +73,10 @@ export default function About() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl" data-testid="heading-about-title">
-            {language === 'ar' ? 'من نحن' : 'About Us'}
+            {t('about.hero.title')}
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
-            {language === 'ar' 
-              ? 'أليف هي منصة رائدة في مجال حلول الحوكمة وإدارة المخاطر والامتثال في المملكة العربية السعودية، نهدف إلى ربط الشركات بأفضل الخبراء المحليين'
-              : 'Aliph is a leading platform for governance, risk management, and compliance solutions in Saudi Arabia, connecting companies with the best local experts'
-            }
+            {t('about.hero.subtitle')}
           </p>
           
           {/* Hero Image */}
@@ -92,7 +84,7 @@ export default function About() {
             <div className="relative rounded-xl overflow-hidden shadow-2xl">
               <img
                 src={collaborationImage}
-                alt={language === 'ar' ? 'فريق عمل أليف للحلول الاستشارية' : 'Aliph consulting team collaboration'}
+                alt={t('about.hero.imageAlt')}
                 className="w-full h-[400px] object-cover"
                 loading="lazy"
                 data-testid="img-about-hero"
@@ -107,13 +99,10 @@ export default function About() {
           <Card className="max-w-4xl mx-auto">
             <CardContent className="p-8 text-center">
               <h2 className="text-2xl font-bold text-foreground mb-4">
-                {language === 'ar' ? 'رسالتنا' : 'Our Mission'}
+                {t('about.mission.title')}
               </h2>
               <p className="text-muted-foreground text-lg">
-                {language === 'ar' 
-                  ? 'نسعى لتمكين الشركات السعودية من تحقيق أعلى معايير الحوكمة وإدارة المخاطر والامتثال من خلال ربطها بشبكة واسعة من الخبراء المحليين المعتمدين، مما يساهم في تحقيق رؤية المملكة 2030'
-                  : 'We strive to empower Saudi companies to achieve the highest standards of governance, risk management, and compliance by connecting them with a wide network of certified local experts, contributing to the achievement of Saudi Vision 2030'
-                }
+                {t('about.mission.description')}
               </p>
             </CardContent>
           </Card>
@@ -144,7 +133,7 @@ export default function About() {
         {/* Values */}
         <div className="mb-16">
           <h2 className="text-2xl font-bold text-center text-foreground mb-8">
-            {language === 'ar' ? 'قيمنا' : 'Our Values'}
+            {t('about.values.title')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {values.map((value, index) => (
@@ -169,25 +158,20 @@ export default function About() {
               <Vision2030Mark size="md" />
             </div>
             <h2 className="text-2xl font-bold text-foreground mb-4">
-              {language === 'ar' ? 'شريك في رؤية 2030' : 'Partner in Vision 2030'}
+              {t('about.vision2030.title')}
             </h2>
             <p className="text-muted-foreground mb-6 max-w-3xl mx-auto">
-              {language === 'ar' 
-                ? 'نحن فخورون بكوننا جزءاً من رؤية المملكة 2030، ونساهم في تطوير بيئة أعمال شفافة وقوية تدعم النمو الاقتصادي المستدام'
-                : 'We are proud to be part of Saudi Vision 2030, contributing to the development of a transparent and strong business environment that supports sustainable economic growth'
-              }
+              {t('about.vision2030.description')}
             </p>
             <div className="flex justify-center items-center gap-8 text-sm text-muted-foreground mb-4">
-              <span>{language === 'ar' ? 'الشفافية' : 'Transparency'}</span>
+              <span>{t('about.vision2030.pillar1')}</span>
               <span>•</span>
-              <span>{language === 'ar' ? 'الكفاءة' : 'Efficiency'}</span>
+              <span>{t('about.vision2030.pillar2')}</span>
               <span>•</span>
-              <span>{language === 'ar' ? 'الاستدامة' : 'Sustainability'}</span>
+              <span>{t('about.vision2030.pillar3')}</span>
             </div>
             <p className="text-xs text-muted-foreground mt-4">
-              {language === 'ar'
-                ? 'استخدام شعار رؤية 2030 يدل على التوافق مع الأولويات الوطنية، وليس التأييد الرسمي.'
-                : 'Use of the Vision 2030 logo indicates alignment with national priorities, not endorsement.'}
+              {t('about.vision2030.disclaimer')}
             </p>
           </div>
         </div>
@@ -195,20 +179,17 @@ export default function About() {
         {/* CTA */}
         <div className="text-center">
           <h2 className="text-2xl font-bold text-foreground mb-4">
-            {language === 'ar' ? 'انضم إلى رحلة النجاح' : 'Join Our Success Journey'}
+            {t('about.cta.title')}
           </h2>
           <p className="text-muted-foreground mb-6">
-            {language === 'ar' 
-              ? 'كن جزءاً من شبكتنا المتنامية من الشركات الناجحة'
-              : 'Be part of our growing network of successful companies'
-            }
+            {t('about.cta.subtitle')}
           </p>
           <Button 
             size="lg" 
             onClick={() => setLocation('/contact')}
             data-testid="button-join-network"
           >
-            {language === 'ar' ? 'ابدأ معنا اليوم' : 'Start With Us Today'}
+            {t('about.cta.button')}
           </Button>
         </div>
       </div>

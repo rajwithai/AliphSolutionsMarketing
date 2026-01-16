@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
+import '@/i18n/config';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -31,22 +33,25 @@ import {
 import { Eye, Shield, FileText, CheckCircle2, AlertTriangle, ArrowRight, Lock, Users, Zap, Loader2 } from 'lucide-react';
 import useSEO from '@/hooks/useSEO';
 import SuccessModal from '@/components/SuccessModal';
+import i18n from '@/i18n/config';
 
-const demoFormSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
-  email: z.string().email('Please enter a valid email address'),
-  company: z.string().min(2, 'Company name must be at least 2 characters').max(100),
-  role: z.string().min(2, 'Role must be at least 2 characters').max(100),
-  sector: z.string().min(1, 'Please select a sector'),
+const getDemoFormSchema = () => z.object({
+  name: z.string().min(2, i18n.t('aiGovernance.demoForm.validation.nameMin')).max(100),
+  email: z.string().email(i18n.t('aiGovernance.demoForm.validation.emailInvalid')),
+  company: z.string().min(2, i18n.t('aiGovernance.demoForm.validation.companyMin')).max(100),
+  role: z.string().min(2, i18n.t('aiGovernance.demoForm.validation.roleMin')).max(100),
+  sector: z.string().min(1, i18n.t('aiGovernance.demoForm.validation.sectorRequired')),
   currentStatus: z.string().optional(),
   primaryConcern: z.string().optional(),
   timeline: z.string().optional(),
   notes: z.string().max(1000).optional(),
 });
 
-type DemoFormData = z.infer<typeof demoFormSchema>;
+type DemoFormData = z.infer<ReturnType<typeof getDemoFormSchema>>;
 
 export default function AIGovernance() {
+  const { t } = useTranslation();
+  
   useSEO({
     title: 'AI Governance | Aliph Solutions',
     description: 'Governed AI adoption for Saudi organizations—policies, operating model, controls, auditability, and safe workflows aligned to PDPL-era expectations.',
@@ -59,7 +64,7 @@ export default function AIGovernance() {
   const [serverError, setServerError] = useState('');
 
   const demoForm = useForm<DemoFormData>({
-    resolver: zodResolver(demoFormSchema),
+    resolver: zodResolver(getDemoFormSchema()),
     defaultValues: {
       name: '',
       email: '',
@@ -110,68 +115,68 @@ export default function AIGovernance() {
   const pillars = [
     {
       icon: <Eye className="w-8 h-8" />,
-      title: 'Visibility',
-      description: 'Know where AI is used, by whom, and for what purpose across the organization.'
+      title: t('aiGovernance.pillars.pillar1Title'),
+      description: t('aiGovernance.pillars.pillar1Desc')
     },
     {
       icon: <Lock className="w-8 h-8" />,
-      title: 'Data Control',
-      description: 'Minimize exposure, implement masking patterns, and control what data flows to AI systems.'
+      title: t('aiGovernance.pillars.pillar2Title'),
+      description: t('aiGovernance.pillars.pillar2Desc')
     },
     {
       icon: <FileText className="w-8 h-8" />,
-      title: 'Policy & Boundaries',
-      description: 'Clear acceptable use rules—what is allowed, prohibited, and who can approve exceptions.'
+      title: t('aiGovernance.pillars.pillar3Title'),
+      description: t('aiGovernance.pillars.pillar3Desc')
     },
     {
       icon: <Shield className="w-8 h-8" />,
-      title: 'Auditability',
-      description: 'Logs, versioning, approval trails—everything documented for internal audit and regulators.'
+      title: t('aiGovernance.pillars.pillar4Title'),
+      description: t('aiGovernance.pillars.pillar4Desc')
     },
     {
       icon: <Zap className="w-8 h-8" />,
-      title: 'Safe Internal Option',
-      description: 'Approved workflows and tools that meet governance requirements while enabling productivity.'
+      title: t('aiGovernance.pillars.pillar5Title'),
+      description: t('aiGovernance.pillars.pillar5Desc')
     }
   ];
 
   const operatingRoles = [
-    { role: 'Executive Sponsor', responsibility: 'Strategic direction, budget approval, escalation authority' },
-    { role: 'Risk/Compliance', responsibility: 'Policy ownership, risk assessment, audit coordination' },
-    { role: 'IT/Security', responsibility: 'Technical controls, logging infrastructure, access management' },
-    { role: 'Data/Privacy', responsibility: 'Data handling patterns, PDPL alignment, breach protocols' },
-    { role: 'Business Owners', responsibility: 'Use case intake, workflow approval, training rollout' },
-    { role: 'Internal Audit', responsibility: 'Assurance testing, control validation, evidence review' }
+    { role: t('aiGovernance.operatingModel.role1'), responsibility: t('aiGovernance.operatingModel.responsibility1') },
+    { role: t('aiGovernance.operatingModel.role2'), responsibility: t('aiGovernance.operatingModel.responsibility2') },
+    { role: t('aiGovernance.operatingModel.role3'), responsibility: t('aiGovernance.operatingModel.responsibility3') },
+    { role: t('aiGovernance.operatingModel.role4'), responsibility: t('aiGovernance.operatingModel.responsibility4') },
+    { role: t('aiGovernance.operatingModel.role5'), responsibility: t('aiGovernance.operatingModel.responsibility5') },
+    { role: t('aiGovernance.operatingModel.role6'), responsibility: t('aiGovernance.operatingModel.responsibility6') }
   ];
 
   const controlFramework = [
     {
-      category: 'People',
-      controls: ['Training & awareness programs', 'Acceptable use acknowledgment', 'Approval workflows for exceptions', 'Role-based access permissions']
+      category: t('aiGovernance.controls.category1'),
+      controls: t('aiGovernance.controls.category1Items', { returnObjects: true }) as string[]
     },
     {
-      category: 'Process',
-      controls: ['Use case intake & review', 'Risk assessment templates', 'Escalation procedures', 'Periodic usage reviews']
+      category: t('aiGovernance.controls.category2'),
+      controls: t('aiGovernance.controls.category2Items', { returnObjects: true }) as string[]
     },
     {
-      category: 'Technology',
-      controls: ['Access controls & authentication', 'Data masking patterns', 'Audit logging infrastructure', 'Workflow validation layers']
+      category: t('aiGovernance.controls.category3'),
+      controls: t('aiGovernance.controls.category3Items', { returnObjects: true }) as string[]
     },
     {
-      category: 'Assurance',
-      controls: ['Control testing protocols', 'Audit evidence packaging', 'Output quality reviews', 'Compliance reporting']
+      category: t('aiGovernance.controls.category4'),
+      controls: t('aiGovernance.controls.category4Items', { returnObjects: true }) as string[]
     }
   ];
 
   const deliverables = [
-    { title: 'AI Acceptable Use Policy', desc: 'Structured policy defining permitted/prohibited use' },
-    { title: 'AI Risk Register', desc: 'Format for tracking AI-related risks and controls' },
-    { title: 'AI Approval & Exception Process', desc: 'SOP for use case review and exception handling' },
-    { title: 'Data Handling Guidelines for AI', desc: 'Principles for minimization, masking, retention' },
-    { title: 'Logging & Audit Checklist', desc: 'Evidence-ready documentation requirements' },
-    { title: 'AI Governance Operating Model', desc: 'Roles, RACI, decision rights, reporting cadence' },
-    { title: 'Training Pack', desc: 'Awareness materials with do/don\'t scenarios' },
-    { title: 'Implementation Roadmap', desc: '30/60/90-day plan format with milestones' }
+    { title: t('aiGovernance.deliverables.item1Title'), desc: t('aiGovernance.deliverables.item1Desc') },
+    { title: t('aiGovernance.deliverables.item2Title'), desc: t('aiGovernance.deliverables.item2Desc') },
+    { title: t('aiGovernance.deliverables.item3Title'), desc: t('aiGovernance.deliverables.item3Desc') },
+    { title: t('aiGovernance.deliverables.item4Title'), desc: t('aiGovernance.deliverables.item4Desc') },
+    { title: t('aiGovernance.deliverables.item5Title'), desc: t('aiGovernance.deliverables.item5Desc') },
+    { title: t('aiGovernance.deliverables.item6Title'), desc: t('aiGovernance.deliverables.item6Desc') },
+    { title: t('aiGovernance.deliverables.item7Title'), desc: t('aiGovernance.deliverables.item7Desc') },
+    { title: t('aiGovernance.deliverables.item8Title'), desc: t('aiGovernance.deliverables.item8Desc') }
   ];
 
   return (
@@ -183,9 +188,9 @@ export default function AIGovernance() {
           setDemoModalOpen(false);
           demoForm.reset();
         }}
-        title="Demo Request Received!"
-        message="We'll respond with a demo agenda and next steps within 24 hours."
-        buttonText="Close"
+        title={t('aiGovernance.demoForm.successTitle')}
+        message={t('aiGovernance.demoForm.successMessage')}
+        buttonText={t('aiGovernance.demoForm.successButton')}
       />
 
       {/* HERO */}
@@ -200,19 +205,19 @@ export default function AIGovernance() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
           <div className="max-w-4xl">
             <div className="flex items-center gap-4 mb-6 text-sm text-[#C9A227]">
-              <span>Visibility</span>
+              <span>{t('aiGovernance.hero.badge1')}</span>
               <span>•</span>
-              <span>Control</span>
+              <span>{t('aiGovernance.hero.badge2')}</span>
               <span>•</span>
-              <span>Auditability</span>
+              <span>{t('aiGovernance.hero.badge3')}</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              AI Governance
+              {t('aiGovernance.hero.title')}
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed">
-              Governed AI means your organization can adopt AI at speed—while keeping data control, clear usage boundaries, and audit-ready traceability.
+              {t('aiGovernance.hero.subtitle')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -222,7 +227,7 @@ export default function AIGovernance() {
                 className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
                 data-cta="ai_governance_exposure_check"
               >
-                Run AI Exposure Check
+                {t('aiGovernance.hero.ctaPrimary')}
               </Button>
               <Dialog open={demoModalOpen && !demoSubmitted} onOpenChange={(open) => {
                 setDemoModalOpen(open);
@@ -241,14 +246,14 @@ export default function AIGovernance() {
                     className="border-white/30 text-white hover:bg-white/10"
                     data-cta="ai_governance_request_demo"
                   >
-                    Request AI Governance Demo
+                    {t('aiGovernance.hero.ctaSecondary')}
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
-                    <DialogTitle>Request AI Governance Demo</DialogTitle>
+                    <DialogTitle>{t('aiGovernance.demoForm.modalTitle')}</DialogTitle>
                     <DialogDescription>
-                      We'll respond with a demo agenda and next steps tailored to your environment.
+                      {t('aiGovernance.demoForm.modalDescription')}
                     </DialogDescription>
                   </DialogHeader>
                   <form onSubmit={demoForm.handleSubmit(handleDemoSubmit)} className="space-y-4 mt-4">
@@ -260,7 +265,7 @@ export default function AIGovernance() {
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="demo-name" className={demoForm.formState.errors.name ? 'text-red-500' : ''}>
-                          {demoForm.formState.errors.name ? demoForm.formState.errors.name.message : 'Name *'}
+                          {demoForm.formState.errors.name ? demoForm.formState.errors.name.message : t('aiGovernance.demoForm.labelName')}
                         </Label>
                         <Input
                           id="demo-name"
@@ -270,7 +275,7 @@ export default function AIGovernance() {
                       </div>
                       <div>
                         <Label htmlFor="demo-email" className={demoForm.formState.errors.email ? 'text-red-500' : ''}>
-                          {demoForm.formState.errors.email ? demoForm.formState.errors.email.message : 'Email *'}
+                          {demoForm.formState.errors.email ? demoForm.formState.errors.email.message : t('aiGovernance.demoForm.labelEmail')}
                         </Label>
                         <Input
                           id="demo-email"
@@ -284,7 +289,7 @@ export default function AIGovernance() {
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="demo-company" className={demoForm.formState.errors.company ? 'text-red-500' : ''}>
-                          {demoForm.formState.errors.company ? demoForm.formState.errors.company.message : 'Company *'}
+                          {demoForm.formState.errors.company ? demoForm.formState.errors.company.message : t('aiGovernance.demoForm.labelCompany')}
                         </Label>
                         <Input
                           id="demo-company"
@@ -294,7 +299,7 @@ export default function AIGovernance() {
                       </div>
                       <div>
                         <Label htmlFor="demo-role" className={demoForm.formState.errors.role ? 'text-red-500' : ''}>
-                          {demoForm.formState.errors.role ? demoForm.formState.errors.role.message : 'Role *'}
+                          {demoForm.formState.errors.role ? demoForm.formState.errors.role.message : t('aiGovernance.demoForm.labelRole')}
                         </Label>
                         <Input
                           id="demo-role"
@@ -306,73 +311,73 @@ export default function AIGovernance() {
 
                     <div>
                       <Label htmlFor="demo-sector" className={demoForm.formState.errors.sector ? 'text-red-500' : ''}>
-                        {demoForm.formState.errors.sector ? demoForm.formState.errors.sector.message : 'Sector *'}
+                        {demoForm.formState.errors.sector ? demoForm.formState.errors.sector.message : t('aiGovernance.demoForm.labelSector')}
                       </Label>
                       <Select value={demoSector} onValueChange={(value) => demoForm.setValue('sector', value, { shouldValidate: true })}>
                         <SelectTrigger id="demo-sector" className={`mt-1 ${demoForm.formState.errors.sector ? 'border-red-500' : ''}`}>
-                          <SelectValue placeholder="Select sector" />
+                          <SelectValue placeholder={t('aiGovernance.demoForm.placeholderSector')} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="finance">Finance & Banking</SelectItem>
-                          <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
-                          <SelectItem value="healthcare">Healthcare</SelectItem>
-                          <SelectItem value="telecom">Telecom & Digital</SelectItem>
-                          <SelectItem value="government">Government</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
+                          <SelectItem value="finance">{t('aiGovernance.demoForm.sectors.finance')}</SelectItem>
+                          <SelectItem value="energy">{t('aiGovernance.demoForm.sectors.energy')}</SelectItem>
+                          <SelectItem value="healthcare">{t('aiGovernance.demoForm.sectors.healthcare')}</SelectItem>
+                          <SelectItem value="telecom">{t('aiGovernance.demoForm.sectors.telecom')}</SelectItem>
+                          <SelectItem value="government">{t('aiGovernance.demoForm.sectors.government')}</SelectItem>
+                          <SelectItem value="other">{t('aiGovernance.demoForm.sectors.other')}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div>
-                      <Label htmlFor="demo-status">Current AI Status</Label>
+                      <Label htmlFor="demo-status">{t('aiGovernance.demoForm.labelCurrentStatus')}</Label>
                       <Select value={demoStatus} onValueChange={(value) => demoForm.setValue('currentStatus', value)}>
                         <SelectTrigger id="demo-status" className="mt-1">
-                          <SelectValue placeholder="Select current status" />
+                          <SelectValue placeholder={t('aiGovernance.demoForm.placeholderCurrentStatus')} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="unknown">Unknown</SelectItem>
-                          <SelectItem value="some-use">Some use</SelectItem>
-                          <SelectItem value="formal">Formal programs</SelectItem>
+                          <SelectItem value="unknown">{t('aiGovernance.demoForm.currentStatus.unknown')}</SelectItem>
+                          <SelectItem value="some-use">{t('aiGovernance.demoForm.currentStatus.someUse')}</SelectItem>
+                          <SelectItem value="formal">{t('aiGovernance.demoForm.currentStatus.formal')}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div>
-                      <Label htmlFor="demo-concern">Primary Concern</Label>
+                      <Label htmlFor="demo-concern">{t('aiGovernance.demoForm.labelPrimaryConcern')}</Label>
                       <Select value={demoConcern} onValueChange={(value) => demoForm.setValue('primaryConcern', value)}>
                         <SelectTrigger id="demo-concern" className="mt-1">
-                          <SelectValue placeholder="Select primary concern" />
+                          <SelectValue placeholder={t('aiGovernance.demoForm.placeholderPrimaryConcern')} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="data-exposure">Data exposure</SelectItem>
-                          <SelectItem value="auditability">Auditability</SelectItem>
-                          <SelectItem value="policy">Policy</SelectItem>
-                          <SelectItem value="deployment">Deployment</SelectItem>
+                          <SelectItem value="data-exposure">{t('aiGovernance.demoForm.primaryConcern.dataExposure')}</SelectItem>
+                          <SelectItem value="auditability">{t('aiGovernance.demoForm.primaryConcern.auditability')}</SelectItem>
+                          <SelectItem value="policy">{t('aiGovernance.demoForm.primaryConcern.policy')}</SelectItem>
+                          <SelectItem value="deployment">{t('aiGovernance.demoForm.primaryConcern.deployment')}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div>
-                      <Label htmlFor="demo-timeline">Timeline</Label>
+                      <Label htmlFor="demo-timeline">{t('aiGovernance.demoForm.labelTimeline')}</Label>
                       <Select value={demoTimeline} onValueChange={(value) => demoForm.setValue('timeline', value)}>
                         <SelectTrigger id="demo-timeline" className="mt-1">
-                          <SelectValue placeholder="Select timeline" />
+                          <SelectValue placeholder={t('aiGovernance.demoForm.placeholderTimeline')} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="now">Now</SelectItem>
-                          <SelectItem value="30">30 days</SelectItem>
-                          <SelectItem value="90">90 days</SelectItem>
+                          <SelectItem value="now">{t('aiGovernance.demoForm.timelines.now')}</SelectItem>
+                          <SelectItem value="30">{t('aiGovernance.demoForm.timelines.30')}</SelectItem>
+                          <SelectItem value="90">{t('aiGovernance.demoForm.timelines.90')}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
 
                     <div>
-                      <Label htmlFor="demo-notes">Notes</Label>
+                      <Label htmlFor="demo-notes">{t('aiGovernance.demoForm.labelNotes')}</Label>
                       <Textarea
                         id="demo-notes"
                         rows={3}
                         {...demoForm.register('notes')}
-                        placeholder="Specific questions or context..."
+                        placeholder={t('aiGovernance.demoForm.placeholderNotes')}
                         className="mt-1"
                       />
                     </div>
@@ -381,10 +386,10 @@ export default function AIGovernance() {
                       {isSubmitting ? (
                         <>
                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Sending...
+                          {t('aiGovernance.demoForm.btnSubmitting')}
                         </>
                       ) : (
-                        'Request Demo'
+                        t('aiGovernance.demoForm.btnSubmit')
                       )}
                     </Button>
                   </form>
@@ -396,7 +401,7 @@ export default function AIGovernance() {
               href="/technology/security-sovereignty"
               className="text-sm text-[#C9A227] hover:text-[#B8921F] inline-flex items-center gap-1"
             >
-              Security & Sovereignty <ArrowRight className="w-4 h-4" />
+              {t('aiGovernance.hero.securityLink')} <ArrowRight className="w-4 h-4" />
             </a>
           </div>
         </div>
@@ -406,37 +411,37 @@ export default function AIGovernance() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            AI adoption is happening—whether it's approved or not.
+            {t('aiGovernance.reality.title')}
           </h2>
           <p className="text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-            The reality most organizations face today
+            {t('aiGovernance.reality.subtitle')}
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <Card className="p-6 border-2 hover:border-amber-500 transition-all">
               <AlertTriangle className="w-8 h-8 text-amber-500 mb-3" />
-              <p className="text-gray-700">Teams use public AI tools for speed without formal approval</p>
+              <p className="text-gray-700">{t('aiGovernance.reality.card1')}</p>
             </Card>
 
             <Card className="p-6 border-2 hover:border-amber-500 transition-all">
               <AlertTriangle className="w-8 h-8 text-amber-500 mb-3" />
-              <p className="text-gray-700">Sensitive data can be copied into external systems unintentionally</p>
+              <p className="text-gray-700">{t('aiGovernance.reality.card2')}</p>
             </Card>
 
             <Card className="p-6 border-2 hover:border-amber-500 transition-all">
               <AlertTriangle className="w-8 h-8 text-amber-500 mb-3" />
-              <p className="text-gray-700">No consistent logging or review of what's generated or shared</p>
+              <p className="text-gray-700">{t('aiGovernance.reality.card3')}</p>
             </Card>
 
             <Card className="p-6 border-2 hover:border-amber-500 transition-all">
               <AlertTriangle className="w-8 h-8 text-amber-500 mb-3" />
-              <p className="text-gray-700">Policies lag behind actual behavior and organizational needs</p>
+              <p className="text-gray-700">{t('aiGovernance.reality.card4')}</p>
             </Card>
           </div>
 
           <Card className="max-w-3xl mx-auto p-8 bg-gradient-to-r from-amber-50 to-white border-2 border-amber-300">
             <p className="text-2xl font-bold text-gray-900 text-center">
-              The risk isn't AI. The risk is unmanaged AI.
+              {t('aiGovernance.reality.quote')}
             </p>
           </Card>
         </div>
@@ -446,7 +451,7 @@ export default function AIGovernance() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            The 5 Pillars of Governed AI
+            {t('aiGovernance.pillars.title')}
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
@@ -462,7 +467,7 @@ export default function AIGovernance() {
           </div>
 
           <p className="text-center text-gray-700 italic max-w-2xl mx-auto">
-            If one pillar is missing, adoption becomes exposure.
+            {t('aiGovernance.pillars.quote')}
           </p>
         </div>
       </section>
@@ -471,10 +476,10 @@ export default function AIGovernance() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            Operating Model (Who Owns What)
+            {t('aiGovernance.operatingModel.title')}
           </h2>
           <p className="text-center text-gray-600 mb-16 max-w-3xl mx-auto">
-            Clear roles, decision rights, and reporting cadence
+            {t('aiGovernance.operatingModel.subtitle')}
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-12">
@@ -497,7 +502,7 @@ export default function AIGovernance() {
               variant="outline"
               data-cta="ai_governance_request_samples"
             >
-              Request an Operating Model Sample
+              {t('aiGovernance.operatingModel.cta')}
             </Button>
           </div>
         </div>
@@ -507,7 +512,7 @@ export default function AIGovernance() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Controls That Make AI Safe
+            {t('aiGovernance.controls.title')}
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
@@ -527,7 +532,7 @@ export default function AIGovernance() {
           </div>
 
           <p className="text-center text-sm text-gray-600 italic">
-            Controls are tailored to your sector and environment.
+            {t('aiGovernance.controls.note')}
           </p>
         </div>
       </section>
@@ -536,17 +541,17 @@ export default function AIGovernance() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            How Aliph Enables Governed AI Adoption
+            {t('aiGovernance.enablement.title')}
           </h2>
 
           <div className="max-w-4xl mx-auto space-y-6 mb-12">
             {[
-              { step: '1', title: 'AI Exposure Assessment', desc: 'Discover current usage patterns and risk signals across the organization' },
-              { step: '2', title: 'Policy + Acceptable Use Boundaries', desc: 'Define what is allowed, prohibited, and exception processes' },
-              { step: '3', title: 'Data Handling Patterns', desc: 'Establish minimization, masking, and retention protocols' },
-              { step: '4', title: 'Workflow Enablement', desc: 'Deploy approved internal workflows that meet governance requirements' },
-              { step: '5', title: 'Logging + Auditability Setup', desc: 'Implement tracing for outputs, approvals, and usage patterns' },
-              { step: '6', title: 'Rollout + Training + Continuous Improvement', desc: 'Launch awareness programs and establish review cadence' }
+              { step: '1', title: t('aiGovernance.enablement.step1Title'), desc: t('aiGovernance.enablement.step1Desc') },
+              { step: '2', title: t('aiGovernance.enablement.step2Title'), desc: t('aiGovernance.enablement.step2Desc') },
+              { step: '3', title: t('aiGovernance.enablement.step3Title'), desc: t('aiGovernance.enablement.step3Desc') },
+              { step: '4', title: t('aiGovernance.enablement.step4Title'), desc: t('aiGovernance.enablement.step4Desc') },
+              { step: '5', title: t('aiGovernance.enablement.step5Title'), desc: t('aiGovernance.enablement.step5Desc') },
+              { step: '6', title: t('aiGovernance.enablement.step6Title'), desc: t('aiGovernance.enablement.step6Desc') }
             ].map((item, idx) => (
               <Card key={idx} className="p-6 border-2 hover:border-[#C9A227] transition-all">
                 <div className="flex items-start gap-4">
@@ -564,11 +569,11 @@ export default function AIGovernance() {
 
           <div className="flex flex-wrap justify-center gap-4">
             <a href="/technology/aliph-brain" className="text-[#C9A227] hover:text-[#B8921F] font-medium underline">
-              The Aliph Brain (Workflows)
+              {t('aiGovernance.enablement.link1')}
             </a>
             <span className="text-gray-400">•</span>
             <a href="/technology/security-sovereignty" className="text-[#C9A227] hover:text-[#B8921F] font-medium underline">
-              Security & Sovereignty
+              {t('aiGovernance.enablement.link2')}
             </a>
           </div>
         </div>
@@ -578,10 +583,10 @@ export default function AIGovernance() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            AI Governance Deliverables
+            {t('aiGovernance.deliverables.title')}
           </h2>
           <p className="text-center text-gray-600 mb-16 max-w-3xl mx-auto">
-            Tangible, audit-ready outputs from the AI Governance Pack
+            {t('aiGovernance.deliverables.subtitle')}
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -600,7 +605,7 @@ export default function AIGovernance() {
               onClick={() => window.location.href = '/deliverables'}
               className="bg-[#C9A227] hover:bg-[#B8921F]"
             >
-              Request Sample Deliverables
+              {t('aiGovernance.deliverables.ctaPrimary')}
             </Button>
             <Button
               size="lg"
@@ -608,7 +613,7 @@ export default function AIGovernance() {
               onClick={() => window.location.href = '/technology/security-sovereignty'}
               data-cta="ai_governance_speak_to_architect"
             >
-              Speak to an Architect
+              {t('aiGovernance.deliverables.ctaSecondary')}
             </Button>
           </div>
         </div>
@@ -618,7 +623,7 @@ export default function AIGovernance() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Governance Layer (Simplified)
+            {t('aiGovernance.diagram.title')}
           </h2>
 
           <div className="max-w-5xl mx-auto">
@@ -626,34 +631,34 @@ export default function AIGovernance() {
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-3">
                   <div className="w-24 h-12 bg-[#C9A227]/10 border-2 border-[#C9A227] rounded flex items-center justify-center text-sm font-semibold text-gray-900">
-                    User
+                    {t('aiGovernance.diagram.user')}
                   </div>
                   <ArrowRight className="w-6 h-6 text-gray-400" />
                   <div className="w-32 h-12 bg-indigo-100 border-2 border-indigo-300 rounded flex items-center justify-center text-sm font-semibold text-gray-900">
-                    Approved Workflow
+                    {t('aiGovernance.diagram.workflow')}
                   </div>
                   <ArrowRight className="w-6 h-6 text-gray-400" />
                   <div className="w-32 h-12 bg-blue-100 border-2 border-blue-300 rounded flex items-center justify-center text-sm font-semibold text-gray-900">
-                    Policy Enforcement
+                    {t('aiGovernance.diagram.policy')}
                   </div>
                   <ArrowRight className="w-6 h-6 text-gray-400" />
                   <div className="w-28 h-12 bg-green-100 border-2 border-green-300 rounded flex items-center justify-center text-sm font-semibold text-gray-900">
-                    Privacy Layer
+                    {t('aiGovernance.diagram.privacy')}
                   </div>
                   <ArrowRight className="w-6 h-6 text-gray-400" />
                   <div className="w-20 h-12 bg-purple-100 border-2 border-purple-300 rounded flex items-center justify-center text-sm font-semibold text-gray-900">
-                    Model
+                    {t('aiGovernance.diagram.model')}
                   </div>
                   <ArrowRight className="w-6 h-6 text-gray-400" />
                   <div className="w-24 h-12 bg-emerald-100 border-2 border-emerald-300 rounded flex items-center justify-center text-sm font-semibold text-gray-900">
-                    Output
+                    {t('aiGovernance.diagram.output')}
                   </div>
                 </div>
 
                 <div className="border-t-2 border-dashed border-gray-300 pt-4 mt-4">
                   <div className="flex items-center gap-4">
                     <Shield className="w-6 h-6 text-[#C9A227]" />
-                    <p className="text-sm text-gray-700 font-semibold">Underneath: Audit Log + Evidence Checklist</p>
+                    <p className="text-sm text-gray-700 font-semibold">{t('aiGovernance.diagram.auditLog')}</p>
                   </div>
                 </div>
               </div>
@@ -666,10 +671,10 @@ export default function AIGovernance() {
       <section className="py-16 bg-gradient-to-r from-[#0B1220] to-[#1a1f35] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Adopt AI without losing control.
+            {t('aiGovernance.finalCTA.title')}
           </h2>
           <p className="text-xl text-gray-300 mb-8">
-            Run an exposure check or request a demo. We'll show the practical path to governed AI adoption in your environment.
+            {t('aiGovernance.finalCTA.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
             <Button
@@ -677,7 +682,7 @@ export default function AIGovernance() {
               onClick={() => window.location.href = '/company/contact'}
               className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
             >
-              Run AI Exposure Check
+              {t('aiGovernance.finalCTA.ctaPrimary')}
             </Button>
             <Button
               size="lg"
@@ -688,14 +693,14 @@ export default function AIGovernance() {
               }}
               className="border-white/30 text-white hover:bg-white/10"
             >
-              Request AI Governance Demo
+              {t('aiGovernance.finalCTA.ctaSecondary')}
             </Button>
           </div>
           <a
             href="/technology/security-sovereignty"
             className="text-sm text-[#C9A227] hover:text-[#B8921F] underline"
           >
-            View Security & Sovereignty →
+            {t('aiGovernance.finalCTA.link')}
           </a>
         </div>
       </section>
@@ -704,61 +709,61 @@ export default function AIGovernance() {
       <section className="py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-center mb-12 text-gray-900">
-            Frequently Asked Questions
+            {t('aiGovernance.faq.title')}
           </h2>
 
           <Accordion type="single" collapsible className="space-y-4">
             <AccordionItem value="item-1" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Is AI governance only for large enterprises?
+                {t('aiGovernance.faq.q1')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                No. High-growth SMEs and mid-market organizations also need governance—especially when handling regulated data or preparing for audit. We offer phased implementation that scales to your current needs and maturity level.
+                {t('aiGovernance.faq.a1')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-2" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                How do you handle sensitive data?
+                {t('aiGovernance.faq.q2')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Through data minimization, masking patterns, and controlled workflows. We help you establish protocols that prevent unnecessary exposure while enabling productive AI use. Specific handling depends on your sector and data classification requirements.
+                {t('aiGovernance.faq.a2')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-3" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                How do you ensure quality and reduce hallucinations?
+                {t('aiGovernance.faq.q3')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Through validation layers and output review gates. Workflows include consistency checks, source citation requirements, and expert review where needed. We don't eliminate AI errors completely—we structure controls to catch and correct them before they become problems.
+                {t('aiGovernance.faq.a3')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-4" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                Do we need to stop AI usage to govern it?
+                {t('aiGovernance.faq.q4')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Not necessarily. We often implement governance in phases while teams continue working. The goal is to channel existing usage into approved workflows and add visibility/controls—not to stop productivity. Where high-risk usage exists, we may recommend temporary restrictions while alternatives are deployed.
+                {t('aiGovernance.faq.a4')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-5" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                How long does it take to get governed?
+                {t('aiGovernance.faq.q5')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                Basic governance (policy + operating model + initial controls) can be established in 30-60 days. Full deployment including workflow enablement, training, and audit readiness typically takes 90 days. Timelines depend on your starting point and complexity.
+                {t('aiGovernance.faq.a5')}
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="item-6" className="border-2 rounded-lg px-6">
               <AccordionTrigger className="text-left font-semibold">
-                What do we receive?
+                {t('aiGovernance.faq.q6')}
               </AccordionTrigger>
               <AccordionContent className="text-gray-600">
-                The AI Governance Pack includes policy templates, operating model with RACI, risk register format, approval processes, data handling guidelines, logging checklists, training materials, and implementation roadmap. All deliverables are evidence-ready and structured for audit review.
+                {t('aiGovernance.faq.a6')}
               </AccordionContent>
             </AccordionItem>
           </Accordion>

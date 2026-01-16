@@ -3,6 +3,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Link } from 'wouter';
+import { useTranslation } from 'react-i18next';
+import '@/i18n/config';
+import i18n from '@/i18n/config';
 import useSEO from '@/hooks/useSEO';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -15,20 +18,22 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { ArrowRight, Check, X, ChevronDown, ChevronUp, FileText, Activity, CheckCircle2, Loader2 } from 'lucide-react';
 
 // Form validation schema
-const demoFormSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  company: z.string().min(2, 'Company name is required'),
-  role: z.string().min(2, 'Role is required'),
-  sector: z.string().min(1, 'Please select your sector'),
-  primaryFocus: z.string().min(1, 'Please select a focus area'),
-  timeline: z.string().min(1, 'Please select a timeline'),
+const getDemoFormSchema = () => z.object({
+  name: z.string().min(2, i18n.t('grcAutomation.demoForm.validation.nameMin')),
+  email: z.string().email(i18n.t('grcAutomation.demoForm.validation.emailInvalid')),
+  company: z.string().min(2, i18n.t('grcAutomation.demoForm.validation.companyMin')),
+  role: z.string().min(2, i18n.t('grcAutomation.demoForm.validation.roleMin')),
+  sector: z.string().min(1, i18n.t('grcAutomation.demoForm.validation.sectorRequired')),
+  primaryFocus: z.string().min(1, i18n.t('grcAutomation.demoForm.validation.primaryFocusRequired')),
+  timeline: z.string().min(1, i18n.t('grcAutomation.demoForm.validation.timelineRequired')),
   notes: z.string().optional(),
 });
 
-type DemoFormData = z.infer<typeof demoFormSchema>;
+type DemoFormData = z.infer<ReturnType<typeof getDemoFormSchema>>;
 
 export default function GRCAutomation() {
+  const { t } = useTranslation();
+  
   useSEO({
     title: 'GRC Automation Workflows | Aliph Solutions',
     description: 'Governed GRC automation workflows for Saudi organizations—evidence-ready outputs, repeatable execution, and auditability for PDPL, NCA ECC, ZATCA, governance, ERM, and internal audit.',
@@ -50,7 +55,7 @@ export default function GRCAutomation() {
     watch,
     reset,
   } = useForm<DemoFormData>({
-    resolver: zodResolver(demoFormSchema),
+    resolver: zodResolver(getDemoFormSchema()),
     mode: 'onChange',
   });
 
@@ -108,93 +113,37 @@ export default function GRCAutomation() {
     }
   };
 
-  const workflows = [
-    {
-      name: 'PDPL Gap & Roadmap Workflow',
-      input: 'Current data practices, PDPL obligations',
-      output: 'Gap analysis, remediation roadmap with owners',
-      usedFor: 'PDPL readiness assessments',
-    },
-    {
-      name: 'NCA ECC Control Mapping Workflow',
-      input: 'Current controls, NCA ECC framework',
-      output: 'Control mapping, evidence requirements, gaps',
-      usedFor: 'NCA ECC compliance programs',
-    },
-    {
-      name: 'ZATCA Compliance Cadence Workflow',
-      input: 'Tax processes, ZATCA requirements',
-      output: 'Compliance tracker, periodic checklist',
-      usedFor: 'Ongoing ZATCA compliance',
-    },
-    {
-      name: 'Policy Suite Builder Workflow',
-      input: 'Business context, obligations, templates',
-      output: 'Contextualized policy suite with owners',
-      usedFor: 'Policy framework creation',
-    },
-    {
-      name: 'Evidence Pack Builder Workflow',
-      input: 'Control requirements, existing documentation',
-      output: 'Structured evidence pack with gaps flagged',
-      usedFor: 'Audit preparation',
-    },
-    {
-      name: 'Risk Register & KRI Builder Workflow',
-      input: 'Risk taxonomy, business context',
-      output: 'Risk register with KRIs and ownership',
-      usedFor: 'ERM foundation',
-    },
-    {
-      name: 'Internal Audit Annual Plan Workflow',
-      input: 'Risk register, audit universe, resources',
-      output: 'Risk-based annual audit plan',
-      usedFor: 'Internal audit planning',
-    },
-    {
-      name: 'Third-Party Risk Workflow',
-      input: 'Vendor list, criticality, requirements',
-      output: 'TPRM tracker, assessment templates',
-      usedFor: 'Vendor risk management',
-    },
-    {
-      name: 'Board Reporting Summary Workflow',
-      input: 'Compliance data, risk updates, metrics',
-      output: 'Executive summary with dashboard format',
-      usedFor: 'Board and committee reporting',
-    },
-    {
-      name: 'Remediation Plan Tracker Workflow',
-      input: 'Audit findings, gap analysis results',
-      output: 'Remediation plan with timelines and status',
-      usedFor: 'Issue closure tracking',
-    },
-  ];
+  const workflows = t('grcAutomation.workflowLibrary.workflows', { returnObjects: true }) as Array<{
+    name: string;
+    input: string;
+    output: string;
+    usedFor: string;
+  }>;
 
   const faqs = [
     {
-      q: 'Is this a software platform?',
-      a: 'Not in the traditional sense. We use workflows to accelerate delivery, but we deliver outputs (documents, trackers, evidence packs) rather than platform access. For organizations that want continuous execution, we can run workflows as a managed service.',
+      q: t('grcAutomation.faq.q1'),
+      a: t('grcAutomation.faq.a1'),
     },
     {
-      q: 'Can we use workflows in strict environments?',
-      a: 'Yes. Workflows can be structured to run on-premises or in private cloud environments, with full data sovereignty and auditability. See our Security & Sovereignty page for deployment patterns.',
+      q: t('grcAutomation.faq.q2'),
+      a: t('grcAutomation.faq.a2'),
     },
     {
-      q: 'How do you ensure auditability?',
-      a: 'Workflows produce versioned outputs with traceability. Every deliverable includes metadata: who approved it, when, what inputs were used, and what rules were applied. Audit trails are structured for compliance review.',
+      q: t('grcAutomation.faq.q3'),
+      a: t('grcAutomation.faq.a3'),
     },
     {
-      q: 'What do we receive at the end?',
-      a: 'You receive implementation-ready deliverables: policies with owners, trackers with timelines, evidence structures with checkpoints, and reporting formats. Everything is designed to be used immediately by your team.',
+      q: t('grcAutomation.faq.q4'),
+      a: t('grcAutomation.faq.a4'),
     },
     {
-      q: 'Do workflows replace our team?',
-      a: 'No. Workflows accelerate execution and standardize quality, but your team retains oversight, approval, and contextualization. Think of workflows as system-led delivery that amplifies your team\'s capacity.',
+      q: t('grcAutomation.faq.q5'),
+      a: t('grcAutomation.faq.a5'),
     },
     {
-      q: 'How do we start?',
-      a: 'Request a workflow demo to see how specific workflows apply to your context. You can start with sample outputs, run a pilot project, or engage us for advisory or managed services.',
+      q: t('grcAutomation.faq.q6'),
+      a: t('grcAutomation.faq.a6'),
     },
   ];
 
@@ -212,19 +161,19 @@ export default function GRCAutomation() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
           <div className="max-w-4xl">
             <div className="flex items-center gap-4 mb-6 text-sm text-[#C9A227]">
-              <span>Repeatability</span>
+              <span>{t('grcAutomation.hero.badge1')}</span>
               <span>•</span>
-              <span>Auditability</span>
+              <span>{t('grcAutomation.hero.badge2')}</span>
               <span>•</span>
-              <span>Speed</span>
+              <span>{t('grcAutomation.hero.badge3')}</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-              GRC Automation Workflows
+              {t('grcAutomation.hero.title')}
             </h1>
 
             <p className="text-xl md:text-2xl text-gray-300 mb-10 leading-relaxed max-w-3xl">
-              We use governed workflows to compress manual GRC work—producing structured deliverables, trackers, evidence packs, and reporting formats faster, without sacrificing control.
+              {t('grcAutomation.hero.subtitle')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -234,7 +183,7 @@ export default function GRCAutomation() {
                 className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
                 data-cta="grc_workflows_request_demo"
               >
-                Request Workflow Demo
+                {t('grcAutomation.hero.ctaPrimary')}
               </Button>
               <Button
                 size="lg"
@@ -243,7 +192,7 @@ export default function GRCAutomation() {
                 className="border-white/30 text-white hover:bg-white/10"
                 data-cta="grc_workflows_request_samples"
               >
-                Request Sample Outputs
+                {t('grcAutomation.hero.ctaSecondary')}
               </Button>
             </div>
 
@@ -251,7 +200,7 @@ export default function GRCAutomation() {
               href="/technology/aliph-brain"
               className="text-[#C9A227] hover:text-[#B8921F] text-sm font-medium inline-flex items-center gap-1"
             >
-              See the Aliph Brain
+              {t('grcAutomation.hero.link')}
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
@@ -262,7 +211,7 @@ export default function GRCAutomation() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Why GRC Delivery Gets Stuck
+            {t('grcAutomation.problem.title')}
           </h2>
 
           <div className="max-w-4xl mx-auto">
@@ -270,25 +219,25 @@ export default function GRCAutomation() {
             <ul className="space-y-4 text-lg text-gray-700 mb-12">
               <li className="flex items-start gap-3">
                 <X className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
-                <span>Manual repetition across frameworks and policies</span>
+                <span>{t('grcAutomation.problem.point1')}</span>
               </li>
               <li className="flex items-start gap-3">
                 <X className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
-                <span>Control mapping done from scratch each time</span>
+                <span>{t('grcAutomation.problem.point2')}</span>
               </li>
               <li className="flex items-start gap-3">
                 <X className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
-                <span>Evidence collection happens late</span>
+                <span>{t('grcAutomation.problem.point3')}</span>
               </li>
               <li className="flex items-start gap-3">
                 <X className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
-                <span>Reporting cadence is inconsistent</span>
+                <span>{t('grcAutomation.problem.point4')}</span>
               </li>
             </ul>
 
             <Card className="bg-gradient-to-r from-[#0B1220] to-[#1a1f35] text-white p-8 border-2 border-[#C9A227]">
               <p className="text-2xl font-bold text-center">
-                "Workflows turn compliance into repeatable execution."
+                {t('grcAutomation.problem.quote')}
               </p>
             </Card>
           </div>
@@ -299,10 +248,10 @@ export default function GRCAutomation() {
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            What a Governed Workflow Is
+            {t('grcAutomation.workflow.title')}
           </h2>
           <p className="text-xl text-center text-gray-600 mb-16 max-w-3xl mx-auto">
-            A workflow is a repeatable module that takes inputs, applies governed processing rules, and produces structured outputs.
+            {t('grcAutomation.workflow.subtitle')}
           </p>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -310,9 +259,9 @@ export default function GRCAutomation() {
               <div className="w-14 h-14 bg-gradient-to-br from-[#C9A227] to-[#B8921F] rounded-xl flex items-center justify-center mb-6">
                 <span className="text-white font-bold text-2xl">1</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Inputs</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">{t('grcAutomation.workflow.step1Title')}</h3>
               <p className="text-gray-700">
-                Documents, obligations, current state, business context
+                {t('grcAutomation.workflow.step1Desc')}
               </p>
             </Card>
 
@@ -320,9 +269,9 @@ export default function GRCAutomation() {
               <div className="w-14 h-14 bg-gradient-to-br from-[#C9A227] to-[#B8921F] rounded-xl flex items-center justify-center mb-6">
                 <span className="text-white font-bold text-2xl">2</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Governed Processing</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">{t('grcAutomation.workflow.step2Title')}</h3>
               <p className="text-gray-700">
-                Policy rules, templates, consistency checks, validation logic
+                {t('grcAutomation.workflow.step2Desc')}
               </p>
             </Card>
 
@@ -330,27 +279,27 @@ export default function GRCAutomation() {
               <div className="w-14 h-14 bg-gradient-to-br from-[#C9A227] to-[#B8921F] rounded-xl flex items-center justify-center mb-6">
                 <span className="text-white font-bold text-2xl">3</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Outputs</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">{t('grcAutomation.workflow.step3Title')}</h3>
               <p className="text-gray-700">
-                Deliverables, trackers, evidence packs, reporting formats
+                {t('grcAutomation.workflow.step3Desc')}
               </p>
             </Card>
           </div>
 
           <Card className="p-6 border-2">
-            <p className="text-gray-900 font-bold mb-3">What it is NOT:</p>
+            <p className="text-gray-900 font-bold mb-3">{t('grcAutomation.workflow.notTitle')}</p>
             <div className="flex flex-wrap gap-4 text-gray-700">
               <span className="inline-flex items-center gap-2">
                 <X size={18} className="text-red-500" />
-                Not a public chatbot
+                {t('grcAutomation.workflow.not1')}
               </span>
               <span className="inline-flex items-center gap-2">
                 <X size={18} className="text-red-500" />
-                Not uncontrolled automation
+                {t('grcAutomation.workflow.not2')}
               </span>
               <span className="inline-flex items-center gap-2">
                 <X size={18} className="text-red-500" />
-                Not black-box outputs
+                {t('grcAutomation.workflow.not3')}
               </span>
             </div>
           </Card>
@@ -360,7 +309,7 @@ export default function GRCAutomation() {
               href="/technology/security-sovereignty"
               className="inline-flex items-center gap-1 text-[#C9A227] hover:text-[#B8921F] font-semibold"
             >
-              Learn about Security & Sovereignty
+              {t('grcAutomation.workflow.link')}
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
@@ -372,10 +321,10 @@ export default function GRCAutomation() {
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl font-bold text-slate-900 mb-4 text-center">
-              Workflow Map (Simplified)
+              {t('grcAutomation.workflowMap.title')}
             </h2>
             <p className="text-lg text-slate-600 mb-12 text-center max-w-3xl mx-auto">
-              Every workflow follows a governed execution path from intake to audit trail.
+              {t('grcAutomation.workflowMap.subtitle')}
             </p>
 
             <div className="bg-slate-50 rounded-xl p-8 border border-slate-200 overflow-x-auto">
@@ -383,10 +332,10 @@ export default function GRCAutomation() {
                 {/* Intake */}
                 <div className="group flex-shrink-0">
                   <div className="bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-amber-500 transition-all hover:shadow-lg">
-                    <div className="font-bold text-slate-900 mb-2">Intake</div>
+                    <div className="font-bold text-slate-900 mb-2">{t('grcAutomation.workflowMap.intakeTitle')}</div>
                     <div className="text-sm text-slate-600">
-                      <div>• Requirements</div>
-                      <div>• Context</div>
+                      <div>• {t('grcAutomation.workflowMap.intakeItem1')}</div>
+                      <div>• {t('grcAutomation.workflowMap.intakeItem2')}</div>
                     </div>
                   </div>
                 </div>
@@ -396,10 +345,10 @@ export default function GRCAutomation() {
                 {/* Classification */}
                 <div className="group flex-shrink-0">
                   <div className="bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-amber-500 transition-all hover:shadow-lg">
-                    <div className="font-bold text-slate-900 mb-2">Classification</div>
+                    <div className="font-bold text-slate-900 mb-2">{t('grcAutomation.workflowMap.classificationTitle')}</div>
                     <div className="text-sm text-slate-600">
-                      <div>• Obligation type</div>
-                      <div>• Scope</div>
+                      <div>• {t('grcAutomation.workflowMap.classificationItem1')}</div>
+                      <div>• {t('grcAutomation.workflowMap.classificationItem2')}</div>
                     </div>
                   </div>
                 </div>
@@ -409,10 +358,10 @@ export default function GRCAutomation() {
                 {/* Mapping */}
                 <div className="group flex-shrink-0">
                   <div className="bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-amber-500 transition-all hover:shadow-lg">
-                    <div className="font-bold text-slate-900 mb-2">Mapping</div>
+                    <div className="font-bold text-slate-900 mb-2">{t('grcAutomation.workflowMap.mappingTitle')}</div>
                     <div className="text-sm text-slate-600">
-                      <div>• Control mapping</div>
-                      <div>• Obligation mapping</div>
+                      <div>• {t('grcAutomation.workflowMap.mappingItem1')}</div>
+                      <div>• {t('grcAutomation.workflowMap.mappingItem2')}</div>
                     </div>
                   </div>
                 </div>
@@ -422,10 +371,10 @@ export default function GRCAutomation() {
                 {/* Drafting */}
                 <div className="group flex-shrink-0">
                   <div className="bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-amber-500 transition-all hover:shadow-lg">
-                    <div className="font-bold text-slate-900 mb-2">Drafting</div>
+                    <div className="font-bold text-slate-900 mb-2">{t('grcAutomation.workflowMap.draftingTitle')}</div>
                     <div className="text-sm text-slate-600">
-                      <div>• Policy suite</div>
-                      <div>• SOP drafts</div>
+                      <div>• {t('grcAutomation.workflowMap.draftingItem1')}</div>
+                      <div>• {t('grcAutomation.workflowMap.draftingItem2')}</div>
                     </div>
                   </div>
                 </div>
@@ -435,10 +384,10 @@ export default function GRCAutomation() {
                 {/* Validation */}
                 <div className="group flex-shrink-0">
                   <div className="bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-amber-500 transition-all hover:shadow-lg">
-                    <div className="font-bold text-slate-900 mb-2">Validation</div>
+                    <div className="font-bold text-slate-900 mb-2">{t('grcAutomation.workflowMap.validationTitle')}</div>
                     <div className="text-sm text-slate-600">
-                      <div>• Consistency checks</div>
-                      <div>• Completeness</div>
+                      <div>• {t('grcAutomation.workflowMap.validationItem1')}</div>
+                      <div>• {t('grcAutomation.workflowMap.validationItem2')}</div>
                     </div>
                   </div>
                 </div>
@@ -448,10 +397,10 @@ export default function GRCAutomation() {
                 {/* Packaging */}
                 <div className="group flex-shrink-0">
                   <div className="bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-amber-500 transition-all hover:shadow-lg">
-                    <div className="font-bold text-slate-900 mb-2">Packaging</div>
+                    <div className="font-bold text-slate-900 mb-2">{t('grcAutomation.workflowMap.packagingTitle')}</div>
                     <div className="text-sm text-slate-600">
-                      <div>• Evidence pack</div>
-                      <div>• Ownership map</div>
+                      <div>• {t('grcAutomation.workflowMap.packagingItem1')}</div>
+                      <div>• {t('grcAutomation.workflowMap.packagingItem2')}</div>
                     </div>
                   </div>
                 </div>
@@ -461,10 +410,10 @@ export default function GRCAutomation() {
                 {/* Reporting */}
                 <div className="group flex-shrink-0">
                   <div className="bg-white border-2 border-slate-300 rounded-lg p-4 hover:border-amber-500 transition-all hover:shadow-lg">
-                    <div className="font-bold text-slate-900 mb-2">Reporting</div>
+                    <div className="font-bold text-slate-900 mb-2">{t('grcAutomation.workflowMap.reportingTitle')}</div>
                     <div className="text-sm text-slate-600">
-                      <div>• Board summary</div>
-                      <div>• Dashboard format</div>
+                      <div>• {t('grcAutomation.workflowMap.reportingItem1')}</div>
+                      <div>• {t('grcAutomation.workflowMap.reportingItem2')}</div>
                     </div>
                   </div>
                 </div>
@@ -474,10 +423,10 @@ export default function GRCAutomation() {
                 {/* Audit Trail */}
                 <div className="group flex-shrink-0">
                   <div className="bg-white border-2 border-amber-500 rounded-lg p-4 hover:shadow-lg transition-all">
-                    <div className="font-bold text-slate-900 mb-2">Audit Trail</div>
+                    <div className="font-bold text-slate-900 mb-2">{t('grcAutomation.workflowMap.auditTrailTitle')}</div>
                     <div className="text-sm text-slate-600">
-                      <div>• Versioning</div>
-                      <div>• Traceability</div>
+                      <div>• {t('grcAutomation.workflowMap.auditTrailItem1')}</div>
+                      <div>• {t('grcAutomation.workflowMap.auditTrailItem2')}</div>
                     </div>
                   </div>
                 </div>
@@ -492,10 +441,10 @@ export default function GRCAutomation() {
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl font-bold text-slate-900 mb-4 text-center">
-              Examples of Workflows We Run
+              {t('grcAutomation.workflowLibrary.title')}
             </h2>
             <p className="text-lg text-slate-600 mb-12 text-center max-w-3xl mx-auto">
-              Each workflow is designed for a specific GRC function and produces tangible outputs.
+              {t('grcAutomation.workflowLibrary.subtitle')}
             </p>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -510,22 +459,22 @@ export default function GRCAutomation() {
 
                   <div className="space-y-3 mb-4">
                     <div>
-                      <div className="text-xs font-semibold text-slate-500 uppercase mb-1">Input</div>
+                      <div className="text-xs font-semibold text-slate-500 uppercase mb-1">{t('grcAutomation.workflowLibrary.inputLabel')}</div>
                       <div className="text-sm text-slate-700">{workflow.input}</div>
                     </div>
                     <div>
-                      <div className="text-xs font-semibold text-slate-500 uppercase mb-1">Output</div>
+                      <div className="text-xs font-semibold text-slate-500 uppercase mb-1">{t('grcAutomation.workflowLibrary.outputLabel')}</div>
                       <div className="text-sm text-slate-700">{workflow.output}</div>
                     </div>
                     <div>
-                      <div className="text-xs font-semibold text-slate-500 uppercase mb-1">Used For</div>
+                      <div className="text-xs font-semibold text-slate-500 uppercase mb-1">{t('grcAutomation.workflowLibrary.usedForLabel')}</div>
                       <div className="text-sm text-slate-700">{workflow.usedFor}</div>
                     </div>
                   </div>
 
                   <Link href="/deliverables">
                     <a className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-semibold text-sm">
-                      See sample output
+                      {t('grcAutomation.workflowLibrary.sampleLink')}
                       <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                     </a>
                   </Link>
@@ -541,81 +490,81 @@ export default function GRCAutomation() {
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-4xl font-bold text-slate-900 mb-4 text-center">
-              Outputs You Actually Receive
+              {t('grcAutomation.outputs.title')}
             </h2>
             <p className="text-lg text-slate-600 mb-12 text-center max-w-3xl mx-auto">
-              Every workflow produces implementation-ready outputs that your team can use immediately.
+              {t('grcAutomation.outputs.subtitle')}
             </p>
 
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               <div className="bg-slate-50 rounded-xl p-8 border-l-4 border-blue-500">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Deliverables</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{t('grcAutomation.outputs.deliverablesTitle')}</h3>
                 <ul className="space-y-2 text-slate-700">
                   <li className="flex items-start gap-2">
                     <Check className="text-blue-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Policies, frameworks, operating model docs</span>
+                    <span>{t('grcAutomation.outputs.deliverablesItem1')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="text-blue-500 flex-shrink-0 mt-1" size={18} />
-                    <span>SOPs and process documentation</span>
+                    <span>{t('grcAutomation.outputs.deliverablesItem2')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="text-blue-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Gap analyses and roadmaps</span>
+                    <span>{t('grcAutomation.outputs.deliverablesItem3')}</span>
                   </li>
                 </ul>
               </div>
 
               <div className="bg-slate-50 rounded-xl p-8 border-l-4 border-amber-500">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Trackers</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{t('grcAutomation.outputs.trackersTitle')}</h3>
                 <ul className="space-y-2 text-slate-700">
                   <li className="flex items-start gap-2">
                     <Check className="text-amber-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Risk registers with KRIs</span>
+                    <span>{t('grcAutomation.outputs.trackersItem1')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="text-amber-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Compliance trackers with status</span>
+                    <span>{t('grcAutomation.outputs.trackersItem2')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="text-amber-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Remediation plans with timelines</span>
+                    <span>{t('grcAutomation.outputs.trackersItem3')}</span>
                   </li>
                 </ul>
               </div>
 
               <div className="bg-slate-50 rounded-xl p-8 border-l-4 border-green-500">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Evidence Packs</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{t('grcAutomation.outputs.evidenceTitle')}</h3>
                 <ul className="space-y-2 text-slate-700">
                   <li className="flex items-start gap-2">
                     <Check className="text-green-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Audit checklists and evidence structures</span>
+                    <span>{t('grcAutomation.outputs.evidenceItem1')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="text-green-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Control mappings with evidence requirements</span>
+                    <span>{t('grcAutomation.outputs.evidenceItem2')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="text-green-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Testing protocols and validation formats</span>
+                    <span>{t('grcAutomation.outputs.evidenceItem3')}</span>
                   </li>
                 </ul>
               </div>
 
               <div className="bg-slate-50 rounded-xl p-8 border-l-4 border-purple-500">
-                <h3 className="text-xl font-bold text-slate-900 mb-4">Reporting Formats</h3>
+                <h3 className="text-xl font-bold text-slate-900 mb-4">{t('grcAutomation.outputs.reportingTitle')}</h3>
                 <ul className="space-y-2 text-slate-700">
                   <li className="flex items-start gap-2">
                     <Check className="text-purple-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Monthly readiness packs</span>
+                    <span>{t('grcAutomation.outputs.reportingItem1')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="text-purple-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Board and committee summaries</span>
+                    <span>{t('grcAutomation.outputs.reportingItem2')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="text-purple-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Dashboard formats with metrics</span>
+                    <span>{t('grcAutomation.outputs.reportingItem3')}</span>
                   </li>
                 </ul>
               </div>
@@ -623,7 +572,7 @@ export default function GRCAutomation() {
 
             <div className="bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200 rounded-lg p-6 mb-8">
               <p className="text-slate-900 font-semibold text-center">
-                Everything ships implementation-ready: owners, timelines, evidence checkpoints.
+                {t('grcAutomation.outputs.callout')}
               </p>
             </div>
 
@@ -633,7 +582,7 @@ export default function GRCAutomation() {
                   className="inline-flex items-center gap-2 px-8 py-4 bg-amber-500 hover:bg-amber-400 text-slate-900 font-semibold rounded-lg transition-all hover:scale-105"
                   data-cta="grc_workflows_request_samples"
                 >
-                  Request Sample Outputs
+                  {t('grcAutomation.outputs.cta')}
                   <ArrowRight size={20} />
                 </a>
               </Link>
@@ -647,35 +596,35 @@ export default function GRCAutomation() {
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
             <h2 className="text-4xl font-bold text-slate-900 mb-4 text-center">
-              Where Workflows Fit
+              {t('grcAutomation.whereFit.title')}
             </h2>
             <p className="text-lg text-slate-600 mb-12 text-center max-w-3xl mx-auto">
-              Workflows power both advisory engagements and managed services—delivering system-led execution with expert oversight.
+              {t('grcAutomation.whereFit.subtitle')}
             </p>
 
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="bg-white rounded-xl p-8 border border-slate-200 shadow-sm">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-semibold mb-6">
-                  Advisory
+                  {t('grcAutomation.whereFit.advisoryBadge')}
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">Accelerate Assessment & Pack Creation</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">{t('grcAutomation.whereFit.advisoryTitle')}</h3>
                 <ul className="space-y-3 text-slate-700 mb-6">
                   <li className="flex items-start gap-2">
                     <Check className="text-blue-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Speed up gap analysis and roadmap creation</span>
+                    <span>{t('grcAutomation.whereFit.advisoryItem1')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="text-blue-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Standardize deliverable quality and structure</span>
+                    <span>{t('grcAutomation.whereFit.advisoryItem2')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="text-blue-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Reduce time from assessment to implementation pack</span>
+                    <span>{t('grcAutomation.whereFit.advisoryItem3')}</span>
                   </li>
                 </ul>
                 <Link href="/advisory">
                   <a className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold">
-                    Learn about Advisory
+                    {t('grcAutomation.whereFit.advisoryLink')}
                     <ArrowRight size={20} />
                   </a>
                 </Link>
@@ -683,26 +632,26 @@ export default function GRCAutomation() {
 
               <div className="bg-white rounded-xl p-8 border border-slate-200 shadow-sm">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-50 text-amber-700 rounded-full text-sm font-semibold mb-6">
-                  Managed Services
+                  {t('grcAutomation.whereFit.managedBadge')}
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">Run Recurring Routines</h3>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">{t('grcAutomation.whereFit.managedTitle')}</h3>
                 <ul className="space-y-3 text-slate-700 mb-6">
                   <li className="flex items-start gap-2">
                     <Check className="text-amber-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Execute periodic compliance routines</span>
+                    <span>{t('grcAutomation.whereFit.managedItem1')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="text-amber-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Maintain trackers and evidence structures</span>
+                    <span>{t('grcAutomation.whereFit.managedItem2')}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="text-amber-500 flex-shrink-0 mt-1" size={18} />
-                    <span>Generate reporting cadence for board and committees</span>
+                    <span>{t('grcAutomation.whereFit.managedItem3')}</span>
                   </li>
                 </ul>
                 <Link href="/managed-services">
                   <a className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-semibold">
-                    Learn about Managed Services
+                    {t('grcAutomation.whereFit.managedLink')}
                     <ArrowRight size={20} />
                   </a>
                 </Link>
@@ -717,10 +666,10 @@ export default function GRCAutomation() {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-bold text-slate-900 mb-4 text-center">
-              Built for Quality, Not Just Speed
+              {t('grcAutomation.quality.title')}
             </h2>
             <p className="text-lg text-slate-600 mb-12 text-center max-w-3xl mx-auto">
-              Workflows are governed by design—ensuring outputs are auditable, consistent, and implementation-ready.
+              {t('grcAutomation.quality.subtitle')}
             </p>
 
             <div className="grid md:grid-cols-2 gap-6 mb-12">
@@ -729,9 +678,9 @@ export default function GRCAutomation() {
                   <Check className="text-white" size={20} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2">Governed Templates & Structured Outputs</h3>
+                  <h3 className="font-bold text-slate-900 mb-2">{t('grcAutomation.quality.feature1Title')}</h3>
                   <p className="text-slate-600 text-sm">
-                    Every output follows pre-approved formats with required sections, ownership fields, and metadata.
+                    {t('grcAutomation.quality.feature1Desc')}
                   </p>
                 </div>
               </div>
@@ -741,9 +690,9 @@ export default function GRCAutomation() {
                   <Check className="text-white" size={20} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2">Consistency Checks</h3>
+                  <h3 className="font-bold text-slate-900 mb-2">{t('grcAutomation.quality.feature2Title')}</h3>
                   <p className="text-slate-600 text-sm">
-                    Validation logic ensures outputs meet quality thresholds before they're delivered.
+                    {t('grcAutomation.quality.feature2Desc')}
                   </p>
                 </div>
               </div>
@@ -753,9 +702,9 @@ export default function GRCAutomation() {
                   <Check className="text-white" size={20} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2">Expert Validation When Required</h3>
+                  <h3 className="font-bold text-slate-900 mb-2">{t('grcAutomation.quality.feature3Title')}</h3>
                   <p className="text-slate-600 text-sm">
-                    Workflows can route outputs for expert review and approval before finalization.
+                    {t('grcAutomation.quality.feature3Desc')}
                   </p>
                 </div>
               </div>
@@ -765,9 +714,9 @@ export default function GRCAutomation() {
                   <Check className="text-white" size={20} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-2">Traceability & Versioning Patterns</h3>
+                  <h3 className="font-bold text-slate-900 mb-2">{t('grcAutomation.quality.feature4Title')}</h3>
                   <p className="text-slate-600 text-sm">
-                    Full audit trail of inputs, processing rules, approvals, and output versions.
+                    {t('grcAutomation.quality.feature4Desc')}
                   </p>
                 </div>
               </div>
@@ -776,13 +725,13 @@ export default function GRCAutomation() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/technology/aliph-brain">
                 <a className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-900 hover:bg-slate-800 text-white font-semibold rounded-lg transition-all">
-                  See the Aliph Brain
+                  {t('grcAutomation.quality.cta1')}
                   <ArrowRight size={20} />
                 </a>
               </Link>
               <Link href="/technology/security-sovereignty">
                 <a className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-slate-900 hover:bg-slate-50 text-slate-900 font-semibold rounded-lg transition-all">
-                  Security & Sovereignty
+                  {t('grcAutomation.quality.cta2')}
                   <ArrowRight size={20} />
                 </a>
               </Link>
@@ -800,10 +749,10 @@ export default function GRCAutomation() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Turn compliance into repeatable execution.
+              {t('grcAutomation.ctaBand.title')}
             </h2>
             <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-              Request a workflow demo or start with sample outputs. For continuous readiness, start a 30-day managed pilot.
+              {t('grcAutomation.ctaBand.subtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
               <Button
@@ -812,7 +761,7 @@ export default function GRCAutomation() {
                 className="bg-gradient-to-r from-[#C9A227] to-[#B8921F] hover:from-[#B8921F] hover:to-[#A8821D]"
                 data-cta="grc_workflows_request_demo"
               >
-                Request Workflow Demo
+                {t('grcAutomation.ctaBand.cta1')}
               </Button>
               <Button
                 size="lg"
@@ -821,14 +770,14 @@ export default function GRCAutomation() {
                 className="border-white/30 text-white hover:bg-white/10"
                 data-cta="grc_workflows_start_pilot"
               >
-                Start a 30-Day Pilot
+                {t('grcAutomation.ctaBand.cta2')}
               </Button>
             </div>
             <a
               href="/deliverables"
               className="text-[#C9A227] hover:text-[#B8921F] text-sm font-medium inline-flex items-center gap-1"
             >
-              Request Sample Outputs
+              {t('grcAutomation.ctaBand.link')}
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
@@ -839,7 +788,7 @@ export default function GRCAutomation() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">
-            Frequently Asked Questions
+            {t('grcAutomation.faq.title')}
           </h2>
 
           <div className="max-w-3xl mx-auto">
@@ -863,9 +812,9 @@ export default function GRCAutomation() {
       <Dialog open={showDemoModal} onOpenChange={setShowDemoModal}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl">Request Workflow Demo</DialogTitle>
+            <DialogTitle className="text-2xl">{t('grcAutomation.demoForm.title')}</DialogTitle>
             <DialogDescription>
-              We'll share a demo agenda and confirm a time within 24 hours.
+              {t('grcAutomation.demoForm.description')}
             </DialogDescription>
           </DialogHeader>
 
@@ -880,13 +829,13 @@ export default function GRCAutomation() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="name" className={errors.name ? 'text-red-600' : ''}>
-                    {errors.name ? errors.name.message : 'Name *'}
+                    {errors.name ? errors.name.message : t('grcAutomation.demoForm.nameLabel')}
                   </Label>
                   <Input id="name" {...register('name')} className={errors.name ? 'border-red-500' : ''} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email" className={errors.email ? 'text-red-600' : ''}>
-                    {errors.email ? errors.email.message : 'Email *'}
+                    {errors.email ? errors.email.message : t('grcAutomation.demoForm.emailLabel')}
                   </Label>
                   <Input id="email" type="email" {...register('email')} className={errors.email ? 'border-red-500' : ''} />
                 </div>
@@ -895,13 +844,13 @@ export default function GRCAutomation() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="company" className={errors.company ? 'text-red-600' : ''}>
-                    {errors.company ? errors.company.message : 'Company *'}
+                    {errors.company ? errors.company.message : t('grcAutomation.demoForm.companyLabel')}
                   </Label>
                   <Input id="company" {...register('company')} className={errors.company ? 'border-red-500' : ''} />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="role" className={errors.role ? 'text-red-600' : ''}>
-                    {errors.role ? errors.role.message : 'Role *'}
+                    {errors.role ? errors.role.message : t('grcAutomation.demoForm.roleLabel')}
                   </Label>
                   <Input id="role" {...register('role')} className={errors.role ? 'border-red-500' : ''} />
                 </div>
@@ -909,68 +858,68 @@ export default function GRCAutomation() {
 
               <div className="space-y-2">
                 <Label htmlFor="sector" className={errors.sector ? 'text-red-600' : ''}>
-                  {errors.sector ? errors.sector.message : 'Sector *'}
+                  {errors.sector ? errors.sector.message : t('grcAutomation.demoForm.sectorLabel')}
                 </Label>
                 <Select value={sector} onValueChange={(value) => setValue('sector', value, { shouldValidate: true })}>
                   <SelectTrigger className={errors.sector ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select sector" />
+                    <SelectValue placeholder={t('grcAutomation.demoForm.sectorPlaceholder')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="financial">Financial Services</SelectItem>
-                    <SelectItem value="energy">Energy & Petrochemicals</SelectItem>
-                    <SelectItem value="healthcare">Healthcare</SelectItem>
-                    <SelectItem value="telecom">Telecom & Digital</SelectItem>
-                    <SelectItem value="government">Government</SelectItem>
-                    <SelectItem value="retail">Retail & Consumer</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="financial">{t('grcAutomation.demoForm.sectorFinancial')}</SelectItem>
+                    <SelectItem value="energy">{t('grcAutomation.demoForm.sectorEnergy')}</SelectItem>
+                    <SelectItem value="healthcare">{t('grcAutomation.demoForm.sectorHealthcare')}</SelectItem>
+                    <SelectItem value="telecom">{t('grcAutomation.demoForm.sectorTelecom')}</SelectItem>
+                    <SelectItem value="government">{t('grcAutomation.demoForm.sectorGovernment')}</SelectItem>
+                    <SelectItem value="retail">{t('grcAutomation.demoForm.sectorRetail')}</SelectItem>
+                    <SelectItem value="other">{t('grcAutomation.demoForm.sectorOther')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="primaryFocus" className={errors.primaryFocus ? 'text-red-600' : ''}>
-                  {errors.primaryFocus ? errors.primaryFocus.message : 'Primary Focus Area *'}
+                  {errors.primaryFocus ? errors.primaryFocus.message : t('grcAutomation.demoForm.focusLabel')}
                 </Label>
                 <Select value={primaryFocus} onValueChange={(value) => setValue('primaryFocus', value, { shouldValidate: true })}>
                   <SelectTrigger className={errors.primaryFocus ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select focus area" />
+                    <SelectValue placeholder={t('grcAutomation.demoForm.focusPlaceholder')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="pdpl">PDPL Compliance</SelectItem>
-                    <SelectItem value="nca">NCA ECC</SelectItem>
-                    <SelectItem value="zatca">ZATCA Compliance</SelectItem>
-                    <SelectItem value="governance">Corporate Governance</SelectItem>
-                    <SelectItem value="erm">Enterprise Risk Management</SelectItem>
-                    <SelectItem value="audit">Internal Audit</SelectItem>
-                    <SelectItem value="ai_governance">AI Governance</SelectItem>
+                    <SelectItem value="pdpl">{t('grcAutomation.demoForm.focusPdpl')}</SelectItem>
+                    <SelectItem value="nca">{t('grcAutomation.demoForm.focusNca')}</SelectItem>
+                    <SelectItem value="zatca">{t('grcAutomation.demoForm.focusZatca')}</SelectItem>
+                    <SelectItem value="governance">{t('grcAutomation.demoForm.focusGovernance')}</SelectItem>
+                    <SelectItem value="erm">{t('grcAutomation.demoForm.focusErm')}</SelectItem>
+                    <SelectItem value="audit">{t('grcAutomation.demoForm.focusAudit')}</SelectItem>
+                    <SelectItem value="ai_governance">{t('grcAutomation.demoForm.focusAi')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="timeline" className={errors.timeline ? 'text-red-600' : ''}>
-                  {errors.timeline ? errors.timeline.message : 'Timeline *'}
+                  {errors.timeline ? errors.timeline.message : t('grcAutomation.demoForm.timelineLabel')}
                 </Label>
                 <Select value={timeline} onValueChange={(value) => setValue('timeline', value, { shouldValidate: true })}>
                   <SelectTrigger className={errors.timeline ? 'border-red-500' : ''}>
-                    <SelectValue placeholder="Select timeline" />
+                    <SelectValue placeholder={t('grcAutomation.demoForm.timelinePlaceholder')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="now">Immediate (next 2 weeks)</SelectItem>
-                    <SelectItem value="30">Within 30 days</SelectItem>
-                    <SelectItem value="90">Within 90 days</SelectItem>
-                    <SelectItem value="exploratory">Exploratory</SelectItem>
+                    <SelectItem value="now">{t('grcAutomation.demoForm.timelineNow')}</SelectItem>
+                    <SelectItem value="30">{t('grcAutomation.demoForm.timeline30')}</SelectItem>
+                    <SelectItem value="90">{t('grcAutomation.demoForm.timeline90')}</SelectItem>
+                    <SelectItem value="exploratory">{t('grcAutomation.demoForm.timelineExploratory')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="notes">Notes</Label>
+                <Label htmlFor="notes">{t('grcAutomation.demoForm.notesLabel')}</Label>
                 <Textarea
                   id="notes"
                   rows={4}
                   {...register('notes')}
-                  placeholder="Tell us about your specific workflow needs or questions..."
+                  placeholder={t('grcAutomation.demoForm.notesPlaceholder')}
                 />
               </div>
 
@@ -978,19 +927,19 @@ export default function GRCAutomation() {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Submitting...
+                    {t('grcAutomation.demoForm.submitting')}
                   </>
                 ) : (
-                  'Request Demo'
+                  t('grcAutomation.demoForm.submitButton')
                 )}
               </Button>
             </form>
           ) : (
             <div className="text-center py-8">
               <CheckCircle2 className="w-16 h-16 text-green-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-green-900 mb-2">Request Received</h3>
+              <h3 className="text-xl font-bold text-green-900 mb-2">{t('grcAutomation.demoForm.successTitle')}</h3>
               <p className="text-green-800">
-                We'll share a demo agenda and confirm a time within 24 hours.
+                {t('grcAutomation.demoForm.successMessage')}
               </p>
             </div>
           )}

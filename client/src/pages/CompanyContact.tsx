@@ -15,24 +15,27 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Mail, Phone, MapPin, ArrowRight, CheckCircle2, Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import '@/i18n/config';
 import useSEO from '@/hooks/useSEO';
 
-// Form validation schema
+// Form validation schema - Note: validation messages will be replaced by translation keys in the UI
 const formSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
-  email: z.string().email('Please enter a valid email address'),
-  company: z.string().min(2, 'Company name is required').max(200),
-  role: z.string().min(2, 'Role/Title is required').max(100),
-  interestType: z.string().min(1, 'Please select what brings you here'),
-  sector: z.string().min(1, 'Please select your sector'),
-  primaryFocus: z.array(z.string()).min(1, 'Please select at least one focus area'),
-  timeline: z.string().min(1, 'Please select a timeline'),
+  name: z.string().min(2).max(100),
+  email: z.string().email(),
+  company: z.string().min(2).max(200),
+  role: z.string().min(2).max(100),
+  interestType: z.string().min(1),
+  sector: z.string().min(1),
+  primaryFocus: z.array(z.string()).min(1),
+  timeline: z.string().min(1),
   notes: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
 export default function CompanyContact() {
+  const { t } = useTranslation();
   useSEO({
     title: 'Contact | Aliph Solutions',
     description: 'Contact Aliph Solutions to discuss GRC advisory, AI governance, managed services, or partnership opportunities. Riyadh, Saudi Arabia.',
@@ -129,16 +132,16 @@ export default function CompanyContact() {
   };
 
   const focusAreas = [
-    'PDPL Compliance',
-    'NCA ECC Readiness',
-    'ZATCA / Tax Compliance',
-    'Internal Audit Setup',
-    'AI Governance',
-    'Board & Committee Governance',
-    'Third-Party Risk',
-    'Managed GRC Operations',
-    'Sovereign Architecture',
-    'Other'
+    { key: 'pdpl', label: t('companyContact.focusAreas.pdpl') },
+    { key: 'nca', label: t('companyContact.focusAreas.nca') },
+    { key: 'zatca', label: t('companyContact.focusAreas.zatca') },
+    { key: 'audit', label: t('companyContact.focusAreas.audit') },
+    { key: 'ai', label: t('companyContact.focusAreas.ai') },
+    { key: 'board', label: t('companyContact.focusAreas.board') },
+    { key: 'thirdParty', label: t('companyContact.focusAreas.thirdParty') },
+    { key: 'managed', label: t('companyContact.focusAreas.managed') },
+    { key: 'sovereign', label: t('companyContact.focusAreas.sovereign') },
+    { key: 'other', label: t('companyContact.focusAreas.other') }
   ];
 
   if (submitted) {
@@ -149,10 +152,10 @@ export default function CompanyContact() {
             <CheckCircle2 className="w-12 h-12" />
           </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Thank You
+            {t('companyContact.success.title')}
           </h1>
           <p className="text-xl text-gray-700 mb-8">
-            We've received your inquiry and will respond within 24 hours with next steps.
+            {t('companyContact.success.message')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -160,14 +163,14 @@ export default function CompanyContact() {
               onClick={() => window.location.href = '/deliverables'}
               className="bg-[#C9A227] hover:bg-[#B8921F]"
             >
-              View Sample Deliverables
+              {t('companyContact.success.btn1')}
             </Button>
             <Button
               size="lg"
               variant="outline"
               onClick={() => window.location.href = '/'}
             >
-              Back to Home
+              {t('companyContact.success.btn2')}
             </Button>
           </div>
         </div>
@@ -190,15 +193,15 @@ export default function CompanyContact() {
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-6">
               <Mail className="w-6 h-6 text-[#C9A227]" />
-              <span className="text-sm text-[#C9A227]">Get in Touch</span>
+              <span className="text-sm text-[#C9A227]">{t('companyContact.hero.badge')}</span>
             </div>
 
             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Contact Aliph
+              {t('companyContact.hero.title')}
             </h1>
 
             <p className="text-xl text-gray-300 leading-relaxed">
-              Request a demo, scoped engagement plan, sample deliverables, or discuss partnership opportunities. We respond within 24 hours.
+              {t('companyContact.hero.description')}
             </p>
           </div>
         </div>
